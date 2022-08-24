@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <gradient
+        android:angle="180"
+        android:startColor="@color/primary_week2"
+        android:endColor="@color/primary_week"
+        android:type="linear"
+        android:useLevel="true"
+        >
+
+    </gradient>
+</shape>

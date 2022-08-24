@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="key">eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJDWFAtTVQ2MWE2MTU0NzgzMjgzMTYzODc2NTAzNyIsIm5hbWUiOiJ6aWRuaSBtdWppYnMiLCJpc3MiOiJZMmx6WTI5emNHRnlhem92TDNWeWJqcFVSVUZOT25WekxYZGxjM1F0TWw5eUwwOVNSMEZPU1ZwQlZFbFBUaTgxWldOaE9XTmpOeTA1WWpObExUUTVNV0V0WWpZNE9TMWlORFF6TVRreE1XWXlPVEkiLCJleHAiOiIxNjM4NzY1MDM3In0.d23-vjUX7D9tbYoaHpUBkCbzZz2369rU4zQ2DZW1zfo</string>
+
+
+    <string name="datadummyarticledate">17 days ago</string>
+    <string name="datadummyarticletitle">MEDIA</string>
+    <string name="datadummyarticlecaption">SMM starter pack, part 2: content promotion</string>
+    <string name="datadummyarticlesubcaption">This is the second part of the SMM starter pack series of articles. If you made it this far, you must be willing to learn about promoting business through social media.</string>
+    <string name="datadummyarticlename">Admin</string>
+    <string name="datadummyarticlereadmore">Read More</string>
+    <string name="dummyarticletitle">PRODUCTIVITY</string>
+    <string name="datadummycategory">Kandungan</string>
+    <string name="datadummynamedoctor">Dr. Yakob Simatupang</string>
+
+    <string name="wearing_tips_ecg">Please wear the device tightly, make the metal sheet of the bottom shell close to the skin of your wrist, and touch your finger to the metal sheet on the front or side of the device, keep quiet and start the test</string>
+    <string name="title_wearing_tips_ecg">Wearing Tips</string>
+
+    <string name="question_1">1. Apakah anda melakukan pemeriksaan covid-19 dalam 10 hari terakhir?</string>
+    <string name="question_2">2. udah berapa kali anda mendapatkan dosis vaksin covid 19 ?</string>
+    <string name="question_3">3. Pemeriksaan apa yang pernah anda lakukan dalam 10 hari terkahir?</string>
+    <string name="question_4">4. Hasil dari pemeriksaan?</string>
+    <string name="question_5">5. Apakah anda memiliki gejala berikut dalam 14 hari terakhir?</string>
+    <string name="question_6">6. Apakah anda terpapar dengan penderita Covid-19 dalam 14 hari terkahir</string>
+    <string name="question_7">7. Apakah anda bekerja atau berada di fasilitas kesehatan yang merawat pasien covid -19 dalam 14 hari terakhir ?</string>
+
+
+    <!--    smarthealth-->
+
+
+
+    <!--    -->
+    <string name="age">Age</string>
+
+
+    <!--    sdsd-->
+    <string name="blood_pressure">BP</string>
+    <string name="blood_pressure_placeholder">No Result</string>
+    <string name="temp_placeholder">No Result</string>
+
+    <string name="bmi_placeholder">No Result</string>
+
+
+
+
+
+
+
+    <!--    saghsga-->
+    <string name="ecg_header_title">Gain: 10mm/mv Travel speed: 25mm/s Lead Ⅰ</string>
+
+
+    <!--  sada  -->
+    <string name="heart">HR</string>
+
+
+
+    <!--    -->
+    <string name="sex">Sex</string>
+
+
+    <!--    sags-->
+    <string name="username">Username</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="dummyonboardin1">Teleconsultation</string>
+    <string name="onboarding1">Medical Record</string>
+    <string name="onboarding2">Buat Janji Temu</string>
+    <string name="onboarding3">Health Tracker</string>
+    <string name="onboarding4">Shop</string>
+    <string name="onboardingvalue1">Lihat hasil pemriksaan dokter secara lengkap atau upload riwayat kesehatan</string>
+    <string name="onboardingvalue2">Booking jadwal konsultasi dengan dokter di Rumah Sakit lebih mudah dan cepat</string>
+    <string name="onboardingvalue3">Pantau perkembangan data kesehatan secara realtime</string>
+    <string name="onboardingvalue4">Anda dapat membeli IoT (Sensor) Kesehatan disini yg pemesanan dan pengirimannnya terhubung langsung ke Tokopedia</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="text_teleconsultation">Online Consultation</string>
+    <string name="meet_doctor">Clinic Reservation</string>
+    <string name="text_telemonitoring">Health Monitor</string>
+    <string name="text_health_tracker">Health Tracker</string>
+    <string name="text_tele_monitoring">Tele Monitoring</string>
+    <string name="text_shop">Shop</string>
+    <string name="text_reservation">Reservation</string>
+    <string name="text_home_visit">Home Visit</string>
+    <string name="text_corporate_mcu">Corporate MCU</string>
+    <string name="text_medicine">Medicine</string>
+    <string name="text_medical_record">Medical record</string>
+
+    <string name="text_stunting">Stunting</string>
+    <string name="bottom_nav_home">Home</string>
+    <string name="bottom_nav_hospital">Meet Doctor</string>
+    <string name="bottom_nav_call_doctor">Call Doctor</string>
+    <string name="bottom_nav_orders">My Orders</string>
+    <string name="bottom_nav_account">Account</string>
+    <string name="smartwatchtheme_1">Theme 1</string>
+    <string name="smartwatchtheme_2">Theme 2</string>
+    <string name="smartwatchtheme_3">Theme 3</string>
+    <string name="smartwatchtheme_4">Theme 4</string>
+    <string name="smartwatchtheme_5">Theme 5</string>
+    <string name="smartwatchtheme_6">Theme 6</string>
+    <string name="text_cancel">Cancel</string>
+    <string name="text_calibration_blood_pressure">Blood Pressure Calibration</string>
+    <string name="text_done">Done</string>
+    <string name="text_sbp">SBP</string>
+    <string name="text_dbp">DBP</string>
+    <string name="text_previous_date">Previous Date</string>
+    <string name="text_next_date">Next Date</string>
+    <string name="text_syncronized_data">Sync data</string>
+    <string name="text_manual_input">Manual Input</string>
+    <string name="text_title_change_name">Change Your name</string>
+    <string name="placeholder_name">Your name</string>
+    <string name="text_save">Save</string>
+    <string name="text_title_change_phone_number">Change Phone Number</string>
+    <string name="placeholder_phone_number">New phone number</string>
+    <string name="text_message_change_phone_number">Your current phone number is %1$s. What would you like to update it?</string>
+    <string name="text_title_upload_profile_picture">Upload Image</string>
+    <string name="text_take_from_camera">Take photo</string>
+    <string name="text_take_from_gallery">Choose existing photo</string>
+    <string name="menu_dashboard">Dashboard</string>
+    <string name="menu_patients">Patients</string>
+    <string name="menu_cexup">Checkup</string>
+    <string name="menu_account">Account</string>
+    <string name="menu_logout">Logout</string>
+</resources>
