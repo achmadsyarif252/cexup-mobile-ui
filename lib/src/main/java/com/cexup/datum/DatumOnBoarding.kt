@@ -1,4 +1,4 @@
-package com.cexup.ui.datum
+package com.cexup.datum
 
 import com.trian.component.R
 import com.trian.domain.models.model.OnBoardingModel
