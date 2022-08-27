@@ -1,4 +1,4 @@
-package com.cexup.ui.consumer.screen
+package com.cexup.ui.consumer.screen.auth
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -29,7 +29,7 @@ import compose.icons.octicons.Eye24
 import compose.icons.octicons.EyeClosed24
 
 @Composable
-fun ScreenLogin(
+fun ScreenSignIn(
     modifier: Modifier = Modifier,
     goToRegister: () -> Unit,
     gotToForgetPassword: () -> Unit,
@@ -74,7 +74,6 @@ fun ScreenLogin(
                         .clickable { },
                     tint = ArrowBackAuth
                 )
-
             }
         }
     ) {
@@ -291,9 +290,9 @@ fun ScreenLogin(
 
 @Preview
 @Composable
-fun PreviewScreenLogin() {
+fun PreviewScreenSignIn() {
     ConsumerTheme {
-        ScreenLogin(
+        ScreenSignIn(
             gotToForgetPassword = {},
             goToRegister = {},
             onLoginGoogle = {},
