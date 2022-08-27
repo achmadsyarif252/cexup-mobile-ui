@@ -21,8 +21,7 @@ class CustomChartMarker(context: Context, layoutResource:Int):MarkerView(context
 
     override fun refreshContent(e: Entry?, highlight: Highlight?) {
         val value = e?.y?.toDouble() ?: 0.0
-        var resText = ""
-        resText = if(value.toString().length > 8){
+        val resText: String = if(value.toString().length > 8){
             "Val : "+value.toString().substring(0,7)
         }else{
             "Val : $value"

@@ -37,8 +37,6 @@ fun ScreenLogin(
     onLoginGoogle: () -> Unit
 ) {
     val ctx = LocalContext.current
-
-
     var userName by rememberSaveable { 
         mutableStateOf("") 
     }
@@ -57,7 +55,6 @@ fun ScreenLogin(
     var rememberMe by rememberSaveable { 
         mutableStateOf(false) 
     }
-
     Scaffold(
         topBar = {
             Row(
@@ -126,7 +123,6 @@ fun ScreenLogin(
                                 lineHeight = 20.sp.from(ctx)
                             )
                         )
-
                         Text(text = "Sign up now",
                             style = MaterialTheme.typography.body2.copy(
                                 color = MaterialTheme.colors.onPrimary,
@@ -136,9 +132,7 @@ fun ScreenLogin(
                                 lineHeight = 20.sp.from(ctx)
                             ), modifier = Modifier.clickable { goToRegister() })
                     }
-
                     Spacer(modifier = Modifier.height(50.dp.from(ctx)))
-
                     OutlineTextFieldWithErrorView(
                         value = userName,
                         onValueChange = { userName = it },
@@ -172,11 +166,8 @@ fun ScreenLogin(
                             lineHeight = 20.sp.from(ctx),
                             color = MaterialTheme.colors.onBackground
                         )
-
                     )
-
                     Spacer(modifier = Modifier.height(30.dp.from(ctx)))
-
                     OutlineTextFieldWithErrorView(
                         value = userPassword,
                         onValueChange = { userPassword = it },
@@ -216,9 +207,7 @@ fun ScreenLogin(
                             }
                         }
                     )
-
                     Spacer(modifier = Modifier.height(26.dp.from(ctx)))
-
                     Row(
                         modifier = Modifier.noRippleClick { rememberMe = !rememberMe },
                         verticalAlignment = Alignment.CenterVertically
@@ -308,7 +297,7 @@ fun PreviewScreenLogin() {
             gotToForgetPassword = {},
             goToRegister = {},
             onLoginGoogle = {},
-            onLogin = { username, password ->
+            onLogin = { _, _ ->
             },
         )
     }

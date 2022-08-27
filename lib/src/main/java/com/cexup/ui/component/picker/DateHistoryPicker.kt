@@ -24,9 +24,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.trian.component.R
-import com.cexup.ui.utils.mediaquery.dpToMultipleScreen
-import com.cexup.ui.utils.mediaquery.textUnitToMultipleScreen
+import com.cexup.ui.R
+import com.cexup.ui.utils.mediaquery.from
 import kotlin.math.pow
 import kotlin.math.sqrt
 
@@ -40,23 +39,12 @@ fun DateHistoryPicker(
     onPrev:()->Unit
 ){
     val ctx = LocalContext.current
-    val screenHeight = ctx
-        .resources
-        .displayMetrics.heightPixels.dp /
-            LocalDensity.current.density
-    val screenWidth = ctx
-        .resources
-        .displayMetrics.widthPixels.dp /
-            LocalDensity.current.density
 
-    val h = screenHeight.value.toDouble().pow(2.0)
-    val w = screenWidth.value.toDouble().pow(2.0)
-    val currentDiagonal = sqrt(h + w).dp
     //calender
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp.dpToMultipleScreen(currentDiagonal), vertical = 16.dp.dpToMultipleScreen(currentDiagonal)),
+            .padding(horizontal = 16.dp.from(ctx), vertical = 16.dp.from(ctx)),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -75,7 +63,7 @@ fun DateHistoryPicker(
                 .clickable { onClickCalender() },
             textAlign = TextAlign.Center,
             color = MaterialTheme.colors.onPrimary,
-            fontSize = 18.sp.textUnitToMultipleScreen(currentDiagonal),
+            fontSize = 18.sp.from(ctx),
             fontWeight = FontWeight.Bold
         )
         IconToggleButton(checked = false, onCheckedChange = {

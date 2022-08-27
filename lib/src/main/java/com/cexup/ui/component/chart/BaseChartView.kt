@@ -20,18 +20,15 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
+import com.cexup.ui.R
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.*
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
-
-
-import com.trian.component.R
 import com.cexup.ui.utils.CustomChartMarker
-import com.cexup.ui.utils.mediaquery.dpToMultipleScreen
-import com.trian.domain.utils.utils.XAxisTimeFormatter
+import com.cexup.ui.utils.mediaquery.from
 import kotlin.math.pow
 import kotlin.math.sqrt
 
@@ -57,23 +54,10 @@ fun BaseChartView(
     val isDark = isSystemInDarkTheme()
     val context = LocalContext.current
     val ctx = LocalContext.current
-    val screenWidth = ctx
-        .resources
-        .displayMetrics.widthPixels.dp /
-            LocalDensity.current.density
-
-    val screenHeight = ctx
-        .resources
-        .displayMetrics.heightPixels.dp /
-            LocalDensity.current.density
-
-    val a = screenHeight.value.toDouble().pow(2.0)
-    val b = screenWidth.value.toDouble().pow(2.0)
-    val currentDiagonal = sqrt(a + b).dp
 
     AndroidView(
         modifier = Modifier
-            .clip(RoundedCornerShape(12.dp.dpToMultipleScreen(currentDiagonal)))
+            .clip(RoundedCornerShape(12.dp.from(ctx)))
             .padding(paddingValues)
             .fillMaxWidth()
             .fillMaxHeight()

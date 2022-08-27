@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Paint
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.nativeCanvas
@@ -24,11 +25,6 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
-
-import com.trian.domain.models.model.RectSleepFinal
-import com.trian.domain.models.model.RectangleSleepMonitorModel
-import com.trian.domain.models.model.sleepType
-
 /**
  * Base Chart
  * Author PT Cexup Telemedicine
@@ -36,10 +32,17 @@ import com.trian.domain.models.model.sleepType
  * 07/09/2021
  */
 
+data class SleepChatUiState(
+    val rect:Rect,
+    val color: Color,
+    val time: String,
+    val name:String
+)
+
 @Composable
-fun BaseChartViewSleepMonitor(
+fun ChartViewSleepMonitor(
     modifier: Modifier = Modifier,
-    datas:List<RectangleSleepMonitorModel> = listOf(),
+    state:List<SleepChatUiState> = listOf(),
     height:Boolean=false,
     startTime :String="00:00",
     endTime :String="00:00",
@@ -67,42 +70,6 @@ fun BaseChartViewSleepMonitor(
     }
     val deepColor = MaterialTheme.colors.primary.copy(alpha = 0.8f)
     val lightColor = MaterialTheme.colors.primary.copy(alpha = 0.4f)
-    val rectList = datas.mapIndexed { index, rectSleep ->
-        val startPercent = (rectSleep.startFromPercent/100)
-        val start = (startPercent*(screenWidth.value*2))
-        val end = ((rectSleep.untilPercent/100)*screenWidth.value*2)
-
-        RectSleepFinal(
-            rect = Rect(offset = Offset(start.toFloat(),screenHeight-(
-                    when (rectSleep.sleepType){
-                        sleepType.DEEP-> 300f
-                        sleepType.LIGHT -> 200f
-                        sleepType.WAKE -> 200f
-                    }
-                    )
-            ),
-                size = Size(end.toFloat(),
-                    when (rectSleep.sleepType){
-                        sleepType.DEEP-> 300f
-                        sleepType.LIGHT -> 200f
-                        sleepType.WAKE -> 200f
-                    }
-                ),
-
-            ),
-            name = when(rectSleep.sleepType){
-                sleepType.DEEP -> "Deep Sleep"
-                sleepType.LIGHT -> "Light Sleep"
-                sleepType.WAKE -> "Wake"
-            },
-            time = rectSleep.time,
-            color = when(rectSleep.sleepType){
-                sleepType.DEEP-> MaterialTheme.colors.primary.copy(alpha = 0.8f)
-                sleepType.LIGHT -> MaterialTheme.colors.primary.copy(alpha = 0.4f)
-                sleepType.WAKE -> MaterialTheme.colors.primary.copy(alpha = 0.2f)
-            }
-        )
-    }
 
     Canvas(
         modifier = modifier
@@ -111,7 +78,7 @@ fun BaseChartViewSleepMonitor(
             .fillMaxHeight()
             .pointerInput(Unit) {
                 detectTapGestures { offset: Offset ->
-                    rectList.forEach {
+                    state.forEach {
                         if (it.rect.contains(offset = offset)) {
                             selectedOffset = offset
                             selectedText = "${it.name}-${it.time}"
@@ -120,8 +87,8 @@ fun BaseChartViewSleepMonitor(
                 }
             },
         onDraw = {
-            rectList.forEachIndexed {
-                index,t->
+            state.forEachIndexed {
+                _,t->
                 drawRect(
                     t.color,
                     topLeft = t.rect.topLeft,
@@ -177,6 +144,6 @@ fun BaseChartViewSleepMonitor(
 @Composable
 fun PreviewBaseChartViewSleepMonitor(){
     MaterialTheme {
-        BaseChartViewSleepMonitor()
+        ChartViewSleepMonitor()
     }
 }

@@ -29,7 +29,6 @@ fun ChartEws(
     modifier: Modifier = Modifier,
     result:String="Normal",
     percent:Float,
-    number:Int
 ){
     val PrimaryCorporate = Color(0xFF4FC5DB)
     val currentPercentage = remember { Animatable(0.01f) }
@@ -91,6 +90,6 @@ fun ChartEws(
 fun Preview2(){
     ChartEws(
         percent = 0.2f,
-        number = 40
+
     )
 }

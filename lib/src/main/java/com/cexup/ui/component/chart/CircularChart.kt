@@ -21,10 +21,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.cexup.ui.utils.mediaquery.dpToMultipleScreen
-import com.cexup.ui.utils.mediaquery.textUnitToMultipleScreen
-import kotlin.math.pow
-import kotlin.math.sqrt
+import com.cexup.ui.utils.mediaquery.from
+
 
 
 /**
@@ -34,16 +32,13 @@ import kotlin.math.sqrt
  * 02/09/2021
  */
 
-val RedPrimary = Color(0xFFF24822)
-val YellowPrimary = Color(0xFFFFEB00)
-val OrangePrimary = Color(0xFFFFAC4B)
+
 val normalPrimary = Color(0xFF77DAFA)
 @Composable
 fun CircularChartHealthStatus(
     modifier: Modifier = Modifier,
     result:String="Normal",
     percent:Float,
-    number:Int,
     diameter : Dp = 64.dp,
     brush: List<Color> = listOf(
         normalPrimary,
@@ -51,21 +46,7 @@ fun CircularChartHealthStatus(
     )
 ){
 
-    val currentWidth = LocalContext
-        .current
-        .resources
-        .displayMetrics.widthPixels.dp /
-            LocalDensity.current.density
-    val currentHeight = LocalContext
-        .current
-        .resources
-        .displayMetrics.heightPixels.dp /
-            LocalDensity.current.density
-
-    val a = currentHeight.value.toDouble().pow(2.0)
-    val b = currentWidth.value.toDouble().pow(2.0)
-    val screenDiagonal = sqrt(a + b).dp
-
+    val ctx = LocalContext.current
     val currentPercentage = remember { Animatable(0.01f) }
 
     LaunchedEffect(percent) {
@@ -78,14 +59,13 @@ fun CircularChartHealthStatus(
         contentAlignment = Alignment.Center,
         modifier = modifier.size(diameter)
     ){
-        val primaryBlue = MaterialTheme.colors.onPrimary
         Canvas(modifier = modifier.size(diameter)){
             drawArc(
                 color= Color.Gray.copy(alpha = 0.2f),
                 startAngle = -90f,
                 sweepAngle = 360f,
                 useCenter = false,
-                style = Stroke((7.dp.dpToMultipleScreen(screenDiagonal)).toPx(),
+                style = Stroke((7.dp.from(ctx)).toPx(),
                     cap = StrokeCap.Round)
             )
             drawArc(
@@ -95,7 +75,7 @@ fun CircularChartHealthStatus(
                 startAngle = -90f,
                 sweepAngle = 360 * currentPercentage.value,
                 useCenter = false,
-                style = Stroke((7.dp.dpToMultipleScreen(screenDiagonal)).toPx(),
+                style = Stroke((7.dp.from(ctx)).toPx(),
                     cap = StrokeCap.Round)
             )
 
@@ -105,10 +85,10 @@ fun CircularChartHealthStatus(
             text = result,//percent.toString() ,//(currentPercentage.value*number).toInt().toString(),
             style = MaterialTheme.typography.subtitle2.copy(
                 color= if(isSystemInDarkTheme()) MaterialTheme.colors.primary else Color.Black,
-                fontSize = 10.sp.textUnitToMultipleScreen(screenDiagonal),
+                fontSize = 10.sp.from(ctx),
                 fontWeight = FontWeight.Medium,
-                lineHeight = 16.sp.textUnitToMultipleScreen(screenDiagonal),
-                letterSpacing = 0.5.sp.textUnitToMultipleScreen(screenDiagonal)
+                lineHeight = 16.sp.from(ctx),
+                letterSpacing = 0.5.sp.from(ctx)
             ),
 
             )
@@ -122,7 +102,6 @@ fun CircularChartHealthStatus(
 fun PreviewCircularChart(){
     CircularChartHealthStatus(
         percent =0.2f,
-        number = 40
     )
 }
 

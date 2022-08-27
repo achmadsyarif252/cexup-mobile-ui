@@ -17,7 +17,7 @@ android{
         compose= true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = Version.compose_version
+        kotlinCompilerExtensionVersion = Version.compose_compiler_version
     }
 
     compileOptions {
@@ -40,7 +40,7 @@ dependencies {
         implementation(Libs.AndroidX.Compose.Material.iconsExtended)
         androidTestImplementation(Libs.AndroidX.Compose.Ui.uiTestJunit4)
         debugImplementation(Libs.AndroidX.Compose.Ui.uiTestManifest)
-        debugImplementation(Libs.AndroidX.Compose.Ui.uiTooling)
+        debugImplementation("androidx.customview:customview-poolingcontainer:1.0.0-rc01")
 
     }
     with(Libs.Com.Google.Accompanist){

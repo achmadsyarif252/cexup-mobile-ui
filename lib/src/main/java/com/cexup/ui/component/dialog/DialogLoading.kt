@@ -12,7 +12,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
-import com.cexup.ui.utils.mediaquery.dpToMultipleScreen
+import com.cexup.ui.utils.mediaquery.from
 import kotlin.math.pow
 import kotlin.math.sqrt
 
@@ -23,27 +23,14 @@ fun DialogLoading(
     onDismiss:()->Unit
 ){
     val ctx = LocalContext.current
-    val screenHeight = ctx
-        .resources
-        .displayMetrics.heightPixels.dp /
-            LocalDensity.current.density
-    val screenWidth = ctx
-        .resources
-        .displayMetrics.widthPixels.dp /
-            LocalDensity.current.density
-
-    val a = screenHeight.value.toDouble().pow(2.0)
-    val b = screenWidth.value.toDouble().pow(2.0)
-    val currentDiagonal = sqrt(a + b).dp
 
     if(show){
         Dialog(onDismissRequest = onDismiss) {
-
-                Box(
-                    contentAlignment = Alignment.Center,
+            Box(
+                contentAlignment = Alignment.Center,
                     modifier= modifier
-                        .size(100.dp.dpToMultipleScreen(currentDiagonal))
-                        .background(Color.White, shape = RoundedCornerShape(8.dp.dpToMultipleScreen(currentDiagonal)))
+                        .size(100.dp.from(ctx))
+                        .background(Color.White, shape = RoundedCornerShape(8.dp.from(ctx)))
                 ) {
                     CircularProgressIndicator()
                 }
