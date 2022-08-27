@@ -1,4 +1,4 @@
-package com.cexup.ui.datum
+package com.cexup.datum
 
 import android.graphics.Color
 import com.github.mikephil.charting.components.Legend

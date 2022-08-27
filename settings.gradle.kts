@@ -17,7 +17,7 @@ dependencyResolutionManagement {
     }
 }
 rootProject.buildFileName = "build.gradle.kts"
-rootProject.name = "Social App"
+rootProject.name = "Cexup UI Android"
 include(":app")
 include(":lib")
 

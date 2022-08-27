@@ -1,7 +1,7 @@
 package com.cexup.ui.utils
 
 import android.content.Context
-import com.cexup.ui.datum.PrivacyPolice
+import com.cexup.datum.PrivacyPolice
 
 fun Context.getPrivacyPolice(): String {
     val id = this.packageName

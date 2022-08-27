@@ -31,15 +31,10 @@ private val LightColorPalette = lightColors(
 )
 
 @Composable
-fun CexupTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
+fun ConsumerTheme(
     content: @Composable() () -> Unit
 ) {
-//    val colors = if (darkTheme) {
-//        DarkColorPalette
-//    } else {
-//        LightColorPalette
-//    }
+
 
     MaterialTheme(
         colors = LightColorPalette,

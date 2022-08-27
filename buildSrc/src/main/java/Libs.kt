@@ -1,16 +1,7 @@
 object Libs {
     object Com{
         object Google{
-            object Firebase{
-                val firebaseBom by lazy { "com.google.firebase:firebase-bom:30.3.2" }
-                val firebaseAuth by lazy { "com.google.firebase:firebase-auth-ktx" }
-                val firebaseFirestore by lazy {"com.google.firebase:firebase-firestore-ktx"}
-                val firebaseStorage by lazy {"com.google.firebase:firebase-storage-ktx"}
-                val firebaseMessaging by lazy{"com.google.firebase:firebase-messaging-ktx"}
-                val firebaseCrashanalytics by lazy {"com.google.firebase:firebase-crashlytics-ktx"}
-                val firebaseAnalytics by lazy {"com.google.firebase:firebase-analytics-ktx"}
-                val firebaseFunction by lazy {"com.google.firebase:firebase-functions-ktx"}
-            }
+
             //accompanist(external library for jetpack compose)
             object Accompanist {
                 const val accompanistVersion = "0.25.1"
@@ -38,20 +29,7 @@ object Libs {
         }
 
     }
-    object Org {
-        object Jetbrains {
 
-
-            //for use `await()` with google and firebase Task API
-            object Kotlinx {
-
-                val googlePlayKotlinCoroutine by lazy { "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:${Version.kotlinCoroutine}" }
-                val kotlinxCoroutinesTest by lazy { "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Version.kotlinCoroutine}" }
-            }
-
-        }
-
-    }
 
     object Io {
         object CoilKt {
@@ -113,15 +91,7 @@ object Libs {
             val hiltLifecycleViewmodel by lazy { "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03" }
         }
 
-        object Room {
-            private const val room_version = "2.4.3"
-            val roomRuntime by lazy { "androidx.room:room-runtime:$room_version" }
-            val roomCompiler by lazy { "androidx.room:room-compiler:$room_version" }
-            val roomKtx by lazy { "androidx.room:room-ktx:$room_version" }
-            val roomTesting by lazy { "androidx.room:room-testing:$room_version" }
-            val roomPaging by lazy { "androidx.room:room-paging:$room_version" }
 
-        }
 
         object Lifecycle {
             private const val lifecycle_version = "2.5.0-alpha01"

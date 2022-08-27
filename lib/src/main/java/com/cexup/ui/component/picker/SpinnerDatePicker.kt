@@ -13,7 +13,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
-import com.cexup.ui.utils.mediaquery.dpToMultipleScreen
+import com.cexup.ui.utils.mediaquery.from
 import java.time.LocalDate
 import kotlin.math.pow
 import kotlin.math.sqrt
@@ -29,19 +29,7 @@ fun SpinnerDatePicker(
     }
 ){
     val ctx = LocalContext.current
-    val screenWidth = ctx
-        .resources
-        .displayMetrics.widthPixels.dp /
-            LocalDensity.current.density
 
-    val screenHeight = ctx
-        .resources
-        .displayMetrics.heightPixels.dp /
-            LocalDensity.current.density
-
-    val a = screenHeight.value.toDouble().pow(2.0)
-    val b = screenWidth.value.toDouble().pow(2.0)
-    val currentDiagonal = sqrt(a + b).dp
 
     val listMonth = arrayOf(
         "January",
@@ -62,7 +50,8 @@ fun SpinnerDatePicker(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .padding(vertical = 16.dp.dpToMultipleScreen(currentDiagonal), horizontal = 16.dp.dpToMultipleScreen(currentDiagonal)),
+            .padding(vertical = 16.dp.from(ctx),
+                horizontal = 16.dp.from(ctx)),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Row(

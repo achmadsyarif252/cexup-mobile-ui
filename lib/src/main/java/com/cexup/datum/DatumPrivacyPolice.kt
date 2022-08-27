@@ -1,4 +1,4 @@
-package com.cexup.ui.datum
+package com.cexup.datum
 
 object PrivacyPolice{
 const val markdownPrivacyPolice = """

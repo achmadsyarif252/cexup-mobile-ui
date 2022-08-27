@@ -9,7 +9,8 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 
-import com.trian.component.R;
+
+import com.cexup.ui.R;
 
 import java.util.ArrayList;
 import java.util.List;

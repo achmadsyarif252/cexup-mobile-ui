@@ -47,7 +47,7 @@ android {
         buildConfig=true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = Version.compose_version
+        kotlinCompilerExtensionVersion = Version.compose_compiler_version
     }
     packagingOptions {
         resources {

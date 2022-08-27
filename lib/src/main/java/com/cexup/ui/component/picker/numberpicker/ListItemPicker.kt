@@ -24,7 +24,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
-import com.cexup.ui.utils.mediaquery.dpToMultipleScreen
+import com.cexup.ui.utils.mediaquery.from
 import kotlinx.coroutines.launch
 import java.lang.Math.abs
 import kotlin.math.pow
@@ -63,11 +63,7 @@ fun <T> ListItemPicker(
     val halfNumbersColumnHeight = numbersColumnHeight / 2
     val halfNumbersColumnHeightPx = with(LocalDensity.current) { halfNumbersColumnHeight.toPx() }
     val ctx = LocalContext.current
-    val screenWidth = ctx.resources.displayMetrics.widthPixels.dp / LocalDensity.current.density
-    val screenHeight = ctx.resources.displayMetrics.heightPixels.dp / LocalDensity.current.density
-    val a = screenHeight.value.toDouble().pow(2.0)
-    val b = screenWidth.value.toDouble().pow(2.0)
-    val currentDiagonal = sqrt(a + b).dp
+
     val coroutineScope = rememberCoroutineScope()
 
     val animatedOffset = remember { Animatable(0f) }
@@ -128,7 +124,7 @@ fun <T> ListItemPicker(
             )
             Box(
                 modifier = Modifier
-                    .padding(vertical = verticalMargin, horizontal = 20.dp.dpToMultipleScreen(currentDiagonal))
+                    .padding(vertical = verticalMargin, horizontal = 20.dp.from(ctx))
                     .offset { IntOffset(x = 0, y = coercedAnimatedOffset.roundToInt()) }
             ) {
                 val baseLabelModifier = Modifier.align(Alignment.Center)
