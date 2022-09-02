@@ -40,6 +40,7 @@ data class OnBoardingModelUIState(
     val text:Int,
     val image:Int
 )
+
 @OptIn(ExperimentalMaterialApi::class)
 @ExperimentalPagerApi
 @Composable
