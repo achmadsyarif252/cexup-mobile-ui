@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cexup.ui.R
 import com.cexup.ui.component.form.OutlinedInput
+import com.cexup.ui.consumer.component.ButtonPrimary
 import com.cexup.ui.consumer.component.CheckboxInput
 import com.cexup.ui.consumer.theme.*
 import com.cexup.ui.utils.mediaquery.from
@@ -144,10 +145,8 @@ fun ScreenSignIn(
                         onChange = {
                             userName = it
                         },
-                        modifier = modifier.fillMaxWidth(),
                         placeholder = "Enter Email or Phone number",
                         label = "Email or Phone number",
-
                         errorMessage = if(userPassword.isBlank()) "Username or Phone cannot empty!" else null,
                         visualTransformation =  VisualTransformation.None,
                         shape = RoundedCornerShape(6.dp.from(ctx))
@@ -158,7 +157,6 @@ fun ScreenSignIn(
                         onChange = {
                             userPassword = it
                         },
-                        modifier = modifier.fillMaxWidth(),
                         placeholder = "Enter Password",
                         label = "Password",
                         errorMessage = if(userPassword.isBlank()) "Password cannot empty!" else null,
@@ -207,31 +205,15 @@ fun ScreenSignIn(
 
                     Spacer(modifier = Modifier.height(28.dp.from(ctx)))
 
-                    Button(
+                    ButtonPrimary(
+                        text = "Sign In",
                         onClick = {
                             onLogin(
-                                userName, userPassword
+                                userName,
+                                userPassword
                             )
-                        },
-                        colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.onPrimary),
-                        shape = RoundedCornerShape(8.dp.from(ctx)),
-                        modifier = Modifier
-                            .testTag(TAG_BTN_SIGN_IN)
-                            .fillMaxWidth()
-                            .clip(RoundedCornerShape(8.dp.from(ctx)))
-                            .height(48.dp.from(ctx))
-                    ) {
-                        Text(
-                            text = "Sign In",
-                            style = MaterialTheme.typography.h1.copy(
-                                fontSize = 16.sp.from(ctx),
-                                lineHeight = 20.sp.from(ctx),
-                                fontWeight = FontWeight.Medium,
-                                color = Color.White
-                            )
-                        )
-
-                    }
+                        }
+                    )
                 }
 
     }
