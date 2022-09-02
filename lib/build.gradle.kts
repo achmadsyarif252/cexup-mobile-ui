@@ -8,7 +8,7 @@ plugins {
 
 android{
 
-    compileSdk = 31
+    compileSdk = 32
     defaultConfig {
         minSdk = 23
         targetSdk = 30
@@ -26,10 +26,16 @@ android{
         sourceCompatibility =JavaVersion.VERSION_1_8
         targetCompatibility =JavaVersion.VERSION_1_8
     }
+    testOptions{
+        unitTests {
+            isIncludeAndroidResources = true
+        }
+    }
 }
 dependencies {
 
 
+    implementation(Libs.Com.Google.Material.material)
     with(Libs.AndroidX.Compose){
         implementation(Libs.AndroidX.Compose.Ui.ui)
         //https://stackoverflow.com/questions/68224361/jetpack-compose-cant-preview-after-updating-to-1-0-0-rc01
@@ -38,9 +44,8 @@ dependencies {
         implementation(Libs.AndroidX.Compose.Material.material)
         implementation(Libs.AndroidX.Compose.Material.icons)
         implementation(Libs.AndroidX.Compose.Material.iconsExtended)
-        androidTestImplementation(Libs.AndroidX.Compose.Ui.uiTestJunit4)
-        debugImplementation(Libs.AndroidX.Compose.Ui.uiTestManifest)
-        debugImplementation("androidx.customview:customview-poolingcontainer:1.0.0-rc01")
+
+
 
     }
     with(Libs.Com.Google.Accompanist){
@@ -58,5 +63,14 @@ dependencies {
     implementation(Libs.Br.Com.Devsrsouza.Compose.Icons.Android.octicons)
     implementation(Libs.Com.Github.Skydoves.landscapist)
     implementation(Libs.AndroidX.Appcompat.appcompat)
+
+
+
+    //testing
+    testImplementation(Libs.Junit.junit)
+    testImplementation(Libs.AndroidX.Compose.Ui.uiTestJunit4)
+    testImplementation(Libs.Org.Robolectric.robolectric)
+    debugImplementation(Libs.AndroidX.Compose.Ui.uiTestManifest)
+    debugImplementation("androidx.customview:customview-poolingcontainer:1.0.0-rc01")
 
 }
