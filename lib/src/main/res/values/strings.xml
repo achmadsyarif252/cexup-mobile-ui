@@ -122,4 +122,7 @@
     <string name="menu_cexup">Checkup</string>
     <string name="menu_account">Account</string>
     <string name="menu_logout">Logout</string>
+    <string name="header_screen_signin">Sign In</string>
+    <string name="dont_have_account">\"Don\'t have an account? \"</string>
+    <string name="signup_now">Sign up now</string>
 </resources>

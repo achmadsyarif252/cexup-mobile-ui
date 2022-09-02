@@ -12,6 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -19,7 +21,9 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.cexup.ui.component.form.OutlineTextFieldWithErrorView
+import com.cexup.ui.R
+import com.cexup.ui.component.form.OutlinedInput
+import com.cexup.ui.consumer.component.CheckboxInput
 import com.cexup.ui.consumer.theme.*
 import com.cexup.ui.utils.mediaquery.from
 import com.cexup.ui.utils.noRippleClick
@@ -28,6 +32,9 @@ import compose.icons.octicons.ChevronLeft16
 import compose.icons.octicons.Eye24
 import compose.icons.octicons.EyeClosed24
 
+const val TAG_BODY_SCREEN_SIGNIN ="scaffold_sign_in"
+const val TAG_BTN_SIGN_IN = "btn_signin"
+const val TAG_TITLE = "title_signin"
 @Composable
 fun ScreenSignIn(
     modifier: Modifier = Modifier,
@@ -40,15 +47,11 @@ fun ScreenSignIn(
     var userName by rememberSaveable { 
         mutableStateOf("") 
     }
-    var usernameTextError by rememberSaveable { 
-        mutableStateOf(false) 
-    }
+
     var userPassword by rememberSaveable { 
         mutableStateOf("") 
     }
-    var passwordTextError by remember { 
-        mutableStateOf(false) 
-    }
+
     var shouldShowPassword by rememberSaveable { 
         mutableStateOf(true) 
     }
@@ -75,35 +78,39 @@ fun ScreenSignIn(
                     tint = ArrowBackAuth
                 )
             }
-        }
+        },
+        modifier = modifier
+            .background(MaterialTheme.colors.background),
+        backgroundColor = MaterialTheme.colors.background
+
     ) {
-        Surface(
-            modifier = Modifier
-                .padding(it)
-                .background(Color.White)
-                .fillMaxHeight()
-                .fillMaxWidth()
-        ) {
-            Column(
-                modifier = Modifier.padding(
-                    start = 16.dp.from(ctx),
-                    top = 35.dp.from(ctx),
-                    end = 16.dp.from(ctx)
-                )
-            ) {
+
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .background(Color.White)
+                        .fillMaxWidth()
+                        .fillMaxHeight()
+                        .padding(
+                            it
+                        )
+                        .padding(
+                            start = 16.dp.from(ctx),
+                            top = 35.dp.from(ctx),
+                            end = 16.dp.from(ctx)
+                        )
+                        .testTag(TAG_BODY_SCREEN_SIGNIN)
                 ) {
                     Text(
-                        text = "Sign In",
+                        text = stringResource(R.string.header_screen_signin),
                         style = MaterialTheme.typography.h4.copy(
                             fontSize = 28.sp.from(ctx),
                             lineHeight = 32.sp.from(ctx),
                             letterSpacing = -1.sp.from(ctx),
                             fontWeight = FontWeight.SemiBold,
                             color = MaterialTheme.colors.onPrimary
-                        )
+                        ),
+                        modifier = modifier.testTag(TAG_TITLE)
                     )
 
                     Spacer(modifier = Modifier.height(16.dp.from(ctx)))
@@ -113,7 +120,7 @@ fun ScreenSignIn(
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Text(
-                            text = "Don't have an account? ",
+                            text = stringResource(R.string.dont_have_account),
                             style = MaterialTheme.typography.body2.copy(
                                 color = MaterialTheme.colors.onSecondary,
                                 fontSize = 14.sp.from(ctx),
@@ -122,7 +129,7 @@ fun ScreenSignIn(
                                 lineHeight = 20.sp.from(ctx)
                             )
                         )
-                        Text(text = "Sign up now",
+                        Text(text = stringResource(R.string.signup_now),
                             style = MaterialTheme.typography.body2.copy(
                                 color = MaterialTheme.colors.onPrimary,
                                 fontSize = 14.sp.from(ctx),
@@ -132,71 +139,29 @@ fun ScreenSignIn(
                             ), modifier = Modifier.clickable { goToRegister() })
                     }
                     Spacer(modifier = Modifier.height(50.dp.from(ctx)))
-                    OutlineTextFieldWithErrorView(
+                    OutlinedInput(
                         value = userName,
-                        onValueChange = { userName = it },
-                        label = {
-                            Text(
-                                text = "Email or Phone number",
-                                style = MaterialTheme.typography.body2.copy(
-                                    letterSpacing = 0.1.sp.from(ctx),
-                                    fontSize = 14.sp.from(ctx),
-                                    lineHeight = 20.sp.from(ctx),
-                                    color = MaterialTheme.colors.onSecondary
-                                )
-                            )
+                        onChange = {
+                            userName = it
                         },
-                        isError = usernameTextError,
-                        singleLine = true,
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        errorMsg = "Enter Email or Phone number",
-                        shape = RoundedCornerShape(6.dp.from(ctx)),
-                        colors = TextFieldDefaults.outlinedTextFieldColors(
-                            focusedBorderColor = MaterialTheme.colors.onSecondary,
-                            cursorColor = MaterialTheme.colors.onBackground
-                        ),
-                        maxLines = 1,
-                        textStyle = TextStyle(
-                            fontFamily = fonts,
-                            fontWeight = FontWeight.Normal,
-                            letterSpacing = 0.1.sp.from(ctx),
-                            fontSize = 14.sp.from(ctx),
-                            lineHeight = 20.sp.from(ctx),
-                            color = MaterialTheme.colors.onBackground
-                        )
+                        modifier = modifier.fillMaxWidth(),
+                        placeholder = "Enter Email or Phone number",
+                        label = "Email or Phone number",
+
+                        errorMessage = if(userPassword.isBlank()) "Username or Phone cannot empty!" else null,
+                        visualTransformation =  VisualTransformation.None,
+                        shape = RoundedCornerShape(6.dp.from(ctx))
                     )
                     Spacer(modifier = Modifier.height(30.dp.from(ctx)))
-                    OutlineTextFieldWithErrorView(
+                    OutlinedInput(
                         value = userPassword,
-                        onValueChange = { userPassword = it },
-                        placeholder = {
-                            Text(
-                                text = "Enter Password",
-                                style = MaterialTheme.typography.h1.copy(
-                                    letterSpacing = 0.1.sp.from(ctx),
-                                    fontSize = 14.sp.from(ctx),
-                                    lineHeight = 20.sp.from(ctx),
-                                    color = Darkgrayishblue
-                                )
-                            )
+                        onChange = {
+                            userPassword = it
                         },
-                        isError = passwordTextError,
-                        textStyle = TextStyle(
-                            fontFamily = fonts,
-                            fontWeight = FontWeight.Normal,
-                            letterSpacing = 0.1.sp.from(ctx),
-                            fontSize = 14.sp.from(ctx),
-                            lineHeight = 20.sp.from(ctx),
-                            color = MaterialTheme.colors.onBackground
-                        ),
-                        shape = RoundedCornerShape(6.dp.from(ctx)),
-                        colors = TextFieldDefaults.outlinedTextFieldColors(
-                            focusedBorderColor = MaterialTheme.colors.onSecondary,
-                            cursorColor = MaterialTheme.colors.onBackground
-                        ),
                         modifier = modifier.fillMaxWidth(),
-                        visualTransformation = if (shouldShowPassword) PasswordVisualTransformation() else VisualTransformation.None,
+                        placeholder = "Enter Password",
+                        label = "Password",
+                        errorMessage = if(userPassword.isBlank()) "Password cannot empty!" else null,
                         trailingIcon = {
                             IconButton(onClick = { shouldShowPassword = !shouldShowPassword }) {
                                 Icon(
@@ -204,55 +169,40 @@ fun ScreenSignIn(
                                     contentDescription = ""
                                 )
                             }
-                        }
+                        },
+                        visualTransformation = if (shouldShowPassword) PasswordVisualTransformation() else VisualTransformation.None,
+                        shape = RoundedCornerShape(6.dp.from(ctx))
                     )
+
                     Spacer(modifier = Modifier.height(26.dp.from(ctx)))
                     Row(
-                        modifier = Modifier.noRippleClick { rememberMe = !rememberMe },
-                        verticalAlignment = Alignment.CenterVertically
+                        modifier = Modifier
+                            .noRippleClick { rememberMe = !rememberMe }
+                            .fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
                     ) {
-                        Checkbox(
+                        CheckboxInput(
                             checked = rememberMe,
-                            onCheckedChange = { rememberMe = it },
-                            colors = CheckboxDefaults.colors(Heading),
-                            modifier = Modifier
-                                .size(16.dp.from(ctx))
-
+                            onCheckedChange = {
+                                rememberMe = it
+                            },
+                            text = "Remember me"
                         )
 
-                        Spacer(modifier = Modifier.width(8.dp.from(ctx)))
-
                         Text(
-                            text = "Remember me",
+                            text = "Forgot Password?",
                             style = MaterialTheme.typography.body1.copy(
                                 fontSize = 12.sp.from(ctx),
                                 fontWeight = FontWeight.Medium,
                                 lineHeight = 14.sp.from(ctx),
                                 letterSpacing = 0.25.sp.from(ctx),
-                                color = MaterialTheme.colors.onSecondary
-                            )
-                        )
-
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.End,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(
-                                text = "Forgot Password?",
-                                style = MaterialTheme.typography.body1.copy(
-                                    fontSize = 12.sp.from(ctx),
-                                    fontWeight = FontWeight.Medium,
-                                    lineHeight = 14.sp.from(ctx),
-                                    letterSpacing = 0.25.sp.from(ctx),
-                                    color = MaterialTheme.colors.onPrimary
-                                ), modifier = Modifier.clickable {
+                                color = MaterialTheme.colors.onPrimary
+                            ),
+                            modifier = Modifier.clickable {
                                     gotToForgetPassword()
-                                }
-                            )
-                        }
-
-
+                            }
+                        )
                     }
 
                     Spacer(modifier = Modifier.height(28.dp.from(ctx)))
@@ -266,6 +216,7 @@ fun ScreenSignIn(
                         colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.onPrimary),
                         shape = RoundedCornerShape(8.dp.from(ctx)),
                         modifier = Modifier
+                            .testTag(TAG_BTN_SIGN_IN)
                             .fillMaxWidth()
                             .clip(RoundedCornerShape(8.dp.from(ctx)))
                             .height(48.dp.from(ctx))
@@ -282,8 +233,7 @@ fun ScreenSignIn(
 
                     }
                 }
-            }
-        }
+
     }
 }
 
