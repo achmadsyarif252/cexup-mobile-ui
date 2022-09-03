@@ -15,7 +15,7 @@ android {
 
     defaultConfig {
         applicationId ="com.cexup.ui"
-        minSdk =21
+        minSdk =23
         targetSdk =32
         versionCode= 1
         versionName ="1.0"
@@ -57,6 +57,8 @@ android {
 }
 
 dependencies {
+
+    implementation(project(":lib"))
 
     //Loads packaged libraries in the libs folder
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
@@ -106,7 +108,6 @@ dependencies {
     }
 
     with(Libs.AndroidX.Hilt) {
-        implementation(hiltWork)
         //supaya bisa inject viewModel ke navigation
         //https://developer.android.com/jetpack/compose/libraries#hilt
         implementation(hiltNavigationCompose)

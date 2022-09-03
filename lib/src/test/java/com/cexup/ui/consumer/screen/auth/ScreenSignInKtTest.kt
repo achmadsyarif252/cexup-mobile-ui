@@ -40,8 +40,6 @@ internal class ScreenSignInKtTest {
 
     @Test
     fun displayText(){
-
-
         rule
             .onNodeWithTag(testTag = TAG_BODY_SCREEN_SIGNIN)
             .assertIsDisplayed()

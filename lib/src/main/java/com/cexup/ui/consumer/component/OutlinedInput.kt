@@ -1,4 +1,4 @@
-package com.cexup.ui.component.form
+package com.cexup.ui.consumer.component
 
 
 import androidx.compose.foundation.background
@@ -7,11 +7,11 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.VisualTransformation
@@ -38,7 +38,7 @@ fun OutlinedInput(
     visualTransformation: VisualTransformation = VisualTransformation.None,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
-    singleLine: Boolean = false,
+    singleLine: Boolean = true,
     maxLines: Int = Int.MAX_VALUE,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     shape: Shape = MaterialTheme.shapes.small,
@@ -57,9 +57,9 @@ fun OutlinedInput(
             )
     ) {
         OutlinedTextField(
-            value = "",
-            onValueChange = {},
-            modifier = modifier,
+            value = value,
+            onValueChange = onChange,
+            modifier = modifier.testTag("outlined_input"),
             label = {
                 Text(
                     text = label,
@@ -131,16 +131,30 @@ fun OutlinedInput(
 fun PreviewInput(){
     ConsumerTheme {
         val ctx = LocalContext.current
+        var input by remember {
+            mutableStateOf("trian")
+        }
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(MaterialTheme.colors.background)
         ) {
-            OutlinedInput(onChange = {})
+            OutlinedInput(
+                value = input,
+                onChange = {})
 
-            OutlinedInput(onChange = {}, errorMessage = "Error", label = "Nama", placeholder = "Nama Kamu")
+            OutlinedInput(
+                value = input,
+                onChange = {},
+                errorMessage = "Error",
+                label = "Nama",
+                placeholder = "Nama Kamu")
 
-            OutlinedInput(onChange = {},  label = "Nama", placeholder = "Nama Kamu")
+            OutlinedInput(
+                value = input,
+                onChange = {},
+                label = "Nama",
+                placeholder = "Nama Kamu")
 
         }
 

@@ -22,7 +22,7 @@ import com.cexup.ui.utils.mediaquery.from
 fun CheckboxInput(
     checked:Boolean=false,
     onCheckedChange:(Boolean)->Unit={},
-    text:String="",
+    label:String="",
     modifier: Modifier=Modifier
 ){
     val ctx = LocalContext.current
@@ -47,7 +47,7 @@ fun CheckboxInput(
         Spacer(modifier = Modifier.width(8.dp.from(ctx)))
 
         Text(
-            text = text,
+            text = label,
             style = MaterialTheme.typography.body1.copy(
                 fontSize = 12.sp.from(ctx),
                 fontWeight = FontWeight.Medium,
@@ -67,7 +67,7 @@ fun PreviewCheckboxInput() {
             .fillMaxWidth()
             .background(MaterialTheme.colors.background)) {
             CheckboxInput(
-                text = "Remember me"
+                label = "Remember me"
             )
         }
 
