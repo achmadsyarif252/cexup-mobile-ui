@@ -101,7 +101,7 @@ val GreyBadminton = Color(0xFFD1DCE6)
 
 
 val TextActive = Color(0xFF313E4C)
-val TextInactive = Color(0xFFBABABE)
+val TextInactive = Color(0xFFBABABE)//
 val GreySoft = Color(0xFFAEAEB2)
 val ArrowBackAuth = Color(0xFF0C0B52)
 val UncheckBox = Color(0xFFD8D8D8)

@@ -14,7 +14,9 @@ object Libs {
                 val accompanistShimmer by lazy { "com.google.accompanist:accompanist-placeholder-material:$accompanistVersion" }
                 val accompanistPagerIndicator by lazy { "com.google.accompanist:accompanist-pager-indicators:$accompanistVersion" }
             }
-
+            object Material {
+                val material by lazy { "com.google.android.material:material:1.4.0" }
+            }
         }
         object Github {
             object GrenderG {
@@ -28,8 +30,13 @@ object Libs {
             }
         }
 
-    }
 
+    }
+    object Org{
+        object Robolectric{
+            val robolectric by lazy { "org.robolectric:robolectric:4.7" }
+        }
+    }
 
     object Io {
         object CoilKt {
