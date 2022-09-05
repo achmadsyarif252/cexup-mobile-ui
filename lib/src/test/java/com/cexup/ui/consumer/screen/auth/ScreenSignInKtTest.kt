@@ -11,6 +11,7 @@ import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 import com.cexup.ui.R
 import org.junit.Before
+import org.robolectric.shadows.ShadowLog
 
 
 @RunWith(RobolectricTestRunner::class)
@@ -21,9 +22,11 @@ internal class ScreenSignInKtTest {
     val rule = createComposeRule()
 
      var ctx = InstrumentationRegistry.getInstrumentation().context
-
     @Before
+    @Throws(Exception::class)
     fun setUp(){
+        ShadowLog.stream = System.out
+
         rule.apply {
             setContent {
                 ScreenSignIn(

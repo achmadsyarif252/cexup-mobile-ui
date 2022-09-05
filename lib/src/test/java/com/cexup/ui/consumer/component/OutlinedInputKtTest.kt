@@ -8,17 +8,27 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.text.input.VisualTransformation
+import kotlinx.coroutines.runBlocking
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
+import org.robolectric.shadow.api.Shadow
+import org.robolectric.shadows.ShadowLog
 
 @RunWith(RobolectricTestRunner::class)
 @Config(instrumentedPackages = ["androidx.loader.content"])
 internal class OutlinedInputKtTest{
     @get:Rule
     val rule = createComposeRule()
+
+    @Before
+    @Throws(Exception::class)
+    fun setUp(){
+        ShadowLog.stream = System.out
+    }
 
     @Test
     fun `outline input should show value and change value`(){
@@ -40,9 +50,17 @@ internal class OutlinedInputKtTest{
             }
         }
 
-        rule.onNodeWithTag("outlined_input")
-            .assertIsDisplayed()
-            .assertIsEnabled()
-            .performTextInput("trian")
+        try {
+            runBlocking {
+                rule.onNodeWithTag("outlined_input",useUnmergedTree = true)
+                    .assertIsDisplayed()
+                    .assertIsEnabled()
+            }
+
+        }catch (e:Exception){
+            println(e.message)
+            throw e
+        }
+
     }
 }

@@ -2,11 +2,13 @@ package com.cexup.ui.consumer.component
 
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createComposeRule
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
+import org.robolectric.shadows.ShadowLog
 
 
 @RunWith(RobolectricTestRunner::class)
@@ -15,6 +17,12 @@ internal class ButtonsKtTest{
 
     @get:Rule
     val rule = createComposeRule()
+
+    @Before
+    @Throws(Exception::class)
+    fun setUp(){
+        ShadowLog.stream = System.out
+    }
 
     @Test
     fun `show  text on button primary and button clickable`(){
