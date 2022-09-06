@@ -52,7 +52,7 @@ fun ButtonPrimary(
                 fontSize = 16.sp.from(ctx),
                 lineHeight = 20.sp.from(ctx),
                 fontWeight = FontWeight.Medium,
-                color = if(enabled) Color.White else MaterialTheme.colors.onBackground
+                color = if(enabled) Color.White else Color.Gray
             )
         )
     }

@@ -5,20 +5,17 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import app.trian.socialapp.ui.theme.SocialAppTheme
-import com.cexup.ui.consumer.component.OutlinedInput
+import com.cexup.ui.consumer.screen.auth.ScreenSignUp
+import com.cexup.ui.consumer.theme.ConsumerTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            SocialAppTheme {
+            ConsumerTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
@@ -28,10 +25,14 @@ class MainActivity : ComponentActivity() {
                     var input by remember {
                         mutableStateOf("trian")
                     }
-
-OutlinedInput(value=input,onChange = {
-    input = it
-})
+                    ScreenSignUp(
+                        shouldShowLoading = false,
+                        toSignIn = { /*TODO*/ },
+                        onSubmit = { _, _, _ -> },
+                        onPrivacyPolice = { /*TODO*/ },
+                        onLoginGoogle = { /*TODO*/ }) {
+                        
+                    }
 
                 }
             }
