@@ -1,6 +1,6 @@
-package com.cexup.ui.utils
+package com.cexup.ui.component
 
-import android.annotation.SuppressLint
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.*
 import androidx.compose.foundation.layout.Box
@@ -12,17 +12,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.unit.dp
+import coil.compose.rememberImagePainter
 import com.cexup.ui.R
-import com.skydoves.landscapist.CircularReveal
-import com.skydoves.landscapist.coil.CoilImage
-
 
 @Composable
 fun ZoomableImage(
@@ -30,7 +26,7 @@ fun ZoomableImage(
     maxScale: Float = .30f,
     minScale: Float = 3f,
     contentScale: ContentScale = ContentScale.Fit,
-    @SuppressLint("ModifierParameter") modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier,
     isRotation: Boolean = false,
     isZoomable: Boolean = true
 ) {
@@ -68,7 +64,8 @@ fun ZoomableImage(
             }
 
     ) {
-        CoilImage(
+
+        Image(
             modifier = modifier
                 .clip(RoundedCornerShape(8.dp))
                 .align(Alignment.Center)
@@ -83,15 +80,15 @@ fun ZoomableImage(
                         translationY = offsetY.value
                     }
                 },
-            imageModel = image,
-            // Crop, Fit, Inside, FillHeight, FillWidth, None
-            contentScale = contentScale,
-            // shows an image with a circular revealed animation.
-            circularReveal = CircularReveal(duration = 250),
-            // shows a placeholder ImageBitmap when loading.
-            placeHolder = ImageBitmap.imageResource(R.drawable.dummy_profile),
-            // shows an error ImageBitmap when the request failed.
-            error = ImageBitmap.imageResource(R.drawable.dummy_doctor),
+            painter = rememberImagePainter(
+                image,
+                builder = {
+                    placeholder(R.drawable.dummy_doctor)
+                    error(R.drawable.dummy_doctor)
+
+                },
+            ),
+            contentDescription = ""
         )
     }
 }

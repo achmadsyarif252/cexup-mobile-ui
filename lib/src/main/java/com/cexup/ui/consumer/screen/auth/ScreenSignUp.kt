@@ -206,7 +206,7 @@ fun ScreenSignUp(
                     trailingIcon = {
                         IconButton(onClick = { passwordVisibility = !passwordVisibility }) {
                             Icon(
-                                painter = painterResource( if(passwordVisibility) R.drawable.eye_on else R.drawable.eye_off),
+                                painter = painterResource( if(passwordVisibility) R.drawable.ic_show_password else R.drawable.ic_hide_password),
                                 contentDescription = "",
                                 tint = MaterialTheme.colors.onPrimary,
                                 modifier = Modifier.size(20.dp.from(ctx)),
@@ -229,7 +229,7 @@ fun ScreenSignUp(
                     trailingIcon = {
                         IconButton(onClick = { passwordVisibility = !passwordVisibility }) {
                             Icon(
-                                painter = painterResource( if(passwordVisibility) R.drawable.eye_on else R.drawable.eye_off),
+                                painter = painterResource( if(passwordVisibility) R.drawable.ic_show_password else R.drawable.ic_hide_password),
                                 contentDescription = "",
                                 tint = MaterialTheme.colors.onPrimary,
                                 modifier = Modifier.size(20.dp.from(ctx)),
@@ -250,7 +250,7 @@ fun ScreenSignUp(
                     ),
                     onTextClick = {
                             position->
-                        Toast.makeText(ctx,"posisi $position",Toast.LENGTH_LONG).show()
+                        //TODO show privacy policy
                     },
                     onCheckedChange = {
                         stateAgreement=it
