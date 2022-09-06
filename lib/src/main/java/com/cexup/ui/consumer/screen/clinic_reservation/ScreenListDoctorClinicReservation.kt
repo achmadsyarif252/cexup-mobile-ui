@@ -73,10 +73,6 @@ fun ScreenListDoctorClinicReservation(
     onSearchBySpecialist: (filter: String) -> Unit,
 ) {
 
-    var selectedFilte by remember {
-        mutableStateOf("")
-    }
-
     val ctx = LocalContext.current
 
     val screenWidth = ctx
@@ -217,7 +213,7 @@ fun ScreenListDoctorClinicReservation(
                             itemsIndexed(speciality.data) { index, data ->
                                 ChipFilter(
                                     text = data.first,
-                                    selected = selectedFilte == data.second,
+                                    selected = selectedFiltered == data.second,
                                     marginEnd = 8.dp.from(ctx),
                                     marginStart = if (index == 0) 0.dp else 0.dp,
                                     onClick = {
