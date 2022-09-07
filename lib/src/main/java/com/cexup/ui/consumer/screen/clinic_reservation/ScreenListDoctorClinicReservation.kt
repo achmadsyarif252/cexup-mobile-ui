@@ -47,23 +47,22 @@ data class DoctorOnlineUIState(
     var hospital: String,
     var thumb_original: String,
     var thumb: String,
-    var price:String
+    var price: String
 )
 
 data class SpecialityUIState(
     var loading: Boolean = true,
     var error: Boolean = false,
     var errorMessage: String = "",
-    var data: List<Pair<String,String>> = listOf()
+    var data: List<Pair<String, String>> = listOf()
 )
-
 
 
 @Composable
 fun ScreenListDoctorClinicReservation(
     modifier: Modifier = Modifier,
-    hospitalName:String="",
-    selectedFiltered:String="",
+    hospitalName: String = "",
+    selectedFiltered: String = "",
     doctorState: DoctorHospitalUIState,
     speciality: SpecialityUIState,
     onBackPressed: () -> Unit = {},
@@ -79,7 +78,7 @@ fun ScreenListDoctorClinicReservation(
         .resources
         .displayMetrics.widthPixels.dp /
             LocalDensity.current.density
-    
+
     Scaffold(
         topBar = {
 
@@ -98,7 +97,7 @@ fun ScreenListDoctorClinicReservation(
                         text = hospitalName,
                         style = MaterialTheme.typography.h2.copy(
                             fontWeight = FontWeight.SemiBold,
-                            color =  Color.Gray,
+                            color = Color.Gray,
                             fontSize = 18.sp.from(ctx),
                             lineHeight = 28.sp.from(ctx),
                             letterSpacing = (-0.25).sp.from(ctx)
@@ -224,8 +223,8 @@ fun ScreenListDoctorClinicReservation(
                         }
                     }
                 }
-                if(doctorState.loading){
-                    items(4){
+                if (doctorState.loading) {
+                    items(4) {
                         CardDoctorOnlineShimmer()
                     }
                 }
@@ -254,7 +253,7 @@ fun PreviewScreenListDoctorClinicReservation() {
     ConsumerTheme {
 
         ScreenListDoctorClinicReservation(
-            hospitalName="RS Universitas Indonesia",
+            hospitalName = "RS Universitas Indonesia",
             doctorState = DoctorHospitalUIState(
                 loading = true,
                 error = false,
@@ -263,7 +262,7 @@ fun PreviewScreenListDoctorClinicReservation() {
             speciality = SpecialityUIState(
                 loading = false,
                 error = false,
-                data = listOf(Pair("All","all"), Pair("Second","second"))
+                data = listOf(Pair("All", "all"), Pair("Second", "second"))
             ),
             toDetailDoctor = {},
             onSearchByName = {},

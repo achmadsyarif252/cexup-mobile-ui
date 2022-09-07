@@ -52,4 +52,5 @@
 
     <string name="button_submit_sign_up">Create My Account</string>
     <string name="button_submit_sign_in">Sign In</string>
+    <string name="text_available_scroll_date_picker">Availability</string>
 </resources>
