@@ -23,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cexup.ui.R
+import com.cexup.ui.consumer.component.ButtonPrimary
 import com.cexup.ui.consumer.theme.ConsumerTheme
 import com.cexup.ui.utils.mediaquery.from
 import com.google.accompanist.pager.ExperimentalPagerApi
@@ -112,39 +113,14 @@ fun ScreenOnBoarding(
                 contentAlignment = Alignment.BottomCenter
             ) {
                 if (state.currentPage == data.lastIndex) {
-                    Button(
+                    ButtonPrimary(
+                        enabled = true,
                         onClick = toSignIn,
-                        colors = ButtonDefaults.buttonColors(MaterialTheme.colors.onPrimary),
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(48.dp.from(ctx))
-                            .clip(RoundedCornerShape(10.dp.from(ctx))),
-                        contentPadding = PaddingValues(vertical = 14.dp.from(ctx)),) {
-                        Row(
-                            modifier = modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.Center,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(
-                                text = "Get Started",
-                                style = MaterialTheme.typography.body1.copy(
-                                    fontWeight = FontWeight.Medium,
-                                    fontSize = 16.sp.from(ctx),
-                                    color = Color.White,
-                                    lineHeight = 20.sp.from(ctx)
-                                ),
-                            )
-                            Spacer(modifier = Modifier.width(13.dp.from(ctx)))
-                            Image(
-                                painter = painterResource(id = R.drawable.ic_onboard_start),
-                                contentDescription = "",
-                                modifier = modifier.size(20.dp.from(ctx))
-                            )
-                        }
-                    }
+                        text = stringResource(R.string.button_get_started)
+                    )
                 } else {
                     Text(
-                        text = "Swipe Left",
+                        text = stringResource(R.string.text_swipe_left),
                         style = MaterialTheme.typography.h1.copy(
                             fontSize = 16.sp.from(ctx),
                             color = MaterialTheme.colors.onSecondary,

@@ -8,6 +8,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import com.cexup.ui.consumer.screen.ScreenOnBoarding
 import com.cexup.ui.consumer.screen.auth.ScreenSignUp
 import com.cexup.ui.consumer.theme.ConsumerTheme
 
@@ -21,14 +22,9 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
+                    ScreenOnBoarding(
 
-                    ScreenSignUp(
-                        toSignIn = { /*TODO*/ },
-                        onSubmit = { _, _, _ -> },
-                        onPrivacyPolice = { /*TODO*/ },
-                        onLoginGoogle = { /*TODO*/ }) {
-                        
-                    }
+                    )
 
                 }
             }
