@@ -22,11 +22,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colors.background
                 ) {
 
-                    var input by remember {
-                        mutableStateOf("trian")
-                    }
                     ScreenSignUp(
-                        shouldShowLoading = false,
                         toSignIn = { /*TODO*/ },
                         onSubmit = { _, _, _ -> },
                         onPrivacyPolice = { /*TODO*/ },

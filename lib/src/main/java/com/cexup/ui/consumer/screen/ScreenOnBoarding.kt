@@ -136,7 +136,7 @@ fun ScreenOnBoarding(
                             )
                             Spacer(modifier = Modifier.width(13.dp.from(ctx)))
                             Image(
-                                painter = painterResource(id = R.drawable.started),
+                                painter = painterResource(id = R.drawable.ic_onboard_start),
                                 contentDescription = "",
                                 modifier = modifier.size(20.dp.from(ctx))
                             )

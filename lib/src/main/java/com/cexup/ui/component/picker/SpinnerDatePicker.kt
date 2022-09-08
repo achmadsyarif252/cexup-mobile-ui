@@ -1,5 +1,6 @@
 package com.cexup.ui.component.picker
 
+import android.annotation.SuppressLint
 import android.widget.NumberPicker
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -13,11 +14,13 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
+import com.cexup.ui.R
 import com.cexup.ui.utils.mediaquery.from
 import java.time.LocalDate
 import kotlin.math.pow
 import kotlin.math.sqrt
 
+@SuppressLint("NewApi")
 @Composable
 fun SpinnerDatePicker(
     modifier: Modifier=Modifier,
@@ -45,13 +48,15 @@ fun SpinnerDatePicker(
         "November",
         "December"
     )
-    val colo = Color (0xFF008CA3)
 
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .padding(vertical = 16.dp.from(ctx),
-                horizontal = 16.dp.from(ctx)),
+            .background(MaterialTheme.colors.background)
+            .padding(
+                vertical = 16.dp.from(ctx),
+                horizontal = 16.dp.from(ctx)
+            ),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Row(
@@ -63,6 +68,8 @@ fun SpinnerDatePicker(
                     NumberPicker(it).apply {
                         minValue = 1
                         maxValue = 31
+
+                        textColor = it.getColor(androidx.appcompat.R.color.primary_dark_material_dark)
                     }
                 },
                 update = {
@@ -70,7 +77,6 @@ fun SpinnerDatePicker(
                         onChange(newVal,month,year)
                     }
                 },
-                modifier = modifier.background(colo)
             )
             AndroidView(
                 factory = {
@@ -78,6 +84,7 @@ fun SpinnerDatePicker(
                         minValue=1
                         maxValue = listMonth.size
                         displayedValues = listMonth
+                        textColor = it.getColor(androidx.appcompat.R.color.primary_dark_material_dark)
                     }
                 },
                 update = {
@@ -85,13 +92,13 @@ fun SpinnerDatePicker(
                         onChange(day,newVal,year)
                     }
                 },
-                modifier = modifier.background(colo)
             )
             AndroidView(
                 factory = {
                     NumberPicker(it).apply {
                         minValue = 1970
                         maxValue = LocalDate.now().year
+                        textColor = it.getColor(androidx.appcompat.R.color.primary_dark_material_dark)
                     }
                 },
                 update = {
@@ -99,7 +106,6 @@ fun SpinnerDatePicker(
                         onChange(day,month,newVal)
                     }
                 },
-                modifier = modifier.background(colo)
             )
 
         }

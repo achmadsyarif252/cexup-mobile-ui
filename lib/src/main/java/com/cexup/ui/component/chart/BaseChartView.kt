@@ -16,7 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -29,8 +28,6 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.cexup.ui.utils.CustomChartMarker
 import com.cexup.ui.utils.mediaquery.from
-import kotlin.math.pow
-import kotlin.math.sqrt
 
 /**
  * Base Chart
@@ -159,7 +156,7 @@ fun BaseChartView(
 
                 lineWidth = 3f
 
-                fillDrawable = context.getDrawable(R.drawable.fill)
+                fillDrawable = context.getDrawable(R.drawable.bg_fill_chart)
 
 
             }

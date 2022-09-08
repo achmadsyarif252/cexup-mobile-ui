@@ -1,6 +1,5 @@
 package com.cexup.ui.consumer.screen.auth
 
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -206,7 +205,7 @@ fun ScreenSignUp(
                     trailingIcon = {
                         IconButton(onClick = { passwordVisibility = !passwordVisibility }) {
                             Icon(
-                                painter = painterResource( if(passwordVisibility) R.drawable.ic_show_password else R.drawable.ic_hide_password),
+                                painter = painterResource( if(passwordVisibility) R.drawable.ic_password_show else R.drawable.ic_password_hide),
                                 contentDescription = "",
                                 tint = MaterialTheme.colors.onPrimary,
                                 modifier = Modifier.size(20.dp.from(ctx)),
@@ -229,7 +228,7 @@ fun ScreenSignUp(
                     trailingIcon = {
                         IconButton(onClick = { passwordVisibility = !passwordVisibility }) {
                             Icon(
-                                painter = painterResource( if(passwordVisibility) R.drawable.ic_show_password else R.drawable.ic_hide_password),
+                                painter = painterResource( if(passwordVisibility) R.drawable.ic_password_show else R.drawable.ic_password_hide),
                                 contentDescription = "",
                                 tint = MaterialTheme.colors.onPrimary,
                                 modifier = Modifier.size(20.dp.from(ctx)),

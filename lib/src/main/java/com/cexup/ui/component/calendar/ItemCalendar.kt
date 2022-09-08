@@ -1,4 +1,4 @@
-package com.cexup.ui.consumer
+package com.cexup.ui.component.calendar
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
