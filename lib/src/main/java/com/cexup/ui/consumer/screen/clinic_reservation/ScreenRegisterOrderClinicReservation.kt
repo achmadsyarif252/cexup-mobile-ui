@@ -32,6 +32,7 @@ data class DoctorUIState(
     var doctorSpecialityId: String,
     var doctorImage: String,
     var doctorHospital: String,
+    val doctorSlug:String
 )
 data class PatientUIState(
     var loading: Boolean,
@@ -41,7 +42,9 @@ data class PatientUIState(
     var phoneNumber: String,
     var gender: String,
     var genderTranslation: String,
-    var patientHasData: Boolean
+    var patientHasData: Boolean,
+    val name:String,
+
 )
 
 data class OrderUIState(
@@ -50,7 +53,10 @@ data class OrderUIState(
     var errorMessage: String,
     var dueDate: String,
     var dueTime: String,
-    var dueDateTime: String
+    var dueDateTime: String,
+    val dueTimeId:String,
+    val note:String,
+    val price:Double=0.0
 )
 
 @Composable
@@ -228,7 +234,8 @@ fun PreviewScreenRegisterOrder() {
                 doctorSpecialist = "",
                 doctorHospital = "",
                 doctorName = "",
-                doctorSpecialityId = ""
+                doctorSpecialityId = "",
+                doctorSlug = ""
             ),
             patientState = PatientUIState(
                 loading = false,
@@ -239,6 +246,7 @@ fun PreviewScreenRegisterOrder() {
                 phoneNumber = "",
                 genderTranslation = "",
                 patientHasData = false,
+                name = ""
             ),
             orderState = OrderUIState(
                 loading = false,
@@ -246,7 +254,9 @@ fun PreviewScreenRegisterOrder() {
                 error = false,
                 dueDateTime = "",
                 dueDate = "",
-                dueTime = ""
+                dueTime = "",
+                dueTimeId = "",
+                note = ""
             ),
             onCheckout = { _, _ -> },
             showDatePicker = {},
