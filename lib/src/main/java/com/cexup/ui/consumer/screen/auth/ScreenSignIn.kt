@@ -203,7 +203,7 @@ fun ScreenSignIn(
             Spacer(modifier = Modifier.height(28.dp.from(ctx)))
 
             ButtonPrimary(
-                text = stringResource(R.string.button_sign_in),
+                text = stringResource(R.string.button_submit_sign_in),
                 onClick = {
                     onLogin(
                         userName,

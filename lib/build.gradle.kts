@@ -61,8 +61,8 @@ dependencies {
 
     implementation(Libs.Com.Github.PhilJay.mpAndroidChart)
     implementation(Libs.Br.Com.Devsrsouza.Compose.Icons.Android.octicons)
-    implementation(Libs.Com.Github.Skydoves.landscapist)
     implementation(Libs.AndroidX.Appcompat.appcompat)
+    implementation(Libs.Io.CoilKt.coilCompose)
 
 
 

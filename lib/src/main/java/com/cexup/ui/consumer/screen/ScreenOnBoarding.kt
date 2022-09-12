@@ -23,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cexup.ui.R
+import com.cexup.ui.consumer.component.ButtonPrimary
 import com.cexup.ui.consumer.theme.ConsumerTheme
 import com.cexup.ui.utils.mediaquery.from
 import com.google.accompanist.pager.ExperimentalPagerApi
@@ -112,39 +113,14 @@ fun ScreenOnBoarding(
                 contentAlignment = Alignment.BottomCenter
             ) {
                 if (state.currentPage == data.lastIndex) {
-                    Button(
+                    ButtonPrimary(
+                        enabled = true,
                         onClick = toSignIn,
-                        colors = ButtonDefaults.buttonColors(MaterialTheme.colors.onPrimary),
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(48.dp.from(ctx))
-                            .clip(RoundedCornerShape(10.dp.from(ctx))),
-                        contentPadding = PaddingValues(vertical = 14.dp.from(ctx)),) {
-                        Row(
-                            modifier = modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.Center,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(
-                                text = "Get Started",
-                                style = MaterialTheme.typography.body1.copy(
-                                    fontWeight = FontWeight.Medium,
-                                    fontSize = 16.sp.from(ctx),
-                                    color = Color.White,
-                                    lineHeight = 20.sp.from(ctx)
-                                ),
-                            )
-                            Spacer(modifier = Modifier.width(13.dp.from(ctx)))
-                            Image(
-                                painter = painterResource(id = R.drawable.started),
-                                contentDescription = "",
-                                modifier = modifier.size(20.dp.from(ctx))
-                            )
-                        }
-                    }
+                        text = stringResource(R.string.button_get_started)
+                    )
                 } else {
                     Text(
-                        text = "Swipe Left",
+                        text = stringResource(R.string.text_swipe_left),
                         style = MaterialTheme.typography.h1.copy(
                             fontSize = 16.sp.from(ctx),
                             color = MaterialTheme.colors.onSecondary,
@@ -210,7 +186,7 @@ fun OnBoardingItem(
         Spacer(modifier = Modifier.height(64.65.dp.from(ctx)))
         Image(
             painter = painterResource(id = image),
-            contentDescription = "",
+            contentDescription = "image $description",
             modifier = modifier
                 .width(
                     263.dp.from(ctx)
@@ -237,59 +213,42 @@ fun BottomSection(
             .padding(16.dp.from(ctx)),
         contentAlignment = Alignment.Center
     ) {
-        Indicators(size = size, index = index,ctx=ctx)
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center,
+            modifier = modifier
+                .align(Alignment.Center)
+                .fillMaxWidth(),
+        ) {
+            repeat(size) {
+                Spacer(modifier = Modifier.width(12.dp.from(ctx)))
+                val width = animateDpAsState(
+                    targetValue = if (it == index) 24.dp.from(ctx) else 12.dp.from(ctx),
+                    animationSpec = spring(dampingRatio = Spring.DampingRatioMediumBouncy)
+                )
+                Box(
+                    modifier = modifier
+                        .height(4.dp.from(ctx))
+                        .width(width.value)
+                        .clip(RoundedCornerShape(3.dp.from(ctx)))
+                        .background(
+                            color =
+                            if (it==index) MaterialTheme.colors.onPrimary else MaterialTheme.colors.onBackground.copy(
+                                alpha = 0.5f
+                            )
+                        )
+                ) {
 
-    }
-}
+                }
 
-@Composable
-fun BoxScope.Indicators(
-    m: Modifier = Modifier,
-    size: Int,
-    index: Int,
-    ctx:Context
-) {
-
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center,
-        modifier = m
-            .align(Alignment.Center)
-            .fillMaxWidth(),
-    ) {
-        repeat(size) {
-            Spacer(modifier = Modifier.width(12.dp.from(ctx)))
-            Indicator(isSelected = it == index,ctx=ctx)
+            }
         }
     }
-
 }
 
-@Composable
-fun Indicator(
-    m: Modifier = Modifier,
-    isSelected: Boolean,
-    ctx:Context
-) {
-    val width = animateDpAsState(
-        targetValue = if (isSelected) 24.dp.from(ctx) else 12.dp.from(ctx),
-        animationSpec = spring(dampingRatio = Spring.DampingRatioMediumBouncy)
-    )
-    Box(
-        modifier = m
-            .height(4.dp.from(ctx))
-            .width(width.value)
-            .clip(RoundedCornerShape(3.dp.from(ctx)))
-            .background(
-                color =
-                if (isSelected) MaterialTheme.colors.onPrimary else MaterialTheme.colors.onBackground.copy(
-                    alpha = 0.5f
-                )
-            )
-    ) {
 
-    }
-}
+
+
 
 
 @ExperimentalPagerApi
