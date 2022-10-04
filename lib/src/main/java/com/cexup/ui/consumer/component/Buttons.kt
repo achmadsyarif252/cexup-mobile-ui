@@ -36,8 +36,8 @@ fun ButtonPrimary(
         onClick = onClick,
         enabled=enabled,
         colors = ButtonDefaults.buttonColors(
-            backgroundColor = MaterialTheme.colors.onPrimary,
-            disabledBackgroundColor = MaterialTheme.colors.onSecondary
+            backgroundColor = MaterialTheme.colors.primary,
+            disabledBackgroundColor = MaterialTheme.colors.secondary
         ),
         shape = RoundedCornerShape(8.dp.from(ctx)),
         modifier = modifier

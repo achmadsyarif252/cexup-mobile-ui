@@ -1,17 +1,14 @@
 package com.cexup.ui.consumer.screen.clinic_reservation
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -19,22 +16,21 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.rememberImagePainter
-import com.cexup.ui.consumer.theme.BlueJade
-import com.cexup.ui.consumer.theme.ConsumerTheme
-import com.cexup.ui.consumer.theme.GreyRecomen
-import com.cexup.ui.consumer.theme.Heading
-import com.cexup.ui.utils.coloredShadow
-import com.cexup.ui.utils.formatToRupiah
-import com.cexup.ui.utils.mediaquery.from
-import compose.icons.Octicons
-import compose.icons.octicons.ChevronRight24
 import com.cexup.ui.R
 import com.cexup.ui.consumer.component.BottomBarPayment
 import com.cexup.ui.consumer.component.BottomBarPaymentShimmer
 import com.cexup.ui.consumer.component.CardDoctorInformation
 import com.cexup.ui.consumer.component.CardDoctorInformationShimmer
+import com.cexup.ui.consumer.theme.BlueJade
+import com.cexup.ui.consumer.theme.ConsumerTheme
+import com.cexup.ui.consumer.theme.GreyRecomen
+import com.cexup.ui.consumer.theme.Heading
 import com.cexup.ui.utils.capitalizeWords
+import com.cexup.ui.utils.coloredShadow
+import com.cexup.ui.utils.formatToRupiah
+import com.cexup.ui.utils.mediaquery.from
+import compose.icons.Octicons
+import compose.icons.octicons.ChevronRight24
 
 @Composable
 fun ScreenCheckoutOrderClinincReservation(
@@ -56,15 +52,15 @@ fun ScreenCheckoutOrderClinincReservation(
 
         },
         bottomBar = {
-           if(orderState.loading){
-               BottomBarPayment(
-                   price = "Rp 10.000",
-                   enabled = !orderState.error && orderState.loading,
-                   onClick = {}
-               )
-           }else{
-               BottomBarPaymentShimmer()
-           }
+            if (orderState.loading) {
+                BottomBarPayment(
+                    price = "Rp 10.000",
+                    enabled = !orderState.error && orderState.loading,
+                    onClick = {}
+                )
+            } else {
+                BottomBarPaymentShimmer()
+            }
         },
     ) {
         LazyColumn(
@@ -78,9 +74,6 @@ fun ScreenCheckoutOrderClinincReservation(
                         style = MaterialTheme.typography.body2.copy(
                             fontWeight = FontWeight.SemiBold,
                             color = MaterialTheme.colors.onBackground,
-                            fontSize = 12.sp.from(ctx),
-                            lineHeight = 18.sp.from(ctx),
-                            letterSpacing = 0.25.sp.from(ctx),
                         )
                     )
                     Spacer(modifier = modifier.height(12.dp.from(ctx)))

@@ -110,7 +110,7 @@ fun ScreenOnBoarding(
                 modifier = Modifier
                     .fillMaxWidth()
                     .fillMaxHeight(0.5f),
-                contentAlignment = Alignment.BottomCenter
+                contentAlignment = Alignment.Center
             ) {
                 if (state.currentPage == data.lastIndex) {
                     ButtonPrimary(
@@ -122,10 +122,7 @@ fun ScreenOnBoarding(
                     Text(
                         text = stringResource(R.string.text_swipe_left),
                         style = MaterialTheme.typography.h1.copy(
-                            fontSize = 16.sp.from(ctx),
                             color = MaterialTheme.colors.onSecondary,
-                            textAlign = TextAlign.Center,
-                            lineHeight = 24.sp.from(ctx),
                             fontWeight = FontWeight.Medium
                         ),
                     )
@@ -164,10 +161,7 @@ fun OnBoardingItem(
             Text(
                 text = stringResource(id = text),
                 style = MaterialTheme.typography.h4.copy(
-                    fontSize = 28.sp.from(ctx),
-                    color = MaterialTheme.colors.onPrimary,
-                    textAlign = TextAlign.Center,
-                    lineHeight = 32.sp.from(ctx),
+                    color = MaterialTheme.colors.primary,
                     fontWeight = FontWeight.SemiBold
                 ),
             )
@@ -175,10 +169,8 @@ fun OnBoardingItem(
             Text(
                 text = stringResource(id = description),
                 style = MaterialTheme.typography.body1.copy(
-                    fontSize = 14.sp.from(ctx),
                     color = MaterialTheme.colors.onSecondary,
                     textAlign = TextAlign.Center,
-                    lineHeight = 20.sp.from(ctx),
                     fontWeight = FontWeight.Medium
                 ),
             )
@@ -233,7 +225,7 @@ fun BottomSection(
                         .clip(RoundedCornerShape(3.dp.from(ctx)))
                         .background(
                             color =
-                            if (it==index) MaterialTheme.colors.onPrimary else MaterialTheme.colors.onBackground.copy(
+                            if (it == index) MaterialTheme.colors.primary else MaterialTheme.colors.onBackground.copy(
                                 alpha = 0.5f
                             )
                         )

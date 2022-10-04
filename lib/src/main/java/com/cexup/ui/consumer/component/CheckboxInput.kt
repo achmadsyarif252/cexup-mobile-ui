@@ -88,7 +88,7 @@ fun CheckboxInput(
                     )
                     withStyle(
                         style = SpanStyle(
-                            color = MaterialTheme.colors.onPrimary,
+                            color = MaterialTheme.colors.primary,
                         )
                     ){
                         append(data.text)
@@ -96,6 +96,7 @@ fun CheckboxInput(
                     pop()
                 }
                 is CheckboxStyle.Text ->{
+                    append(" ")
                     withStyle(
                         style = SpanStyle(
                             color = MaterialTheme.colors.onBackground,
@@ -130,10 +131,6 @@ fun CheckboxInput(
         ClickableText(
             text = annotates,
             style = MaterialTheme.typography.body1.copy(
-                fontSize = 12.sp.from(ctx),
-                fontWeight = FontWeight.Medium,
-                lineHeight = 14.sp.from(ctx),
-                letterSpacing = 0.25.sp.from(ctx),
                 color = MaterialTheme.colors.onSecondary
             ),
             onClick = {

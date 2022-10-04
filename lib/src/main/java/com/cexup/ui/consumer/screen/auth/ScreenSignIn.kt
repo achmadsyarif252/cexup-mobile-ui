@@ -77,8 +77,6 @@ fun ScreenSignIn(
                 )
             }
         },
-        modifier = modifier
-            .background(MaterialTheme.colors.background),
         backgroundColor = MaterialTheme.colors.background
 
     ) {
@@ -102,11 +100,8 @@ fun ScreenSignIn(
             Text(
                 text = stringResource(R.string.header_screen_signin),
                 style = MaterialTheme.typography.h4.copy(
-                    fontSize = 28.sp.from(ctx),
-                    lineHeight = 32.sp.from(ctx),
-                    letterSpacing = -1.sp.from(ctx),
                     fontWeight = FontWeight.SemiBold,
-                    color = MaterialTheme.colors.onPrimary
+                    color = MaterialTheme.colors.primary
                 ),
                 modifier = modifier.testTag(TAG_TITLE)
             )
@@ -120,21 +115,16 @@ fun ScreenSignIn(
                 Text(
                     text = stringResource(R.string.dont_have_account),
                     style = MaterialTheme.typography.body2.copy(
-                        color = MaterialTheme.colors.onSecondary,
-                        fontSize = 14.sp.from(ctx),
-                        fontWeight = FontWeight.Medium,
-                        letterSpacing = 0.1.sp.from(ctx),
-                        lineHeight = 20.sp.from(ctx)
+                        color = MaterialTheme.colors.onSecondary
                     )
                 )
-                Text(text = stringResource(R.string.signup_now),
+                Text(
+                    text = stringResource(R.string.signup_now),
                     style = MaterialTheme.typography.body2.copy(
-                        color = MaterialTheme.colors.onPrimary,
-                        fontSize = 14.sp.from(ctx),
-                        fontWeight = FontWeight.Medium,
-                        letterSpacing = 0.1.sp.from(ctx),
-                        lineHeight = 20.sp.from(ctx)
-                    ), modifier = Modifier.clickable { goToRegister() })
+                        color = MaterialTheme.colors.primary
+                    ),
+                    modifier = Modifier.clickable { goToRegister() }
+                )
             }
             Spacer(modifier = Modifier.height(50.dp.from(ctx)))
             OutlinedInput(
@@ -188,11 +178,7 @@ fun ScreenSignIn(
                 Text(
                     text = stringResource(R.string.button_forget_password),
                     style = MaterialTheme.typography.body1.copy(
-                        fontSize = 12.sp.from(ctx),
-                        fontWeight = FontWeight.Medium,
-                        lineHeight = 14.sp.from(ctx),
-                        letterSpacing = 0.25.sp.from(ctx),
-                        color = MaterialTheme.colors.onPrimary
+                        color = MaterialTheme.colors.primary
                     ),
                     modifier = Modifier.clickable {
                         gotToForgetPassword()
