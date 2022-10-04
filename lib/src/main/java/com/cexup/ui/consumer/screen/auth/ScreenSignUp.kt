@@ -128,11 +128,8 @@ fun ScreenSignUp(
                     Text(
                         text = stringResource(R.string.header_screen_signup),
                         style = MaterialTheme.typography.h4.copy(
-                            fontSize = 28.sp.from(ctx),
                             fontWeight = FontWeight.SemiBold,
-                            lineHeight = 32.sp.from(ctx),
-                            letterSpacing = -1.sp.from(ctx),
-                            color = MaterialTheme.colors.onPrimary
+                            color = MaterialTheme.colors.primary
                         )
                     )
                     Spacer(modifier = Modifier.height(24.dp.from(ctx)))
@@ -143,21 +140,13 @@ fun ScreenSignUp(
                         Text(
                             text = stringResource(R.string.already_have_account),
                             style = MaterialTheme.typography.body2.copy(
-                                fontSize = 14.sp.from(ctx),
-                                fontWeight = FontWeight.Medium,
-                                lineHeight = 20.sp.from(ctx),
-                                letterSpacing = 0.1.sp.from(ctx),
                                 color = MaterialTheme.colors.onSecondary
                             )
                         )
                         Text(
                             text = stringResource(R.string.sign_in),
                             style = MaterialTheme.typography.h1.copy(
-                                fontSize = 14.sp.from(ctx),
-                                fontWeight = FontWeight.Medium,
-                                lineHeight = 20.sp.from(ctx),
-                                letterSpacing = 0.1.sp.from(ctx),
-                                color = MaterialTheme.colors.onPrimary
+                                color = MaterialTheme.colors.primary
                             ),
                             modifier = modifier
                                 .clickable {
@@ -207,7 +196,7 @@ fun ScreenSignUp(
                             Icon(
                                 painter = painterResource( if(passwordVisibility) R.drawable.ic_password_show else R.drawable.ic_password_hide),
                                 contentDescription = "",
-                                tint = MaterialTheme.colors.onPrimary,
+                                tint = MaterialTheme.colors.primary,
                                 modifier = Modifier.size(20.dp.from(ctx)),
                             )
 
@@ -230,7 +219,7 @@ fun ScreenSignUp(
                             Icon(
                                 painter = painterResource( if(passwordVisibility) R.drawable.ic_password_show else R.drawable.ic_password_hide),
                                 contentDescription = "",
-                                tint = MaterialTheme.colors.onPrimary,
+                                tint = MaterialTheme.colors.primary,
                                 modifier = Modifier.size(20.dp.from(ctx)),
                             )
 
@@ -263,7 +252,6 @@ fun ScreenSignUp(
                     },
                     text = stringResource(R.string.button_submit_sign_up)
                 )
-
             }
         }
     }

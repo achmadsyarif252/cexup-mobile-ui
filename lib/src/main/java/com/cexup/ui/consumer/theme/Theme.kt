@@ -30,14 +30,28 @@ private val LightColorPalette = lightColors(
 
 )
 
+private val ColorLightPalette = lightColors(
+    primary = ColorPrimary,
+    onPrimary = ColorOnPrimary,
+    secondary = ColorSecondary,
+    onSecondary = ColorOnSecondary,
+    background = ColorBackground,
+    onBackground = ColorOnBackground,
+    primaryVariant = ColorPrimaryVariant,
+    secondaryVariant = ColorSecondaryVariant,
+    error = ColorError,
+    onError = ColorOnError ,
+    surface = ColorBackground,
+    onSurface = ColorOnBackground
+)
+
+
 @Composable
 fun ConsumerTheme(
     content: @Composable() () -> Unit
 ) {
-
-
     MaterialTheme(
-        colors = LightColorPalette,
+        colors = ColorLightPalette,
         typography = Typography,
         shapes = Shapes,
         content = content

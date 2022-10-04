@@ -47,7 +47,7 @@
 
     <string name="message_agreement">I agree to the</string>
     <string name="message_term_of_use">Term of use</string>
-    <string name="message_and">"and "</string>
+    <string name="message_and">and</string>
     <string name="message_privacy_policy">privacy policy</string>
 
     <string name="button_submit_sign_up">Create My Account</string>

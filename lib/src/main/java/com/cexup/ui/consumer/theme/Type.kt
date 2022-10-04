@@ -35,7 +35,7 @@ val Typography = Typography(
         fontWeight = FontWeight.W400,
         fontSize = 14.sp,
         lineHeight = 20.sp,
-        letterSpacing = 0.1.sp
+        letterSpacing = 0.1.sp,
     ),
     h1 = TextStyle(
         fontFamily = fonts,
@@ -49,28 +49,28 @@ val Typography = Typography(
         fontWeight = FontWeight.W400,
         fontSize = 18.sp,
         lineHeight = 28.sp,
-        letterSpacing = -0.25.sp
+        letterSpacing = (-0.25).sp
     ),
     h3 = TextStyle(
         fontFamily = fonts,
         fontWeight = FontWeight.W400,
         fontSize = 22.sp,
         lineHeight = 28.sp,
-        letterSpacing = -0.5.sp
+        letterSpacing = (-0.5).sp
     ),
     h4 = TextStyle(
         fontFamily = fonts,
         fontWeight = FontWeight.W400,
         fontSize = 28.sp,
         lineHeight = 32.sp,
-        letterSpacing = -1.sp
+        letterSpacing = (-1).sp
     ),
     h5 = TextStyle(
         fontFamily = fonts,
         fontWeight = FontWeight.W400,
         fontSize = 36.sp,
         lineHeight = 48.sp,
-        letterSpacing = -1.25.sp
+        letterSpacing = (-1.25).sp
     ),
     h6 = TextStyle(
         fontFamily = fonts,

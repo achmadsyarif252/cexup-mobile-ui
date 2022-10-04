@@ -137,4 +137,23 @@ val purpleSkip = Color(0xFFFEF5FF)
 val grayPackage = Color(0xFFF4F4F4)
 
 
+//New Color
+val ColorPrimary = Color (0xFF008CA3)
+val ColorOnPrimary = Color(0xFFFFFFFF)
+
+val ColorBackground = Color(0xFFFFFFFF)
+val ColorOnBackground = Color(0xFF313E4C)
+
+val ColorSecondary = Color(0xFFEBFBFF)
+val ColorOnSecondary = Color(0xFF313E4C)
+
+
+val ColorPrimaryVariant = Color(0xFF24D4DF)
+val ColorSecondaryVariant = Color(0xFF3AE000)
+
+val ColorError = Color(0xFFFC4B40)
+val ColorOnError = Color(0xFFFFFFFF)
+
+
+
 
