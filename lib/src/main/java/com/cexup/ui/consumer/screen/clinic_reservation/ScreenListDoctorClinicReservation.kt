@@ -125,8 +125,6 @@ fun ScreenListDoctorClinicReservation(
                 trilling = true,
                 widthSearch = screenWidth,
                 heightSearch = 40.dp.from(ctx),
-                horizontalPadding = 16.32.dp.from(ctx),
-                verticalPadding = 10.dp.from(ctx),
                 iconSize = 16.dp.from(ctx),
                 fontHintSize = 16.sp.from(ctx),
                 onSearch = {
