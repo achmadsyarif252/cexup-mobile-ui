@@ -11,7 +11,7 @@ import org.robolectric.shadows.ShadowLog
 
 @RunWith(RobolectricTestRunner::class)
 @Config(instrumentedPackages = ["androidx.loader.content"])
-internal class ScrollDatePickerKtTest{
+internal class ScrollableDatePickerKtTest{
     @get:Rule
     val rule = createComposeRule()
 
