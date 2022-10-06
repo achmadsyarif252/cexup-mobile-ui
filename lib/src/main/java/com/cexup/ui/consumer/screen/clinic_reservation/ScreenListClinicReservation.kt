@@ -161,7 +161,7 @@ fun ScreenListClinicReservation(
                         .fillMaxHeight(),
                     verticalArrangement = Arrangement.spacedBy(16.dp.from(ctx))
                 ) {
-                    SearchInput(
+                    InputSearch(
                         hint = stringResource(id = R.string.text_search_medical_facility),
                         trilling = true,
                         widthSearch = screenWidth,

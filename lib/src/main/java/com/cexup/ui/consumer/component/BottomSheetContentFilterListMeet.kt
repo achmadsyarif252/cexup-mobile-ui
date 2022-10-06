@@ -124,7 +124,7 @@ fun BottomSheetContentFilterListMeet(
                 )
             }
             Spacer(modifier = Modifier.height(24.dp.from(ctx)))
-            SearchInput(
+            InputSearch(
                 hint = stringResource(id = R.string.search)+" "+nameBottomSheet.capitalizeWords(),
                 trilling = true,
                 widthSearch = screenWidth,
