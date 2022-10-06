@@ -18,11 +18,10 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.cexup.ui.R
-import com.cexup.ui.consumer.component.OutlinedInput
+import com.cexup.ui.consumer.component.InputOutlined
 import com.cexup.ui.consumer.component.ButtonPrimary
-import com.cexup.ui.consumer.component.CheckboxInput
+import com.cexup.ui.consumer.component.InputCheckBox
 import com.cexup.ui.consumer.theme.*
 import com.cexup.ui.utils.mediaquery.from
 import com.cexup.ui.utils.noRippleClick
@@ -127,7 +126,7 @@ fun ScreenSignIn(
                 )
             }
             Spacer(modifier = Modifier.height(50.dp.from(ctx)))
-            OutlinedInput(
+            InputOutlined(
                 value = userName,
                 onChange = {
                     userName = it
@@ -139,7 +138,7 @@ fun ScreenSignIn(
                 shape = RoundedCornerShape(6.dp.from(ctx))
             )
             Spacer(modifier = Modifier.height(30.dp.from(ctx)))
-            OutlinedInput(
+            InputOutlined(
                 value = userPassword,
                 onChange = {
                     userPassword = it
@@ -167,7 +166,7 @@ fun ScreenSignIn(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                CheckboxInput(
+                InputCheckBox(
                     checked = rememberMe,
                     onCheckedChange = {
                         rememberMe = it

@@ -27,7 +27,7 @@ sealed class CheckboxStyle(var text:String){
     data class Button(var label:String):CheckboxStyle(label)
 }
 @Composable
-fun CheckboxInput(
+fun InputCheckBox(
     checked:Boolean=false,
     onCheckedChange:(Boolean)->Unit={},
     label:String="",
@@ -68,7 +68,7 @@ fun CheckboxInput(
 }
 
 @Composable
-fun CheckboxInput(
+fun InputCheckBox(
     checked:Boolean=false,
     labels:List<CheckboxStyle> = listOf(),
     onCheckedChange:(Boolean)->Unit={},
@@ -158,12 +158,12 @@ fun PreviewCheckboxInput() {
         Column(modifier = Modifier
             .fillMaxWidth()
             .background(MaterialTheme.colors.background)) {
-            CheckboxInput(
+            InputCheckBox(
                 label = "Remember me"
             )
 
             Spacer(modifier = Modifier.height(20.dp))
-            CheckboxInput(
+            InputCheckBox(
                 labels = listOf(
                     CheckboxStyle.Text("Tes"),
                     CheckboxStyle.Button("Ini Button"),

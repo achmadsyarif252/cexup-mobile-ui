@@ -24,7 +24,7 @@ import com.cexup.ui.consumer.theme.fonts
 import com.cexup.ui.utils.mediaquery.from
 
 @Composable
-fun OutlinedInput(
+fun InputOutlined(
     value: String="",
     onChange: (String) -> Unit,
     modifier: Modifier = Modifier.fillMaxWidth(),
@@ -139,18 +139,18 @@ fun PreviewInput(){
                 .fillMaxWidth()
                 .background(MaterialTheme.colors.background)
         ) {
-            OutlinedInput(
+            InputOutlined(
                 value = input,
                 onChange = {})
 
-            OutlinedInput(
+            InputOutlined(
                 value = input,
                 onChange = {},
                 errorMessage = "Error",
                 label = "Nama",
                 placeholder = "Nama Kamu")
 
-            OutlinedInput(
+            InputOutlined(
                 value = input,
                 onChange = {},
                 label = "Nama",
