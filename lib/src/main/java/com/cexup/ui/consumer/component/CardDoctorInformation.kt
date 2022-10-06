@@ -93,10 +93,7 @@ fun CardDoctorInformation(
                     Text(
                         doctorName.capitalizeWords(),
                         style = MaterialTheme.typography.h2.copy(
-                            fontWeight = FontWeight.SemiBold,
-                            fontSize = 18.sp.from(ctx),
-                            lineHeight = 28.sp.from(ctx),
-                            letterSpacing = (-0.25).sp.from(ctx)
+                            fontWeight = FontWeight.SemiBold
                         ),
                         modifier = modifier.padding(0.dp)
                     )
@@ -105,9 +102,6 @@ fun CardDoctorInformation(
                         style = MaterialTheme.typography.body1.copy(
                             fontWeight = FontWeight.Normal,
                             color = MaterialTheme.colors.onSecondary,
-                            fontSize = 12.sp.from(ctx),
-                            lineHeight = 18.sp.from(ctx),
-                            letterSpacing = 0.25.sp.from(ctx)
                         ),
                         modifier = modifier.padding(0.dp)
                     )
@@ -150,9 +144,6 @@ fun CardDoctorInformation(
                                 style = MaterialTheme.typography.subtitle1.copy(
                                     fontWeight = FontWeight.Normal,
                                     color = Color.White,
-                                    fontSize = 8.sp.from(ctx),
-                                    lineHeight = 12.sp.from(ctx),
-                                    letterSpacing = 0.8.sp.from(ctx)
                                 )
                             )
                         }

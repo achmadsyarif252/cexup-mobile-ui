@@ -55,4 +55,6 @@
     <string name="text_available_scroll_date_picker">Availability</string>
     <string name="button_get_started">Get Started</string>
     <string name="text_swipe_left">Swipe Left</string>
+    <string name="text_total">Total:</string>
+    <string name="button_pay_now">Pay now</string>
 </resources>

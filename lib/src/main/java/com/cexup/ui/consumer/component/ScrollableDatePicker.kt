@@ -1,9 +1,7 @@
 package com.cexup.ui.consumer.component
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.MaterialTheme
@@ -42,52 +40,66 @@ fun ScrollableDatePicker(
 ) {
     val ctx = LocalContext.current
     val days = getDays(initialDate)
-    Row(
-        modifier = modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
-        Text(
-            text = stringResource(R.string.text_available_scroll_date_picker),
-            style = MaterialTheme.typography.h1.copy(
-                fontSize = 16.sp.from(ctx),
-                lineHeight = 24.sp.from(ctx),
-                fontWeight = FontWeight.SemiBold,
-            ),
-            modifier = modifier.padding(vertical = 16.dp)
-        )
-        Text(
-            text = initialDate.month.getDisplayName(
-                TextStyle.SHORT,
-                Locale.ENGLISH
-            ), style = MaterialTheme.typography.body1.copy(
-                fontSize = 12.sp.from(ctx),
-                lineHeight = 18.sp.from(ctx),
-                letterSpacing = 0.25.sp.from(ctx),
-                fontWeight = FontWeight.Normal,
-            ),
-            modifier = modifier.padding(
-                vertical = 16.dp.from(ctx)
+        Row(
+            modifier = modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = stringResource(R.string.text_available_scroll_date_picker),
+                style = MaterialTheme.typography.h1.copy(
+                    fontSize = 16.sp.from(ctx),
+                    lineHeight = 24.sp.from(ctx),
+                    fontWeight = FontWeight.SemiBold,
+                ),
+                modifier = modifier.padding(bottom = 16.dp, top = 6.dp)
             )
-        )
-    }
-    LazyRow(content = {
-        items(days) { day ->
-            ChipDateAvailableDoctor(
-                day = day,
-                isSelected = day == selectedDate
-            ) {
-                onItemClicked(day)
-            }
-
+            Text(
+                text = initialDate.month.getDisplayName(
+                    TextStyle.SHORT,
+                    Locale.ENGLISH
+                ), style = MaterialTheme.typography.body1.copy(
+                    fontSize = 12.sp.from(ctx),
+                    lineHeight = 18.sp.from(ctx),
+                    letterSpacing = 0.25.sp.from(ctx),
+                    fontWeight = FontWeight.Normal,
+                ),
+                modifier = modifier.padding(
+                    vertical = 16.dp.from(ctx)
+                )
+            )
         }
-    })
+        LazyRow(content = {
+            items(days) { day ->
+                ChipDateAvailableDoctor(
+                    day = day,
+                    isSelected = day == selectedDate
+                ) {
+                    onItemClicked(day)
+                }
+
+            }
+        })
+        Spacer(modifier = modifier.height(8.dp))
+    }
 }
 
 @Preview
 @Composable
 fun PreviewScrollDatePicker() {
     ConsumerTheme {
-        ScrollableDatePicker()
+        Column(
+            Modifier
+                .background(MaterialTheme.colors.background)
+                .padding(
+                    horizontal = 16.dp
+                )
+        ) {
+            ScrollableDatePicker()
+        }
     }
 }

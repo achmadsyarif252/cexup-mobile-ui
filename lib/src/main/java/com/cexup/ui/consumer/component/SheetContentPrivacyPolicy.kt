@@ -1,7 +1,5 @@
 package com.cexup.ui.consumer.component
 
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -10,12 +8,12 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithContent
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
+import com.cexup.ui.consumer.theme.ConsumerTheme
 import compose.icons.Octicons
 import compose.icons.octicons.Circle24
 
@@ -175,26 +173,21 @@ fun SheetContentPrivacyPolicy(
                 )
             }
             Spacer(modifier = modifier.height(15.dp))
-            Button(
+            ButtonTextPrimary(
+                text = "Simpan",
                 enabled = agreeWithTermCondition,
-                onClick ={
+                onClick = {
 
-                },
-                modifier = modifier.fillMaxWidth(),
-                colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary),
-                shape = RoundedCornerShape(8.dp)
-            ) {
-                Text(
-                    text = "Simpan",
-                    style = MaterialTheme.typography.h1.copy(
-                        fontWeight = FontWeight.Normal,
-                        fontSize = 16.sp,
-                        letterSpacing = 1.sp,
-                        color = Color.White
-                    ),
-                    modifier = modifier.padding(10.dp),
-                )
-            }
+                }
+            )
         }
+    }
+}
+
+@Preview
+@Composable
+fun PreviewSheetContentPrivacyPolicy() {
+    ConsumerTheme {
+        SheetContentPrivacyPolicy()
     }
 }
