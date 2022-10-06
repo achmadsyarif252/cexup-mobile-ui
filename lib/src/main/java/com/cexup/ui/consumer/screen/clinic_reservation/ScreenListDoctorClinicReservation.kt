@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.sp
 import com.cexup.ui.consumer.component.CardDoctorOnline
 import com.cexup.ui.consumer.component.CardDoctorOnlineShimmer
 import com.cexup.ui.consumer.component.ChipFilter
-import com.cexup.ui.consumer.component.SearchInput
+import com.cexup.ui.consumer.component.InputSearch
 import com.cexup.ui.consumer.theme.ConsumerTheme
 import com.cexup.ui.consumer.theme.RedLight
 import com.cexup.ui.utils.coloredShadow
@@ -120,7 +120,7 @@ fun ScreenListDoctorClinicReservation(
                 .fillMaxWidth()
                 .fillMaxHeight()
         ) {
-            SearchInput(
+            InputSearch(
                 hint = "Search for doctor",
                 trilling = true,
                 widthSearch = screenWidth,

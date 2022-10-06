@@ -134,7 +134,7 @@ fun ScreenRegisterOrderClinicReservation(
                         )
                     )
                     Spacer(modifier = modifier.height(16.dp.from(ctx)))
-                    OutlinedInput(
+                    InputOutlined(
                         value=dateOfBirth,
                         onChange = {},
                         trailingIcon = {
@@ -160,7 +160,7 @@ fun ScreenRegisterOrderClinicReservation(
                         )
                     )
                     Spacer(modifier = modifier.height(16.dp.from(ctx)))
-                    OutlinedInput(
+                    InputOutlined(
                         value = phonenumber,
                         onChange = {
                             phonenumber= it
@@ -174,7 +174,7 @@ fun ScreenRegisterOrderClinicReservation(
                 }
                 item {
                     Spacer(modifier = modifier.height(24.dp.from(ctx)))
-                    GenderInput(
+                    InputGender(
                         items = listOf("Laki-Laki","Perempuan"),
                     )
                 }

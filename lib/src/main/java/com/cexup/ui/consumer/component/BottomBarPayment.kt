@@ -58,20 +58,14 @@ fun BottomBarPayment(
                     text = "Total:",
                     style = MaterialTheme.typography.body1.copy(
                         fontWeight = FontWeight.Medium,
-                        fontSize = 12.sp.from(ctx),
-                        lineHeight = 18.sp.from(ctx),
-                        letterSpacing = 0.25.sp.from(ctx),
-                        color = Color.Black
+                        color = MaterialTheme.colors.onBackground
                     )
                 )
                 Text(
                     text = price,
                     style = MaterialTheme.typography.h2.copy(
                         fontWeight = FontWeight.Medium,
-                        fontSize = 18.sp.from(ctx),
-                        lineHeight = 28.sp.from(ctx),
-                        letterSpacing = (-0.25).sp.from(ctx),
-                        color = MaterialTheme.colors.onPrimary
+                        color = MaterialTheme.colors.primary
                     )
                 )
             }
@@ -88,10 +82,7 @@ fun BottomBarPayment(
                     text = "Pay now",
                     style = MaterialTheme.typography.body2.copy(
                         fontWeight = FontWeight.Medium,
-                        fontSize = 14.sp.from(ctx),
-                        lineHeight = 20.sp.from(ctx),
-                        letterSpacing = 0.1.sp.from(ctx),
-                        color = Color.White
+                        color = MaterialTheme.colors.onPrimary
                     ),
                     modifier = modifier.padding(horizontal = 10.dp.from(ctx))
                 )
@@ -179,7 +170,9 @@ fun BottomBarPaymentShimmer(
 fun PreviewBottomBarPayment() {
     ConsumerTheme {
         Column {
-            BottomBarPayment() {
+            BottomBarPayment(
+                price = "Rp. 2.000.000"
+            ) {
 
             }
             Spacer(modifier = Modifier.height(20.dp))

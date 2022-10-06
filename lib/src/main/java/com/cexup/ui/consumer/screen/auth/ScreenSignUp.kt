@@ -18,12 +18,11 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.cexup.ui.R
 import com.cexup.ui.consumer.component.ButtonPrimary
-import com.cexup.ui.consumer.component.CheckboxInput
+import com.cexup.ui.consumer.component.InputCheckBox
 import com.cexup.ui.consumer.component.CheckboxStyle
-import com.cexup.ui.consumer.component.OutlinedInput
+import com.cexup.ui.consumer.component.InputOutlined
 import com.cexup.ui.consumer.theme.ArrowBackAuth
 import com.cexup.ui.consumer.theme.ConsumerTheme
 import com.cexup.ui.utils.mediaquery.from
@@ -162,7 +161,7 @@ fun ScreenSignUp(
                 modifier = modifier
                     .fillMaxHeight(),
             ) {
-                OutlinedInput(
+                InputOutlined(
                     value=name,
                     onChange = {
                         name=it
@@ -173,7 +172,7 @@ fun ScreenSignUp(
 
                 )
                 Spacer(modifier = Modifier.height(30.dp.from(ctx)))
-                OutlinedInput(
+                InputOutlined(
                     value=email,
                     onChange = {
                         email=it
@@ -183,7 +182,7 @@ fun ScreenSignUp(
                     placeholder = stringResource(R.string.placeholder_input_email)
                 )
                 Spacer(modifier = Modifier.height(30.dp.from(ctx)))
-                OutlinedInput(
+                InputOutlined(
                     value=password,
                     onChange = {
                         password = it
@@ -206,7 +205,7 @@ fun ScreenSignUp(
                 )
 
                 Spacer(modifier = Modifier.height(30.dp.from(ctx)))
-                OutlinedInput(
+                InputOutlined(
                     value=password,
                     onChange = {
                         password = it
@@ -228,7 +227,7 @@ fun ScreenSignUp(
                     visualTransformation = if (passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
                 )
                 Spacer(modifier = Modifier.height(14.dp.from(ctx)))
-                CheckboxInput(
+                InputCheckBox(
                     checked=stateAgreement,
                     labels = listOf(
                         CheckboxStyle.Text(stringResource(R.string.message_agreement)),
