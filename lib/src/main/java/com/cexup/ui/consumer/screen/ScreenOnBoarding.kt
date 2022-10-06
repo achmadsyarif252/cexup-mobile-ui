@@ -13,7 +13,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -21,9 +20,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.cexup.ui.R
-import com.cexup.ui.consumer.component.ButtonPrimary
+import com.cexup.ui.consumer.component.ButtonTextPrimary
 import com.cexup.ui.consumer.theme.ConsumerTheme
 import com.cexup.ui.utils.mediaquery.from
 import com.google.accompanist.pager.ExperimentalPagerApi
@@ -113,7 +111,7 @@ fun ScreenOnBoarding(
                 contentAlignment = Alignment.Center
             ) {
                 if (state.currentPage == data.lastIndex) {
-                    ButtonPrimary(
+                    ButtonTextPrimary(
                         enabled = true,
                         onClick = toSignIn,
                         text = stringResource(R.string.button_get_started)

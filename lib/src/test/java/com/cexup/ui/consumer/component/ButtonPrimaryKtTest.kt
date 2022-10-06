@@ -27,7 +27,7 @@ internal class ButtonPrimaryKtTest{
     @Test
     fun `show  text on button primary and button clickable`(){
         rule.setContent {
-            ButtonPrimary(
+            ButtonTextPrimary(
                 text = "Sign In"
             )
         }
@@ -42,7 +42,7 @@ internal class ButtonPrimaryKtTest{
     @Test
     fun `show text on button primary and button not clickable`(){
         rule.setContent {
-            ButtonPrimary(
+            ButtonTextPrimary(
                 text = "Sign In",
                 enabled = false
             )

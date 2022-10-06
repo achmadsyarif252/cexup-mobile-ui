@@ -92,7 +92,7 @@ fun ScreenRegisterOrderClinicReservation(
                         horizontal = 16.dp.from(ctx)
                     )
             ) {
-                ButtonPrimary(
+                ButtonTextPrimary(
                     enabled = if (patientState.patientHasData) true else phonenumber.isNotBlank() && selectedGender.isNotBlank() && dateOfBirth.isNotBlank(),
                     onClick = {},
                     text = "Checkout"
