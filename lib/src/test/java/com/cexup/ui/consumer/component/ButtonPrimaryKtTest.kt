@@ -13,7 +13,7 @@ import org.robolectric.shadows.ShadowLog
 
 @RunWith(RobolectricTestRunner::class)
 @Config(instrumentedPackages = ["androidx.loader.content"])
-internal class ButtonsKtTest{
+internal class ButtonPrimaryKtTest{
 
     @get:Rule
     val rule = createComposeRule()

@@ -34,7 +34,7 @@ fun getDays(initialDate: LocalDate): List<LocalDate> {
 }
 
 @Composable
-fun ScrollDatePicker(
+fun ScrollableDatePicker(
     initialDate:LocalDate=LocalDate.now(),
     selectedDate:LocalDate=LocalDate.now(),
     modifier:Modifier=Modifier,
@@ -88,6 +88,6 @@ fun ScrollDatePicker(
 @Composable
 fun PreviewScrollDatePicker() {
     ConsumerTheme {
-        ScrollDatePicker()
+        ScrollableDatePicker()
     }
 }

@@ -194,7 +194,7 @@ fun ScreenChooseScheduleClinicReservation(
                             vertical = 16.dp.from(ctx)
                         )
                     )
-                    OutlinedInput(
+                    InputOutlined(
                         value = noteState,
                         onChange = {
                             noteState = it
@@ -203,7 +203,7 @@ fun ScreenChooseScheduleClinicReservation(
                     )
                 }
                 item {
-                    ScrollDatePicker(
+                    ScrollableDatePicker(
                         selectedDate = selectedDate,
                         onItemClicked = {
                             selectedDate=it

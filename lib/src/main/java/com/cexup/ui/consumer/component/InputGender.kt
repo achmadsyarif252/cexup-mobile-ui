@@ -21,7 +21,7 @@ import com.cexup.ui.utils.capitalizeWords
 import com.cexup.ui.utils.mediaquery.from
 
 @Composable
-fun GenderInput(
+fun InputGender(
     selected:String?=null,
     items:List<String> = listOf(),
     onSelected:(String)->Unit={},
@@ -86,7 +86,7 @@ fun GenderInput(
 @Composable
 fun PreviewGenderInput() {
     ConsumerTheme {
-        GenderInput(
+        InputGender(
             items = listOf("Laki-Laki","Perempuan")
         )
     }
