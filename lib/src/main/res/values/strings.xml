@@ -55,6 +55,30 @@
     <string name="text_available_scroll_date_picker">Availability</string>
     <string name="button_get_started">Get Started</string>
     <string name="text_swipe_left">Swipe Left</string>
+
     <string name="text_total">Total:</string>
     <string name="button_pay_now">Pay now</string>
+
+    
+    <string name="meet_doctor">Meet Doctor</string>
+    <string name="text_search_medical_facility">Search for medical facility</string>
+    <string name="search">Search</string>
+    <string name="sort">Sort</string>
+    <string name="filter">Filter</string>
+    <string name="reset">Reset</string>
+    
+    <string name="medical_check_up">Medical Check Up</string>
+    <string name="swab_pcr">Swab PCR</string>
+    <string name="rapid_test">Rapid Test</string>
+    <string name="vaksinasi">Vaksinasi</string>
+    <string name="rontgen">Rontgen</string>
+    <string name="test_darah">Test Darah</string>
+    <string name="ct_darah">CT Darah</string>
+
+    <string name="jkt_barat">Jakarta Barat</string>
+    <string name="jkt_pusat">Jakarta Pusat</string>
+    <string name="jkt_timur">Jakarta Timur</string>
+    <string name="jkt_selatan">Jakarta Selatan</string>
+    <string name="jkt_utara">Jakarta Utara</string>
+
 </resources>

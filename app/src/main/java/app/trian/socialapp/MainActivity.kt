@@ -10,7 +10,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import com.cexup.ui.consumer.screen.ScreenOnBoarding
 import com.cexup.ui.consumer.screen.auth.ScreenSignUp
+import com.cexup.ui.consumer.screen.clinic_reservation.ClinicHospitalUIState
 import com.cexup.ui.consumer.screen.clinic_reservation.ScreenChooseScheduleClinicReservation
+import com.cexup.ui.consumer.screen.clinic_reservation.ScreenListClinicReservation
 import com.cexup.ui.consumer.theme.ConsumerTheme
 
 class MainActivity : ComponentActivity() {
@@ -23,11 +25,12 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    ScreenChooseScheduleClinicReservation(
-                        onBackPressed = { /*TODO*/ },
-                        getAvailableTimeDoctor = {},
-                        goNext = {_,_,_,_,_->}
-                    )
+                    ScreenListClinicReservation(
+                        hospitalState = ClinicHospitalUIState(
+                        loading = true,
+                        error = false,
+                        data = listOf()),
+                        onSearchHospital = {})
 
                 }
             }
