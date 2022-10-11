@@ -185,7 +185,7 @@ fun CardDoctorOnline(
                         }
                         Row {
                             Image(
-                                painter = painterResource(id = R.drawable.icon_bag),
+                                painter = painterResource(id = R.drawable.ic_bag_health),
                                 contentDescription = "",
                                 modifier = modifier.size(12.dp.from(ctx))
                             )

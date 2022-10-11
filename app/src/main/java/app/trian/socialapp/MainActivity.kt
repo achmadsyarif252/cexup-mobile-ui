@@ -10,9 +10,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import com.cexup.ui.consumer.screen.ScreenOnBoarding
 import com.cexup.ui.consumer.screen.auth.ScreenSignUp
-import com.cexup.ui.consumer.screen.clinic_reservation.ClinicHospitalUIState
-import com.cexup.ui.consumer.screen.clinic_reservation.ScreenChooseScheduleClinicReservation
-import com.cexup.ui.consumer.screen.clinic_reservation.ScreenListClinicReservation
+import com.cexup.ui.consumer.screen.clinic_reservation.*
 import com.cexup.ui.consumer.theme.ConsumerTheme
 
 class MainActivity : ComponentActivity() {
@@ -25,12 +23,31 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    ScreenListClinicReservation(
-                        hospitalState = ClinicHospitalUIState(
-                        loading = true,
-                        error = false,
-                        data = listOf()),
-                        onSearchHospital = {})
+//                    ScreenListClinicReservation(
+//                        hospitalState = ClinicHospitalUIState(
+//                        loading = true,
+//                        error = false,
+//                        data = listOf()),
+//                        onSearchHospital = {})
+                    ScreenDetailOrderClinicReservation(
+                        onBackPressed = {},
+                        orderState = DetailOrderUIState(
+                            orderStatus = "Waiting Meeting",
+                            orderId = "#CXP-MT61b6f3fc2d7fd",
+                            orderDueDate = "20 Januari 2022",
+                            orderDueTime = "20 Hours",
+                            orderNote = "Test Note",
+                            loading = false,
+                            doctorName = "Fajar Achmad",
+                            doctorSpecialist = "Cocoklogi",
+                            doctorExperience = "5 Years",
+                            doctorHospital = "RS. Pesbuk",
+                            patientName = "Iqbal no Jutsu",
+                            patientGender = "Male",
+                            patientAge = "24 Years",
+
+                        )
+                    )
 
                 }
             }

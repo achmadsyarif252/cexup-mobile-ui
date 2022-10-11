@@ -138,7 +138,7 @@ fun CardDoctorInformation(
                                     .width(
                                         12.dp.from(ctx)
                                     ),
-                                tint = Color.Unspecified
+                                tint = MaterialTheme.colors.onPrimary
                             )
                             Spacer(
                                 modifier = modifier.width(

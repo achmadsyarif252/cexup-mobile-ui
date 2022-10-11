@@ -77,5 +77,19 @@
     <string name="jkt_selatan">Jakarta Selatan</string>
     <string name="jkt_utara">Jakarta Utara</string>
 
+    <string name="cancel">Cancel</string>
+    <string name="detail_order">Detail Order</string>
+    <string name="doctor_information">Doctor Information</string>
+    <string name="order_information">Order Information</string>
+    <string name="order_id">Order ID</string>
+    <string name="status_order">Status Order</string>
+    <string name="due_date">Due Date</string>
+    <string name="patient_details">Patient Details</string>
+    <string name="payment_detail">Payment Detail</string>
+    <string name="consultation">Consultation</string>
+    <string name="discount">Discount</string>
+    <string name="total">Total</string>
+    <string name="symptoms">Symptoms</string>
+
 
 </resources>
