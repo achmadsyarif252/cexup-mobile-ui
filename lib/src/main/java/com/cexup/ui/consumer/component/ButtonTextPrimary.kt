@@ -24,14 +24,27 @@ import com.cexup.ui.consumer.theme.ConsumerTheme
 import com.cexup.ui.utils.mediaquery.from
 
 @Composable
-fun ButtonPrimary(
+fun ButtonTextPrimary(
     text:String="",
-    enabled:Boolean=true,
     modifier:Modifier=Modifier,
+    enabled:Boolean=true,
+    fullWidth:Boolean=true,
     onClick:()->Unit={},
 
 ){
     val ctx = LocalContext.current
+    val style = if(fullWidth) modifier
+        .testTag(TAG_BTN_SIGN_IN)
+        .clip(RoundedCornerShape(8.dp.from(ctx)))
+        .height(48.dp.from(ctx))
+        .fillMaxWidth()
+    else
+            modifier
+        .testTag(TAG_BTN_SIGN_IN)
+        .clip(RoundedCornerShape(8.dp.from(ctx)))
+        .height(48.dp.from(ctx))
+
+
     Button(
         onClick = onClick,
         enabled=enabled,
@@ -40,11 +53,7 @@ fun ButtonPrimary(
             disabledBackgroundColor = MaterialTheme.colors.secondary
         ),
         shape = RoundedCornerShape(8.dp.from(ctx)),
-        modifier = modifier
-            .testTag(TAG_BTN_SIGN_IN)
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(8.dp.from(ctx)))
-            .height(48.dp.from(ctx))
+        modifier = style
     ) {
         Text(
             text = text,
@@ -63,11 +72,11 @@ fun ButtonPrimary(
 fun PreviewButtons() {
     ConsumerTheme {
         Column {
-            ButtonPrimary(
+            ButtonTextPrimary(
                 text = "Sign In"
             )
             Spacer(modifier = Modifier.height(20.dp))
-            ButtonPrimary(
+            ButtonTextPrimary(
                 text = "Sign In",
                 enabled = false
             )

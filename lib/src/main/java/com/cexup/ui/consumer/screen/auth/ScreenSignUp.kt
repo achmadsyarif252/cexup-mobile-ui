@@ -19,7 +19,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.cexup.ui.R
-import com.cexup.ui.consumer.component.ButtonPrimary
+import com.cexup.ui.consumer.component.ButtonTextPrimary
 import com.cexup.ui.consumer.component.InputCheckBox
 import com.cexup.ui.consumer.component.CheckboxStyle
 import com.cexup.ui.consumer.component.InputOutlined
@@ -244,7 +244,7 @@ fun ScreenSignUp(
                     }
                 )
                 Spacer(modifier = Modifier.height(28.dp.from(ctx)))
-                ButtonPrimary(
+                ButtonTextPrimary(
                     enabled = buttonState,
                     onClick = {
 

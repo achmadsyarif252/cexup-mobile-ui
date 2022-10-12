@@ -13,14 +13,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import com.cexup.ui.R
 import com.cexup.ui.consumer.theme.ConsumerTheme
 import com.cexup.ui.consumer.theme.Heading
 import com.cexup.ui.utils.coloredShadow
-import com.cexup.ui.utils.formatToRupiah
 import com.cexup.ui.utils.mediaquery.from
 import com.google.accompanist.placeholder.PlaceholderHighlight
 import com.google.accompanist.placeholder.material.shimmer
@@ -55,7 +55,7 @@ fun BottomBarPayment(
         ) {
             Column {
                 Text(
-                    text = "Total:",
+                    text = stringResource(R.string.text_total),
                     style = MaterialTheme.typography.body1.copy(
                         fontWeight = FontWeight.Medium,
                         color = MaterialTheme.colors.onBackground
@@ -79,7 +79,7 @@ fun BottomBarPayment(
                     .background(Heading)
             ) {
                 Text(
-                    text = "Pay now",
+                    text = stringResource(R.string.button_pay_now),
                     style = MaterialTheme.typography.body2.copy(
                         fontWeight = FontWeight.Medium,
                         color = MaterialTheme.colors.onPrimary
