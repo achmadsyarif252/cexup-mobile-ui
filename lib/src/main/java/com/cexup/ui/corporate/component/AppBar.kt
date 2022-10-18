@@ -78,7 +78,7 @@ fun AppBar(
             )
             Spacer(modifier = Modifier.width(6.dp))
             Text(
-                text = stringResource(R.string.add_patient),
+                text = stringResource(R.string.corporate_add_patient),
                 fontSize = 16.sp,
                 style = MaterialTheme.typography.body1.copy(
                     fontWeight = FontWeight(600)
