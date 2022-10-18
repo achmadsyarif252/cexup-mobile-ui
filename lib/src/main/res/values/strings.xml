@@ -81,4 +81,6 @@
     <string name="jkt_selatan">Jakarta Selatan</string>
     <string name="jkt_utara">Jakarta Utara</string>
 
+    <string name="add_patient">Add Patient</string>
+
 </resources>
