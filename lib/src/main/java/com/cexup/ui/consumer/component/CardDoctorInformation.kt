@@ -20,7 +20,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import com.cexup.ui.R
 import com.cexup.ui.consumer.theme.ConsumerTheme
@@ -37,12 +36,12 @@ import compose.icons.octicons.Bookmark24
 
 @Composable
 fun CardDoctorInformation(
-    modifier:Modifier=Modifier,
-    doctorImage:String="",
-    doctorName:String="",
-    doctorSpecialist:String="",
-    doctorExperience:String=""
-){
+    modifier: Modifier = Modifier,
+    doctorImage: String = "",
+    doctorName: String = "",
+    doctorSpecialist: String = "",
+    doctorExperience: String = ""
+) {
     val ctx = LocalContext.current
     Card(
         elevation = 0.dp,
@@ -169,8 +168,8 @@ fun CardDoctorInformation(
 
 @Composable
 fun CardDoctorInformationShimmer(
-    modifier:Modifier=Modifier,
-){
+    modifier: Modifier = Modifier,
+) {
     val ctx = LocalContext.current
     Column(
         modifier = modifier
@@ -193,7 +192,7 @@ fun CardDoctorInformationShimmer(
                         highlight = PlaceholderHighlight.shimmer(),
                         color = Color.LightGray,
                     )
-            ){}
+            ) {}
             Spacer(
                 modifier = modifier.width(
                     16.dp.from(ctx)
@@ -201,14 +200,14 @@ fun CardDoctorInformationShimmer(
             )
             Column(
                 verticalArrangement = Arrangement.SpaceBetween
-            ){
+            ) {
                 Column(
                     modifier = modifier.padding()
                 ) {
                     Column(
                         modifier = modifier
                             .height(25.dp.from(ctx))
-                            .width(60.dp.from(ctx))
+                            .fillMaxWidth()
                             .clip(
                                 RoundedCornerShape(
                                     4.dp.from(ctx)
@@ -219,12 +218,12 @@ fun CardDoctorInformationShimmer(
                                 highlight = PlaceholderHighlight.shimmer(),
                                 color = Color.LightGray,
                             )
-                    ){}
+                    ) {}
                     Spacer(modifier = modifier.height(8.dp))
                     Column(
                         modifier = modifier
                             .height(20.dp.from(ctx))
-                            .width(70.dp.from(ctx))
+                            .fillMaxWidth()
                             .clip(
                                 RoundedCornerShape(
                                     4.dp.from(ctx)
@@ -235,13 +234,16 @@ fun CardDoctorInformationShimmer(
                                 highlight = PlaceholderHighlight.shimmer(),
                                 color = Color.LightGray,
                             )
-                    ){}
+                    ) {}
                 }
-
+                Spacer(modifier = modifier.height(10.dp.from(ctx)))
+                Row(
+                    modifier = modifier.fillMaxWidth()
+                ) {
                     Box(
                         modifier = modifier
                             .height(20.dp.from(ctx))
-                            .width(40.dp)
+                            .width(70.dp.from(ctx))
                             .clip(
                                 RoundedCornerShape(
                                     4.dp.from(ctx)
@@ -257,7 +259,27 @@ fun CardDoctorInformationShimmer(
 
                     }
 
+                    Spacer(modifier = modifier.width(10.dp.from(ctx)))
 
+                    Box(
+                        modifier = modifier
+                            .height(20.dp.from(ctx))
+                            .width(20.dp.from(ctx))
+                            .clip(
+                                RoundedCornerShape(
+                                    4.dp.from(ctx)
+                                )
+                            )
+                            .placeholder(
+                                visible = true,
+                                highlight = PlaceholderHighlight.shimmer(),
+                                color = Color.LightGray,
+                            ),
+                        contentAlignment = Alignment.Center
+                    ) {
+
+                    }
+                }
             }
         }
     }
