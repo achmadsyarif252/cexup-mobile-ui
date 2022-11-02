@@ -4,7 +4,7 @@
  * */
 plugins {
     id("com.android.application")
-    id("dagger.hilt.android.plugin")
+//    id("dagger.hilt.android.plugin")
     kotlin("android")
     kotlin("kapt")
 
@@ -61,7 +61,7 @@ dependencies {
     implementation(project(":lib"))
 
     //Loads packaged libraries in the libs folder
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.0")
 
     implementation(Libs.AndroidX.Multidex.multidex)
     implementation(Libs.AndroidX.Core.coreKtx)
