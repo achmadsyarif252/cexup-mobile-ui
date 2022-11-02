@@ -1,3 +1,5 @@
+import org.gradle.kotlin.dsl.provideDelegate
+
 object Libs {
     object Com{
         object Google{
@@ -25,7 +27,9 @@ object Libs {
             object PhilJay {
                 val mpAndroidChart by lazy { "com.github.PhilJay:MPAndroidChart:v3.1.0" }
             }
-
+            object Skydoves {
+                val landscapist by lazy { "com.github.skydoves:landscapist-coil:1.4.1" }
+            }
         }
 
 

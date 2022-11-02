@@ -102,4 +102,33 @@
     <string name="corporate_menu_account">Account</string>
     <string name="corporate_menu_logout">Logout</string>
 
+    <string name="corporate_checkup_empty">Please Select the patient you wish to examine. Hopefully the patient is always healthy.</string>
+    <string name="corporate_waiting_checkup">"Waiting Check Up</string>
+    <string name="corporate_physical_exam">"Physical Examination</string>
+    <string name="corporate_sync_cloud">"Sync to cloud</string>
+
+    <string name="corporate_back">Back</string>
+    <string name="corporate_input_manual">Input Manual</string>
+    <string name="corporate_measurement_temperature">Temperature</string>
+    <string name="corporate_measurement_height">Height</string>
+    <string name="corporate_measurement_weight">Weight</string>
+    <string name="corporate_measurement_blood_oxygen">Blood Oxygen</string>
+    <string name="corporate_measurement_heart_rate">Heart Rate</string>
+    <string name="corporate_measurement_systole">Systole</string>
+    <string name="corporate_measurement_diastole">Diastole</string>
+    <string name="corporate_measurement_pulse_rate">Pulse Rate</string>
+    <string name="corporate_measurement_respiration">Respiration</string>
+    <string name="spo2">SPO2</string>
+
+    <string name="save">Save</string>
+    <string name="health_condition">Health Condition</string>
+    
+    <string name="no_list_doctor">No List Doctors</string>
+    <string name="no_list_doctor2">There\'s no Doctors List for you to see yet. if you want to add doctor list contact super admin user</string>
+    <string name="go_back">Go back</string>
+    <string name="no_list_patient">There\’re no Patients List for you to see yet. If you want add data new patient, just click Add Patient.</string>
+    <string name="oops">Oops!</string>
+    <string name="search_no_result">We could not find results for \'%1$s\' at this search.</string>
+    <string name="greet_nurse">Hi, %1$s!</string>
+
 </resources>

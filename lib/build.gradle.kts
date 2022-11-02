@@ -1,23 +1,30 @@
-
-
 plugins {
     id("com.android.library")
     kotlin("android")
     kotlin("kapt")
+    id("maven-publish")
 }
 
 android{
-
     compileSdk = 32
     defaultConfig {
+        aarMetadata {
+            minCompileSdk = 23
+        }
         minSdk = 23
-        targetSdk = 30
+        targetSdk = 32
     }
     buildFeatures {
         compose= true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = Version.compose_compiler_version
+    }
+
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+        }
     }
 
     compileOptions {
@@ -34,6 +41,7 @@ android{
 }
 dependencies {
 
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.0")
 
     implementation(Libs.Com.Google.Material.material)
     with(Libs.AndroidX.Compose){
@@ -63,6 +71,7 @@ dependencies {
     implementation(Libs.Br.Com.Devsrsouza.Compose.Icons.Android.octicons)
     implementation(Libs.AndroidX.Appcompat.appcompat)
     implementation(Libs.Io.CoilKt.coilCompose)
+    implementation(Libs.Com.Github.Skydoves.landscapist)
 
 
 
@@ -71,6 +80,6 @@ dependencies {
     testImplementation(Libs.AndroidX.Compose.Ui.uiTestJunit4)
     testImplementation(Libs.Org.Robolectric.robolectric)
     debugImplementation(Libs.AndroidX.Compose.Ui.uiTestManifest)
-    debugImplementation("androidx.customview:customview-poolingcontainer:1.0.0-rc01")
+    debugImplementation("androidx.customview:customview-poolingcontainer:1.0.0")
 
 }

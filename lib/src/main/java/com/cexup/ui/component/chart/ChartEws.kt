@@ -22,6 +22,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.cexup.ui.corporate.theme.PrimaryCorporate
 
 
 @Composable
@@ -29,8 +30,8 @@ fun ChartEws(
     modifier: Modifier = Modifier,
     result:String="Normal",
     percent:Float,
+    number:Int = 0,
 ){
-    val PrimaryCorporate = Color(0xFF4FC5DB)
     val currentPercentage = remember { Animatable(0.01f) }
 
     LaunchedEffect(percent) {
@@ -43,7 +44,6 @@ fun ChartEws(
         contentAlignment = Alignment.Center,
         modifier = modifier.size(30.dp*2f)
     ){
-        val primaryBlue = MaterialTheme.colors.primary
         Canvas(modifier = modifier.size(30.dp*2f),){
             rotate(90f){
                 drawArc(
@@ -68,12 +68,10 @@ fun ChartEws(
                     sweepAngle = 360 * currentPercentage.value,
                     useCenter = false,
                     style = Stroke(8.dp.toPx(),
-                        cap = StrokeCap.Round),
-
+                        cap = StrokeCap.Round
+                    ),
                 )
             }
-
-
         }
         Text(
             text = result,//percent.toString() ,//(currentPercentage.value*number).toInt().toString(),
@@ -91,5 +89,5 @@ fun Preview2(){
     ChartEws(
         percent = 0.2f,
 
-    )
+        )
 }
