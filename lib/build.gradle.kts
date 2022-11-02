@@ -20,13 +20,12 @@ android{
     composeOptions {
         kotlinCompilerExtensionVersion = Version.compose_compiler_version
     }
-
     publishing {
         singleVariant("release") {
             withSourcesJar()
+            withJavadocJar()
         }
     }
-
     compileOptions {
         // Flag to enable support for the new language APIs
         isCoreLibraryDesugaringEnabled =true
@@ -39,6 +38,21 @@ android{
         }
     }
 }
+
+publishing {
+    publications {
+        register<MavenPublication>("release") {
+            groupId = "com.cexup"
+            artifactId = "ui"
+            version = "1.0.0"
+
+            afterEvaluate {
+                from(components["release"])
+            }
+        }
+    }
+}
+
 dependencies {
 
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.0")
