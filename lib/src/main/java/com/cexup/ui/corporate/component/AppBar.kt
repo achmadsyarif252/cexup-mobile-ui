@@ -35,6 +35,7 @@ fun AppBar(
     goToPatient: (userCode: String) -> Unit = {},
     goToProfile: () -> Unit = {},
     checkUpPatient: (userCode: String) -> Unit = {},
+    onSearchPatient: (name: String) -> Unit = {},
     searchPatientUIState: SearchPatientUIState,
 ) {
     Row(
@@ -54,6 +55,7 @@ fun AppBar(
         Box {
             SearchPatient(
                 data = searchPatientUIState.data,
+                onSearchPatient = { onSearchPatient(it) },
                 onPatientDetail = { goToPatient(it) },
                 onCheckUp = { checkUpPatient(it) }
             )
