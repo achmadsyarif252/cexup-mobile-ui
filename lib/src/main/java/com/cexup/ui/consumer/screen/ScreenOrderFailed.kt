@@ -34,7 +34,7 @@ fun ScreenOrderFailed(
             Row(
                 modifier = modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp.from(ctx)),
+                    .padding(16.dp.from(ctx)),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 ButtonTextPrimary(
@@ -58,7 +58,7 @@ fun ScreenOrderFailed(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(it),
-            contentPadding= PaddingValues(horizontal = 16.dp.from(ctx)),
+            contentPadding= PaddingValues(16.dp.from(ctx)),
             verticalArrangement = Arrangement.spacedBy(24.dp.from(ctx))
         ) {
             item {
