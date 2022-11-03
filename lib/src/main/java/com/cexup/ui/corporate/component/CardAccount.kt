@@ -39,11 +39,6 @@ import com.cexup.ui.corporate.theme.Heading
 import com.cexup.ui.utils.coloredShadow
 import com.cexup.ui.utils.gridItems
 
-data class NurseData(
-    var name: String = "Nurse name",
-    var email: String = "Nurse email",
-)
-
 @ExperimentalPagerApi
 @ExperimentalComposeUiApi
 @ExperimentalAnimationApi
@@ -51,19 +46,21 @@ data class NurseData(
 @Composable
 fun CardAccount(
     modifier: Modifier = Modifier,
-    nurse: NurseData = NurseData()
+    name: String = "Nurse name",
+    email: String = "Nurse email",
 ) {
     val tabs = listOf(
         TabContentRow(header = "My Profile") {
-            EditProfile()
+            EditProfile(
+                name = name,
+                email = email,
+            )
         },
         TabContentRow(header = "Log Activity") {
             LogActivityTab()
         }
     )
     val pagerState = rememberPagerState()
-
-    val nurseDisplayName = nurse.name
     var qrCodeState by remember {
         mutableStateOf(false)
     }
@@ -197,7 +194,7 @@ fun CardAccount(
                                     .align(Alignment.Bottom)
                             ) {
                                 Text(
-                                    nurseDisplayName,
+                                    name,
                                     style = MaterialTheme.typography.body1.copy(
                                         color = Heading,
                                         fontSize = 18.sp,
@@ -264,13 +261,14 @@ fun CardAccount(
 @Composable
 fun EditProfile(
     modifier: Modifier = Modifier,
-    nurse: NurseData = NurseData(),
+    name: String = "Nurse name",
+    email: String = "Nurse email",
     aboutMeText: String = "",
 ) {
 
     var editPasswordState by remember { mutableStateOf(false) }
     val jobTitleState by remember { mutableStateOf("Nurse") }
-    val emailState by remember { mutableStateOf(nurse.email) }
+    val emailState by remember { mutableStateOf(email) }
     var editAboutMeState by remember {
         mutableStateOf(false)
     }
@@ -287,8 +285,7 @@ fun EditProfile(
             editPasswordState = false
         }
     )
-    val password by remember { mutableStateOf(nurse.name) }
-    var dot = listOf(
+    val dot = listOf(
         Octicons.DotFill16,
         Octicons.DotFill16,
         Octicons.DotFill16,
@@ -380,7 +377,7 @@ fun EditProfile(
                 .fillMaxWidth(),
             verticalArrangement = Arrangement.SpaceBetween
         ) {
-            var widthRowText = 75.dp
+            val widthRowText = 75.dp
             Row(
                 Modifier.fillMaxWidth()
             ) {
@@ -400,7 +397,7 @@ fun EditProfile(
                 }
                 Spacer(modifier = Modifier.width(30.dp))
                 Text(
-                    text = nurse.name.split(" ")[0],
+                    text = name.split(" ")[0],
                     style = MaterialTheme.typography.body1.copy(
                         fontSize = 16.sp,
                         fontWeight = FontWeight(500),
@@ -430,7 +427,7 @@ fun EditProfile(
 
                 Spacer(modifier = Modifier.width(30.dp))
                 Text(
-                    text = nurse.name.split(" ")[1],
+                    text = if (name.split(" ").size > 1) name.split(" ")[1] else "",
                     style = MaterialTheme.typography.body1.copy(
                         fontSize = 16.sp,
                         fontWeight = FontWeight(500),
@@ -533,13 +530,11 @@ fun EditProfile(
 }
 
 @Composable
-fun LogActivityTab(
-    modifier: Modifier = Modifier
-) {
+fun LogActivityTab() {
     LazyColumn(content = {
         gridItems(count = 5, columnCount = 2) {
             CardDoctorNotification(
-//                tumb = "",
+//                thumb = "",
                 doctor_name = "Dr. Linggassari",
                 status = "asked you to join in a video call",
                 time = "2 Minutes ago"
