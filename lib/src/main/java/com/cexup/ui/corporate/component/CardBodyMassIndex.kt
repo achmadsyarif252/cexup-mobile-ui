@@ -66,8 +66,7 @@ fun CardBodyMassIndex(
                             contentAlignment = Alignment.Center,
                             modifier = modifier.size(78.955.dp*2f)
                         ){
-                            val primaryBlue = MaterialTheme.colors.primary
-                            Canvas(modifier = modifier.size(78.955.dp*2f),){
+                            Canvas(modifier = modifier.size(78.955.dp*2f)){
                                 rotate(-45f){
                                     drawArc(
                                         brush = Brush.sweepGradient(
