@@ -12,8 +12,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cexup.ui.corporate.component.CardPatientInformation
-import com.cexup.ui.corporate.component.Registration
 import com.cexup.ui.corporate.theme.Heading
+
+data class Registration(
+    var name: String,
+    var no_type: String,
+    var home_address: String,
+    var phone_number: String,
+    var place_of_birth: String,
+    var date_of_birth: String,
+    var gender: String,
+)
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -36,7 +45,16 @@ fun ScreenRegisterPatient(
         )
         CardPatientInformation(
             onSubmitRegisterPatient = {
-                onRegisterPatient(it)
+                    name, no_type, home_address,
+                    phone_number, place_of_birth,
+                    date_of_birth, gender ->
+                onRegisterPatient(
+                    Registration(
+                        name, no_type, home_address,
+                        phone_number, place_of_birth,
+                        date_of_birth, gender
+                    )
+                )
             }
         )
     }

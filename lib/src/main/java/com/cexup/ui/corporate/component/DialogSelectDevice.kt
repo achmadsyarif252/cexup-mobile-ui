@@ -23,137 +23,106 @@ import com.cexup.ui.corporate.theme.BlueJade
 import com.cexup.ui.corporate.theme.fontsCorp
 import com.cexup.ui.R
 
-data class DevicesModel(
-    var name:String,
-    var mac:String,
-    var rssi:Int
-)
-
 @Composable
 fun DialogSelectDevice(
     show: Boolean,
-    deviceList: List<DevicesModel>,
-    onConnectSelectedDevice: (selectedDeviceAddress:String)->Unit,
-    onBack: () -> Unit,
+    deviceList: List<Pair<String, String>>, // name, mac address
+    onSelectedDevice:(deviceName:String)->Unit,
+    onBackPressed:()->Unit,
 ) {
     if (show) {
         Dialog(
-            onDismissRequest = { onBack() },
+            onDismissRequest = { onBackPressed() },
             properties = DialogProperties(
                 dismissOnBackPress = true,
                 dismissOnClickOutside = false
             )
         ) {
-            ScreenDialogSelectDevice(
-                deviceList = deviceList,
-                onSelectedDevice = {
-                    onConnectSelectedDevice(it)
-                },
-                onBackPressed = {
-                    onBack()
-                }
-            )
-        }
-    }
-
-
-}
-
-@Composable
-fun ScreenDialogSelectDevice(
-    deviceList: List<DevicesModel>,
-    onSelectedDevice:(deviceName:String)->Unit,
-    onBackPressed:()->Unit,
-) {
-
-    Column {
-        Box(
-            modifier = Modifier
-                .clip(
-                    RoundedCornerShape(20.dp)
-                )
-                .height(435.dp)
-                .width(357.dp)
-                .background(Color.White)
-
-        ) {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 23.dp)
-            ) {
-                Text(
-                    text = "Select Device",
-                    fontSize = 22.sp,
-                    fontFamily = fontsCorp,
-                    fontWeight = FontWeight.SemiBold,
-                    color = BlueJade
-                )
-                Spacer(modifier = Modifier.height(24.dp))
-                LazyColumn(
+            Column {
+                Box(
                     modifier = Modifier
-                        .width(300.dp)
-                        .height(250.dp),
-                    content = {
-                        items(deviceList) { device ->
-                            DeviceRow(
-                                device = device,
-                                onSelectDevice = { deviceAddress ->
-                                    onSelectedDevice(deviceAddress)
-                                }
-                            )
-                        }
-                    }
-                )
-                Spacer(modifier = Modifier.height(5.dp))
-                Text(
-                    text = "Scanning...",
-                    fontSize = 16.sp,
-                    fontFamily = fontsCorp,
-                    fontWeight = FontWeight(600),
-                    color = BlueJade
-
-                )
-                Spacer(modifier = Modifier.height(5.dp))
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier
-                        .fillMaxWidth()
-
-
+                        .clip(
+                            RoundedCornerShape(20.dp)
+                        )
+                        .height(435.dp)
+                        .width(357.dp)
+                        .background(Color.White)
                 ) {
-                    Button(
-                        onClick = {
-                            onBackPressed()
-                        },
-                        colors = ButtonDefaults.buttonColors(BlueJade),
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
                         modifier = Modifier
-                            .clip(RoundedCornerShape(10.dp))
-                            .height(40.dp)
-                            .width(288.dp)
-
+                            .fillMaxWidth()
+                            .padding(top = 23.dp)
                     ) {
                         Text(
-                            text = "Back",
+                            text = "Select Device",
+                            fontSize = 22.sp,
+                            fontFamily = fontsCorp,
+                            fontWeight = FontWeight.SemiBold,
+                            color = BlueJade
+                        )
+                        Spacer(modifier = Modifier.height(24.dp))
+                        LazyColumn(
+                            modifier = Modifier
+                                .width(300.dp)
+                                .height(250.dp),
+                            content = {
+                                items(deviceList) { device ->
+                                    DeviceRow(
+                                        name = device.first,
+                                        onSelectDevice = { deviceAddress ->
+                                            onSelectedDevice(deviceAddress)
+                                        }
+                                    )
+                                }
+                            }
+                        )
+                        Spacer(modifier = Modifier.height(5.dp))
+                        Text(
+                            text = "Scanning...",
                             fontSize = 16.sp,
                             fontFamily = fontsCorp,
                             fontWeight = FontWeight(600),
-                            color = Color.White
-
+                            color = BlueJade
                         )
-                    }
+                        Spacer(modifier = Modifier.height(5.dp))
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                        ) {
+                            Button(
+                                onClick = {
+                                    onBackPressed()
+                                },
+                                colors = ButtonDefaults.buttonColors(BlueJade),
+                                modifier = Modifier
+                                    .clip(RoundedCornerShape(10.dp))
+                                    .height(40.dp)
+                                    .width(288.dp)
 
+                            ) {
+                                Text(
+                                    text = "Back",
+                                    fontSize = 16.sp,
+                                    fontFamily = fontsCorp,
+                                    fontWeight = FontWeight(600),
+                                    color = Color.White
+
+                                )
+                            }
+                        }
+                    }
                 }
             }
-
         }
     }
 }
 
 @Composable
 fun DeviceRow(
-    device: DevicesModel,
+    name: String = "",
+    mac: String = "",
     onSelectDevice: (deviceAddress:String)->Unit,
 ) {
     Row(
@@ -166,7 +135,7 @@ fun DeviceRow(
             )
             .padding(top = 10.dp, bottom = 10.dp, start = 10.dp, end = 10.dp)
             .clickable {
-                onSelectDevice(device.mac)
+                onSelectDevice(mac)
             },
         horizontalArrangement = Arrangement.SpaceBetween
 
@@ -182,7 +151,7 @@ fun DeviceRow(
             )
             Spacer(modifier = Modifier.width(35.dp))
             Text(
-                text = device.name,
+                text = name,
                 fontSize = 16.sp,
                 fontFamily = fontsCorp,
                 fontWeight = FontWeight.Normal,
