@@ -53,7 +53,6 @@ fun ScreenWaist(
     )
     var selectedTypeWaist by remember { mutableStateOf(0) }
     var titleOfChart by remember { mutableStateOf("neck") }
-    var positionBodyIndex by remember { mutableStateOf(0) }
 
     var showDialogManualInput by remember { mutableStateOf(false) }
 
@@ -196,7 +195,6 @@ fun ScreenWaist(
                     Button(
                         onClick = {
                             selectedTypeWaist = index
-                            positionBodyIndex = index
                             titleOfChart = listOfTypeWaist[index]
                             onTypePress(listOfTypeWaist[index])
                         },
@@ -210,7 +208,6 @@ fun ScreenWaist(
                             .width(90.dp)
                             .selectable(selectedTypeWaist == index, onClick = {
                                 selectedTypeWaist = index
-                                positionBodyIndex = index
                                 titleOfChart = listOfTypeWaist[index]
                             }),
                         border = BorderStroke(
