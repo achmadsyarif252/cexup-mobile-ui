@@ -32,12 +32,6 @@ import com.cexup.ui.corporate.theme.Heading
 import com.cexup.ui.corporate.theme.SecondaryCorporate
 import com.cexup.ui.utils.CustomChartMarker
 
-data class LabelAndColorChart(
-    val label : String,
-    val colorLine : Int,
-    val coloGradient : Int
-)
-
 @Composable
 fun CardPatientHistory(
     modifier: Modifier = Modifier,
@@ -47,8 +41,8 @@ fun CardPatientHistory(
     data2:List<Entry>,
     maxAxis:Float,
     minAxis:Float,
-    label1 : LabelAndColorChart,
-    label2 : LabelAndColorChart,
+    label1 : Triple<String, Int, Int>,
+    label2 : Triple<String, Int, Int>,
     heightChart : Dp = 267.74.dp
 ){
     Row(
@@ -148,8 +142,8 @@ fun ChartPatientHistory(
     description: String,
     maxAxis: Float = 100f,
     minAxis: Float =0f,
-    label1 : LabelAndColorChart,
-    label2 : LabelAndColorChart
+    label1 : Triple<String, Int, Int>,
+    label2 : Triple<String, Int, Int>
 ){
     val isDark = isSystemInDarkTheme()
     val context = LocalContext.current
@@ -234,15 +228,15 @@ fun ChartPatientHistory(
                 view ->
 
             view.xAxis.valueFormatter  = XAxisTimeFormatter(xValueFormatter)
-            val lineDataSet = LineDataSet(data, label1.label)
-            val lineDataSet2 = LineDataSet(data2, label2.label)
+            val lineDataSet = LineDataSet(data, label1.first)
+            val lineDataSet2 = LineDataSet(data2, label2.first)
             lineDataSet.apply {
                 //make chart smooth
                 mode = LineDataSet.Mode.CUBIC_BEZIER
                 cubicIntensity = 0.05f
 
                 //set transparencyFF18A0FB
-                setColor(label1.colorLine,1000)
+                setColor(label1.second,1000)
                 //set value in each circle
                 setDrawValues(false)
                 //Part4 set color fill (area)
@@ -251,7 +245,7 @@ fun ChartPatientHistory(
 
                 lineWidth = 3f
 
-                fillDrawable = AppCompatResources.getDrawable(context, label1.coloGradient)
+                fillDrawable = AppCompatResources.getDrawable(context, label1.third)
 
             }
             lineDataSet2.apply {
@@ -260,7 +254,7 @@ fun ChartPatientHistory(
                 cubicIntensity = 0.05f
 
                 //set transparencyFF18A0FB
-                setColor(label2.colorLine,1000)
+                setColor(label2.second,1000)
                 //set value in each circle
                 setDrawValues(false)
                 //Part4 set color fill (area)
@@ -269,7 +263,7 @@ fun ChartPatientHistory(
 
                 lineWidth = 3f
 
-                fillDrawable = AppCompatResources.getDrawable(context, label2.coloGradient)
+                fillDrawable = AppCompatResources.getDrawable(context, label2.third)
 
             }
 
