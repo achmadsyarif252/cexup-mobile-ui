@@ -25,21 +25,19 @@ import com.cexup.ui.utils.coloredShadow
 import com.cexup.ui.R
 import com.cexup.ui.corporate.theme.SecondaryCorporate
 
-data class Registration(
-    var name: String,
-    var no_type: String,
-    var home_address: String,
-    var phone_number: String,
-    var place_of_birth: String,
-    var date_of_birth: String,
-    var gender: String,
-)
-
 @ExperimentalComposeUiApi
 @Composable
 fun CardPatientInformation(
     modifier: Modifier = Modifier,
-    onSubmitRegisterPatient: (registration: Registration) -> Unit,
+    onSubmitRegisterPatient: (
+        name: String,
+        no_type: String,
+        home_address: String,
+        phone_number: String,
+        place_of_birth: String,
+        date_of_birth: String,
+        gender: String,
+    ) -> Unit,
 ) {
     var patientName by remember { mutableStateOf("") }
     var nik by remember { mutableStateOf("") }
@@ -57,16 +55,15 @@ fun CardPatientInformation(
 
 
     fun onClickNext() {
-        val data = Registration(
-            name = patientName,
-            no_type = nik,
-            home_address = address,
-            phone_number = phoneNumber,
-            place_of_birth = placeOfBirth,
-            date_of_birth = dateOfBirth,
-            gender = selectedOption.lowercase()
+        onSubmitRegisterPatient(
+            patientName,
+            nik,
+            address,
+            phoneNumber,
+            placeOfBirth,
+            dateOfBirth,
+            selectedOption.lowercase()
         )
-        onSubmitRegisterPatient(data)
     }
 
 
