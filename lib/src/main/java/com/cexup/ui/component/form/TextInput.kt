@@ -1,6 +1,8 @@
 package com.cexup.ui.component.form
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.MaterialTheme
@@ -12,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.insets.navigationBarsWithImePadding
 
 @Composable
 fun TextInput(
@@ -48,7 +49,7 @@ fun TextInput(
             keyboardType = keyboardType
         ),
         modifier = modifier
-            .navigationBarsWithImePadding()
+            .navigationBarsPadding().imePadding()
             .clickable { onClick() },
         shape = RoundedCornerShape(8.dp),
         colors = TextFieldDefaults.textFieldColors(
