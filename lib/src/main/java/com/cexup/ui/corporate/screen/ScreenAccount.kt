@@ -8,6 +8,11 @@ import androidx.compose.ui.Modifier
 import com.cexup.ui.corporate.component.CardAccount
 import com.google.accompanist.pager.ExperimentalPagerApi
 
+data class NurseData(
+    var name: String = "Nurse name",
+    var email: String = "Nurse email",
+)
+
 @OptIn(
     ExperimentalPagerApi::class,
     ExperimentalComposeUiApi::class,
@@ -17,6 +22,10 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 @Composable
 fun ScreenAccount(
     modifier: Modifier = Modifier,
+    nurseData: NurseData = NurseData(),
 ) {
-    CardAccount()
+    CardAccount(
+        name = nurseData.name,
+        email = nurseData.email,
+    )
 }
