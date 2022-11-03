@@ -24,10 +24,26 @@ import com.cexup.ui.corporate.component.*
 import com.cexup.ui.corporate.theme.*
 import com.cexup.ui.utils.gridItems
 
+data class LabelAndColorChart(
+    val label : String,
+    val colorLine : Int,
+    val colorGradient : Int
+)
+
 @Composable
 fun ScreenDashboard(
     onClickPatientList: () -> Unit,
     onClickDoctorList: () -> Unit,
+    newPatientLabelAndColorChart: LabelAndColorChart = LabelAndColorChart(
+        label = "New Patient",
+        colorLine = 0x18A0FB,
+        colorGradient = R.drawable.texture_fill_chart_new_patient
+    ),
+    oldPatientLabelAndColorChart: LabelAndColorChart = LabelAndColorChart(
+        label = "Old Patient",
+        colorLine = 0xF16A51,
+        colorGradient = R.drawable.texture_fill_chart_old_patient
+    ),
 ) {
     val listPatientDiseases by remember {
         mutableStateOf("Diabetes")
@@ -122,15 +138,15 @@ fun ScreenDashboard(
                         maxAxis = 10f,
                         minAxis = 0f,
                         name = "Patient History",
-                        label1 = LabelAndColorChart(
-                            label = "New Patient",
-                            colorLine = 0x18A0FB,
-                            coloGradient = R.drawable.texture_fill_chart_new_patient
+                        label1 = Triple(
+                            newPatientLabelAndColorChart.label,
+                            newPatientLabelAndColorChart.colorLine,
+                            newPatientLabelAndColorChart.colorGradient
                         ),
-                        label2 = LabelAndColorChart(
-                            label = "Old Patient",
-                            colorLine = 0xF16A51,
-                            coloGradient = R.drawable.texture_fill_chart_old_patient
+                        label2 = Triple(
+                            oldPatientLabelAndColorChart.label,
+                            oldPatientLabelAndColorChart.colorLine,
+                            oldPatientLabelAndColorChart.colorGradient
                         )
                     )
                     Spacer(modifier = Modifier.height(10.dp))
