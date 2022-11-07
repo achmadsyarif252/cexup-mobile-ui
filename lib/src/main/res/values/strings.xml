@@ -130,5 +130,10 @@
     <string name="oops">Oops!</string>
     <string name="search_no_result">We could not find results for \'%1$s\' at this search.</string>
     <string name="greet_nurse">Hi, %1$s!</string>
+    <string name="new_patient">New Patient</string>
+    <string name="old_patient">Old Patient</string>
+    <string name="nurse_name">Nurse name</string>
+    <string name="nurse_email">Nurse email</string>
+    <string name="no_data">"No Data to be shown!</string>
 
 </resources>
