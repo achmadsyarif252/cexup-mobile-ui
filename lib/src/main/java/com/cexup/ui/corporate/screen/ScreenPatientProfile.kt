@@ -9,6 +9,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -18,12 +19,13 @@ import com.cexup.ui.corporate.theme.Heading
 import com.github.mikephil.charting.data.Entry
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.rememberPagerState
+import com.cexup.ui.R
 
 enum class EwsState {
     SUCCESS, LOADING, FAILED
 }
 
-data class PatientData(
+data class PatientProfileUIState(
     var userCode: String = "Unknown",
     var name: String = "Unknown",
     var email: String = "Unknown",
@@ -35,7 +37,7 @@ data class PatientData(
     var currentDisease: String = "Unknown",
 )
 
-data class EwsData(
+data class EwsPatientProfileUIState(
     val userCode : String = "",
     val point: Int? = null,
     val result : String = "",
@@ -44,31 +46,44 @@ data class EwsData(
     val ewsState: EwsState,
 )
 
+data class PatientMeasurementUIState(
+    // label, entry
+    var dataBmi: Pair<List<String>, List<Entry>>,
+    var dataWaist: Pair<List<String>, List<Entry>>,
+    var dataTemp: Pair<List<String>, List<Entry>>,
+    var dataPulseOxiMeter: Pair<List<String>, List<Entry>>,
+    var dataHeartRate: Pair<List<String>, List<Entry>>,
+)
+
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun ScreenPatientProfile(
     modifier: Modifier = Modifier,
-    patientData: PatientData?,
-    ewsData: EwsData,
-    dataBmi: Pair<List<String>, List<Entry>>,
-    dataWaist: Pair<List<String>, List<Entry>>,
-    dataTemp: Pair<List<String>, List<Entry>>,
-    dataPulseOximeter: Pair<List<String>, List<Entry>>,
-    dataHeartRate: Pair<List<String>, List<Entry>>,
+    patientProfileUIState: PatientProfileUIState,
+    ewsPatientProfileUIState: EwsPatientProfileUIState,
+    patientMeasurementUIState: PatientMeasurementUIState,
 ) {
     val scrollState = rememberScrollState()
     val pagerState = rememberPagerState()
     val tabs = listOf(
-        TabContentRow(header = "Patient Information") {
-            CardPatientProfileInformation()
+        TabContentRow(header = stringResource(id = R.string.patient_information)) {
+            CardPatientProfileInformation(
+                name = patientProfileUIState.name,
+                email = patientProfileUIState.email,
+                date_of_birth = patientProfileUIState.date_of_birth,
+                gender = patientProfileUIState.gender,
+                status = patientProfileUIState.status,
+                address = patientProfileUIState.address,
+                phone_number = patientProfileUIState.phone_number,
+            )
         },
-        TabContentRow(header = "Summary") {
+        TabContentRow(header = stringResource(id = R.string.summary)) {
             CardSummary(
-                dataBmi = dataBmi,
-                dataWaist = dataWaist,
-                dataHeartRate = dataHeartRate,
-                dataPulseOximeter = dataPulseOximeter,
-                dataTemp = dataTemp,
+                dataBmi = patientMeasurementUIState.dataBmi,
+                dataWaist = patientMeasurementUIState.dataWaist,
+                dataTemp = patientMeasurementUIState.dataTemp,
+                dataPulseOximeter = patientMeasurementUIState.dataPulseOxiMeter,
+                dataHeartRate = patientMeasurementUIState.dataHeartRate,
             )
         }
     )
@@ -86,8 +101,8 @@ fun ScreenPatientProfile(
                     .verticalScroll(scrollState)
             ) {
                 CardPatientProfile(
-                    patientName = patientData?.name ?: "empty name",
-                    patientMail = patientData?.email ?: "empty mail"
+                    patientName = patientProfileUIState.name,
+                    patientMail = patientProfileUIState.email,
                 )
                 Spacer(modifier = modifier.height(16.dp))
                 TabView(
@@ -107,7 +122,7 @@ fun ScreenPatientProfile(
             content = {
                 item {
                     Text(
-                        text = "Early Warning Score",
+                        text = stringResource(id = R.string.early_warning_score),
                         fontSize = 15.sp,
                         style = MaterialTheme.typography.body1,
                         fontWeight = FontWeight(700),
@@ -115,15 +130,15 @@ fun ScreenPatientProfile(
                         modifier = modifier.padding(bottom = 3.dp)
                     )
                     CardEarlyWarningScore(
-                        ews = when (ewsData.ewsState) {
-                            EwsState.SUCCESS -> ewsData.point ?: 0
+                        ews = when (ewsPatientProfileUIState.ewsState) {
+                            EwsState.SUCCESS -> ewsPatientProfileUIState.point ?: 0
                             EwsState.LOADING -> 0
                             EwsState.FAILED -> 0
                         }
                     )
                     Spacer(modifier = modifier.height(16.dp))
                     Text(
-                        text = "Electronic Medical Record",
+                        text = stringResource(id = R.string.electronic_medical_record),
                         fontSize = 15.sp,
                         style = MaterialTheme.typography.body1,
                         fontWeight = FontWeight(700),
@@ -136,7 +151,7 @@ fun ScreenPatientProfile(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = "This month",
+                            text = stringResource(id = R.string.this_month),
                             fontSize = 12.sp,
                             style = MaterialTheme.typography.body1,
                             fontWeight = FontWeight.Normal,
@@ -144,7 +159,7 @@ fun ScreenPatientProfile(
                             modifier = modifier.padding(bottom = 3.dp)
                         )
                         Text(
-                            text = "View All",
+                            text = stringResource(id = R.string.view_all),
                             fontSize = 12.sp,
                             style = MaterialTheme.typography.body1,
                             fontWeight = FontWeight.Normal,

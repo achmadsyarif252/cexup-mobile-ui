@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -24,7 +25,7 @@ import com.cexup.ui.corporate.component.*
 import com.cexup.ui.corporate.theme.*
 import com.cexup.ui.utils.gridItems
 
-data class LabelAndColorChart(
+data class ChartUIState(
     val label : String,
     val colorLine : Int,
     val colorGradient : Int
@@ -34,12 +35,12 @@ data class LabelAndColorChart(
 fun ScreenDashboard(
     onClickPatientList: () -> Unit,
     onClickDoctorList: () -> Unit,
-    newPatientLabelAndColorChart: LabelAndColorChart = LabelAndColorChart(
+    newPatientChartUIState: ChartUIState = ChartUIState(
         label = "New Patient",
         colorLine = 0x18A0FB,
         colorGradient = R.drawable.texture_fill_chart_new_patient
     ),
-    oldPatientLabelAndColorChart: LabelAndColorChart = LabelAndColorChart(
+    oldPatientChartUIState: ChartUIState = ChartUIState(
         label = "Old Patient",
         colorLine = 0xF16A51,
         colorGradient = R.drawable.texture_fill_chart_old_patient
@@ -76,7 +77,7 @@ fun ScreenDashboard(
                     ) {
                         CardCount(
                             imageId = R.drawable.image_patient_dashboard,
-                            title = "Today's Patient",
+                            title = stringResource(id = R.string.today_patient),
                             countValue = 124,
                             onNavigate = {
                                 onClickPatientList()
@@ -85,7 +86,7 @@ fun ScreenDashboard(
                         Spacer(modifier = Modifier.width(32.dp))
                         CardCount(
                             imageId = R.drawable.image_patient_dashboard,
-                            title = "Our Doctors",
+                            title = stringResource(id = R.string.our_doctors),
                             countValue = 19,
                             onNavigate = {
                                 onClickDoctorList()
@@ -137,16 +138,16 @@ fun ScreenDashboard(
                             ),
                         maxAxis = 10f,
                         minAxis = 0f,
-                        name = "Patient History",
+                        name = stringResource(id = R.string.patient_history),
                         label1 = Triple(
-                            newPatientLabelAndColorChart.label,
-                            newPatientLabelAndColorChart.colorLine,
-                            newPatientLabelAndColorChart.colorGradient
+                            newPatientChartUIState.label,
+                            newPatientChartUIState.colorLine,
+                            newPatientChartUIState.colorGradient
                         ),
                         label2 = Triple(
-                            oldPatientLabelAndColorChart.label,
-                            oldPatientLabelAndColorChart.colorLine,
-                            oldPatientLabelAndColorChart.colorGradient
+                            oldPatientChartUIState.label,
+                            oldPatientChartUIState.colorLine,
+                            oldPatientChartUIState.colorGradient
                         )
                     )
                     Spacer(modifier = Modifier.height(10.dp))
