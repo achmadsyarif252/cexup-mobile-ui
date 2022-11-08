@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -22,7 +23,7 @@ import com.cexup.ui.utils.capitalizeWords
 import com.cexup.ui.utils.coloredShadow
 import com.cexup.ui.utils.gridItems
 
-data class DoctorData(
+data class DoctorDataUIState(
     var title: String = "",
     var specialty: String = "",
 )
@@ -34,7 +35,7 @@ enum class DoctorState {
 @Composable
 fun ScreenDoctors(
     modifier: Modifier = Modifier,
-    listDoctor: List<DoctorData>,
+    listDoctor: List<DoctorDataUIState>,
     doctorState: DoctorState = DoctorState.LOADING,
     onBack: () -> Unit = {},
 ) {
@@ -47,7 +48,7 @@ fun ScreenDoctors(
             modifier = modifier.fillMaxWidth()
         ) {
             Text(
-                text = "Doctors List",
+                text = stringResource(id = R.string.doctor_list),
                 style = MaterialTheme.typography.body1.copy(
                     color = Heading,
                     fontSize = 22.sp,
@@ -93,7 +94,7 @@ fun ScreenDoctors(
                             )
                             Spacer(modifier = modifier.height(10.dp))
                             Text(
-                                text = "There’re no Doctors List for you to see yet. if you\nwant to add doctor list contact super admin user",
+                                text = stringResource(id = R.string.no_list_doctor2),
                                 style = MaterialTheme.typography.body1.copy(
                                     fontSize = 12.sp,
                                     fontWeight = FontWeight(600),
@@ -117,7 +118,7 @@ fun ScreenDoctors(
                                 )
                             ) {
                                 Text(
-                                    text = "Go around",
+                                    text = stringResource(id = R.string.go_back),
                                     style = MaterialTheme.typography.body1.copy(
                                         fontSize = 16.sp,
                                         fontWeight = FontWeight(600),
