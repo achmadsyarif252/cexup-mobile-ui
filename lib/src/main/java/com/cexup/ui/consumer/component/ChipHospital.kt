@@ -74,6 +74,6 @@ fun ChipHospital(
 @Composable
 fun PreviewChipHospital() {
     ConsumerTheme {
-        ChipHospital()
+        ChipHospital(hospitalName = "Rumah Sakit UI")
     }
 }
