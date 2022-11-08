@@ -124,7 +124,7 @@
     <string name="health_condition">Health Condition</string>
     
     <string name="no_list_doctor">No List Doctors</string>
-    <string name="no_list_doctor2">There\'s no Doctors List for you to see yet. if you want to add doctor list contact super admin user</string>
+    <string name="no_list_doctor2">There\'s no Doctors List for you to see yet. if you\nwant to add doctor list contact super admin user</string>
     <string name="go_back">Go back</string>
     <string name="no_list_patient">There\’re no Patients List for you to see yet. If you want add data new patient, just click Add Patient.</string>
     <string name="oops">Oops!</string>
@@ -135,5 +135,29 @@
     <string name="nurse_name">Nurse name</string>
     <string name="nurse_email">Nurse email</string>
     <string name="no_data">"No Data to be shown!</string>
+    <string name="my_profile">My Profile</string>
+    <string name="activity_log">Activity Log</string>
+    <string name="nurse">Nurse</string>
+    <string name="session_active">Session Active</string>
+    <string name="doctor_list">Doctor List</string>
+    <string name="patient_information">Patient Information</string>
+    <string name="summary">Summary</string>
+    <string name="early_warning_score">Early Warning Score</string>
+    <string name="electronic_medical_record">Electronic Medical Record</string>
+    <string name="this_month">This month</string>
+    <string name="view_all">View All</string>
+    <string name="today_patient">Today\'s Patient</string>
+    <string name="our_doctors">Our Doctors</string>
+    <string name="patient_history">Patient History</string>
+    <string name="questionnaire">Questionnaire</string>
+    <string name="submit">Submit</string>
+
+    <!-- Questionnaire Type-->
+    <string name="questionnaire_type_radio">radio</string>
+    <string name="questionnaire_type_checkbox">checkbox</string>
+    <string name="questionnaire_type_essay">essay</string>
+    <string name="questionnaire_type_date">date</string>
+    <string name="questionnaire_type_image">image</string>
+    <!-- Questionnaire Type-->
 
 </resources>

@@ -18,6 +18,7 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -46,17 +47,17 @@ import com.cexup.ui.utils.gridItems
 @Composable
 fun CardAccount(
     modifier: Modifier = Modifier,
-    name: String = "Nurse name",
-    email: String = "Nurse email",
+    name: String = stringResource(id = R.string.nurse_name),
+    email: String = stringResource(id = R.string.nurse_email),
 ) {
     val tabs = listOf(
-        TabContentRow(header = "My Profile") {
+        TabContentRow(header = stringResource(id = R.string.my_profile)) {
             EditProfile(
                 name = name,
                 email = email,
             )
         },
-        TabContentRow(header = "Log Activity") {
+        TabContentRow(header = stringResource(id = R.string.activity_log)) {
             LogActivityTab()
         }
     )
@@ -202,7 +203,7 @@ fun CardAccount(
                                     )
                                 )
                                 Text(
-                                    "Nurse",
+                                    stringResource(id = R.string.nurse),
                                     style = MaterialTheme.typography.body1.copy(
                                         color = ColorGray,
                                         fontSize = 16.sp,
@@ -211,7 +212,8 @@ fun CardAccount(
                             }
                         }
                         SwipeCall(
-                            session = "Session Active", doctor_name = "Dr. Kholid",
+                            session = stringResource(id = R.string.session_active),
+                            doctor_name = "Dr. Kholid",
                             profile = ""
                         )
                     }
