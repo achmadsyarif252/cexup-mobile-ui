@@ -21,31 +21,35 @@ import com.cexup.ui.corporate.component.*
 import com.cexup.ui.corporate.theme.*
 import com.github.mikephil.charting.data.Entry
 
+data class BodyMassIndexDataUIState(
+    var height: Float = 0f,
+    var bodyMassIndex: Float = 0f,
+    var weight: Float = 0f,
+    var bodyFatRate: Float = 0f,
+    var subFat: Float = 0f,
+    var visFat: Float = 0f,
+    var water: Float = 0f,
+    var muscleRate: Float = 0f,
+    var muscleMass: Float = 0f,
+    var boneMass: Float = 0f,
+    var bodyMassRate: Float = 0f,
+    var protein: Float = 0f,
+    var leanBodyWeight: Float = 0f,
+    var bodyAge: Float = 0f,
+    var obesityDegree: Float = 0f,
+    var bodyType: Int = 0,
+    var listEntryBodyMassIndex: Pair<List<String>, List<Entry>>,
+)
+
 @Composable
 fun ScreenBodyMassIndex(
     modifier: Modifier = Modifier,
     resultAnalytic: Int,
     colorAnalytic: Int,
-    valueOfHeight: Float = 0f,
-    valueOfBmi: Float = 0f,
-    valueOfWeight: Float = 0f,
-    valueOfBfr: Float = 0f,
-    valueOfSubFat: Float = 0f,
-    valueOfVisFat: Float = 0f,
-    valueOfWater: Float = 0f,
-    valueOfMuscleRate: Float = 0f,
-    valueOfMuscleMass: Float = 0f,
-    valueOfBoneMass: Float = 0f,
-    valueOfBmr: Float = 0f,
-    valueOfProtein: Float = 0f,
-//    valueOfLbw: Float = 0f,
-    valueOfBodyAge: Float = 0f,
-//    valueOfObesityDegree: Float = 0f,
-    valueOfBodyType: Int = 0,
+    bodyMassIndexDataUIState: BodyMassIndexDataUIState,
     deviceStatus: String,
-    listEntry: Pair<List<String>, List<Entry>>,
     onBackPress: () -> Unit,
-    onSave: (weight :Float, height: Float) -> Unit = { _, _ -> },
+    onSave: (weight :Float, height: Float) -> Unit,
     onCalculateBmi: (weight: Float, height: Float) -> Float,
 ) {
     val scrollState = rememberScrollState()
@@ -167,7 +171,7 @@ fun ScreenBodyMassIndex(
                         if(isSaveManualInput)
                             valueHeight
                         else
-                            valueOfHeight,
+                            bodyMassIndexDataUIState.height,
                         parameterName = "Height",
                         parameterUnit = "cm",
                         color = Heading,
@@ -183,7 +187,7 @@ fun ScreenBodyMassIndex(
                             onCalculateBmi(valueWeight, valueHeight)
                         }
                         else
-                            valueOfBmi,
+                            bodyMassIndexDataUIState.bodyMassIndex,
                         parameterName = "Result BMI",
                         parameterUnit = "kg/m2",
                         color = Heading,
@@ -214,7 +218,7 @@ fun ScreenBodyMassIndex(
                         if(isSaveManualInput)
                             valueWeight
                         else
-                            valueOfWeight,
+                            bodyMassIndexDataUIState.weight,
                         parameterName = "Weight",
                         parameterUnit = "kg",
                         color = SecondaryCorporate,
@@ -231,8 +235,8 @@ fun ScreenBodyMassIndex(
                 elevation = 1.dp
             ) {
                 BaseChartView(
-                    data = listEntry.second,
-                    name = listEntry.first,
+                    data = bodyMassIndexDataUIState.listEntryBodyMassIndex.second,
+                    name = bodyMassIndexDataUIState.listEntryBodyMassIndex.first,
                     description = "Body Mass Index",
                     maxAxis = 50f,
                     minAxis = 0f,
@@ -253,12 +257,12 @@ fun ScreenBodyMassIndex(
                 ) {
                     CardBmiBodyWeight(
                         type = 1,
-                        value = (valueWeight * (1 - (valueOfBfr/100))).toString(),
+                        value = (valueWeight * (1 - (bodyMassIndexDataUIState.bodyFatRate/100))).toString(),
                         colorOfValue = LightGreen,
                         satuan = "kg",
                         analyticName = "Fat-free Body Weight"
                     )
-                    when(valueOfBodyType) {
+                    when(bodyMassIndexDataUIState.bodyType) {
                         0 -> bodyTypeStr = "No Body Type"
                         1 -> bodyTypeStr = "Hidden obesity"
                         2 -> bodyTypeStr = "Lack of exercise"
@@ -285,7 +289,7 @@ fun ScreenBodyMassIndex(
                 ) {
                     CardBmiBodyWeight(
                         type = 2,
-                        value = "$valueOfBfr",
+                        value = "${bodyMassIndexDataUIState.bodyFatRate}",
                         colorOfValue = LightGreen,
                         satuan = "%",
                         analyticName = "Body Fat"
@@ -295,7 +299,7 @@ fun ScreenBodyMassIndex(
                         analyticName = "Subcutaneous Fat",
                         analytic = "High",
                         colorOfValue = LightOrange,
-                        value = "$valueOfSubFat",
+                        value = "${bodyMassIndexDataUIState.subFat}",
                         satuan = "%"
                     )
                 }
@@ -307,13 +311,13 @@ fun ScreenBodyMassIndex(
                 ) {
                     CardBmiBodyWeight(
                         type = 2,
-                        value = "$valueOfVisFat",
+                        value = "${bodyMassIndexDataUIState.visFat}",
                         colorOfValue = LightGreen,
                         analyticName = "Visceral Fat"
                     )
                     CardBmiBodyWeight(
                         type = 2,
-                        value = "$valueOfMuscleRate",
+                        value = "${bodyMassIndexDataUIState.muscleRate}",
                         colorOfValue = LightGreen,
                         satuan = "%",
                         analyticName = "Skeletal Muscle"
@@ -327,14 +331,14 @@ fun ScreenBodyMassIndex(
                 ) {
                     CardBmiBodyWeight(
                         type = 2,
-                        value = "$valueOfMuscleMass",
+                        value = "${bodyMassIndexDataUIState.muscleMass}",
                         colorOfValue = LightGreen,
                         satuan = "kg",
                         analyticName = "Muscle Mass"
                     )
                     CardBmiBodyWeight(
                         type = 2,
-                        value = "$valueOfWater",
+                        value = "${bodyMassIndexDataUIState.water}",
                         colorOfValue = LightGreen,
                         satuan = "%",
                         analyticName = "Body Water"
@@ -348,14 +352,14 @@ fun ScreenBodyMassIndex(
                 ) {
                     CardBmiBodyWeight(
                         type = 2,
-                        value = "$valueOfBoneMass",
+                        value = "${bodyMassIndexDataUIState.boneMass}",
                         colorOfValue = LightGreen,
                         satuan = "kg",
                         analyticName = "Bone Mass"
                     )
                     CardBmiBodyWeight(
                         type = 2,
-                        value = "$valueOfProtein",
+                        value = "${bodyMassIndexDataUIState.protein}",
                         colorOfValue = LightGreen,
                         satuan = "%",
                         analyticName = "Protein"
@@ -369,7 +373,7 @@ fun ScreenBodyMassIndex(
                 ) {
                     CardBmiBodyWeight(
                         type = 4,
-                        value = "$valueOfBmr",
+                        value = "${bodyMassIndexDataUIState.bodyMassRate}",
                         colorOfValue = LightOrange,
                         satuan = "kcal",
                         analyticName = "BMR",
@@ -377,7 +381,7 @@ fun ScreenBodyMassIndex(
                     )
                     CardBmiBodyWeight(
                         type = 2,
-                        value = "$valueOfBodyAge",
+                        value = "${bodyMassIndexDataUIState.bodyAge}",
                         colorOfValue = LightGreen,
                         satuan = "",
                         analyticName = "Metabolic Age"
@@ -394,8 +398,8 @@ fun ScreenBodyMassIndex(
                 elevation = 1.dp
             ) {
                 BaseChartView(
-                    data = listEntry.second,
-                    name = listEntry.first,
+                    data = bodyMassIndexDataUIState.listEntryBodyMassIndex.second,
+                    name = bodyMassIndexDataUIState.listEntryBodyMassIndex.first,
                     description = "Fat Analytic",
                     maxAxis = 150f,
                     minAxis = 50f,
