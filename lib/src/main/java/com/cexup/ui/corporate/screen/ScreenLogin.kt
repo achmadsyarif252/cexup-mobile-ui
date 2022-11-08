@@ -42,6 +42,7 @@ import com.cexup.ui.utils.noRippleClick
 fun ScreenLogin(
     shouldShowLoading: Boolean,
     onForgetPassword: () -> Unit,
+    scaffoldState: ScaffoldState,
     onLogin: (username: String, password: String, isRemember: Boolean) -> Unit,
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -58,7 +59,9 @@ fun ScreenLogin(
     var readyToDraw by remember { mutableStateOf(false) }
     var scaledTextStyle by remember { mutableStateOf(TextStyle()) }
 
-    Scaffold {
+    Scaffold(
+        scaffoldState = scaffoldState
+    ) {
         Row(
             modifier = Modifier
                 .fillMaxSize()
