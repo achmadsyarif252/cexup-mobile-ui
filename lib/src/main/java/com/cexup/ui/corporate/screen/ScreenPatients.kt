@@ -28,7 +28,7 @@ import com.cexup.ui.utils.coloredShadow
 @Composable
 fun ScreenPatients(
     modifier: Modifier = Modifier,
-    listPatient: List<PatientData>,
+    listPatient: List<PatientProfileUIState>,
     onGetPatient:(isNext: Boolean) -> Unit,
     onClickPatient: (userCode: String) -> Unit,
     next: Int,
