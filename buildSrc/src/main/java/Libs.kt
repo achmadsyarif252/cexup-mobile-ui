@@ -87,6 +87,9 @@ object Libs {
                 val iconsExtended by lazy { "androidx.compose.material:material-icons-extended:${Version.compose_version}" }
                 val material by lazy {"androidx.compose.material:material:${Version.compose_version}"}
             }
+            object Paging {
+                val paging by lazy { "androidx.paging:paging-compose:1.0.0-alpha17" }
+            }
         }
         object Navigation{
             val navigationCompose by lazy { "androidx.navigation:navigation-compose:2.5.1" }

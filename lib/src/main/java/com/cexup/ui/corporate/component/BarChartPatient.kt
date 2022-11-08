@@ -1,5 +1,6 @@
 package com.cexup.ui.corporate.component
 
+import android.content.res.Resources
 import android.view.ContextThemeWrapper
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -95,8 +96,7 @@ fun BarChartPatient(
                 setPinchZoom(true)
 
                 //Part9
-
-                setNoDataText("No Data to be shown!")
+                setNoDataText(context.getString(R.string.no_data))
 
                 //Part10
                 animateX(1800, Easing.EaseInExpo)
@@ -112,8 +112,12 @@ fun BarChartPatient(
                 view ->
 
             view.xAxis.valueFormatter  = XAxisTimeFormatter(xValueFormatter)
-            val lineDataSet = BarDataSet(data, "New Pasien")
-            val lineDataSet2 = BarDataSet(data2, "Old Pasien")
+            val lineDataSet = BarDataSet(
+                data, context.getString(R.string.new_patient)
+            )
+            val lineDataSet2 = BarDataSet(
+                data2, context.getString(R.string.old_patient)
+            )
             lineDataSet.apply {
                 //make chart smooth
                 barBorderWidth = 0.9f
