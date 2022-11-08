@@ -27,10 +27,14 @@ import com.cexup.ui.corporate.theme.Heading
 import com.cexup.ui.corporate.theme.SecondaryCorporate
 import com.github.mikephil.charting.data.Entry
 
-data class BloodPressureData(
+data class BloodPressureDataUIState(
     var systole : Int = 0,
     var diastole : Int = 0,
     var heartRate : Int = 0,
+    // label, entry
+    var listEntrySystole : Pair<List<String>, List<Entry>> = Pair(listOf(), listOf()),
+    var listEntryDiastole: Pair<List<String>, List<Entry>> = Pair(listOf(), listOf()),
+    var listEntryPulse: Pair<List<String>, List<Entry>> = Pair(listOf(), listOf()),
 )
 
 @Composable
@@ -39,13 +43,10 @@ fun ScreenBloodPressure(
     resultAnalytic: Int,
     colorAnalytic: Int,
     deviceStatus: Boolean,
-    bloodPressureData: BloodPressureData = BloodPressureData(),
-    listEntrySystole: Pair<List<String>, List<Entry>> = Pair(listOf(), listOf()),
-    listEntryDiastole: Pair<List<String>, List<Entry>> = Pair(listOf(), listOf()),
-    listEntryPulse: Pair<List<String>, List<Entry>> = Pair(listOf(), listOf()),
+    bloodPressureDataUIState: BloodPressureDataUIState = BloodPressureDataUIState(),
     isReadDataEnabled: Boolean,
     onReadData: () -> Unit,
-    onSave: (Systole: Int, Diastole: Int, PulseRate: Int) -> Unit = { _, _, _ ->},
+    onSave: (Systole: Int, Diastole: Int, PulseRate: Int) -> Unit,
     onButtonBackPressed: () -> Unit,
 ) {
     val scrollState = rememberScrollState()
@@ -166,7 +167,7 @@ fun ScreenBloodPressure(
                         if (isSaveManualInput)
                             systoleValue
                         else
-                            bloodPressureData.systole.toString(),
+                            bloodPressureDataUIState.systole.toString(),
                     )
                     Spacer(modifier = Modifier.height(20.dp))
                     Card(
@@ -177,8 +178,8 @@ fun ScreenBloodPressure(
                             .fillMaxHeight()
                     ) {
                         BaseChartView(
-                            data = listEntrySystole.second,
-                            name = listEntrySystole.first,
+                            data = bloodPressureDataUIState.listEntrySystole.second,
+                            name = bloodPressureDataUIState.listEntrySystole.first,
                             description = "Systole", //deskripsi heartrate,temperature,SpO2,Respiratory
                             maxAxis = 200f,
                             minAxis = 20f,
@@ -198,7 +199,7 @@ fun ScreenBloodPressure(
                         if(isSaveManualInput)
                             diastoleValue
                         else
-                            bloodPressureData.diastole.toString()
+                            bloodPressureDataUIState.diastole.toString()
                     )
                     Spacer(modifier = Modifier.height(20.dp))
                     Card(
@@ -209,8 +210,8 @@ fun ScreenBloodPressure(
                             .fillMaxHeight()
                     ) {
                         BaseChartView(
-                            data = listEntryDiastole.second,
-                            name = listEntryDiastole.first,
+                            data = bloodPressureDataUIState.listEntryDiastole.second,
+                            name = bloodPressureDataUIState.listEntryDiastole.first,
                             description = "Diastole", //deskripsi heartrate,temperature,SpO2,Respiratory
                             maxAxis = 200f,
                             minAxis = 20f,
@@ -230,7 +231,7 @@ fun ScreenBloodPressure(
                         if(isSaveManualInput)
                             pulseValue
                         else
-                            bloodPressureData.heartRate.toString()
+                            bloodPressureDataUIState.heartRate.toString()
                     )
                     Spacer(modifier = Modifier.height(20.dp))
                     Card(
@@ -241,8 +242,8 @@ fun ScreenBloodPressure(
                             .fillMaxHeight()
                     ) {
                         BaseChartView(
-                            data = listEntryPulse.second,
-                            name = listEntryPulse.first,
+                            data = bloodPressureDataUIState.listEntryPulse.second,
+                            name = bloodPressureDataUIState.listEntryPulse.first,
                             description = "Pulse", //deskripsi heartrate,temperature,SpO2,Respiratory
                             maxAxis = 200f,
                             minAxis = 20f,
