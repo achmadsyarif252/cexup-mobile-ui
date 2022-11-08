@@ -6,13 +6,13 @@ plugins {
 }
 
 android{
-    compileSdk = 32
+    compileSdk = 33
     defaultConfig {
         aarMetadata {
             minCompileSdk = 23
         }
         minSdk = 23
-        targetSdk = 32
+        targetSdk = 33
     }
     buildFeatures {
         compose= true
@@ -66,6 +66,7 @@ dependencies {
         implementation(Libs.AndroidX.Compose.Material.material)
         implementation(Libs.AndroidX.Compose.Material.icons)
         implementation(Libs.AndroidX.Compose.Material.iconsExtended)
+        implementation(Libs.AndroidX.Compose.Paging.paging)
 
 
 
