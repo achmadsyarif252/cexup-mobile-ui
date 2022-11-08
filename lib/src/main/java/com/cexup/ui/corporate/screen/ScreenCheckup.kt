@@ -2,7 +2,6 @@ package com.cexup.ui.corporate.screen
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -13,6 +12,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.itemsIndexed
 import com.cexup.ui.R
 import com.cexup.ui.corporate.component.*
 import com.cexup.ui.corporate.theme.Heading
@@ -20,18 +21,23 @@ import com.cexup.ui.utils.gridItems
 import compose.icons.Octicons
 import compose.icons.octicons.Sync24
 
+data class PatientPagingItemUIState(
+    var name: String = "",
+    var userCode: String = "",
+)
+
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun ScreenCheckup(
     featureList: List<PhysicalExamination>,
     onClickSyncToCloud: () -> Unit,
-    patients: List<Pair<String, String>>,
+    patients: LazyPagingItems<PatientPagingItemUIState>,
     onPatientSelected: (String) -> Unit,
 ) {
     val listState = rememberLazyListState()
     var stateSelected by remember { mutableStateOf("") }
     var statePhysicalExamination by remember { mutableStateOf(false) }
-    var selectedPatient by remember { mutableStateOf(Pair(first = "", second = "")) }
+    var selectedPatient by remember { mutableStateOf(PatientPagingItemUIState()) }
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -52,15 +58,15 @@ fun ScreenCheckup(
                 content = {
                     itemsIndexed(patients) { _, patient ->
                         CardMedicalInspection(
-                            name = patient.first,
-                            userCode = patient.second,
+                            name = patient?.name ?: "",
+                            userCode = patient?.userCode ?: "",
                             thumb = "",
-                            selectedState = stateSelected == patient.second,
+                            selectedState = stateSelected == patient?.userCode,
                             onClick = {
                                 stateSelected = it
                                 statePhysicalExamination = true
-                                selectedPatient = patient
-                                onPatientSelected(patient.second)
+                                selectedPatient = PatientPagingItemUIState()
+                                onPatientSelected(patient?.userCode ?: "")
                             },
                         )
                     }
@@ -107,7 +113,7 @@ fun ScreenCheckup(
                                 ),
                             )
                             Text(
-                                text = selectedPatient.first,
+                                text = selectedPatient.name,
                                 style = MaterialTheme.typography.body1.copy(
                                     color = Heading,
                                     fontSize = 16.sp,
@@ -150,7 +156,7 @@ fun ScreenCheckup(
                             value2 = feature.value2 ?: "",
                             typePhysicalExamination = feature.typePhysicalExamination,
                         ) {
-                            feature.onClick(selectedPatient.second)
+                            feature.onClick(selectedPatient.userCode)
                         }
                     }
                 } else {
