@@ -12,6 +12,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
@@ -32,14 +33,21 @@ import com.cexup.ui.R
 import com.cexup.ui.component.chart.BaseChartView
 import com.cexup.ui.corporate.theme.GreyBlackStetoscope
 
+data class TemperatureDataUIState(
+    var patientName:String,
+    var patientUserCode:String,
+    var patientThumb:String,
+    var resultAnalytic: Int,
+    var colorAnalytic: Int,
+    var value: Float,
+    var deviceStatus: Boolean,
+    var listEntryTemperature: Pair<List<String>, List<Entry>> = //Label, Entry(x,y)
+        Pair(listOf("label"), listOf(Entry(0f,0f))),
+)
+
 @Composable
 fun ScreenTemperature(
-    modifier: Modifier = Modifier,
-    resultAnalytic: Int,
-    colorAnalytic: Int,
-    value: Float,
-    deviceStatus: Boolean,
-    listEntryTemperature: Pair<List<String>, List<Entry>>,
+    temperatureDataUIState: TemperatureDataUIState,
     onSave: (temp: Float) -> Unit,
     onButtonBackPressed: () -> Unit,
 ) {
@@ -58,29 +66,34 @@ fun ScreenTemperature(
         }
     )
     Column(
-        modifier = modifier
-            .fillMaxHeight()
-            .fillMaxWidth()
-            .padding(30.dp)
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(horizontal = 30.dp)
+            .verticalScroll(scrollState)
     ) {
+        Spacer(modifier = Modifier.height(30.dp))
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(10.dp)
         ) {
-            CardPatientInFeature(thumb = "", name = "John Stones", id = 2202020)
+            CardPatientInFeature(
+                thumb = temperatureDataUIState.patientThumb,
+                name = temperatureDataUIState.patientName,
+                id = temperatureDataUIState.patientUserCode.toLong()
+            )
             Spacer(modifier = Modifier.weight(1f))
             Button(
                 onClick = {
                     showDialogManualInput = true
                 } ,
-                modifier = modifier
+                modifier = Modifier
                     .height(35.dp),
                 colors = ButtonDefaults.buttonColors(backgroundColor = BlueJade),
                 shape = RoundedCornerShape(10.dp),
                 contentPadding = PaddingValues(horizontal = 11.dp)
             ){
                 Text(
-                    text = "Input Manual",
+                    text = stringResource(id = R.string.corporate_input_manual),
                     style = MaterialTheme.typography.body1.copy(
                         fontWeight = FontWeight(600),
                         fontSize = 14.sp,
@@ -93,7 +106,7 @@ fun ScreenTemperature(
                 onClick = {
                     onButtonBackPressed()
                 },
-                modifier = modifier
+                modifier = Modifier
                     .width(89.dp)
                     .height(35.dp),
                 colors = ButtonDefaults.buttonColors(backgroundColor = SecondaryCorporate),
@@ -101,7 +114,7 @@ fun ScreenTemperature(
                 contentPadding = PaddingValues(horizontal = 11.dp)
             ) {
                 Text(
-                    text = "Back",
+                    text = stringResource(id = R.string.corporate_back),
                     style = MaterialTheme.typography.body1.copy(
                         fontWeight = FontWeight(600),
                         fontSize = 14.sp,
@@ -111,126 +124,104 @@ fun ScreenTemperature(
                 )
             }
         }
+
+        Row(
+            modifier = Modifier
+                .align(CenterHorizontally)
+                .background(Heading, RoundedCornerShape(10.dp))
+                .padding(18.dp),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_thermometer),
+                contentDescription = "Temperature",
+                modifier = Modifier
+                    .size(28.dp)
+                    .align(Alignment.CenterVertically)
+            )
+            Text(
+                text =
+                if(isSaveManualInput)
+                    valueTemperature.toString()
+                else
+                    temperatureDataUIState.value.toString(),
+                style = MaterialTheme.typography.body1.copy(
+                    fontWeight = FontWeight(700),
+                    fontSize = 28.sp,
+                    letterSpacing = 1.sp,
+                    color = Color.White,
+                ),
+                modifier = Modifier
+                    .align(Alignment.CenterVertically)
+                    .padding(top = 5.dp),
+            )
+            Text(
+                text = "o",
+                style = MaterialTheme.typography.body1.copy(
+                    fontWeight = FontWeight(500),
+                    fontSize = 12.sp,
+                    letterSpacing = 1.sp,
+                    color = Color.White,
+                ),
+                modifier = Modifier.padding(bottom = 20.dp),
+            )
+            Text(
+                text = "C",
+                style = MaterialTheme.typography.body1.copy(
+                    fontWeight = FontWeight(700),
+                    fontSize = 28.sp,
+                    letterSpacing = 1.sp,
+                    color = Color.White,
+                ),
+                modifier = Modifier
+                    .align(Alignment.CenterVertically)
+                    .padding(top = 5.dp),
+            )
+        }
+
+        Text(
+            text = stringResource(id = temperatureDataUIState.resultAnalytic),
+            style = MaterialTheme.typography.body1.copy(
+                fontWeight = FontWeight(600),
+                fontSize = 22.sp,
+                letterSpacing = 1.sp,
+                color = colorResource(id = temperatureDataUIState.colorAnalytic)
+            ),
+            modifier = Modifier.align(CenterHorizontally)
+        )
+
+        Text(
+            text = "Device Status : ${if (temperatureDataUIState.deviceStatus) "Connected" else "Disconnected"}",
+            style = MaterialTheme.typography.body1.copy(
+                fontWeight = FontWeight(600),
+                fontSize = 12.sp,
+                letterSpacing = 1.sp,
+                color = GreyBlackStetoscope
+            ),
+            modifier = Modifier.align(CenterHorizontally)
+        )
+
+
         Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight()
-                .verticalScroll(scrollState)
-        )
-        {
-            Row(
-                modifier = modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center
-            ) {
-                Row(
-                    modifier = modifier
-                        .background(Heading, RoundedCornerShape(10.dp))
-                        .padding(horizontal = 18.dp, vertical = 18.dp),
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_thermometer),
-                        contentDescription = "Temperature",
-                        modifier = modifier
-                            .size(28.dp)
-                            .align(Alignment.CenterVertically)
-                    )
-                    Text(
-                        text =
-                        if(isSaveManualInput)
-                            valueTemperature.toString()
-                        else
-                            value.toString(),
-                        style = MaterialTheme.typography.body1.copy(
-                            fontWeight = FontWeight(700),
-                            fontSize = 28.sp,
-                            letterSpacing = 1.sp,
-                            color = Color.White,
-                        ),
-                        modifier = modifier
-                            .align(Alignment.CenterVertically)
-                            .padding(top = 5.dp),
-                    )
-                    Text(
-                        text = "o",
-                        style = MaterialTheme.typography.body1.copy(
-                            fontWeight = FontWeight(500),
-                            fontSize = 12.sp,
-                            letterSpacing = 1.sp,
-                            color = Color.White,
-                        ),
-                        modifier = modifier.padding(bottom = 20.dp),
-                    )
-                    Text(
-                        text = "C",
-                        style = MaterialTheme.typography.body1.copy(
-                            fontWeight = FontWeight(700),
-                            fontSize = 28.sp,
-                            letterSpacing = 1.sp,
-                            color = Color.White,
-                        ),
-                        modifier = modifier
-                            .align(Alignment.CenterVertically)
-                            .padding(top = 5.dp),
-                    )
-
-                }
-            }
-
-            Row(
-                modifier = modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center
-            ) {
-                Text(
-                    text = stringResource(id = resultAnalytic),
-                    style = MaterialTheme.typography.body1.copy(
-                        fontWeight = FontWeight(600),
-                        fontSize = 22.sp,
-                        letterSpacing = 1.sp,
-                        color = colorResource(id = colorAnalytic)
-                    ),
-                    modifier = modifier.padding(5.dp)
-                )
-            }
-            Column(
-                modifier = modifier.fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-
-                Row(
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    Text(
-                        text = "Device Status : ${if (deviceStatus) "Connected" else "Disconnected"}",
-                        style = MaterialTheme.typography.body1.copy(
-                            fontWeight = FontWeight(600),
-                            fontSize = 12.sp,
-                            letterSpacing = 1.sp,
-                            color = GreyBlackStetoscope
-                        ),
-                        modifier = modifier.padding(5.dp)
-                    )
-                }
-            }
-            Column(
-                modifier = modifier
-                    .fillMaxWidth()
-                    .height(300.dp)
-            ) {
-                BaseChartView(
-                    data = listEntryTemperature.second,
-                    name = listEntryTemperature.first,
-                    description = "Temperature",
-                    maxAxis = 200f,
-                    minAxis = 20f,
-                    legends = listLegendTemperature,
-                    limitLine = limitLineTemperature
-                )
-
-            }
+                .height(300.dp)
+        ) {
+            BaseChartView(
+                data = temperatureDataUIState.listEntryTemperature.second,
+                name = temperatureDataUIState.listEntryTemperature.first,
+                description = "Temperature",
+                maxAxis = 45f,
+                minAxis = 25f,
+                legends = listLegendTemperature,
+                limitLine = limitLineTemperature
+            )
 
         }
+
+
+
+        Spacer(modifier = Modifier.height(30.dp))
 
     }
 }

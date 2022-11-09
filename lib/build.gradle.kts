@@ -87,6 +87,7 @@ dependencies {
     implementation(Libs.AndroidX.Appcompat.appcompat)
     implementation(Libs.Io.CoilKt.coilCompose)
     implementation(Libs.Com.Github.Skydoves.landscapist)
+    implementation(Libs.JodaTime.jodaTime)
 
 
 

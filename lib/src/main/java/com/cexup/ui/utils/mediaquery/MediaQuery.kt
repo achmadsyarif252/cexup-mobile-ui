@@ -2,6 +2,7 @@ package com.cexup.ui.utils.mediaquery
 
 import android.content.Context
 import android.util.DisplayMetrics
+import android.util.Log
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -24,12 +25,13 @@ import kotlin.math.sqrt
  */
 fun Dp.from(
     ctx:Context,
-    defaultScreenWidth: Double = 375.0,
-    defaultScreenHeight: Double = 812.0
+    defaultScreenWidth: Double = 1003.0,
+    defaultScreenHeight: Double = 627.0
 ): Dp{
     val density = ctx.resources.displayMetrics.density
     val currentW=  ctx.resources.displayMetrics.heightPixels.dp/density
     val currentH = ctx.resources.displayMetrics.widthPixels.dp/density
+
     val currentDiagonalScreen = sqrt(currentW.value.toDouble().pow(2)+currentH.value.toDouble().pow(2)).dp
 
     //now design using size with w = 375 h = 812
@@ -39,7 +41,7 @@ fun Dp.from(
 
     val resultCompare = currentDiagonalScreen.value/defScreenDiagonal
 
-    val result = (this.value*resultCompare).toInt()
+    val result = (this.value*resultCompare)
 
     return  result.dp
 
@@ -51,8 +53,8 @@ fun Dp.from(
 
 fun TextUnit.from(
     ctx: Context,
-    defaultScreenWidth: Double = 375.0,
-    defaultScreenHeight: Double = 812.0
+    defaultScreenWidth: Double = 1003.0,
+    defaultScreenHeight: Double = 627.0
 ): TextUnit{
     val density = ctx.resources.displayMetrics.density
     val currentW=  ctx.resources.displayMetrics.heightPixels.dp/density
@@ -66,7 +68,7 @@ fun TextUnit.from(
     val defScreenDiagonal = sqrt(defWidth + defHeight)
 
     val resultCompare = currentDiagonalScreen.value/defScreenDiagonal
-    val result = (this.value*resultCompare).toInt()
+    val result = (this.value*resultCompare)
 
     return  result.sp
 

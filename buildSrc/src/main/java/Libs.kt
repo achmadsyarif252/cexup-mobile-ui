@@ -134,6 +134,9 @@ object Libs {
     object Junit {
         val junit by lazy { "junit:junit:4.13.2" }
     }
+    object JodaTime {
+        val jodaTime by lazy { "joda-time:joda-time:2.10.13" }
+    }
 
 
 }

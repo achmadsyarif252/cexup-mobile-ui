@@ -9,14 +9,18 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
@@ -24,6 +28,7 @@ import com.cexup.ui.corporate.theme.Heading
 import com.cexup.ui.utils.coloredShadow
 import com.cexup.ui.R
 import com.cexup.ui.corporate.theme.SecondaryCorporate
+import com.cexup.ui.utils.mediaquery.from
 
 @ExperimentalComposeUiApi
 @Composable
@@ -39,6 +44,7 @@ fun CardPatientInformation(
         gender: String,
     ) -> Unit,
 ) {
+    val ctx = LocalContext.current
     var patientName by remember { mutableStateOf("") }
     var nik by remember { mutableStateOf("") }
     var address by remember { mutableStateOf("") }
@@ -50,7 +56,7 @@ fun CardPatientInformation(
     val keyboardController = LocalSoftwareKeyboardController.current
     val scrollState = rememberScrollState()
 
-    val radioOptions = listOf("Laki-laki", "Perempuan")
+    val radioOptions = listOf(stringResource(id = R.string.laki_laki), stringResource(id = R.string.perempuan))
     var selectedOption by remember { mutableStateOf(radioOptions[0]) }
 
 
@@ -71,20 +77,19 @@ fun CardPatientInformation(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(10.dp)
+            .padding(10.dp.from(ctx))
             .verticalScroll(scrollState),
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         Row(
             modifier = modifier
                 .fillMaxWidth()
-                .padding(horizontal = 10.dp),
+                .padding(horizontal = 10.dp.from(ctx)),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
-
         ) {
             Row(
-                modifier = modifier.width(210.dp),
+                modifier = modifier.width(160.dp.from(ctx)),
                 horizontalArrangement = Arrangement.Center
             ) {
                 Box(
@@ -94,8 +99,8 @@ fun CardPatientInformation(
                 ) {
                     Box(
                         modifier = modifier
-                            .width(96.dp)
-                            .height(94.dp)
+                            .width(96.dp.from(ctx))
+                            .height(94.dp.from(ctx))
                     ) {
                         Image(
                             rememberImagePainter(data = imageProfileBitmap, builder = {
@@ -106,15 +111,19 @@ fun CardPatientInformation(
                             modifier = modifier
                                 .clip(CircleShape)
                                 .coloredShadow(MaterialTheme.colors.primary)
-                                .size(96.dp)
-                                .border(width = 1.dp, color = Heading, shape = CircleShape),
+                                .size(96.dp.from(ctx))
+                                .border(
+                                    width = 1.dp.from(ctx),
+                                    color = Heading,
+                                    shape = CircleShape
+                                ),
                             contentScale = ContentScale.Crop,
                         )
                     }
                     Box(
                         modifier = modifier
                             .clip(CircleShape)
-                            .size(24.dp)
+                            .size(24.dp.from(ctx))
                             .background(Heading)
                             .align(Alignment.BottomEnd)
                             .clickable { },
@@ -123,136 +132,126 @@ fun CardPatientInformation(
                         Image(
                             painter = painterResource(id = R.drawable.ic_edit_pencil),
                             contentDescription = "pencil",
-                            modifier = modifier.size(12.dp)
+                            modifier = modifier.size(12.dp.from(ctx))
                         )
                     }
 
                 }
             }
-
-
             FormTextField(
                 placeholderText = "John Doe",
-                nameTextField = "Full name",
+                nameTextField = stringResource(id = R.string.full_name),
                 valueTextField = patientName,
                 onValueChange = {
                     patientName = it
-                }
+                },
+                typeTextField = 2
             )
-
             FormTextField(
-                nameTextField = "NIK",
+                nameTextField = stringResource(id = R.string.nik),
                 placeholderText = "16 digits",
                 valueTextField = nik,
                 onValueChange = {
                     nik = it
-                }
+                },
+                keyboardType = KeyboardType.Number,
+                typeTextField = 2
             )
-
-
         }
         Row(
             modifier = modifier
                 .fillMaxWidth()
-                .padding(10.dp),
+                .padding(horizontal = 10.dp.from(ctx)),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             FormTextField(
-                nameTextField = "Address",
+                nameTextField = stringResource(id = R.string.address),
                 placeholderText = "Jl. Bhakti",
                 valueTextField = address,
                 onValueChange = {
                     address = it
-                }
+                },
+                typeTextField = 2
             )
 
             FormTextField(
-                nameTextField = "Place of Birth",
+                nameTextField = stringResource(id = R.string.place_of_birth),
                 placeholderText = "Bogor",
                 valueTextField = placeOfBirth,
                 onValueChange = {
                     placeOfBirth = it
-                }
+                },
+                typeTextField = 2
             )
 
             FormTextField(
-                nameTextField = "Date of Birth",
+                nameTextField = stringResource(id = R.string.date_of_birth),
                 placeholderText = "yyyy-mm-dd (1993-09-27)",
                 valueTextField = dateOfBirth,
                 onValueChange = {
                     dateOfBirth = it
-                }
+                },
+                typeTextField = 1
             )
-
-
         }
 
         Row(
             modifier = modifier
                 .fillMaxWidth()
-                .padding(10.dp),
-            horizontalArrangement = Arrangement.Start
+                .padding(10.dp.from(ctx)),
+            horizontalArrangement = Arrangement.spacedBy(21.dp.from(ctx))
         ) {
             FormTextField(
-                nameTextField = "Phone Number",
+                nameTextField = stringResource(id = R.string.phone_number),
                 placeholderText = "081284591248",
                 valueTextField = phoneNumber,
                 onValueChange = {
                     phoneNumber = it
-                }
+                },
+                keyboardType = KeyboardType.Number,
+                typeTextField = 2
             )
 
-            Column(modifier = Modifier) {
+            Column(modifier = Modifier.width(170.dp.from(ctx))) {
                 Text(
-                    text = "Gender",
+                    text = stringResource(id = R.string.gender),
                     fontSize = 16.sp,
                     fontWeight = FontWeight(400),
                     style = MaterialTheme.typography.body1,
                     color = Heading,
-                    modifier = Modifier.padding(horizontal = 16.dp)
+                    modifier = Modifier.padding(horizontal = 16.dp.from(ctx))
                 )
-                Row {
-                    radioOptions.forEach { text ->
-                        Row(
-                            modifier = Modifier
-                                .selectable(
-                                    selected = (text == selectedOption),
-                                    onClick = { selectedOption = text }
-                                )
-                                .padding(horizontal = 2.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            RadioButton(
+                radioOptions.forEachIndexed() {index, text ->
+                    Row(
+                        modifier = Modifier
+                            .height(35.dp.from(ctx))
+                            .fillMaxWidth()
+                            .selectable(
                                 selected = (text == selectedOption),
-                                modifier = Modifier.padding(vertical = 6.dp),
-                                onClick = {
-                                    selectedOption = text
-                                }
-                            )
-                            Text(
-                                text = text,
-                                modifier = Modifier.padding(start = 2.dp)
-                            )
-                        }
+                                onClick = { selectedOption = text }
+                            ),
+                    ) {
+                        RadioButton(
+                            selected = (text == selectedOption),
+                            onClick = {
+                                selectedOption = text
+                            }
+                        )
+                        Text(
+                            text = text,
+                            modifier = Modifier
+                                .padding(start = 2.dp.from(ctx))
+                                .align(CenterVertically)
+                        )
                     }
                 }
+
             }
-
-
-
-        }
-
-        Box(
-            modifier = modifier
-                .fillMaxWidth()
-                .padding(10.dp),
-            contentAlignment = Alignment.CenterEnd
-        ) {
             Row(
                 modifier = modifier
-                    .width(208.dp)
-                    .height(94.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
+                    .width(210.dp.from(ctx))
+                    .height(94.dp.from(ctx)),
+                horizontalArrangement = Arrangement.spacedBy(8.dp.from(ctx)),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Button(
@@ -260,35 +259,33 @@ fun CardPatientInformation(
                         keyboardController?.hide()
                     },
                     modifier = modifier
-                        .width(100.dp)
-                        .height(38.54.dp),
+                        .width(90.dp.from(ctx))
+                        .height(38.54.dp.from(ctx)),
                     colors = ButtonDefaults.buttonColors(backgroundColor = SecondaryCorporate),
-                    shape = RoundedCornerShape(10.dp),
-                    contentPadding = PaddingValues(horizontal = 11.dp)
+                    shape = RoundedCornerShape(10.dp.from(ctx)),
+                    contentPadding = PaddingValues(horizontal = 11.dp.from(ctx))
                 ) {
 
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.Center
                     ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.ic_cancel),
-                            contentDescription = "cancel",
-                            modifier = modifier.size(12.dp)
-                        )
                         Text(
-                            text = "Cancel",
+                            text = stringResource(id = R.string.cancel),
                             style = MaterialTheme.typography.body1.copy(
                                 fontWeight = FontWeight(600),
                                 fontSize = 14.sp,
                                 letterSpacing = 1.sp,
                                 color = Color.White
                             ),
-                            modifier = modifier.padding(5.dp)
+                            modifier = modifier.padding(5.dp.from(ctx))
+                        )
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_cancel),
+                            contentDescription = "Cancel",
+                            modifier = modifier.size(12.dp.from(ctx))
                         )
                     }
-
-
                 }
 
                 Button(
@@ -297,39 +294,35 @@ fun CardPatientInformation(
                         onClickNext()
                     },
                     modifier = modifier
-                        .width(100.dp)
-                        .height(38.54.dp),
+                        .width(90.dp.from(ctx))
+                        .height(38.54.dp.from(ctx)),
                     colors = ButtonDefaults.buttonColors(backgroundColor = Heading),
-                    shape = RoundedCornerShape(10.dp),
-                    contentPadding = PaddingValues(horizontal = 11.dp)
+                    shape = RoundedCornerShape(10.dp.from(ctx)),
+                    contentPadding = PaddingValues(horizontal = 11.dp.from(ctx))
                 ) {
 
                     Row(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = "Next",
+                            text = stringResource(id = R.string.next),
                             style = MaterialTheme.typography.body1.copy(
                                 fontWeight = FontWeight(600),
                                 fontSize = 14.sp,
                                 letterSpacing = 1.sp,
                                 color = Color.White
                             ),
-                            modifier = modifier.padding(5.dp)
+                            modifier = modifier.padding(5.dp.from(ctx))
                         )
                         Image(
                             painter = painterResource(id = R.drawable.ic_right_arrow),
-                            contentDescription = "cancel",
-                            modifier = modifier.size(12.dp)
+                            contentDescription = "Next",
+                            modifier = modifier.size(12.dp.from(ctx))
                         )
                     }
-
-
                 }
             }
         }
-
-
     }
 
 }
