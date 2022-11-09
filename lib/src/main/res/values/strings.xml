@@ -155,7 +155,16 @@
     <string name="bmr">BMR</string>
     <string name="metabolic_age">Metabolic Age</string>
     <string name="fat_analytic">Fat Analytic</string>
-
+    <string name="input">Input</string>
+    <string name="measuring_circumference">Measuring Circumference</string>
+    <string name="neck">Neck</string>
+    <string name="waist">Waist</string>
+    <string name="shoulder">Shoulder</string>
+    <string name="hip">Hip</string>
+    <string name="arm">Arm</string>
+    <string name="thigh">Thigh</string>
+    <string name="chest">Chest</string>
+    <string name="calf">Calf</string>
 
     <string name="laki_laki">Laki-laki</string>
     <string name="perempuan">Perempuan</string>
