@@ -36,7 +36,7 @@ import com.cexup.ui.corporate.theme.GreyBlackStetoscope
 data class TemperatureDataUIState(
     var patientName:String,
     var patientUserCode:String,
-    var patientThumb:String,
+    var patientThumb:String = "",
     var resultAnalytic: Int,
     var colorAnalytic: Int,
     var value: Float,

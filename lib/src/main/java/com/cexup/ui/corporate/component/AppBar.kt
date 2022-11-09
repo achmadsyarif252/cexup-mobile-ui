@@ -15,6 +15,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -25,6 +26,7 @@ import com.cexup.ui.R
 import com.cexup.ui.corporate.screen.SearchPatientUIState
 import com.cexup.ui.utils.coloredShadow
 import com.cexup.ui.corporate.theme.Heading
+import com.cexup.ui.utils.mediaquery.from
 import com.skydoves.landscapist.CircularReveal
 import com.skydoves.landscapist.coil.CoilImage
 
@@ -38,20 +40,21 @@ fun AppBar(
     onSearchPatient: (name: String) -> Unit = {},
     searchPatientUIState: SearchPatientUIState,
 ) {
+    val ctx = LocalContext.current
     Row(
     modifier = modifier
         .fillMaxWidth()
-        .padding(top = 35.dp),
+        .padding(top = 35.dp.from(ctx)),
     horizontalArrangement = Arrangement.Center
     ) {
         Image(
             painter = painterResource(id = R.drawable.logo_corporate),
             contentDescription = "",
             modifier = modifier
-                .height(44.83.dp)
-                .width(114.03.dp)
+                .height(44.83.dp.from(ctx))
+                .width(114.03.dp.from(ctx))
         )
-        Spacer(modifier = modifier.width(64.45.dp))
+        Spacer(modifier = modifier.width(64.45.dp.from(ctx)))
         Box {
             SearchPatient(
                 data = searchPatientUIState.data,
@@ -61,27 +64,27 @@ fun AppBar(
             )
         }
 
-        Spacer(modifier = Modifier.width(31.42.dp))
+        Spacer(modifier = Modifier.width(31.42.dp.from(ctx)))
 
         Button(
             onClick = { goToAddPatient() },
-            shape = RoundedCornerShape(25.dp),
+            shape = RoundedCornerShape(25.dp.from(ctx)),
             colors = ButtonDefaults.buttonColors(Heading),
-            elevation = ButtonDefaults.elevation(2.dp),
+            elevation = ButtonDefaults.elevation(2.dp.from(ctx)),
             modifier = modifier
-                .width(167.64.dp)
-                .height(51.66.dp)
+                .width(167.64.dp.from(ctx))
+                .height(51.66.dp.from(ctx))
         ) {
             Image(
                 painter = painterResource(id = R.drawable.ic_plus_white),
                 contentDescription = "",
                 modifier = modifier
-                    .size(19.49.dp)
+                    .size(19.49.dp.from(ctx))
             )
-            Spacer(modifier = Modifier.width(6.dp))
+            Spacer(modifier = Modifier.width(6.dp.from(ctx)))
             Text(
                 text = stringResource(R.string.corporate_add_patient),
-                fontSize = 16.sp,
+                fontSize = 16.sp.from(ctx),
                 style = MaterialTheme.typography.body1.copy(
                     fontWeight = FontWeight(600)
                 ),
@@ -89,14 +92,14 @@ fun AppBar(
             )
 
         }
-        Spacer(modifier = Modifier.width(30.29.dp))
+        Spacer(modifier = Modifier.width(30.29.dp.from(ctx)))
         CardNotificationBar()
-        Spacer(modifier = Modifier.width(30.29.dp))
+        Spacer(modifier = Modifier.width(30.29.dp.from(ctx)))
         CoilImage(
             modifier = modifier
                 .clip(CircleShape)
                 .coloredShadow(MaterialTheme.colors.primary)
-                .size(51.66.dp)
+                .size(51.66.dp.from(ctx))
                 .clickable {
                     goToProfile()
                 },

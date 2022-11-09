@@ -10,14 +10,17 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.cexup.ui.R
+import com.cexup.ui.utils.mediaquery.from
 
 @Composable
 fun CardNotificationBar(
     modifier: Modifier = Modifier,
 ){
+    val ctx = LocalContext.current
     val expanded = remember {
         mutableStateOf(false)
     }
@@ -34,13 +37,13 @@ fun CardNotificationBar(
                 painter = painterResource(id = R.drawable.ic_notification),
                 contentDescription = "notification",
                 modifier = modifier
-                    .size(32.16.dp)
+                    .size(32.16.dp.from(ctx))
                     .align(alignment = Alignment.Center)
 
             )
         }
         DropdownMenu(
-            modifier = modifier.width(350.dp),
+            modifier = modifier.width(350.dp.from(ctx)),
             expanded = expanded.value,
             onDismissRequest = { expanded.value = false }
         ) {

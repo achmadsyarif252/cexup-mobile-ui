@@ -11,6 +11,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -19,6 +20,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.cexup.ui.corporate.theme.Heading
 import com.cexup.ui.corporate.theme.inactive
+import com.cexup.ui.utils.mediaquery.from
 import com.cexup.ui.utils.noRippleClick
 
 enum class SidebarMenuType {
@@ -42,6 +44,7 @@ fun SideBarCorporate(
     selectedRoute: String,
     listMenuSidebarCorporate: List<SidebarMenuModel>
 ) {
+    val ctx = LocalContext.current
     val scrollState = rememberScrollState()
     var logoutState by remember {
         mutableStateOf(false)
@@ -70,7 +73,7 @@ fun SideBarCorporate(
     ) {
         Column(
             modifier = modifier
-                .width(176.dp)
+                .width(176.dp.from(ctx))
                 .wrapContentHeight()
         ) {
             listMenuSidebarCorporate.forEach {
@@ -81,7 +84,7 @@ fun SideBarCorporate(
                     onNavigate = { onNavigate(path) },
                     onClick = { logoutState = true }
                 )
-                Spacer(modifier = Modifier.height(38.dp))
+                Spacer(modifier = Modifier.height(38.dp.from(ctx)))
             }
         }
     }
@@ -96,6 +99,7 @@ fun MenuItem(
     onNavigate: (route: String) -> Unit = {},
     onClick:()->Unit={},
 ) {
+    val ctx = LocalContext.current
     Column(
         modifier = modifier
             .noRippleClick {
@@ -120,20 +124,20 @@ fun MenuItem(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Row(
-                modifier = modifier.height(33.dp),
+                modifier = modifier.height(33.dp.from(ctx)),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Image(
                     painter = if (selected) painterResource(id = menuModel.selectedImage) else painterResource(id = menuModel.image) ,
                     contentDescription = "image drop down",
-                    modifier = modifier.size(29.24.dp)
+                    modifier = modifier.size(29.24f.dp.from(ctx))
                 )
-                Spacer(modifier = Modifier.width(14.62.dp))
+                Spacer(modifier = Modifier.width(14.62.dp.from(ctx)))
                 Text(
                     text = stringResource(id = menuModel.name),
                     color = if(selected) Heading else inactive,
                     style = MaterialTheme.typography.body1.copy(
-                        fontSize = 22.sp,
+                        fontSize = 22.sp.from(ctx),
                         fontWeight = FontWeight(600)
                     ),
                     modifier = modifier.align(Alignment.CenterVertically)

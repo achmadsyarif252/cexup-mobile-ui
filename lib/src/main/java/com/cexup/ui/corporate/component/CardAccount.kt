@@ -16,6 +16,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -39,6 +40,7 @@ import com.cexup.ui.corporate.theme.ColorGray
 import com.cexup.ui.corporate.theme.Heading
 import com.cexup.ui.utils.coloredShadow
 import com.cexup.ui.utils.gridItems
+import com.cexup.ui.utils.mediaquery.from
 
 @ExperimentalPagerApi
 @ExperimentalComposeUiApi
@@ -50,6 +52,7 @@ fun CardAccount(
     name: String = stringResource(id = R.string.nurse_name),
     email: String = stringResource(id = R.string.nurse_email),
 ) {
+    val ctx = LocalContext.current
     val tabs = listOf(
         TabContentRow(header = stringResource(id = R.string.my_profile)) {
             EditProfile(
@@ -75,15 +78,15 @@ fun CardAccount(
     Card(
         modifier = modifier
             .fillMaxSize()
-            .padding(end = 30.dp, start = 30.dp, bottom = 30.dp)
+            .padding(end = 30.dp.from(ctx), start = 30.dp.from(ctx), bottom = 30.dp.from(ctx))
             .coloredShadow(
                 color = Color.Black.copy(0.25f),
-                offsetY = 4.dp,
-                borderRadius = 27.dp,
-                shadowRadius = 2.dp
+                offsetY = 4.dp.from(ctx),
+                borderRadius = 27.dp.from(ctx),
+                shadowRadius = 2.dp.from(ctx)
             ),
-        elevation = 1.dp,
-        shape = RoundedCornerShape(27.dp)
+        elevation = 1.dp.from(ctx),
+        shape = RoundedCornerShape(27.dp.from(ctx))
     ) {
         Column {
             Box(
@@ -106,9 +109,9 @@ fun CardAccount(
                         error = ImageBitmap.imageResource(R.drawable.dummy_doctor),
 
                         modifier = Modifier
-                            .height(109.dp)
+                            .height(109.dp.from(ctx))
                             .fillMaxWidth()
-                            .clip(RoundedCornerShape(27.dp)),
+                            .clip(RoundedCornerShape(27.dp.from(ctx))),
                     )
                 }
                 Column {
@@ -118,32 +121,32 @@ fun CardAccount(
                     ) {
                         Box(
                             modifier = modifier
-                                .padding(top = 17.03.dp, end = 17.88.dp)
+                                .padding(top = 17.03.dp.from(ctx), end = 17.88.dp.from(ctx))
                                 .clip(CircleShape)
                                 .background(Heading)
-                                .width(28.dp)
-                                .height(28.dp),
+                                .width(28.dp.from(ctx))
+                                .height(28.dp.from(ctx)),
                             contentAlignment = Alignment.Center
                         ) {
                             Icon(
                                 Octicons.Pencil24, "",
                                 tint = Color.White,
-                                modifier = modifier.padding(5.dp)
+                                modifier = modifier.padding(5.dp.from(ctx))
                             )
                         }
                     }
                     Row(
                         modifier = modifier
                             .fillMaxWidth()
-                            .padding(horizontal = 20.dp),
+                            .padding(horizontal = 20.dp.from(ctx)),
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Row {
                             Box(
                                 modifier = modifier
-                                    .width(143.07.dp)
-                                    .height(143.07.dp)
+                                    .width(143.07.dp.from(ctx))
+                                    .height(143.07.dp.from(ctx))
                             ) {
                                 CoilImage(
                                     imageModel = ImageBitmap.imageResource(R.drawable.dummy_profile),
@@ -157,16 +160,16 @@ fun CardAccount(
                                     error = ImageBitmap.imageResource(R.drawable.dummy_doctor),
                                     modifier = modifier
                                         .clip(CircleShape)
-                                        .width(143.07.dp)
-                                        .height(143.07.dp)
+                                        .width(143.07.dp.from(ctx))
+                                        .height(143.07.dp.from(ctx))
                                 )
                                 Row(
                                     modifier = modifier
                                         .fillMaxWidth()
                                         .fillMaxHeight()
                                         .padding(
-                                            bottom = 11.dp,
-                                            end = 4.26.dp
+                                            bottom = 11.dp.from(ctx),
+                                            end = 4.26.dp.from(ctx)
                                         ),
                                     verticalAlignment = Alignment.Bottom,
                                     horizontalArrangement = Arrangement.End
@@ -175,14 +178,14 @@ fun CardAccount(
                                         modifier = modifier
                                             .clip(CircleShape)
                                             .background(Heading)
-                                            .width(28.dp)
-                                            .height(28.dp),
+                                            .width(28.dp.from(ctx))
+                                            .height(28.dp.from(ctx)),
                                         contentAlignment = Alignment.Center,
                                     ) {
                                         Icon(
                                             Octicons.Pencil24, "",
                                             tint = Color.White,
-                                            modifier = modifier.padding(5.dp)
+                                            modifier = modifier.padding(5.dp.from(ctx))
                                         )
                                     }
                                 }
@@ -191,14 +194,14 @@ fun CardAccount(
                             Column(
                                 modifier =
                                 modifier
-                                    .padding(start = 15.dp, bottom = 5.dp)
+                                    .padding(start = 15.dp.from(ctx), bottom = 5.dp.from(ctx))
                                     .align(Alignment.Bottom)
                             ) {
                                 Text(
                                     name,
                                     style = MaterialTheme.typography.body1.copy(
                                         color = Heading,
-                                        fontSize = 18.sp,
+                                        fontSize = 18.sp.from(ctx),
                                         fontWeight = FontWeight.Bold,
                                     )
                                 )
@@ -206,7 +209,7 @@ fun CardAccount(
                                     stringResource(id = R.string.nurse),
                                     style = MaterialTheme.typography.body1.copy(
                                         color = ColorGray,
-                                        fontSize = 16.sp,
+                                        fontSize = 16.sp.from(ctx),
                                     )
                                 )
                             }
@@ -220,12 +223,12 @@ fun CardAccount(
                 }
 
             }
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(10.dp.from(ctx)))
             Box {
                 Column(
                     modifier = modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 25.dp)
+                        .padding(horizontal = 25.dp.from(ctx))
                 ) {
                     TabView(tabContents = tabs, pagerState = pagerState)
                 }
@@ -234,7 +237,7 @@ fun CardAccount(
                     modifier = Modifier
                         .fillMaxWidth()
                         .fillMaxHeight()
-                        .padding(end = 30.dp, bottom = 93.dp),
+                        .padding(end = 30.dp.from(ctx), bottom = 93.dp.from(ctx)),
                     verticalArrangement = Arrangement.Bottom,
                     horizontalAlignment = Alignment.End
                 ) {
@@ -243,12 +246,12 @@ fun CardAccount(
                         shape = CircleShape,
                         backgroundColor = Heading,
                         contentColor = Color.White,
-                        modifier = modifier.size(40.88.dp)
+                        modifier = modifier.size(40.88.dp.from(ctx))
                     ) {
                         Image(
                             painter = painterResource(id = R.drawable.ic_qrcode_button),
                             contentDescription = "qr",
-                            modifier = modifier.size(22.dp)
+                            modifier = modifier.size(22.dp.from(ctx))
                         )
                     }
                 }
@@ -267,7 +270,7 @@ fun EditProfile(
     email: String = "Nurse email",
     aboutMeText: String = "",
 ) {
-
+    val ctx = LocalContext.current
     var editPasswordState by remember { mutableStateOf(false) }
     val jobTitleState by remember { mutableStateOf("Nurse") }
     val emailState by remember { mutableStateOf(email) }
@@ -298,29 +301,29 @@ fun EditProfile(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(top = 10.dp, bottom = 20.dp)
+            .padding(top = 10.dp.from(ctx), bottom = 20.dp.from(ctx))
     ) {
         Column(
             modifier = modifier
                 .fillMaxHeight()
-                .width(320.dp)
+                .width(320.dp.from(ctx))
         ) {
             Row(
                 modifier = modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
-                    text = "About Me",
+                    text = stringResource(id = R.string.about_me),
                     style = MaterialTheme.typography.body1.copy(
-                        fontSize = 16.sp,
+                        fontSize = 16.sp.from(ctx),
                         fontWeight = FontWeight(600),
                         color = GreyBlack
                     ),
                 )
                 Text(
-                    text = "Edit",
+                    text = stringResource(id = R.string.edit),
                     style = MaterialTheme.typography.body1.copy(
-                        fontSize = 16.sp,
+                        fontSize = 16.sp.from(ctx),
                         fontWeight = FontWeight(500),
                         color = inactive
                     ),
@@ -329,11 +332,11 @@ fun EditProfile(
                     }
                 )
             }
-            Spacer(modifier = Modifier.height(5.dp))
+            Spacer(modifier = Modifier.height(5.dp.from(ctx)))
             Text(
                 text = aboutMeText,
                 style = MaterialTheme.typography.body1.copy(
-                    fontSize = 16.sp,
+                    fontSize = 16.sp.from(ctx),
                     fontWeight = FontWeight(400),
                     color = GreyBlack,
                     textAlign = TextAlign.Justify
@@ -351,16 +354,16 @@ fun EditProfile(
                     painter = painterResource(id = R.drawable.ic_edit_password),
                     contentDescription = "edit password",
                     modifier = modifier
-                        .size(21.dp)
+                        .size(21.dp.from(ctx))
                         .noRippleClick {
                             editPasswordState = true
                         }
                 )
-                Spacer(modifier = Modifier.width(5.dp))
+                Spacer(modifier = Modifier.width(5.dp.from(ctx)))
                 Text(
-                    text = "Edit Password",
+                    text = stringResource(id = R.string.edit_password),
                     style = MaterialTheme.typography.body1.copy(
-                        fontSize = 16.sp,
+                        fontSize = 16.sp.from(ctx),
                         fontWeight = FontWeight(500),
                         color = inactive
                     ),
@@ -372,14 +375,14 @@ fun EditProfile(
 
             }
         }
-        Spacer(modifier = Modifier.width(45.dp))
+        Spacer(modifier = Modifier.width(45.dp.from(ctx)))
         Column(
             modifier = modifier
                 .fillMaxHeight()
                 .fillMaxWidth(),
             verticalArrangement = Arrangement.SpaceBetween
         ) {
-            val widthRowText = 75.dp
+            val widthRowText = 75.dp.from(ctx)
             Row(
                 Modifier.fillMaxWidth()
             ) {
@@ -387,9 +390,9 @@ fun EditProfile(
                     modifier = modifier.width(widthRowText)
                 ) {
                     Text(
-                        text = "First Name",
+                        text = stringResource(id = R.string.first_name),
                         style = MaterialTheme.typography.body1.copy(
-                            fontSize = 16.sp,
+                            fontSize = 16.sp.from(ctx),
                             fontWeight = FontWeight(500),
                             color = GreyBlack
                         ),
@@ -397,11 +400,11 @@ fun EditProfile(
                         overflow = TextOverflow.Ellipsis
                     )
                 }
-                Spacer(modifier = Modifier.width(30.dp))
+                Spacer(modifier = Modifier.width(30.dp.from(ctx)))
                 Text(
                     text = name.split(" ")[0],
                     style = MaterialTheme.typography.body1.copy(
-                        fontSize = 16.sp,
+                        fontSize = 16.sp.from(ctx),
                         fontWeight = FontWeight(500),
                         color = GreyBlack
                     ),
@@ -416,9 +419,9 @@ fun EditProfile(
                     modifier = modifier.width(widthRowText)
                 ) {
                     Text(
-                        text = "Last Name",
+                        text = stringResource(id = R.string.last_name),
                         style = MaterialTheme.typography.body1.copy(
-                            fontSize = 16.sp,
+                            fontSize = 16.sp.from(ctx),
                             fontWeight = FontWeight(500),
                             color = GreyBlack
                         ),
@@ -427,11 +430,11 @@ fun EditProfile(
                     )
                 }
 
-                Spacer(modifier = Modifier.width(30.dp))
+                Spacer(modifier = Modifier.width(30.dp.from(ctx)))
                 Text(
                     text = if (name.split(" ").size > 1) name.split(" ")[1] else "",
                     style = MaterialTheme.typography.body1.copy(
-                        fontSize = 16.sp,
+                        fontSize = 16.sp.from(ctx),
                         fontWeight = FontWeight(500),
                         color = GreyBlack
                     ),
@@ -446,9 +449,9 @@ fun EditProfile(
                     modifier = modifier.width(widthRowText)
                 ) {
                     Text(
-                        text = "Job Tittle",
+                        text = stringResource(id = R.string.job_tittle),
                         style = MaterialTheme.typography.body1.copy(
-                            fontSize = 16.sp,
+                            fontSize = 16.sp.from(ctx),
                             fontWeight = FontWeight(500),
                             color = GreyBlack
                         ),
@@ -457,11 +460,11 @@ fun EditProfile(
                     )
                 }
 
-                Spacer(modifier = Modifier.width(30.dp))
+                Spacer(modifier = Modifier.width(30.dp.from(ctx)))
                 Text(
                     text = jobTitleState,
                     style = MaterialTheme.typography.body1.copy(
-                        fontSize = 16.sp,
+                        fontSize = 16.sp.from(ctx),
                         fontWeight = FontWeight(500),
                         color = GreyBlack
                     ),
@@ -476,9 +479,9 @@ fun EditProfile(
                     modifier = modifier.width(widthRowText)
                 ) {
                     Text(
-                        text = "Email",
+                        text = stringResource(id = R.string.email),
                         style = MaterialTheme.typography.body1.copy(
-                            fontSize = 16.sp,
+                            fontSize = 16.sp.from(ctx),
                             fontWeight = FontWeight(500),
                             color = GreyBlack
                         ),
@@ -487,11 +490,11 @@ fun EditProfile(
                     )
                 }
 
-                Spacer(modifier = Modifier.width(30.dp))
+                Spacer(modifier = Modifier.width(30.dp.from(ctx)))
                 Text(
                     text = emailState,
                     style = MaterialTheme.typography.body1.copy(
-                        fontSize = 16.sp,
+                        fontSize = 16.sp.from(ctx),
                         fontWeight = FontWeight(500),
                         color = GreyBlack
                     ),
@@ -507,9 +510,9 @@ fun EditProfile(
                     modifier = modifier.width(widthRowText)
                 ) {
                     Text(
-                        text = "Password",
+                        text = stringResource(id = R.string.password),
                         style = MaterialTheme.typography.body1.copy(
-                            fontSize = 16.sp,
+                            fontSize = 16.sp.from(ctx),
                             fontWeight = FontWeight(500),
                             color = GreyBlack
                         ),
@@ -517,7 +520,7 @@ fun EditProfile(
                         overflow = TextOverflow.Ellipsis
                     )
                 }
-                Spacer(modifier = Modifier.width(30.dp))
+                Spacer(modifier = Modifier.width(30.dp.from(ctx)))
                 dot.forEachIndexed { index, imageVector ->
                     Icon(
                         imageVector,

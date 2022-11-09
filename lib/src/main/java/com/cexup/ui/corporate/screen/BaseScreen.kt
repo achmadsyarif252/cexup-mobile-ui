@@ -6,10 +6,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.cexup.ui.corporate.component.AppBar
 import com.cexup.ui.corporate.component.SideBarCorporate
 import com.cexup.ui.corporate.component.SidebarMenuModel
+import com.cexup.ui.utils.mediaquery.from
 
 data class SearchPatientUIState(
     val loading: Boolean = true,
@@ -33,6 +35,7 @@ fun BaseScreen(
     listMenuSidebar: List<SidebarMenuModel>,
     content: @Composable () -> Unit,
 ) {
+    val ctx = LocalContext.current
     Scaffold(
         topBar = {
             AppBar(
@@ -47,7 +50,7 @@ fun BaseScreen(
     ) {
         Row(
             modifier = Modifier
-                .padding(start = 30.dp, end = 30.dp, top = 39.dp)
+                .padding(start = 30.dp.from(ctx), end = 30.dp.from(ctx), top = 30.dp.from(ctx))
         ) {
             SideBarCorporate(
                 selectedRoute = currentRoute,

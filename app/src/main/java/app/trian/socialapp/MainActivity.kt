@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.*
@@ -14,12 +15,11 @@ import com.cexup.ui.consumer.screen.clinic_reservation.*
 import com.cexup.ui.consumer.theme.ConsumerTheme
 import com.cexup.ui.corporate.component.SidebarMenuModel
 import com.cexup.ui.corporate.component.SidebarMenuType
-import com.cexup.ui.corporate.screen.BaseScreen
-import com.cexup.ui.corporate.screen.ScreenRegisterPatient
-import com.cexup.ui.corporate.screen.ScreenTemperature
+import com.cexup.ui.corporate.screen.*
 import com.cexup.ui.corporate.theme.CexupTheme
 
 class MainActivity : ComponentActivity() {
+    @OptIn(ExperimentalMaterialApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -59,11 +59,15 @@ class MainActivity : ComponentActivity() {
 //            }
             CexupTheme {
 //                ScreenTemperature(
-//                    resultAnalytic = com.cexup.ui.R.string.consultation,
-//                    colorAnalytic = com.cexup.ui.R.color.primary_day2,
-//                    value = 66f,
-//                    deviceStatus = false,
-//                    listEntryTemperature = Pair(listOf(), listOf()),
+//                    temperatureDataUIState = TemperatureDataUIState(
+//                        patientName = "Adam SH",
+//                        patientThumb = "",
+//                        patientUserCode = "165150200111154",
+//                        colorAnalytic = com.cexup.ui.R.color.primary_main,
+//                        deviceStatus = false,
+//                        value = 40f,
+//                        resultAnalytic = com.cexup.ui.R.drawable.ic_thermometer,
+//                    ),
 //                    onSave = {},
 //                    onButtonBackPressed = {}
 //                )
@@ -80,6 +84,7 @@ class MainActivity : ComponentActivity() {
                         com.cexup.ui.R.drawable.ic_home_unselected, com.cexup.ui.R.drawable.ic_home_selected,"Home",SidebarMenuType.Link))
                 ) {
                     ScreenRegisterPatient(onRegisterPatient = {})
+//                    ScreenReport(namePatient = "Adam SH", userCode = "165150200111152")
                 }
             }
         }

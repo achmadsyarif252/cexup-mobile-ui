@@ -10,6 +10,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -27,26 +28,27 @@ fun DialogInputManualTemperature(
     onCancel : ()-> Unit,
     onSave: (temp: Float) -> Unit,
 ) {
+    val ctx = LocalContext.current
     var textTemperature by remember { mutableStateOf("") }
     if (show) {
         Dialog(onDismissRequest = { onCancel() }) {
             Surface(
                 modifier = modifier
-                    .padding(5.dp)
-                    .width(416.dp),
-                shape = RoundedCornerShape(25.dp),
+                    .padding(5.dp.from(ctx))
+                    .width(416.dp.from(ctx)),
+                shape = RoundedCornerShape(25.dp.from(ctx)),
                 color = BackgroundLight
             ) {
                 Column(
                     modifier = modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 31.dp, vertical = 23.dp),
+                        .padding(horizontal = 31.dp.from(ctx), vertical = 23.dp.from(ctx)),
                 ) {
                     Text(
                         text = stringResource(id = R.string.corporate_measurement_temperature),
                         style = MaterialTheme.typography.body1,
                         fontWeight = FontWeight(400),
-                        fontSize = 22.sp,
+                        fontSize = 22.sp.from(ctx),
                         modifier = modifier
                             .fillMaxWidth(),
                         textAlign = TextAlign.Left,
@@ -63,28 +65,28 @@ fun DialogInputManualTemperature(
                                     text = "o",
                                     style = MaterialTheme.typography.body1.copy(
                                         fontWeight = FontWeight(500),
-                                        fontSize = 12.sp,
-                                        letterSpacing = 1.sp,
+                                        fontSize = 12.sp.from(ctx),
+                                        letterSpacing = 1.sp.from(ctx),
                                         color = GreyBorder,
                                     ),
-                                    modifier = modifier.padding(bottom = 20.dp),
+                                    modifier = modifier.padding(bottom = 20.dp.from(ctx)),
                                 )
                                 Text(
                                     text = "C",
                                     style = MaterialTheme.typography.body1.copy(
                                         fontWeight = FontWeight(700),
-                                        fontSize = 28.sp,
-                                        letterSpacing = 1.sp,
+                                        fontSize = 28.sp.from(ctx),
+                                        letterSpacing = 1.sp.from(ctx),
                                         color = GreyBorder,
                                     ),
                                     modifier = modifier
                                         .align(Alignment.CenterVertically)
-                                        .padding(top = 5.dp),
+                                        .padding(top = 5.dp.from(ctx)),
                                 )
                             }
                         }
                     )
-                    Spacer(modifier = Modifier.height(21.dp))
+                    Spacer(modifier = Modifier.height(21.dp.from(ctx)))
                     Row(
                         modifier = modifier
                             .fillMaxWidth(),
@@ -94,47 +96,47 @@ fun DialogInputManualTemperature(
                         Button(
                             onClick = { onCancel() },
                             modifier = modifier
-                                .width(149.dp)
-                                .height(45.dp),
+                                .width(149.dp.from(ctx))
+                                .height(45.dp.from(ctx)),
                             colors = ButtonDefaults.buttonColors(
                                 backgroundColor = SecondaryCorporate,
                                 contentColor = Color.White,
                             ),
-                            shape = RoundedCornerShape(10.dp),
+                            shape = RoundedCornerShape(10.dp.from(ctx)),
                             contentPadding = PaddingValues(
-                                horizontal = 41.38.dp,
-                                vertical = 12.69.dp
+                                horizontal = 41.38.dp.from(ctx),
+                                vertical = 12.69.dp.from(ctx)
                             )
                         ) {
                             Text(
                                 text = stringResource(id = R.string.cancel),
                                 style = MaterialTheme.typography.body1,
-                                fontSize = 14.sp,
+                                fontSize = 14.sp.from(ctx),
                                 fontWeight = FontWeight(600)
                             )
                         }
-                        Spacer(modifier = modifier.width(8.dp))
+                        Spacer(modifier = modifier.width(8.dp.from(ctx)))
                         Button(
                             onClick = {
 
                                 onSave(textTemperature.toFloat())
                             }, modifier = modifier
-                                .width(149.dp)
-                                .height(45.dp),
+                                .width(149.dp.from(ctx))
+                                .height(45.dp.from(ctx)),
                             colors = ButtonDefaults.buttonColors(
                                 backgroundColor = BlueButtonLogout,
                                 contentColor = Color.White
                             ),
-                            shape = RoundedCornerShape(10.dp),
+                            shape = RoundedCornerShape(10.dp.from(ctx)),
                             contentPadding = PaddingValues(
-                                horizontal = 41.38.dp,
-                                vertical = 12.69.dp
+                                horizontal = 41.38.dp.from(ctx),
+                                vertical = 12.69.dp.from(ctx)
                             )
                         ) {
                             Text(
                                 text = stringResource(id = R.string.save),
                                 style = MaterialTheme.typography.body1,
-                                fontSize = 14.sp,
+                                fontSize = 14.sp.from(ctx),
                                 fontWeight = FontWeight(600)
 
                             )
@@ -154,28 +156,29 @@ fun DialogInputManualBMI(
     onCancel : ()-> Unit,
     onSave: (Weight: Float,Height: Float) -> Unit,
 ){
+    val ctx = LocalContext.current
     var textHeight by remember { mutableStateOf("") }
     var textWeight by remember { mutableStateOf("") }
     if (show) {
         Dialog(onDismissRequest = { onCancel() }) {
             Surface(
                 modifier = modifier
-                    .padding(5.dp)
-                    .width(416.dp),
-                shape = RoundedCornerShape(25.dp),
+                    .padding(5.dp.from(ctx))
+                    .width(416.dp.from(ctx)),
+                shape = RoundedCornerShape(25.dp.from(ctx)),
                 color = BackgroundLight
             ) {
                 Column(
                     modifier = modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 31.dp, vertical = 23.dp),
-                    verticalArrangement = Arrangement.spacedBy(3.dp)
+                        .padding(horizontal = 31.dp.from(ctx), vertical = 23.dp.from(ctx)),
+                    verticalArrangement = Arrangement.spacedBy(3.dp.from(ctx))
                 ) {
                     Text(
                         text = stringResource(id = R.string.corporate_measurement_height),
                         style = MaterialTheme.typography.body1,
                         fontWeight = FontWeight(400),
-                        fontSize = 22.sp,
+                        fontSize = 22.sp.from(ctx),
                         modifier = modifier
                             .fillMaxWidth(),
                         textAlign = TextAlign.Left,
@@ -192,13 +195,13 @@ fun DialogInputManualBMI(
                                     text = "Cm",
                                     style = MaterialTheme.typography.body1.copy(
                                         fontWeight = FontWeight(700),
-                                        fontSize = 28.sp,
-                                        letterSpacing = 1.sp,
+                                        fontSize = 28.sp.from(ctx),
+                                        letterSpacing = 1.sp.from(ctx),
                                         color = GreyBorder,
                                     ),
                                     modifier = modifier
                                         .align(Alignment.CenterVertically)
-                                        .padding(top = 5.dp),
+                                        .padding(top = 5.dp.from(ctx)),
                                 )
                             }
                         }
@@ -207,7 +210,7 @@ fun DialogInputManualBMI(
                         text = stringResource(id = R.string.corporate_measurement_weight),
                         style = MaterialTheme.typography.body1,
                         fontWeight = FontWeight(400),
-                        fontSize = 22.sp,
+                        fontSize = 22.sp.from(ctx),
                         modifier = modifier
                             .fillMaxWidth(),
                         textAlign = TextAlign.Left,
@@ -224,18 +227,18 @@ fun DialogInputManualBMI(
                                     text = "Kg",
                                     style = MaterialTheme.typography.body1.copy(
                                         fontWeight = FontWeight(700),
-                                        fontSize = 28.sp,
-                                        letterSpacing = 1.sp,
+                                        fontSize = 28.sp.from(ctx),
+                                        letterSpacing = 1.sp.from(ctx),
                                         color = GreyBorder,
                                     ),
                                     modifier = modifier
                                         .align(Alignment.CenterVertically)
-                                        .padding(top = 5.dp),
+                                        .padding(top = 5.dp.from(ctx)),
                                 )
                             }
                         }
                     )
-                    Spacer(modifier = Modifier.height(21.dp))
+                    Spacer(modifier = Modifier.height(21.dp.from(ctx)))
                     Row(
                         modifier = modifier
                             .fillMaxWidth(),
@@ -245,46 +248,46 @@ fun DialogInputManualBMI(
                         Button(
                             onClick = { onCancel() },
                             modifier = modifier
-                                .width(149.dp)
-                                .height(45.dp),
+                                .width(149.dp.from(ctx))
+                                .height(45.dp.from(ctx)),
                             colors = ButtonDefaults.buttonColors(
                                 backgroundColor = SecondaryCorporate,
                                 contentColor = Color.White,
                             ),
-                            shape = RoundedCornerShape(10.dp),
+                            shape = RoundedCornerShape(10.dp.from(ctx)),
                             contentPadding = PaddingValues(
-                                horizontal = 41.38.dp,
-                                vertical = 12.69.dp
+                                horizontal = 41.38.dp.from(ctx),
+                                vertical = 12.69.dp.from(ctx)
                             )
                         ) {
                             Text(
                                 text = stringResource(id = R.string.cancel),
                                 style = MaterialTheme.typography.body1,
-                                fontSize = 14.sp,
+                                fontSize = 14.sp.from(ctx),
                                 fontWeight = FontWeight(600)
                             )
                         }
-                        Spacer(modifier = modifier.width(8.dp))
+                        Spacer(modifier = modifier.width(8.dp.from(ctx)))
                         Button(
                             onClick = {
                                 onSave(textWeight.toFloat(),textHeight.toFloat())
                             }, modifier = modifier
-                                .width(149.dp)
-                                .height(45.dp),
+                                .width(149.dp.from(ctx))
+                                .height(45.dp.from(ctx)),
                             colors = ButtonDefaults.buttonColors(
                                 backgroundColor = BlueButtonLogout,
                                 contentColor = Color.White
                             ),
-                            shape = RoundedCornerShape(10.dp),
+                            shape = RoundedCornerShape(10.dp.from(ctx)),
                             contentPadding = PaddingValues(
-                                horizontal = 41.38.dp,
-                                vertical = 12.69.dp
+                                horizontal = 41.38.dp.from(ctx),
+                                vertical = 12.69.dp.from(ctx)
                             )
                         ) {
                             Text(
                                 text = stringResource(id = R.string.save),
                                 style = MaterialTheme.typography.body1,
-                                fontSize = 14.sp,
+                                fontSize = 14.sp.from(ctx),
                                 fontWeight = FontWeight(600)
 
                             )
@@ -303,27 +306,28 @@ fun DialogInputManualBloodOxygen(
     onCancel : ()-> Unit,
     onSave: (BloodOxygen: Int,HeartRate: Int) -> Unit,
 ) {
+    val ctx = LocalContext.current
     var textBloodOxygen by remember { mutableStateOf("") }
     var textHeartRate by remember { mutableStateOf("")}
     if (show) {
         Dialog(onDismissRequest = { onCancel() }) {
             Surface(
                 modifier = modifier
-                    .padding(5.dp)
-                    .width(416.dp),
-                shape = RoundedCornerShape(25.dp),
+                    .padding(5.dp.from(ctx))
+                    .width(416.dp.from(ctx)),
+                shape = RoundedCornerShape(25.dp.from(ctx)),
                 color = BackgroundLight
             ) {
                 Column(
                     modifier = modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 31.dp, vertical = 23.dp),
+                        .padding(horizontal = 31.dp.from(ctx), vertical = 23.dp.from(ctx)),
                 ) {
                     Text(
                         text = stringResource(id = R.string.corporate_measurement_blood_oxygen),
                         style = MaterialTheme.typography.body1,
                         fontWeight = FontWeight(400),
-                        fontSize = 22.sp,
+                        fontSize = 22.sp.from(ctx),
                         modifier = modifier
                             .fillMaxWidth(),
                         textAlign = TextAlign.Left,
@@ -340,13 +344,13 @@ fun DialogInputManualBloodOxygen(
                                     text = "%",
                                     style = MaterialTheme.typography.body1.copy(
                                         fontWeight = FontWeight(700),
-                                        fontSize = 28.sp,
-                                        letterSpacing = 1.sp,
+                                        fontSize = 28.sp.from(ctx),
+                                        letterSpacing = 1.sp.from(ctx),
                                         color = GreyBorder,
                                     ),
                                     modifier = modifier
                                         .align(Alignment.CenterVertically)
-                                        .padding(top = 5.dp),
+                                        .padding(top = 5.dp.from(ctx)),
                                 )
                             }
                         }
@@ -355,7 +359,7 @@ fun DialogInputManualBloodOxygen(
                         text = stringResource(id = R.string.corporate_measurement_heart_rate),
                         style = MaterialTheme.typography.body1,
                         fontWeight = FontWeight(400),
-                        fontSize = 22.sp,
+                        fontSize = 22.sp.from(ctx),
                         modifier = modifier
                             .fillMaxWidth(),
                         textAlign = TextAlign.Left,
@@ -372,18 +376,18 @@ fun DialogInputManualBloodOxygen(
                                     text = "bpm",
                                     style = MaterialTheme.typography.body1.copy(
                                         fontWeight = FontWeight(700),
-                                        fontSize = 28.sp,
-                                        letterSpacing = 1.sp,
+                                        fontSize = 28.sp.from(ctx),
+                                        letterSpacing = 1.sp.from(ctx),
                                         color = GreyBorder,
                                     ),
                                     modifier = modifier
                                         .align(Alignment.CenterVertically)
-                                        .padding(top = 5.dp),
+                                        .padding(top = 5.dp.from(ctx)),
                                 )
                             }
                         }
                     )
-                    Spacer(modifier = Modifier.height(21.dp))
+                    Spacer(modifier = Modifier.height(21.dp.from(ctx)))
                     Row(
                         modifier = modifier
                             .fillMaxWidth(),
@@ -393,26 +397,26 @@ fun DialogInputManualBloodOxygen(
                         Button(
                             onClick = { onCancel() },
                             modifier = modifier
-                                .width(149.dp)
-                                .height(45.dp),
+                                .width(149.dp.from(ctx))
+                                .height(45.dp.from(ctx)),
                             colors = ButtonDefaults.buttonColors(
                                 backgroundColor = SecondaryCorporate,
                                 contentColor = Color.White,
                             ),
-                            shape = RoundedCornerShape(10.dp),
+                            shape = RoundedCornerShape(10.dp.from(ctx)),
                             contentPadding = PaddingValues(
-                                horizontal = 41.38.dp,
-                                vertical = 12.69.dp
+                                horizontal = 41.38.dp.from(ctx),
+                                vertical = 12.69.dp.from(ctx)
                             )
                         ) {
                             Text(
                                 text = stringResource(id = R.string.cancel),
                                 style = MaterialTheme.typography.body1,
-                                fontSize = 14.sp,
+                                fontSize = 14.sp.from(ctx),
                                 fontWeight = FontWeight(600)
                             )
                         }
-                        Spacer(modifier = modifier.width(8.dp))
+                        Spacer(modifier = modifier.width(8.dp.from(ctx)))
                         Button(
                             onClick = {
                                 onSave(
@@ -420,22 +424,22 @@ fun DialogInputManualBloodOxygen(
                                     textHeartRate.toInt()
                                 )
                             }, modifier = modifier
-                                .width(149.dp)
-                                .height(45.dp),
+                                .width(149.dp.from(ctx))
+                                .height(45.dp.from(ctx)),
                             colors = ButtonDefaults.buttonColors(
                                 backgroundColor = BlueButtonLogout,
                                 contentColor = Color.White
                             ),
-                            shape = RoundedCornerShape(10.dp),
+                            shape = RoundedCornerShape(10.dp.from(ctx)),
                             contentPadding = PaddingValues(
-                                horizontal = 41.38.dp,
-                                vertical = 12.69.dp
+                                horizontal = 41.38.dp.from(ctx),
+                                vertical = 12.69.dp.from(ctx)
                             )
                         ) {
                             Text(
                                 text = stringResource(id = R.string.save),
                                 style = MaterialTheme.typography.body1,
-                                fontSize = 14.sp,
+                                fontSize = 14.sp.from(ctx),
                                 fontWeight = FontWeight(600)
 
                             )
@@ -455,6 +459,7 @@ fun DialogInputManualBloodPressure(
     onCancel : ()-> Unit,
     onSave: (Systole: Int,Diastol: Int, PulseRate: Int) -> Unit,
 ) {
+    val ctx = LocalContext.current
     var textSystole by remember { mutableStateOf("") }
     var textDiastole by remember { mutableStateOf("")}
     var textPulseRate by remember { mutableStateOf("")}
@@ -462,21 +467,21 @@ fun DialogInputManualBloodPressure(
         Dialog(onDismissRequest = { onCancel() }) {
             Surface(
                 modifier = modifier
-                    .padding(5.dp)
-                    .width(416.dp),
-                shape = RoundedCornerShape(25.dp),
+                    .padding(5.dp.from(ctx))
+                    .width(416.dp.from(ctx)),
+                shape = RoundedCornerShape(25.dp.from(ctx)),
                 color = BackgroundLight
             ) {
                 Column(
                     modifier = modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 31.dp, vertical = 23.dp),
+                        .padding(horizontal = 31.dp.from(ctx), vertical = 23.dp.from(ctx)),
                 ) {
                     Text(
                         text = stringResource(id = R.string.corporate_measurement_systole),
                         style = MaterialTheme.typography.body1,
                         fontWeight = FontWeight(400),
-                        fontSize = 22.sp,
+                        fontSize = 22.sp.from(ctx),
                         modifier = modifier
                             .fillMaxWidth(),
                         textAlign = TextAlign.Left,
@@ -493,13 +498,13 @@ fun DialogInputManualBloodPressure(
                                     text = "bpm",
                                     style = MaterialTheme.typography.body1.copy(
                                         fontWeight = FontWeight(700),
-                                        fontSize = 28.sp,
-                                        letterSpacing = 1.sp,
+                                        fontSize = 28.sp.from(ctx),
+                                        letterSpacing = 1.sp.from(ctx),
                                         color = GreyBorder,
                                     ),
                                     modifier = modifier
                                         .align(Alignment.CenterVertically)
-                                        .padding(top = 5.dp),
+                                        .padding(top = 5.dp.from(ctx)),
                                 )
                             }
                         }
@@ -508,7 +513,7 @@ fun DialogInputManualBloodPressure(
                         text = stringResource(id = R.string.corporate_measurement_diastole),
                         style = MaterialTheme.typography.body1,
                         fontWeight = FontWeight(400),
-                        fontSize = 22.sp,
+                        fontSize = 22.sp.from(ctx),
                         modifier = modifier
                             .fillMaxWidth(),
                         textAlign = TextAlign.Left,
@@ -525,13 +530,13 @@ fun DialogInputManualBloodPressure(
                                     text = "bpm",
                                     style = MaterialTheme.typography.body1.copy(
                                         fontWeight = FontWeight(700),
-                                        fontSize = 28.sp,
-                                        letterSpacing = 1.sp,
+                                        fontSize = 28.sp.from(ctx),
+                                        letterSpacing = 1.sp.from(ctx),
                                         color = GreyBorder,
                                     ),
                                     modifier = modifier
                                         .align(Alignment.CenterVertically)
-                                        .padding(top = 5.dp),
+                                        .padding(top = 5.dp.from(ctx)),
                                 )
                             }
                         }
@@ -540,7 +545,7 @@ fun DialogInputManualBloodPressure(
                         text = stringResource(id = R.string.corporate_measurement_pulse_rate),
                         style = MaterialTheme.typography.body1,
                         fontWeight = FontWeight(400),
-                        fontSize = 22.sp,
+                        fontSize = 22.sp.from(ctx),
                         modifier = modifier
                             .fillMaxWidth(),
                         textAlign = TextAlign.Left,
@@ -557,18 +562,18 @@ fun DialogInputManualBloodPressure(
                                     text = "bpm",
                                     style = MaterialTheme.typography.body1.copy(
                                         fontWeight = FontWeight(700),
-                                        fontSize = 28.sp,
-                                        letterSpacing = 1.sp,
+                                        fontSize = 28.sp.from(ctx),
+                                        letterSpacing = 1.sp.from(ctx),
                                         color = GreyBorder,
                                     ),
                                     modifier = modifier
                                         .align(Alignment.CenterVertically)
-                                        .padding(top = 5.dp),
+                                        .padding(top = 5.dp.from(ctx)),
                                 )
                             }
                         }
                     )
-                    Spacer(modifier = Modifier.height(21.dp))
+                    Spacer(modifier = Modifier.height(21.dp.from(ctx)))
                     Row(
                         modifier = modifier
                             .fillMaxWidth(),
@@ -578,26 +583,26 @@ fun DialogInputManualBloodPressure(
                         Button(
                             onClick = { onCancel() },
                             modifier = modifier
-                                .width(149.dp)
-                                .height(45.dp),
+                                .width(149.dp.from(ctx))
+                                .height(45.dp.from(ctx)),
                             colors = ButtonDefaults.buttonColors(
                                 backgroundColor = SecondaryCorporate,
                                 contentColor = Color.White,
                             ),
-                            shape = RoundedCornerShape(10.dp),
+                            shape = RoundedCornerShape(10.dp.from(ctx)),
                             contentPadding = PaddingValues(
-                                horizontal = 41.38.dp,
-                                vertical = 12.69.dp
+                                horizontal = 41.38.dp.from(ctx),
+                                vertical = 12.69.dp.from(ctx)
                             )
                         ) {
                             Text(
                                 text = stringResource(id = R.string.cancel),
                                 style = MaterialTheme.typography.body1,
-                                fontSize = 14.sp,
+                                fontSize = 14.sp.from(ctx),
                                 fontWeight = FontWeight(600)
                             )
                         }
-                        Spacer(modifier = modifier.width(8.dp))
+                        Spacer(modifier = modifier.width(8.dp.from(ctx)))
                         Button(
                             onClick = {
                                 onSave(
@@ -606,22 +611,22 @@ fun DialogInputManualBloodPressure(
                                     textPulseRate.toInt()
                                 )
                             }, modifier = modifier
-                                .width(149.dp)
-                                .height(45.dp),
+                                .width(149.dp.from(ctx))
+                                .height(45.dp.from(ctx)),
                             colors = ButtonDefaults.buttonColors(
                                 backgroundColor = BlueButtonLogout,
                                 contentColor = Color.White
                             ),
-                            shape = RoundedCornerShape(10.dp),
+                            shape = RoundedCornerShape(10.dp.from(ctx)),
                             contentPadding = PaddingValues(
-                                horizontal = 41.38.dp,
-                                vertical = 12.69.dp
+                                horizontal = 41.38.dp.from(ctx),
+                                vertical = 12.69.dp.from(ctx)
                             )
                         ) {
                             Text(
                                 text = stringResource(id = R.string.save),
                                 style = MaterialTheme.typography.body1,
-                                fontSize = 14.sp,
+                                fontSize = 14.sp.from(ctx),
                                 fontWeight = FontWeight(600)
 
                             )
@@ -642,26 +647,27 @@ fun DialogInputManualWaist(
     onCancel: () -> Unit,
     onSave: (valueWaist:Float) -> Unit,
 ){
+    val ctx = LocalContext.current
     if (show) {
     var textValueWaist by remember { mutableStateOf("") }
         Dialog(onDismissRequest = { onCancel() }) {
             Surface(
                 modifier = modifier
-                    .padding(5.dp)
-                    .width(416.dp),
-                shape = RoundedCornerShape(25.dp),
+                    .padding(5.dp.from(ctx))
+                    .width(416.dp.from(ctx)),
+                shape = RoundedCornerShape(25.dp.from(ctx)),
                 color = BackgroundLight
             ) {
                 Column(
                     modifier = modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 31.dp, vertical = 23.dp),
+                        .padding(horizontal = 31.dp.from(ctx), vertical = 23.dp.from(ctx)),
                 ) {
                     Text(
                         text = textWaist,
                         style = MaterialTheme.typography.body1,
                         fontWeight = FontWeight(400),
-                        fontSize = 22.sp,
+                        fontSize = 22.sp.from(ctx),
                         modifier = modifier
                             .fillMaxWidth(),
                         textAlign = TextAlign.Left,
@@ -678,18 +684,18 @@ fun DialogInputManualWaist(
                                     text = "Cm",
                                     style = MaterialTheme.typography.body1.copy(
                                         fontWeight = FontWeight(700),
-                                        fontSize = 28.sp,
-                                        letterSpacing = 1.sp,
+                                        fontSize = 28.sp.from(ctx),
+                                        letterSpacing = 1.sp.from(ctx),
                                         color = GreyBorder,
                                     ),
                                     modifier = modifier
                                         .align(Alignment.CenterVertically)
-                                        .padding(top = 5.dp),
+                                        .padding(top = 5.dp.from(ctx)),
                                 )
                             }
                         }
                     )
-                    Spacer(modifier = Modifier.height(21.dp))
+                    Spacer(modifier = Modifier.height(21.dp.from(ctx)))
                     Row(
                         modifier = modifier
                             .fillMaxWidth(),
@@ -699,46 +705,46 @@ fun DialogInputManualWaist(
                         Button(
                             onClick = { onCancel() },
                             modifier = modifier
-                                .width(149.dp)
-                                .height(45.dp),
+                                .width(149.dp.from(ctx))
+                                .height(45.dp.from(ctx)),
                             colors = ButtonDefaults.buttonColors(
                                 backgroundColor = SecondaryCorporate,
                                 contentColor = Color.White,
                             ),
-                            shape = RoundedCornerShape(10.dp),
+                            shape = RoundedCornerShape(10.dp.from(ctx)),
                             contentPadding = PaddingValues(
-                                horizontal = 41.38.dp,
-                                vertical = 12.69.dp
+                                horizontal = 41.38.dp.from(ctx),
+                                vertical = 12.69.dp.from(ctx)
                             )
                         ) {
                             Text(
                                 text = stringResource(id = R.string.cancel),
                                 style = MaterialTheme.typography.body1,
-                                fontSize = 14.sp,
+                                fontSize = 14.sp.from(ctx),
                                 fontWeight = FontWeight(600)
                             )
                         }
-                        Spacer(modifier = modifier.width(8.dp))
+                        Spacer(modifier = modifier.width(8.dp.from(ctx)))
                         Button(
                             onClick = {
                                 onSave(textValueWaist.toFloat())
                             }, modifier = modifier
-                                .width(149.dp)
-                                .height(45.dp),
+                                .width(149.dp.from(ctx))
+                                .height(45.dp.from(ctx)),
                             colors = ButtonDefaults.buttonColors(
                                 backgroundColor = BlueButtonLogout,
                                 contentColor = Color.White
                             ),
-                            shape = RoundedCornerShape(10.dp),
+                            shape = RoundedCornerShape(10.dp.from(ctx)),
                             contentPadding = PaddingValues(
-                                horizontal = 41.38.dp,
-                                vertical = 12.69.dp
+                                horizontal = 41.38.dp.from(ctx),
+                                vertical = 12.69.dp.from(ctx)
                             )
                         ) {
                             Text(
                                 text = stringResource(id = R.string.save),
                                 style = MaterialTheme.typography.body1,
-                                fontSize = 14.sp,
+                                fontSize = 14.sp.from(ctx),
                                 fontWeight = FontWeight(600)
 
                             )
@@ -758,6 +764,7 @@ fun DialogInputManualMultiparameter(
     onCancel : ()-> Unit,
     onSave: (HeartRate: Int, systole:Int, diastole:Int, Spo2: Int, Temperature:Float, Respiration:Int) -> Unit,
 ) {
+    val ctx = LocalContext.current
     var textHeartRate by remember { mutableStateOf("0") }
     var textSystole by remember { mutableStateOf("0") }
     var textDiastole by remember { mutableStateOf("0") }
@@ -769,23 +776,23 @@ fun DialogInputManualMultiparameter(
         Dialog(onDismissRequest = { onCancel() }) {
             Surface(
                 modifier = modifier
-                    .padding(5.dp)
-                    .width(416.dp)
+                    .padding(5.dp.from(ctx))
+                    .width(416.dp.from(ctx))
                     .verticalScroll(rememberScrollState()),
-                shape = RoundedCornerShape(25.dp),
+                shape = RoundedCornerShape(25.dp.from(ctx)),
                 color = BackgroundLight
             ) {
                 Column(
                     modifier = modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 31.dp, vertical = 23.dp),
+                        .padding(horizontal = 31.dp.from(ctx), vertical = 23.dp.from(ctx)),
                 ) {
                     Text(
                         text = stringResource(id = R.string.corporate_measurement_heart_rate) +
                             "/${stringResource(id = R.string.corporate_measurement_pulse_rate)}",
                         style = MaterialTheme.typography.body1,
                         fontWeight = FontWeight(400),
-                        fontSize = 22.sp,
+                        fontSize = 22.sp.from(ctx),
                         modifier = modifier
                             .fillMaxWidth(),
                         textAlign = TextAlign.Left,
@@ -802,13 +809,13 @@ fun DialogInputManualMultiparameter(
                                     text = "Bpm",
                                     style = MaterialTheme.typography.body1.copy(
                                         fontWeight = FontWeight(700),
-                                        fontSize = 28.sp,
-                                        letterSpacing = 1.sp,
+                                        fontSize = 28.sp.from(ctx),
+                                        letterSpacing = 1.sp.from(ctx),
                                         color = GreyBorder,
                                     ),
                                     modifier = modifier
                                         .align(Alignment.CenterVertically)
-                                        .padding(top = 5.dp),
+                                        .padding(top = 5.dp.from(ctx)),
                                 )
                             }
                         },
@@ -817,7 +824,7 @@ fun DialogInputManualMultiparameter(
                         text = stringResource(id = R.string.corporate_measurement_systole),
                         style = MaterialTheme.typography.body1,
                         fontWeight = FontWeight(400),
-                        fontSize = 22.sp,
+                        fontSize = 22.sp.from(ctx),
                         modifier = modifier
                             .fillMaxWidth(),
                         textAlign = TextAlign.Left,
@@ -834,13 +841,13 @@ fun DialogInputManualMultiparameter(
                                     text = "bpm",
                                     style = MaterialTheme.typography.body1.copy(
                                         fontWeight = FontWeight(700),
-                                        fontSize = 28.sp,
-                                        letterSpacing = 1.sp,
+                                        fontSize = 28.sp.from(ctx),
+                                        letterSpacing = 1.sp.from(ctx),
                                         color = GreyBorder,
                                     ),
                                     modifier = modifier
                                         .align(Alignment.CenterVertically)
-                                        .padding(top = 5.dp),
+                                        .padding(top = 5.dp.from(ctx)),
                                 )
                             }
                         }
@@ -849,7 +856,7 @@ fun DialogInputManualMultiparameter(
                         text = stringResource(id = R.string.corporate_measurement_diastole),
                         style = MaterialTheme.typography.body1,
                         fontWeight = FontWeight(400),
-                        fontSize = 22.sp,
+                        fontSize = 22.sp.from(ctx),
                         modifier = modifier
                             .fillMaxWidth(),
                         textAlign = TextAlign.Left,
@@ -866,13 +873,13 @@ fun DialogInputManualMultiparameter(
                                     text = "bpm",
                                     style = MaterialTheme.typography.body1.copy(
                                         fontWeight = FontWeight(700),
-                                        fontSize = 28.sp,
-                                        letterSpacing = 1.sp,
+                                        fontSize = 28.sp.from(ctx),
+                                        letterSpacing = 1.sp.from(ctx),
                                         color = GreyBorder,
                                     ),
                                     modifier = modifier
                                         .align(Alignment.CenterVertically)
-                                        .padding(top = 5.dp),
+                                        .padding(top = 5.dp.from(ctx)),
                                 )
                             }
                         }
@@ -881,7 +888,7 @@ fun DialogInputManualMultiparameter(
                         text = stringResource(id = R.string.spo2),
                         style = MaterialTheme.typography.body1,
                         fontWeight = FontWeight(400),
-                        fontSize = 22.sp,
+                        fontSize = 22.sp.from(ctx),
                         modifier = modifier
                             .fillMaxWidth(),
                         textAlign = TextAlign.Left,
@@ -898,13 +905,13 @@ fun DialogInputManualMultiparameter(
                                     text = "%",
                                     style = MaterialTheme.typography.body1.copy(
                                         fontWeight = FontWeight(700),
-                                        fontSize = 28.sp,
-                                        letterSpacing = 1.sp,
+                                        fontSize = 28.sp.from(ctx),
+                                        letterSpacing = 1.sp.from(ctx),
                                         color = GreyBorder,
                                     ),
                                     modifier = modifier
                                         .align(Alignment.CenterVertically)
-                                        .padding(top = 5.dp),
+                                        .padding(top = 5.dp.from(ctx)),
                                 )
                             }
                         }
@@ -913,7 +920,7 @@ fun DialogInputManualMultiparameter(
                         text = stringResource(id = R.string.corporate_measurement_temperature),
                         style = MaterialTheme.typography.body1,
                         fontWeight = FontWeight(400),
-                        fontSize = 22.sp,
+                        fontSize = 22.sp.from(ctx),
                         modifier = modifier
                             .fillMaxWidth(),
                         textAlign = TextAlign.Left,
@@ -930,23 +937,23 @@ fun DialogInputManualMultiparameter(
                                     text = "o",
                                     style = MaterialTheme.typography.body1.copy(
                                         fontWeight = FontWeight(500),
-                                        fontSize = 12.sp,
-                                        letterSpacing = 1.sp,
+                                        fontSize = 12.sp.from(ctx),
+                                        letterSpacing = 1.sp.from(ctx),
                                         color = GreyBorder,
                                     ),
-                                    modifier = modifier.padding(bottom = 20.dp),
+                                    modifier = modifier.padding(bottom = 20.dp.from(ctx)),
                                 )
                                 Text(
                                     text = "C",
                                     style = MaterialTheme.typography.body1.copy(
                                         fontWeight = FontWeight(700),
-                                        fontSize = 28.sp,
-                                        letterSpacing = 1.sp,
+                                        fontSize = 28.sp.from(ctx),
+                                        letterSpacing = 1.sp.from(ctx),
                                         color = GreyBorder,
                                     ),
                                     modifier = modifier
                                         .align(Alignment.CenterVertically)
-                                        .padding(top = 5.dp),
+                                        .padding(top = 5.dp.from(ctx)),
                                 )
                             }
                         }
@@ -955,7 +962,7 @@ fun DialogInputManualMultiparameter(
                         text = stringResource(id = R.string.corporate_measurement_respiration),
                         style = MaterialTheme.typography.body1,
                         fontWeight = FontWeight(400),
-                        fontSize = 22.sp,
+                        fontSize = 22.sp.from(ctx),
                         modifier = modifier
                             .fillMaxWidth(),
                         textAlign = TextAlign.Left,
@@ -972,18 +979,18 @@ fun DialogInputManualMultiparameter(
                                     text = "bpm",
                                     style = MaterialTheme.typography.body1.copy(
                                         fontWeight = FontWeight(700),
-                                        fontSize = 28.sp,
-                                        letterSpacing = 1.sp,
+                                        fontSize = 28.sp.from(ctx),
+                                        letterSpacing = 1.sp.from(ctx),
                                         color = GreyBorder,
                                     ),
                                     modifier = modifier
                                         .align(Alignment.CenterVertically)
-                                        .padding(top = 5.dp),
+                                        .padding(top = 5.dp.from(ctx)),
                                 )
                             }
                         }
                     )
-                    Spacer(modifier = Modifier.height(21.dp))
+                    Spacer(modifier = Modifier.height(21.dp.from(ctx)))
                     Row(
                         modifier = modifier
                             .fillMaxWidth(),
@@ -993,26 +1000,26 @@ fun DialogInputManualMultiparameter(
                         Button(
                             onClick = { onCancel() },
                             modifier = modifier
-                                .width(149.dp)
-                                .height(45.dp),
+                                .width(149.dp.from(ctx))
+                                .height(45.dp.from(ctx)),
                             colors = ButtonDefaults.buttonColors(
                                 backgroundColor = SecondaryCorporate,
                                 contentColor = Color.White,
                             ),
-                            shape = RoundedCornerShape(10.dp),
+                            shape = RoundedCornerShape(10.dp.from(ctx)),
                             contentPadding = PaddingValues(
-                                horizontal = 41.38.dp,
-                                vertical = 12.69.dp
+                                horizontal = 41.38.dp.from(ctx),
+                                vertical = 12.69.dp.from(ctx)
                             )
                         ) {
                             Text(
                                 text = stringResource(id = R.string.cancel),
                                 style = MaterialTheme.typography.body1,
-                                fontSize = 14.sp,
+                                fontSize = 14.sp.from(ctx),
                                 fontWeight = FontWeight(600)
                             )
                         }
-                        Spacer(modifier = modifier.width(8.dp))
+                        Spacer(modifier = modifier.width(8.dp.from(ctx)))
                         Button(
                             onClick = {
                                 onSave(
@@ -1025,22 +1032,22 @@ fun DialogInputManualMultiparameter(
                                     textRespiration.toInt(),
                                 )
                             }, modifier = modifier
-                                .width(149.dp)
-                                .height(45.dp),
+                                .width(149.dp.from(ctx))
+                                .height(45.dp.from(ctx)),
                             colors = ButtonDefaults.buttonColors(
                                 backgroundColor = BlueButtonLogout,
                                 contentColor = Color.White
                             ),
-                            shape = RoundedCornerShape(10.dp),
+                            shape = RoundedCornerShape(10.dp.from(ctx)),
                             contentPadding = PaddingValues(
-                                horizontal = 41.38.dp,
-                                vertical = 12.69.dp
+                                horizontal = 41.38.dp.from(ctx),
+                                vertical = 12.69.dp.from(ctx)
                             )
                         ) {
                             Text(
                                 text = stringResource(id = R.string.save),
                                 style = MaterialTheme.typography.body1,
-                                fontSize = 14.sp,
+                                fontSize = 14.sp.from(ctx),
                                 fontWeight = FontWeight(600)
 
                             )
