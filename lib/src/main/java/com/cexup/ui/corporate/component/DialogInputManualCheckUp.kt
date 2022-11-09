@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.cexup.ui.corporate.theme.*
 import com.cexup.ui.R
+import com.cexup.ui.utils.mediaquery.from
 
 @Composable
 fun DialogInputManualTemperature(
