@@ -9,6 +9,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -20,6 +21,7 @@ import com.github.mikephil.charting.data.Entry
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.rememberPagerState
 import com.cexup.ui.R
+import com.cexup.ui.utils.mediaquery.from
 
 enum class EwsState {
     SUCCESS, LOADING, FAILED
@@ -63,6 +65,7 @@ fun ScreenPatientProfile(
     ewsPatientProfileUIState: EwsPatientProfileUIState,
     patientMeasurementUIState: PatientMeasurementUIState,
 ) {
+    val ctx = LocalContext.current
     val scrollState = rememberScrollState()
     val pagerState = rememberPagerState()
     val tabs = listOf(
@@ -93,23 +96,23 @@ fun ScreenPatientProfile(
     ) {
         Column(
             modifier = Modifier
-                .width(369.25.dp),
+                .width(369.25.dp.from(ctx)),
         ) {
             Column(
                 modifier = modifier
-                    .padding(10.dp)
+                    .padding(10.dp.from(ctx))
                     .verticalScroll(scrollState)
             ) {
                 CardPatientProfile(
                     patientName = patientProfileUIState.name,
                     patientMail = patientProfileUIState.email,
                 )
-                Spacer(modifier = modifier.height(16.dp))
+                Spacer(modifier = modifier.height(16.dp.from(ctx)))
                 TabView(
                     tabContents = tabs,
                     pagerState = pagerState,
                 )
-                Spacer(modifier = modifier.height(23.dp))
+                Spacer(modifier = modifier.height(23.dp.from(ctx)))
                 TabContent(
                     tabContents = tabs,
                     pagerState = pagerState,
@@ -118,16 +121,16 @@ fun ScreenPatientProfile(
         }
         LazyColumn(
             modifier = Modifier
-                .width(341.dp),
+                .width(341.dp.from(ctx)),
             content = {
                 item {
                     Text(
                         text = stringResource(id = R.string.early_warning_score),
-                        fontSize = 15.sp,
+                        fontSize = 15.sp.from(ctx),
                         style = MaterialTheme.typography.body1,
                         fontWeight = FontWeight(700),
                         color = Heading,
-                        modifier = modifier.padding(bottom = 3.dp)
+                        modifier = modifier.padding(bottom = 3.dp.from(ctx))
                     )
                     CardEarlyWarningScore(
                         ews = when (ewsPatientProfileUIState.ewsState) {
@@ -136,14 +139,14 @@ fun ScreenPatientProfile(
                             EwsState.FAILED -> 0
                         }
                     )
-                    Spacer(modifier = modifier.height(16.dp))
+                    Spacer(modifier = modifier.height(16.dp.from(ctx)))
                     Text(
                         text = stringResource(id = R.string.electronic_medical_record),
-                        fontSize = 15.sp,
+                        fontSize = 15.sp.from(ctx),
                         style = MaterialTheme.typography.body1,
                         fontWeight = FontWeight(700),
                         color = Heading,
-                        modifier = modifier.padding(bottom = 10.dp)
+                        modifier = modifier.padding(bottom = 10.dp.from(ctx))
                     )
                     Row(
                         modifier = modifier.fillMaxWidth(),
@@ -152,22 +155,22 @@ fun ScreenPatientProfile(
                     ) {
                         Text(
                             text = stringResource(id = R.string.this_month),
-                            fontSize = 12.sp,
+                            fontSize = 12.sp.from(ctx),
                             style = MaterialTheme.typography.body1,
                             fontWeight = FontWeight.Normal,
                             color = ColorGray,
-                            modifier = modifier.padding(bottom = 3.dp)
+                            modifier = modifier.padding(bottom = 3.dp.from(ctx))
                         )
                         Text(
                             text = stringResource(id = R.string.view_all),
-                            fontSize = 12.sp,
+                            fontSize = 12.sp.from(ctx),
                             style = MaterialTheme.typography.body1,
                             fontWeight = FontWeight.Normal,
                             color = ColorGray,
-                            modifier = modifier.padding(bottom = 3.dp)
+                            modifier = modifier.padding(bottom = 3.dp.from(ctx))
                         )
                     }
-                    Spacer(modifier = modifier.height(13.dp))
+                    Spacer(modifier = modifier.height(13.dp.from(ctx)))
                 }
                 items(10) {
                     CardReportDocument(nameFile = "Health Rate Report.Doc", fileSize = "3 Mb")
