@@ -79,7 +79,7 @@ fun CardPatientInformation(
             .fillMaxSize()
             .padding(10.dp.from(ctx))
             .verticalScroll(scrollState),
-        verticalArrangement = Arrangement.SpaceBetween
+        verticalArrangement = Arrangement.spacedBy(18.dp.from(ctx))
     ) {
         Row(
             modifier = modifier
@@ -89,8 +89,9 @@ fun CardPatientInformation(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Row(
-                modifier = modifier.width(160.dp.from(ctx)),
-                horizontalArrangement = Arrangement.Center
+                modifier = modifier.width(208.dp.from(ctx)),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 Box(
                     modifier.clickable {
@@ -199,7 +200,7 @@ fun CardPatientInformation(
             modifier = modifier
                 .fillMaxWidth()
                 .padding(10.dp.from(ctx)),
-            horizontalArrangement = Arrangement.spacedBy(21.dp.from(ctx))
+            horizontalArrangement = Arrangement.spacedBy(36.dp.from(ctx))
         ) {
             FormTextField(
                 nameTextField = stringResource(id = R.string.phone_number),
@@ -215,7 +216,7 @@ fun CardPatientInformation(
             Column(modifier = Modifier.width(170.dp.from(ctx))) {
                 Text(
                     text = stringResource(id = R.string.gender),
-                    fontSize = 16.sp,
+                    fontSize = 16.sp.from(ctx),
                     fontWeight = FontWeight(400),
                     style = MaterialTheme.typography.body1,
                     color = Heading,
@@ -247,6 +248,7 @@ fun CardPatientInformation(
                 }
 
             }
+            Spacer(modifier = Modifier.weight(1f))
             Row(
                 modifier = modifier
                     .width(210.dp.from(ctx))
@@ -274,8 +276,8 @@ fun CardPatientInformation(
                             text = stringResource(id = R.string.cancel),
                             style = MaterialTheme.typography.body1.copy(
                                 fontWeight = FontWeight(600),
-                                fontSize = 14.sp,
-                                letterSpacing = 1.sp,
+                                fontSize = 14.sp.from(ctx),
+                                letterSpacing = 1.sp.from(ctx),
                                 color = Color.White
                             ),
                             modifier = modifier.padding(5.dp.from(ctx))
@@ -308,9 +310,9 @@ fun CardPatientInformation(
                             text = stringResource(id = R.string.next),
                             style = MaterialTheme.typography.body1.copy(
                                 fontWeight = FontWeight(600),
-                                fontSize = 14.sp,
-                                letterSpacing = 1.sp,
-                                color = Color.White
+                                fontSize = 14.sp.from(ctx),
+                                letterSpacing = 1.sp.from(ctx),
+                                color = Color.White,
                             ),
                             modifier = modifier.padding(5.dp.from(ctx))
                         )

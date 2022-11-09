@@ -21,7 +21,6 @@ data class NurseData(
 )
 @Composable
 fun ScreenAccount(
-    modifier: Modifier = Modifier,
     nurseData: NurseData = NurseData(),
 ) {
     CardAccount(

@@ -118,6 +118,44 @@
     <string name="corporate_measurement_pulse_rate">Pulse Rate</string>
     <string name="corporate_measurement_respiration">Respiration</string>
     <string name="spo2">SPO2</string>
+    <string name="read_data">Read Data</string>
+    <string name="device_status">Device Status : %1$s</string>
+    <string name="connected">Connected</string>
+    <string name="disconnected">Disconnected</string>
+    <string name="cm">cm</string>
+    <string name="result_bmi">Result BMI</string>
+    <string name="kg_per_m2">kg/m2</string>
+    <string name="kg">kg</string>
+    <string name="fat_free_body_weight">Fat-free Body Weight</string>
+    <string name="no_body_type">No Body Type</string>
+    <string name="hidden_obesity">Hidden obesity</string>
+    <string name="lack_of_exercise">Lack of exercise</string>
+    <string name="lean_type">Lean type</string>
+    <string name="standard_type">Standard type</string>
+    <string name="lean_muscle_type">Lean muscle type</string>
+    <string name="obese">Obese</string>
+    <string name="fatty">Fatty</string>
+    <string name="standard_muscle">Standard muscle</string>
+    <string name="very_muscular">Very muscular</string>
+    <string name="body_type">Body Type</string>
+    <string name="add_new_patient">Add New Patient</string>
+    <string name="detail">Detail</string>
+    <string name="check_up">Check Up</string>
+    <string name="search_patients">Search patients</string>
+    <string name="body_fat">Body Fat</string>
+    <string name="subcutaneous_fat">Subcutaneous Fat</string>
+    <string name="high">High</string>
+    <string name="visceral_fat">Visceral Fat</string>
+    <string name="skeletal_muscle">Skeletal Muscle</string>
+    <string name="muscle_mass">Muscle Mass</string>
+    <string name="body_water">Body Water</string>
+    <string name="bone_mass">Bone Mass</string>
+    <string name="protein">Protein</string>
+    <string name="kcal">kcal</string>
+    <string name="bmr">BMR</string>
+    <string name="metabolic_age">Metabolic Age</string>
+    <string name="fat_analytic">Fat Analytic</string>
+
 
     <string name="laki_laki">Laki-laki</string>
     <string name="perempuan">Perempuan</string>
@@ -132,6 +170,14 @@
 
     <string name="save">Save</string>
     <string name="health_condition">Health Condition</string>
+    <string name="about_me">About Me</string>
+    <string name="edit">Edit</string>
+    <string name="edit_password">Edit Password</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="job_tittle">Job Tittle</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
     
     <string name="no_list_doctor">No List Doctors</string>
     <string name="no_list_doctor2">There\'s no Doctors List for you to see yet. if you\nwant to add doctor list contact super admin user</string>

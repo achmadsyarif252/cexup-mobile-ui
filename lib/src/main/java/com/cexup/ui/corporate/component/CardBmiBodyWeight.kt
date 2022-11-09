@@ -24,6 +24,7 @@ import compose.icons.octicons.ChevronRight16
 import compose.icons.octicons.ChevronUp16
 import com.cexup.ui.R
 import com.cexup.ui.corporate.theme.*
+import com.cexup.ui.utils.mediaquery.from
 
 @Composable
 fun CardBmiBodyWeight(
@@ -46,16 +47,17 @@ fun CardBmiBodyWeight(
         .resources
         .displayMetrics.heightPixels.dp /
             LocalDensity.current.density
+    val ctx = LocalContext.current
     var stateDropDown by remember {
         mutableStateOf(false)
     }
 
     Row(
         modifier = modifier
-            .border(width = 1.dp, color = GreyBorder, shape = RoundedCornerShape(10.dp))
+            .border(width = 1.dp.from(ctx), color = GreyBorder, shape = RoundedCornerShape(10.dp.from(ctx)))
             .width((currentWidth-98.dp)/2f)
             .height(currentHeight / 9.5f)
-            .padding(horizontal = 20.dp, vertical = 6.dp),
+            .padding(horizontal = 20.dp.from(ctx), vertical = 6.dp.from(ctx)),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Row (
@@ -66,14 +68,14 @@ fun CardBmiBodyWeight(
             Image(
                 painter = painterResource(id = image),
                 contentDescription = "",
-                modifier = modifier.size(27.dp)
+                modifier = modifier.size(27.dp.from(ctx))
             )
-            Spacer(Modifier.width(24.45.dp))
+            Spacer(Modifier.width(24.45.dp.from(ctx)))
             Text(
                 text = analyticName,
                 style = MaterialTheme.typography.body1.copy(
                     color = GreyBlackStetoscope,
-                    fontSize = 16.sp,
+                    fontSize = 16.sp.from(ctx),
                     fontWeight = FontWeight(400)
                 )
             )
@@ -91,20 +93,20 @@ fun CardBmiBodyWeight(
                         text = value,
                         style = MaterialTheme.typography.body1.copy(
                             color = colorOfValue,
-                            fontSize = 22.sp,
+                            fontSize = 22.sp.from(ctx),
                             fontWeight = FontWeight(600)
                         )
                     )
-                    Spacer(modifier = Modifier.width(5.dp))
+                    Spacer(modifier = Modifier.width(5.dp.from(ctx)))
                     Column(
-                        modifier = modifier.height(33.dp),
+                        modifier = modifier.height(33.dp.from(ctx)),
                         verticalArrangement = Arrangement.Bottom
                     ) {
                         Text(
                             text = satuan,
                             style = MaterialTheme.typography.body1.copy(
                                 color = colorOfValue,
-                                fontSize = 12.sp,
+                                fontSize = 12.sp.from(ctx),
                                 fontWeight = FontWeight(600)
                             ),
                         )
@@ -123,26 +125,26 @@ fun CardBmiBodyWeight(
                         text = value,
                         style = MaterialTheme.typography.body1.copy(
                             color = colorOfValue,
-                            fontSize = 22.sp,
+                            fontSize = 22.sp.from(ctx),
                             fontWeight = FontWeight(600)
                         )
                     )
-                    Spacer(modifier = Modifier.width(5.dp))
+                    Spacer(modifier = Modifier.width(5.dp.from(ctx)))
                     Column(
-                        modifier = modifier.height(33.dp),
+                        modifier = modifier.height(33.dp.from(ctx)),
                         verticalArrangement = Arrangement.Bottom
                     ) {
                         Text(
                             text = satuan,
                             style = MaterialTheme.typography.body1.copy(
                                 color = colorOfValue,
-                                fontSize = 12.sp,
+                                fontSize = 12.sp.from(ctx),
                                 fontWeight = FontWeight(600)
                             ),
                         )
                     }
 
-                    Spacer(modifier = Modifier.width(13.dp))
+                    Spacer(modifier = Modifier.width(13.dp.from(ctx)))
                     Column(
                         modifier = modifier.fillMaxHeight(),
                         verticalArrangement = Arrangement.Center
@@ -152,7 +154,7 @@ fun CardBmiBodyWeight(
                             contentDescription = "Arrow",
                             tint = GreyJade,
                             modifier = modifier
-                                .size(23.dp)
+                                .size(23.dp.from(ctx))
                                 .clickable {
                                     stateDropDown = !stateDropDown
                                 }
@@ -172,7 +174,7 @@ fun CardBmiBodyWeight(
                         text = analytic,
                         style = MaterialTheme.typography.body1.copy(
                             color = LightOrange,
-                            fontSize = 18.sp,
+                            fontSize = 18.sp.from(ctx),
                             fontWeight = FontWeight(600)
                         )
                     )
@@ -196,20 +198,20 @@ fun CardBmiBodyWeight(
                                 text = value,
                                 style = MaterialTheme.typography.body1.copy(
                                     color = colorOfValue,
-                                    fontSize = 22.sp,
+                                    fontSize = 22.sp.from(ctx),
                                     fontWeight = FontWeight(600)
                                 )
                             )
-                            Spacer(modifier = Modifier.width(5.dp))
+                            Spacer(modifier = Modifier.width(5.dp.from(ctx)))
                             Column(
-                                modifier = modifier.height(33.dp),
+                                modifier = modifier.height(33.dp.from(ctx)),
                                 verticalArrangement = Arrangement.Bottom
                             ) {
                                 Text(
                                     text = satuan,
                                     style = MaterialTheme.typography.body1.copy(
                                         color = colorOfValue,
-                                        fontSize = 12.sp,
+                                        fontSize = 12.sp.from(ctx),
                                         fontWeight = FontWeight(600)
                                     )
                                 )
@@ -218,8 +220,8 @@ fun CardBmiBodyWeight(
                         }
                         Row(
                             modifier = modifier
-                                .padding(horizontal = 7.dp)
-                                .background(color = colorOfValue, shape = RoundedCornerShape(10.dp)),
+                                .padding(horizontal = 7.dp.from(ctx))
+                                .background(color = colorOfValue, shape = RoundedCornerShape(10.dp.from(ctx))),
                             horizontalArrangement = Arrangement.Center,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
@@ -227,17 +229,17 @@ fun CardBmiBodyWeight(
                                 text = analytic,
                                 style = MaterialTheme.typography.body1.copy(
                                     color = Color.White,
-                                    fontSize = 10.sp,
+                                    fontSize = 10.sp.from(ctx),
                                     fontWeight = FontWeight(400)
                                 ),
                                 modifier = modifier
-                                    .padding(horizontal = 7.dp, vertical = 1.dp)
+                                    .padding(horizontal = 7.dp.from(ctx), vertical = 1.dp.from(ctx))
                             )
 
                         }
 
                     }
-                    Spacer(modifier = modifier.width(13.dp))
+                    Spacer(modifier = modifier.width(13.dp.from(ctx)))
                     Column(
                         modifier = modifier.fillMaxHeight(),
                         verticalArrangement = Arrangement.Center
@@ -247,7 +249,7 @@ fun CardBmiBodyWeight(
                             contentDescription = "Arrow",
                             tint = GreyJade,
                             modifier = modifier
-                                .size(23.dp)
+                                .size(23.dp.from(ctx))
                                 .clickable {
                                     stateDropDown = !stateDropDown
                                 }
@@ -273,8 +275,8 @@ fun CardBmiBodyWeight(
                     ) {
                         Row(
                             modifier = modifier
-                                .padding(horizontal = 7.dp, vertical = 7.dp)
-                                .background(color = colorOfValue, shape = RoundedCornerShape(10.dp)),
+                                .padding(horizontal = 7.dp.from(ctx), vertical = 7.dp.from(ctx))
+                                .background(color = colorOfValue, shape = RoundedCornerShape(10.dp.from(ctx))),
                             horizontalArrangement = Arrangement.Center,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
@@ -282,34 +284,34 @@ fun CardBmiBodyWeight(
                                 text = analytic,
                                 style = MaterialTheme.typography.body1.copy(
                                     color = Color.White,
-                                    fontSize = 10.sp,
+                                    fontSize = 10.sp.from(ctx),
                                     fontWeight = FontWeight(400)
                                 ),
                                 modifier = modifier
-                                    .padding(horizontal = 7.dp, vertical = 1.dp)
+                                    .padding(horizontal = 7.dp.from(ctx), vertical = 1.dp.from(ctx))
                             )
 
                         }
-                        Spacer(modifier = Modifier.width(10.dp))
+                        Spacer(modifier = Modifier.width(10.dp.from(ctx)))
                         Row {
                             Text(
                                 text = value,
                                 style = MaterialTheme.typography.body1.copy(
                                     color = colorOfValue,
-                                    fontSize = 22.sp,
+                                    fontSize = 22.sp.from(ctx),
                                     fontWeight = FontWeight(600)
                                 )
                             )
-                            Spacer(modifier = Modifier.width(5.dp))
+                            Spacer(modifier = Modifier.width(5.dp.from(ctx)))
                             Column(
-                                modifier = modifier.height(33.dp),
+                                modifier = modifier.height(33.dp.from(ctx)),
                                 verticalArrangement = Arrangement.Bottom
                             ) {
                                 Text(
                                     text = satuan,
                                     style = MaterialTheme.typography.body1.copy(
                                         color = colorOfValue,
-                                        fontSize = 12.sp,
+                                        fontSize = 12.sp.from(ctx),
                                         fontWeight = FontWeight(600)
                                     )
                                 )
@@ -317,7 +319,7 @@ fun CardBmiBodyWeight(
 
 
                         }
-                        Spacer(modifier = modifier.width(13.dp))
+                        Spacer(modifier = modifier.width(13.dp.from(ctx)))
                         Column(
                             modifier = modifier.fillMaxHeight(),
                             verticalArrangement = Arrangement.Center
@@ -327,7 +329,7 @@ fun CardBmiBodyWeight(
                                 contentDescription = "Arrow",
                                 tint = GreyJade,
                                 modifier = modifier
-                                    .size(23.dp)
+                                    .size(23.dp.from(ctx))
                                     .clickable {
                                         stateDropDown = !stateDropDown
                                     }

@@ -9,6 +9,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -18,6 +19,7 @@ import androidx.compose.ui.unit.sp
 import com.cexup.datum.listLegendDiastole
 import com.cexup.datum.listLegendPulse
 import com.cexup.datum.listLegendSystole
+import com.cexup.ui.R
 import com.cexup.ui.component.chart.BaseChartView
 import com.cexup.ui.corporate.component.CardPatientInFeature
 import com.cexup.ui.corporate.component.DialogInputManualBloodPressure
@@ -25,30 +27,40 @@ import com.cexup.ui.corporate.theme.BlueJade
 import com.cexup.ui.corporate.theme.GreyBlackStetoscope
 import com.cexup.ui.corporate.theme.Heading
 import com.cexup.ui.corporate.theme.SecondaryCorporate
+import com.cexup.ui.utils.mediaquery.from
 import com.github.mikephil.charting.data.Entry
 
 data class BloodPressureDataUIState(
+    var patientName:String,
+    var patientUserCode:String,
+    var patientThumb:String = "",
+
     var systole : Int = 0,
     var diastole : Int = 0,
     var heartRate : Int = 0,
+
+    var resultAnalytic: Int,
+    var colorAnalytic: Int,
     // label, entry
-    var listEntrySystole : Pair<List<String>, List<Entry>> = Pair(listOf(), listOf()),
-    var listEntryDiastole: Pair<List<String>, List<Entry>> = Pair(listOf(), listOf()),
-    var listEntryPulse: Pair<List<String>, List<Entry>> = Pair(listOf(), listOf()),
+    var listEntrySystole : Pair<List<String>, List<Entry>>
+    = Pair(listOf("label"), listOf(Entry(0f,0f))),
+    var listEntryDiastole: Pair<List<String>, List<Entry>>
+    = Pair(listOf("label"), listOf(Entry(0f,0f))),
+    var listEntryPulse: Pair<List<String>, List<Entry>>
+    = Pair(listOf("label"), listOf(Entry(0f,0f))),
 )
 
 @Composable
 fun ScreenBloodPressure(
     modifier: Modifier = Modifier,
-    resultAnalytic: Int,
-    colorAnalytic: Int,
     deviceStatus: Boolean,
-    bloodPressureDataUIState: BloodPressureDataUIState = BloodPressureDataUIState(),
+    bloodPressureDataUIState: BloodPressureDataUIState,
     isReadDataEnabled: Boolean,
     onReadData: () -> Unit,
     onSave: (Systole: Int, Diastole: Int, PulseRate: Int) -> Unit,
     onButtonBackPressed: () -> Unit,
 ) {
+    val ctx = LocalContext.current
     val scrollState = rememberScrollState()
     var showDialogManualInput by remember { mutableStateOf(false) }
     var systoleValue by remember { mutableStateOf("0") }
@@ -71,31 +83,35 @@ fun ScreenBloodPressure(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(30.dp)
+            .padding(30.dp.from(ctx))
 
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(10.dp)
+            horizontalArrangement = Arrangement.spacedBy(10.dp.from(ctx))
         ) {
-            CardPatientInFeature(thumb = "", name = "John Stones", id = 2202020)
+            CardPatientInFeature(
+                thumb = bloodPressureDataUIState.patientThumb,
+                name = bloodPressureDataUIState.patientName,
+                id = bloodPressureDataUIState.patientUserCode.toLong()
+            )
             Spacer(modifier = Modifier.weight(1f))
             Button(
                 onClick = {
                     showDialogManualInput = true
                 } ,
                 modifier = modifier
-                    .height(35.dp),
+                    .height(35.dp.from(ctx)),
                 colors = ButtonDefaults.buttonColors(backgroundColor = BlueJade),
-                shape = RoundedCornerShape(10.dp),
-                contentPadding = PaddingValues(horizontal = 11.dp)
+                shape = RoundedCornerShape(10.dp.from(ctx)),
+                contentPadding = PaddingValues(horizontal = 11.dp.from(ctx))
             ){
                 Text(
-                    text = "Input Manual",
+                    text = stringResource(id = R.string.corporate_input_manual),
                     style = MaterialTheme.typography.body1.copy(
                         fontWeight = FontWeight(600),
-                        fontSize = 14.sp,
-                        letterSpacing = 1.sp,
+                        fontSize = 14.sp.from(ctx),
+                        letterSpacing = 1.sp.from(ctx),
                         color = Color.White
                     ),
                 )
@@ -105,22 +121,22 @@ fun ScreenBloodPressure(
                     onButtonBackPressed()
                 },
                 modifier = modifier
-                    .width(89.dp)
-                    .height(35.dp),
+                    .width(89.dp.from(ctx))
+                    .height(35.dp.from(ctx)),
                 colors = ButtonDefaults.buttonColors(backgroundColor = SecondaryCorporate),
-                shape = RoundedCornerShape(10.dp),
-                contentPadding = PaddingValues(horizontal = 11.dp)
+                shape = RoundedCornerShape(10.dp.from(ctx)),
+                contentPadding = PaddingValues(horizontal = 11.dp.from(ctx))
             ) {
 
                 Text(
-                    text = "Back",
+                    text = stringResource(id = R.string.corporate_back),
                     style = MaterialTheme.typography.body1.copy(
                         fontWeight = FontWeight(600),
-                        fontSize = 14.sp,
-                        letterSpacing = 1.sp,
+                        fontSize = 14.sp.from(ctx),
+                        letterSpacing = 1.sp.from(ctx),
                         color = Color.White
                     ),
-                    modifier = modifier.padding(5.dp)
+                    modifier = modifier.padding(5.dp.from(ctx))
                 )
 
 
@@ -140,39 +156,39 @@ fun ScreenBloodPressure(
                 horizontalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = stringResource(id = resultAnalytic),
+                    text = stringResource(id = bloodPressureDataUIState.resultAnalytic),
                     style = MaterialTheme.typography.body1.copy(
                         fontWeight = FontWeight(600),
-                        fontSize = 22.sp,
-                        letterSpacing = 1.sp,
-                        color = colorResource(id = colorAnalytic)
+                        fontSize = 22.sp.from(ctx),
+                        letterSpacing = 1.sp.from(ctx),
+                        color = colorResource(id = bloodPressureDataUIState.colorAnalytic)
                     ),
-                    modifier = modifier.padding(5.dp)
+                    modifier = modifier.padding(5.dp.from(ctx))
                 )
             }
             Row(
                 modifier = modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                val widthValue = 290.dp
-                val heightValue = 320.dp
+                val widthValue = 290.dp.from(ctx)
+                val heightValue = 320.dp.from(ctx)
                 Column(
                     modifier = modifier
                         .width(widthValue)
                         .height(heightValue)
                 ) {
                     CardBloodPressureValue(
-                        valueName = "Systole",
+                        valueName = stringResource(id = R.string.corporate_measurement_systole),
                         value =
                         if (isSaveManualInput)
                             systoleValue
                         else
                             bloodPressureDataUIState.systole.toString(),
                     )
-                    Spacer(modifier = Modifier.height(20.dp))
+                    Spacer(modifier = Modifier.height(20.dp.from(ctx)))
                     Card(
-                        shape = RoundedCornerShape(10.dp),
-                        elevation = 1.dp,
+                        shape = RoundedCornerShape(10.dp.from(ctx)),
+                        elevation = 1.dp.from(ctx),
                         modifier = modifier
                             .fillMaxWidth()
                             .fillMaxHeight()
@@ -194,17 +210,17 @@ fun ScreenBloodPressure(
                         .height(heightValue)
                 ) {
                     CardBloodPressureValue(
-                        valueName = "Diastole",
+                        valueName = stringResource(id = R.string.corporate_measurement_diastole),
                         value =
                         if(isSaveManualInput)
                             diastoleValue
                         else
                             bloodPressureDataUIState.diastole.toString()
                     )
-                    Spacer(modifier = Modifier.height(20.dp))
+                    Spacer(modifier = Modifier.height(20.dp.from(ctx)))
                     Card(
-                        shape = RoundedCornerShape(10.dp),
-                        elevation = 1.dp,
+                        shape = RoundedCornerShape(10.dp.from(ctx)),
+                        elevation = 1.dp.from(ctx),
                         modifier = modifier
                             .fillMaxWidth()
                             .fillMaxHeight()
@@ -226,17 +242,17 @@ fun ScreenBloodPressure(
                         .height(heightValue)
                 ) {
                     CardBloodPressureValue(
-                        valueName = "Pulse",
+                        valueName = stringResource(id = R.string.corporate_measurement_pulse_rate),
                         value =
                         if(isSaveManualInput)
                             pulseValue
                         else
                             bloodPressureDataUIState.heartRate.toString()
                     )
-                    Spacer(modifier = Modifier.height(20.dp))
+                    Spacer(modifier = Modifier.height(20.dp.from(ctx)))
                     Card(
-                        shape = RoundedCornerShape(10.dp),
-                        elevation = 1.dp,
+                        shape = RoundedCornerShape(10.dp.from(ctx)),
+                        elevation = 1.dp.from(ctx),
                         modifier = modifier
                             .fillMaxWidth()
                             .fillMaxHeight()
@@ -256,7 +272,7 @@ fun ScreenBloodPressure(
 
 
             }
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(20.dp.from(ctx)))
             Column(
                 modifier = modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -267,11 +283,11 @@ fun ScreenBloodPressure(
                         onReadData()
                     },
                     modifier = modifier
-                        .width(348.dp)
-                        .height(35.dp),
+                        .width(348.dp.from(ctx))
+                        .height(35.dp.from(ctx)),
                     colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primaryVariant),
-                    shape = RoundedCornerShape(30.dp),
-                    contentPadding = PaddingValues(horizontal = 11.dp)
+                    shape = RoundedCornerShape(30.dp.from(ctx)),
+                    contentPadding = PaddingValues(horizontal = 11.dp.from(ctx))
                 ) {
 
                     Row(
@@ -279,14 +295,14 @@ fun ScreenBloodPressure(
                         horizontalArrangement = Arrangement.Center
                     ) {
                         Text(
-                            text = "Read Data",
+                            text = stringResource(id = R.string.read_data),
                             style = MaterialTheme.typography.body1.copy(
                                 fontWeight = FontWeight(600),
-                                fontSize = 16.sp,
-                                letterSpacing = 1.sp,
+                                fontSize = 16.sp.from(ctx),
+                                letterSpacing = 1.sp.from(ctx),
                                 color = Color.White
                             ),
-                            modifier = modifier.padding(5.dp)
+                            modifier = modifier.padding(5.dp.from(ctx))
                         )
                     }
 
@@ -297,14 +313,21 @@ fun ScreenBloodPressure(
                     horizontalArrangement = Arrangement.Center
                 ) {
                     Text(
-                        text = "Device Status : ${if (deviceStatus) "Connected" else "Disconnected"}",
+                        text = stringResource(
+                            id = R.string.device_status,
+                            if (deviceStatus) stringResource(
+                                id = R.string.connected
+                            )else stringResource(
+                                id = R.string.disconnected
+                            )
+                        ),
                         style = MaterialTheme.typography.body1.copy(
                             fontWeight = FontWeight(600),
-                            fontSize = 15.sp,
-                            letterSpacing = 1.sp,
+                            fontSize = 15.sp.from(ctx),
+                            letterSpacing = 1.sp.from(ctx),
                             color = GreyBlackStetoscope
                         ),
-                        modifier = modifier.padding(5.dp)
+                        modifier = modifier.padding(5.dp.from(ctx))
                     )
                 }
             }
@@ -320,14 +343,15 @@ fun CardBloodPressureValue(
     valueName: String,
     value: String,
 ) {
+    val ctx = LocalContext.current
     Card(
-        elevation = 1.dp,
-        shape = RoundedCornerShape(10.dp),
+        elevation = 1.dp.from(ctx),
+        shape = RoundedCornerShape(10.dp.from(ctx)),
     ) {
         Row(
             modifier = modifier
-                .width(widthRow)
-                .padding(horizontal = 17.dp),
+                .width(widthRow.from(ctx))
+                .padding(horizontal = 17.dp.from(ctx)),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -335,21 +359,21 @@ fun CardBloodPressureValue(
                 text = valueName,
                 style = MaterialTheme.typography.body1.copy(
                     fontWeight = FontWeight(600),
-                    fontSize = 22.sp,
-                    letterSpacing = 1.sp,
+                    fontSize = 22.sp.from(ctx),
+                    letterSpacing = 1.sp.from(ctx),
                     color = GreyBlackStetoscope
                 ),
-                modifier = modifier.padding(5.dp)
+                modifier = modifier.padding(5.dp.from(ctx))
             )
             Text(
                 text = value,
                 style = MaterialTheme.typography.body1.copy(
                     fontWeight = FontWeight(700),
-                    fontSize = 26.sp,
-                    letterSpacing = 1.sp,
+                    fontSize = 26.sp.from(ctx),
+                    letterSpacing = 1.sp.from(ctx),
                     color = Heading
                 ),
-                modifier = modifier.padding(5.dp)
+                modifier = modifier.padding(5.dp.from(ctx))
             )
         }
     }

@@ -9,6 +9,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -16,12 +17,21 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cexup.datum.limitLineBodyMassIndex
 import com.cexup.datum.listLegendBmi
+import com.cexup.ui.R
 import com.cexup.ui.component.chart.BaseChartView
 import com.cexup.ui.corporate.component.*
 import com.cexup.ui.corporate.theme.*
+import com.cexup.ui.utils.mediaquery.from
 import com.github.mikephil.charting.data.Entry
 
 data class BodyMassIndexDataUIState(
+    var patientName:String,
+    var patientUserCode:String,
+    var patientThumb:String = "",
+
+    var resultAnalytic: Int,
+    var colorAnalytic: Int,
+
     var height: Float = 0f,
     var bodyMassIndex: Float = 0f,
     var weight: Float = 0f,
@@ -44,14 +54,13 @@ data class BodyMassIndexDataUIState(
 @Composable
 fun ScreenBodyMassIndex(
     modifier: Modifier = Modifier,
-    resultAnalytic: Int,
-    colorAnalytic: Int,
     bodyMassIndexDataUIState: BodyMassIndexDataUIState,
     deviceStatus: String,
     onBackPress: () -> Unit,
     onSave: (weight :Float, height: Float) -> Unit,
     onCalculateBmi: (weight: Float, height: Float) -> Float,
 ) {
+    val ctx = LocalContext.current
     val scrollState = rememberScrollState()
     var bodyTypeStr by remember {
         mutableStateOf("")
@@ -76,30 +85,34 @@ fun ScreenBodyMassIndex(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(30.dp)
+            .padding(30.dp.from(ctx))
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(10.dp)
+            horizontalArrangement = Arrangement.spacedBy(10.dp.from(ctx))
         ) {
-            CardPatientInFeature(thumb = "", name = "John Stones", id = 2202020)
+            CardPatientInFeature(
+                thumb = bodyMassIndexDataUIState.patientThumb,
+                name = bodyMassIndexDataUIState.patientName,
+                id = bodyMassIndexDataUIState.patientUserCode.toLong()
+            )
             Spacer(modifier = Modifier.weight(1f))
             Button(
                 onClick = {
                     showDialogManualInput = true
                 } ,
                 modifier = modifier
-                    .height(35.dp),
+                    .height(35.dp.from(ctx)),
                 colors = ButtonDefaults.buttonColors(backgroundColor = BlueJade),
-                shape = RoundedCornerShape(10.dp),
-                contentPadding = PaddingValues(horizontal = 11.dp)
+                shape = RoundedCornerShape(10.dp.from(ctx)),
+                contentPadding = PaddingValues(horizontal = 11.dp.from(ctx))
             ){
                 Text(
-                    text = "Input Manual",
+                    text = stringResource(id = R.string.corporate_input_manual),
                     style = MaterialTheme.typography.body1.copy(
                         fontWeight = FontWeight(600),
-                        fontSize = 14.sp,
-                        letterSpacing = 1.sp,
+                        fontSize = 14.sp.from(ctx),
+                        letterSpacing = 1.sp.from(ctx),
                         color = Color.White
                     ),
                 )
@@ -109,26 +122,25 @@ fun ScreenBodyMassIndex(
                     onBackPress()
                 },
                 modifier = modifier
-                    .width(89.dp)
-                    .height(35.dp),
+                    .width(89.dp.from(ctx))
+                    .height(35.dp.from(ctx)),
                 colors = ButtonDefaults.buttonColors(backgroundColor = SecondaryCorporate),
-                shape = RoundedCornerShape(10.dp),
-                contentPadding = PaddingValues(horizontal = 11.dp)
+                shape = RoundedCornerShape(10.dp.from(ctx)),
+                contentPadding = PaddingValues(horizontal = 11.dp.from(ctx))
             ) {
-
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Center
                 ) {
                     Text(
-                        text = "Back",
+                        text = stringResource(id = R.string.corporate_back),
                         style = MaterialTheme.typography.body1.copy(
                             fontWeight = FontWeight(600),
-                            fontSize = 14.sp,
-                            letterSpacing = 1.sp,
+                            fontSize = 14.sp.from(ctx),
+                            letterSpacing = 1.sp.from(ctx),
                             color = Color.White
                         ),
-                        modifier = modifier.padding(5.dp)
+                        modifier = modifier.padding(5.dp.from(ctx))
                     )
                 }
 
@@ -148,23 +160,23 @@ fun ScreenBodyMassIndex(
                 horizontalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = stringResource(id = resultAnalytic),
+                    text = stringResource(id = bodyMassIndexDataUIState.resultAnalytic),
                     style = MaterialTheme.typography.body1.copy(
                         fontWeight = FontWeight(600),
-                        fontSize = 22.sp,
-                        letterSpacing = 1.sp,
-                        color = colorResource(id = colorAnalytic)
+                        fontSize = 22.sp.from(ctx),
+                        letterSpacing = 1.sp.from(ctx),
+                        color = colorResource(id = bodyMassIndexDataUIState.colorAnalytic)
                     ),
-                    modifier = modifier.padding(5.dp)
+                    modifier = modifier.padding(5.dp.from(ctx))
                 )
             }
-            Spacer(modifier = Modifier.height(34.dp))
+            Spacer(modifier = Modifier.height(34.dp.from(ctx)))
             Row(
                 modifier = modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 Column(
-                    modifier.width(269.dp)
+                    modifier.width(269.dp.from(ctx))
                 ) {
                     CardBodyMassIndex(
                         valueOfParameter =
@@ -172,14 +184,14 @@ fun ScreenBodyMassIndex(
                             valueHeight
                         else
                             bodyMassIndexDataUIState.height,
-                        parameterName = "Height",
-                        parameterUnit = "cm",
+                        parameterName = stringResource(id = R.string.corporate_measurement_height),
+                        parameterUnit = stringResource(id = R.string.cm),
                         color = Heading,
                         typeBodyMassIndex = TypeBodyMassIndex.HEIGHT
                     )
                 }
                 Column(
-                    modifier.width(269.dp)
+                    modifier.width(269.dp.from(ctx))
                 ) {
                     CardBodyMassIndex(
                         valueOfParameter =
@@ -188,30 +200,30 @@ fun ScreenBodyMassIndex(
                         }
                         else
                             bodyMassIndexDataUIState.bodyMassIndex,
-                        parameterName = "Result BMI",
-                        parameterUnit = "kg/m2",
+                        parameterName = stringResource(id = R.string.result_bmi),
+                        parameterUnit = stringResource(id = R.string.kg_per_m2),
                         color = Heading,
                         typeBodyMassIndex = TypeBodyMassIndex.BMI
                     )
-                    Spacer(modifier = Modifier.height(51.dp))
+                    Spacer(modifier = Modifier.height(51.dp.from(ctx)))
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.Center
                     ) {
                         Text(
-                            text = "Device Status : $deviceStatus",
+                            text = stringResource(id = R.string.device_status,deviceStatus),
                             style = MaterialTheme.typography.body1.copy(
                                 fontWeight = FontWeight(600),
-                                fontSize = 12.sp,
-                                letterSpacing = 1.sp,
+                                fontSize = 12.sp.from(ctx),
+                                letterSpacing = 1.sp.from(ctx),
                                 color = GreyBlackStetoscope
                             ),
-                            modifier = modifier.padding(5.dp)
+                            modifier = modifier.padding(5.dp.from(ctx))
                         )
                     }
                 }
                 Column(
-                    modifier.width(269.dp)
+                    modifier.width(269.dp.from(ctx))
                 ) {
                     CardBodyMassIndex(
                         valueOfParameter =
@@ -219,20 +231,20 @@ fun ScreenBodyMassIndex(
                             valueWeight
                         else
                             bodyMassIndexDataUIState.weight,
-                        parameterName = "Weight",
-                        parameterUnit = "kg",
+                        parameterName = stringResource(id = R.string.corporate_measurement_weight),
+                        parameterUnit = stringResource(id = R.string.kg),
                         color = SecondaryCorporate,
                         typeBodyMassIndex = TypeBodyMassIndex.WEIGHT
                     )
                 }
             }
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(20.dp.from(ctx)))
             Card(
                 modifier = modifier
                     .fillMaxWidth()
-                    .height(300.dp),
-                shape = RoundedCornerShape(10.dp),
-                elevation = 1.dp
+                    .height(300.dp.from(ctx)),
+                shape = RoundedCornerShape(10.dp.from(ctx)),
+                elevation = 1.dp.from(ctx)
             ) {
                 BaseChartView(
                     data = bodyMassIndexDataUIState.listEntryBodyMassIndex.second,
@@ -244,11 +256,11 @@ fun ScreenBodyMassIndex(
                     limitLine = limitLineBodyMassIndex
                 )
             }
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(20.dp.from(ctx)))
             Column(
                 modifier = modifier
                     .fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(20.dp)
+                verticalArrangement = Arrangement.spacedBy(20.dp.from(ctx))
             ) {
                 Row(
                     modifier = modifier
@@ -259,25 +271,25 @@ fun ScreenBodyMassIndex(
                         type = 1,
                         value = (valueWeight * (1 - (bodyMassIndexDataUIState.bodyFatRate/100))).toString(),
                         colorOfValue = LightGreen,
-                        satuan = "kg",
-                        analyticName = "Fat-free Body Weight"
+                        satuan = stringResource(id = R.string.kg),
+                        analyticName = stringResource(id = R.string.fat_free_body_weight)
                     )
                     when(bodyMassIndexDataUIState.bodyType) {
-                        0 -> bodyTypeStr = "No Body Type"
-                        1 -> bodyTypeStr = "Hidden obesity"
-                        2 -> bodyTypeStr = "Lack of exercise"
-                        3 -> bodyTypeStr = "Lean type"
-                        4 -> bodyTypeStr = "Standard type"
-                        5 -> bodyTypeStr = "Lean muscle type"
-                        6 -> bodyTypeStr = "Obese"
-                        7 -> bodyTypeStr = "Fatty"
-                        8 -> bodyTypeStr = "Standard muscle"
-                        9 -> bodyTypeStr = "Very muscular"
+                        0 -> bodyTypeStr = stringResource(id = R.string.no_body_type)
+                        1 -> bodyTypeStr = stringResource(id = R.string.hidden_obesity)
+                        2 -> bodyTypeStr = stringResource(id = R.string.lack_of_exercise)
+                        3 -> bodyTypeStr = stringResource(id = R.string.lean_type)
+                        4 -> bodyTypeStr = stringResource(id = R.string.standard_type)
+                        5 -> bodyTypeStr = stringResource(id = R.string.lean_muscle_type)
+                        6 -> bodyTypeStr = stringResource(id = R.string.obese)
+                        7 -> bodyTypeStr = stringResource(id = R.string.fatty)
+                        8 -> bodyTypeStr = stringResource(id = R.string.standard_muscle)
+                        9 -> bodyTypeStr = stringResource(id = R.string.very_muscular)
                         else -> {}
                     }
                     CardBmiBodyWeight(
                         type = 3,
-                        analyticName = "Body Type",
+                        analyticName = stringResource(id = R.string.body_type),
                         analytic = bodyTypeStr
                     )
                 }
@@ -292,12 +304,12 @@ fun ScreenBodyMassIndex(
                         value = "${bodyMassIndexDataUIState.bodyFatRate}",
                         colorOfValue = LightGreen,
                         satuan = "%",
-                        analyticName = "Body Fat"
+                        analyticName = stringResource(id = R.string.body_fat)
                     )
                     CardBmiBodyWeight(
                         type = 5,
-                        analyticName = "Subcutaneous Fat",
-                        analytic = "High",
+                        analyticName = stringResource(id = R.string.subcutaneous_fat),
+                        analytic = stringResource(id = R.string.high),
                         colorOfValue = LightOrange,
                         value = "${bodyMassIndexDataUIState.subFat}",
                         satuan = "%"
@@ -313,14 +325,14 @@ fun ScreenBodyMassIndex(
                         type = 2,
                         value = "${bodyMassIndexDataUIState.visFat}",
                         colorOfValue = LightGreen,
-                        analyticName = "Visceral Fat"
+                        analyticName = stringResource(id = R.string.visceral_fat)
                     )
                     CardBmiBodyWeight(
                         type = 2,
                         value = "${bodyMassIndexDataUIState.muscleRate}",
                         colorOfValue = LightGreen,
                         satuan = "%",
-                        analyticName = "Skeletal Muscle"
+                        analyticName = stringResource(id = R.string.skeletal_muscle)
                     )
                 }
                 //4
@@ -333,15 +345,15 @@ fun ScreenBodyMassIndex(
                         type = 2,
                         value = "${bodyMassIndexDataUIState.muscleMass}",
                         colorOfValue = LightGreen,
-                        satuan = "kg",
-                        analyticName = "Muscle Mass"
+                        satuan = stringResource(id = R.string.kg),
+                        analyticName = stringResource(id = R.string.muscle_mass)
                     )
                     CardBmiBodyWeight(
                         type = 2,
                         value = "${bodyMassIndexDataUIState.water}",
                         colorOfValue = LightGreen,
                         satuan = "%",
-                        analyticName = "Body Water"
+                        analyticName = stringResource(id = R.string.body_water)
                     )
                 }
                 //5
@@ -354,15 +366,15 @@ fun ScreenBodyMassIndex(
                         type = 2,
                         value = "${bodyMassIndexDataUIState.boneMass}",
                         colorOfValue = LightGreen,
-                        satuan = "kg",
-                        analyticName = "Bone Mass"
+                        satuan = stringResource(id = R.string.kg),
+                        analyticName = stringResource(id = R.string.bone_mass)
                     )
                     CardBmiBodyWeight(
                         type = 2,
                         value = "${bodyMassIndexDataUIState.protein}",
                         colorOfValue = LightGreen,
                         satuan = "%",
-                        analyticName = "Protein"
+                        analyticName = stringResource(id = R.string.protein)
                     )
                 }
                 //6
@@ -375,8 +387,8 @@ fun ScreenBodyMassIndex(
                         type = 4,
                         value = "${bodyMassIndexDataUIState.bodyMassRate}",
                         colorOfValue = LightOrange,
-                        satuan = "kcal",
-                        analyticName = "BMR",
+                        satuan = stringResource(id = R.string.kcal),
+                        analyticName = stringResource(id = R.string.bmr),
 //                        analytic = "Below Average"
                     )
                     CardBmiBodyWeight(
@@ -384,23 +396,23 @@ fun ScreenBodyMassIndex(
                         value = "${bodyMassIndexDataUIState.bodyAge}",
                         colorOfValue = LightGreen,
                         satuan = "",
-                        analyticName = "Metabolic Age"
+                        analyticName = stringResource(id = R.string.metabolic_age)
                     )
                 }
 
             }
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(20.dp.from(ctx)))
             Card(
                 modifier = modifier
                     .fillMaxWidth()
-                    .height(300.dp),
-                shape = RoundedCornerShape(10.dp),
-                elevation = 1.dp
+                    .height(300.dp.from(ctx)),
+                shape = RoundedCornerShape(10.dp.from(ctx)),
+                elevation = 1.dp.from(ctx)
             ) {
                 BaseChartView(
                     data = bodyMassIndexDataUIState.listEntryBodyMassIndex.second,
                     name = bodyMassIndexDataUIState.listEntryBodyMassIndex.first,
-                    description = "Fat Analytic",
+                    description = stringResource(id = R.string.fat_analytic),
                     maxAxis = 150f,
                     minAxis = 50f,
                 )

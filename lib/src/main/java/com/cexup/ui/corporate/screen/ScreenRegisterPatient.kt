@@ -9,9 +9,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.cexup.ui.R
 import com.cexup.ui.corporate.component.CardPatientInformation
 import com.cexup.ui.corporate.theme.Heading
 import com.cexup.ui.utils.mediaquery.from
@@ -38,7 +40,7 @@ fun ScreenRegisterPatient(
             .padding(horizontal = 10.dp.from(ctx))
     ) {
         Text(
-            text = "Add New Patient",
+            text = stringResource(id = R.string.add_new_patient),
             style = MaterialTheme.typography.body1.copy(
                 color = Heading,
                 fontSize = 22.sp.from(ctx),

@@ -17,11 +17,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.rotate
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cexup.ui.corporate.theme.Heading
 import com.cexup.ui.corporate.theme.SecondaryCorporate
+import com.cexup.ui.utils.mediaquery.from
 
 @Composable
 fun CardBodyMassIndex(
@@ -32,30 +34,31 @@ fun CardBodyMassIndex(
     color: Color = Heading,
     typeBodyMassIndex: TypeBodyMassIndex,
 ){
+    val ctx = LocalContext.current
     var value by remember {
         mutableStateOf("--")
     }
     value = if (valueOfParameter == 0f) "--" else valueOfParameter.toString()
     Card(
-        shape = RoundedCornerShape(15.dp),
-        elevation = 2.dp,
-        modifier = modifier.height(273.45.dp)
+        shape = RoundedCornerShape(15.dp.from(ctx)),
+        elevation = 2.dp.from(ctx),
+        modifier = modifier.height(273.45.dp.from(ctx))
     ) {
         Column(
             modifier = modifier.padding(
-                horizontal = 22.41.dp,
-                vertical = 21.29.dp
+                horizontal = 22.41.dp.from(ctx),
+                vertical = 21.29.dp.from(ctx)
             )
         ) {
             Text(
                 text = parameterName,
                 style = MaterialTheme.typography.body1.copy(
                     color = Color.Black,
-                    fontSize = 22.sp,
+                    fontSize = 22.sp.from(ctx),
                     fontWeight = FontWeight(700)
                 ),
             )
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(10.dp.from(ctx)))
             when(typeBodyMassIndex){
                 TypeBodyMassIndex.BMI ->{
                     Row(
@@ -64,9 +67,9 @@ fun CardBodyMassIndex(
                     ) {
                         Box(
                             contentAlignment = Alignment.Center,
-                            modifier = modifier.size(78.955.dp*2f)
+                            modifier = modifier.size(78.955.dp.from(ctx)*2f)
                         ){
-                            Canvas(modifier = modifier.size(78.955.dp*2f)){
+                            Canvas(modifier = modifier.size(78.955.dp.from(ctx)*2f)){
                                 rotate(-45f){
                                     drawArc(
                                         brush = Brush.sweepGradient(
@@ -94,7 +97,7 @@ fun CardBodyMassIndex(
                                     text = value,
                                     style = MaterialTheme.typography.body1.copy(
                                         color = Color.Black,
-                                        fontSize = 30.sp,
+                                        fontSize = 30.sp.from(ctx),
                                         fontWeight = FontWeight.Bold
                                     ),
                                 )
@@ -102,7 +105,7 @@ fun CardBodyMassIndex(
                                     text = parameterUnit,
                                     style = MaterialTheme.typography.body1.copy(
                                         color = Color.Black,
-                                        fontSize = 16.sp,
+                                        fontSize = 16.sp.from(ctx),
                                         fontWeight = FontWeight.Bold
                                     ),
                                     modifier = modifier.align(Alignment.CenterVertically)
@@ -118,10 +121,10 @@ fun CardBodyMassIndex(
                     ) {
                         Box(
                             modifier = modifier
-                                .size(171.82.dp)
+                                .size(171.82.dp.from(ctx))
                                 .clip(CircleShape)
                                 .border(
-                                    width = 3.dp,
+                                    width = 3.dp.from(ctx),
                                     color = color,
                                     shape = CircleShape
                                 ),
@@ -136,7 +139,7 @@ fun CardBodyMassIndex(
                                     text = value,
                                     style = MaterialTheme.typography.body1.copy(
                                         color = Color.Black,
-                                        fontSize = 26.sp,
+                                        fontSize = 26.sp.from(ctx),
                                         fontWeight = FontWeight.Bold
                                     ),
                                 )
@@ -144,7 +147,7 @@ fun CardBodyMassIndex(
                                     text = parameterUnit,
                                     style = MaterialTheme.typography.body1.copy(
                                         color = Color.Black,
-                                        fontSize = 16.sp,
+                                        fontSize = 16.sp.from(ctx),
                                         fontWeight = FontWeight.Bold
                                     ),
                                     modifier = modifier.align(Alignment.CenterVertically)

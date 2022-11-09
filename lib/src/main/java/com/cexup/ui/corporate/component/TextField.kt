@@ -30,6 +30,7 @@ import com.cexup.ui.corporate.theme.Heading
 import com.cexup.ui.corporate.theme.SecondaryCorporate
 import com.cexup.ui.corporate.theme.inactive
 import com.cexup.ui.utils.coloredShadow
+import com.cexup.ui.utils.mediaquery.from
 import org.joda.time.DateTime
 import java.util.*
 
@@ -62,7 +63,7 @@ fun FormTextField(
     Column {
         Text(
             text = nameTextField,
-            fontSize = 16.sp,
+            fontSize = 16.sp.from(ctx),
             fontWeight = FontWeight(400),
             style = MaterialTheme.typography.body1,
             color = Heading,
@@ -79,7 +80,7 @@ fun FormTextField(
                         Text(
                             text = placeholderText,
                             style = MaterialTheme.typography.body1.copy(
-                                fontSize = 12.sp,
+                                fontSize = 12.sp.from(ctx),
                                 fontWeight = FontWeight(300),
                                 color = inactive
                             ),
@@ -88,15 +89,15 @@ fun FormTextField(
 
                     singleLine = true,
                     modifier = modifier
-                        .width(widthTextField)
-                        .height(heightTextField)
+                        .width(widthTextField.from(ctx))
+                        .height(heightTextField.from(ctx))
                         .coloredShadow(
                             color = Color.Black.copy(0.25f),
-                            offsetY = 4.dp,
-                            borderRadius = 5.dp,
-                            shadowRadius = 2.dp
+                            offsetY = 4.dp.from(ctx),
+                            borderRadius = 5.dp.from(ctx),
+                            shadowRadius = 2.dp.from(ctx)
                         ),
-                    shape = RoundedCornerShape(5.dp),
+                    shape = RoundedCornerShape(5.dp.from(ctx)),
                     colors = TextFieldDefaults.outlinedTextFieldColors(
                         backgroundColor = BackgroundLight,
                         focusedBorderColor = SecondaryCorporate,
@@ -135,23 +136,23 @@ fun FormTextField(
                 Box{
                     OutlinedTextField(
                         modifier = Modifier
-                            .width(widthTextField)
-                            .height(heightTextField)
+                            .width(widthTextField.from(ctx))
+                            .height(heightTextField.from(ctx))
                             .clickable {
                                 datePickerDialog.show()
                             }
                             .coloredShadow(
                                 color = Color.Black.copy(0.25f),
-                                offsetY = 4.dp,
-                                borderRadius = 5.dp,
-                                shadowRadius = 2.dp
+                                offsetY = 4.dp.from(ctx),
+                                borderRadius = 5.dp.from(ctx),
+                                shadowRadius = 2.dp.from(ctx)
                             ),
                         value = valueTextField,
                         onValueChange = {
                             valueTextField = it
                             onValueChange(it)
                         },
-                        shape = RoundedCornerShape(5.dp),
+                        shape = RoundedCornerShape(5.dp.from(ctx)),
                         colors = TextFieldDefaults.outlinedTextFieldColors(
                             backgroundColor = BackgroundLight,
                             focusedBorderColor = SecondaryCorporate,
@@ -162,7 +163,7 @@ fun FormTextField(
                             Text(
                                 text = placeholderText,
                                 style = MaterialTheme.typography.body1.copy(
-                                    fontSize = 12.sp,
+                                    fontSize = 12.sp.from(ctx),
                                     fontWeight = FontWeight(300),
                                     color = inactive
                                 ),
@@ -187,7 +188,7 @@ fun FormTextField(
                         Text(
                             text = placeholderText,
                             style = MaterialTheme.typography.body1.copy(
-                                fontSize = 12.sp,
+                                fontSize = 12.sp.from(ctx),
                                 fontWeight = FontWeight(300),
                                 color = inactive
                             ),
@@ -196,15 +197,15 @@ fun FormTextField(
 
                     singleLine = true,
                     modifier = modifier
-                        .width(widthTextField)
-                        .height(heightTextField)
+                        .width(widthTextField.from(ctx))
+                        .height(heightTextField.from(ctx))
                         .coloredShadow(
                             color = Color.Black.copy(0.25f),
-                            offsetY = 4.dp,
-                            borderRadius = 5.dp,
-                            shadowRadius = 2.dp
+                            offsetY = 4.dp.from(ctx),
+                            borderRadius = 5.dp.from(ctx),
+                            shadowRadius = 2.dp.from(ctx)
                         ),
-                    shape = RoundedCornerShape(5.dp),
+                    shape = RoundedCornerShape(5.dp.from(ctx)),
                     colors = TextFieldDefaults.outlinedTextFieldColors(
                         backgroundColor = BackgroundLight,
                         focusedBorderColor = SecondaryCorporate,

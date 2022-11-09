@@ -38,7 +38,7 @@ import com.cexup.ui.utils.mediaquery.from
 data class TemperatureDataUIState(
     var patientName:String,
     var patientUserCode:String,
-    var patientThumb:String,
+    var patientThumb:String = "",
     var resultAnalytic: Int,
     var colorAnalytic: Int,
     var value: Float,

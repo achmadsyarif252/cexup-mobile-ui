@@ -3,6 +3,7 @@ package com.cexup.ui.corporate.component
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.LocalTextStyle
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -10,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -19,6 +21,7 @@ import com.cexup.ui.corporate.theme.Heading
 import com.cexup.ui.corporate.theme.inactive
 import com.cexup.ui.utils.capitalizeWords
 import com.cexup.ui.utils.coloredShadow
+import com.cexup.ui.utils.mediaquery.from
 
 @Composable
 fun CardPatientInFeature(
@@ -27,9 +30,10 @@ fun CardPatientInFeature(
     name: String,
     id: Long,
 ) {
+    val ctx = LocalContext.current
     Row(
         modifier = modifier
-            .padding(6.dp),
+            .padding(6.dp.from(ctx)),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Image(
@@ -40,26 +44,26 @@ fun CardPatientInFeature(
             }), contentDescription = "",
             contentScale = ContentScale.Crop,
             modifier = modifier
-                .clip(RoundedCornerShape(10.dp))
+                .clip(RoundedCornerShape(10.dp.from(ctx)))
                 .coloredShadow(MaterialTheme.colors.primary)
-                .width(64.dp)
-                .height(64.dp)
+                .width(64.dp.from(ctx))
+                .height(64.dp.from(ctx))
                 .align(Alignment.CenterVertically)
         )
 
-        Spacer(modifier = modifier.width(15.dp))
+        Spacer(modifier = modifier.width(15.dp.from(ctx)))
         Column {
             Column {
                 Text(
                     text = name.capitalizeWords(),
-                    fontSize = 15.sp,
+                    fontSize = 15.sp.from(ctx),
                     style = MaterialTheme.typography.body1,
                     fontWeight = FontWeight(700),
                     color = Heading
                 )
                 Text(
                     text = "ID $id",
-                    fontSize = 12.sp,
+                    fontSize = 12.sp.from(ctx),
                     style = MaterialTheme.typography.body1,
                     color = inactive
                 )
