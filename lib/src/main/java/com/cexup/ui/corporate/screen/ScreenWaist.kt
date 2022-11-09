@@ -18,6 +18,7 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
@@ -37,25 +38,32 @@ import com.cexup.ui.utils.capitalizeWords
 import com.cexup.ui.utils.mediaquery.from
 import com.github.mikephil.charting.data.Entry
 
+data class WaistDataUIState(
+    var patientName:String,
+    var patientUserCode:String,
+    var patientThumb:String = "",
+    var receivedDistance: Float,
+    var chartListData: Pair<List<Entry>, List<Entry>>
+)
+
 @Composable
 fun ScreenWaist(
     modifier: Modifier = Modifier,
-    receivedDistance: Float = 0F,
-    chartListData: Pair<List<Entry>, List<Entry>> = Pair(listOf(), listOf()),
+    waistDataUIState: WaistDataUIState,
     onTypePress: (type: String) -> Unit = {},
     onSave: (distance: Float) -> Unit = {},
     onSaveManualInput:(distance: Float) -> Unit,
-//    maxDistance: Float,
-    patientName: String = "Patient name",
     onBackPressed:() -> Unit = {},
 ){
     val ctx = LocalContext.current
     val listOfTypeWaist = listOf(
-        "neck", "waist", "shoulder", "hip",
-        "arm", "thigh", "chest", "calf"
+        stringResource(id = R.string.neck), stringResource(id = R.string.waist),
+        stringResource(id = R.string.shoulder), stringResource(id = R.string.hip),
+        stringResource(id = R.string.arm), stringResource(id = R.string.thigh),
+        stringResource(id = R.string.chest), stringResource(id = R.string.calf)
     )
     var selectedTypeWaist by remember { mutableStateOf(0) }
-    var titleOfChart by remember { mutableStateOf("neck") }
+    var titleOfChart by remember { mutableStateOf("Neck") }
 
     var showDialogManualInput by remember { mutableStateOf(false) }
 
@@ -80,9 +88,9 @@ fun ScreenWaist(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             CardPatientInFeature(
-                thumb = "",
-                name = patientName.capitalizeWords(),
-                id = 0,
+                thumb = waistDataUIState.patientThumb,
+                name = waistDataUIState.patientName,
+                id = waistDataUIState.patientUserCode.toLong(),
             )
             Button(
                 onClick = {onBackPressed() },
@@ -91,7 +99,7 @@ fun ScreenWaist(
                 modifier = modifier.width(90.dp.from(ctx).from(ctx))
             ) {
                 Text(
-                    text = "Back",
+                    text = stringResource(id = R.string.corporate_back),
                     style = TextStyle(
                         color = Color.White
                     )
@@ -120,42 +128,42 @@ fun ScreenWaist(
                         0 -> LineWaist(
                             horizontalArrangement = Arrangement.End,
                             height = 16.dp.from(ctx),
-                            valueWaist = receivedDistance
+                            valueWaist = waistDataUIState.receivedDistance
                         )
                         1 -> LineWaist(
                             horizontalArrangement = Arrangement.End,
                             height = 120.dp.from(ctx),
-                            valueWaist = receivedDistance
+                            valueWaist = waistDataUIState.receivedDistance
                         )
                         2 -> LineWaist(
                             horizontalArrangement = Arrangement.Start,
                             height = 35.dp.from(ctx),
-                            valueWaist = receivedDistance
+                            valueWaist = waistDataUIState.receivedDistance
                         )
                         3 -> LineWaist(
                             horizontalArrangement = Arrangement.Start,
                             height = 159.dp.from(ctx),
-                            valueWaist = receivedDistance
+                            valueWaist = waistDataUIState.receivedDistance
                         )
                         4 -> LineWaist(
                             horizontalArrangement = Arrangement.End,
                             height = 133.dp.from(ctx),
-                            valueWaist = receivedDistance
+                            valueWaist = waistDataUIState.receivedDistance
                         )
                         5 -> LineWaist(
                             horizontalArrangement = Arrangement.End,
                             height = 242.dp.from(ctx),
-                            valueWaist = receivedDistance
+                            valueWaist = waistDataUIState.receivedDistance
                         )
                         6 -> LineWaist(
                             horizontalArrangement = Arrangement.End,
                             height = 100.dp.from(ctx),
-                            valueWaist = receivedDistance
+                            valueWaist = waistDataUIState.receivedDistance
                         )
                         7 -> LineWaist(
                             horizontalArrangement = Arrangement.End,
                             height = 100.dp.from(ctx),
-                            valueWaist = receivedDistance
+                            valueWaist = waistDataUIState.receivedDistance
                         )
                     }
                 }
@@ -167,7 +175,7 @@ fun ScreenWaist(
                         modifier = modifier.width(90.dp.from(ctx))
                     ) {
                         Text(
-                            text = "Input",
+                            text = stringResource(id = R.string.input),
                             style = TextStyle(
                                 color = Color.White,
                                 fontWeight = FontWeight.W600
@@ -177,14 +185,14 @@ fun ScreenWaist(
                     Spacer(modifier = modifier.width(15.dp.from(ctx)))
                     Button(
                         onClick = {
-                            onSave(receivedDistance)
+                            onSave(waistDataUIState.receivedDistance)
                         },
                         shape = RoundedCornerShape(10.dp.from(ctx)),
                         colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary),
                         modifier = modifier.width(90.dp.from(ctx))
                     ) {
                         Text(
-                            text = "Save",
+                            text = stringResource(id = R.string.save),
                             style = TextStyle(
                                 color = Color.White
                             )
@@ -233,7 +241,7 @@ fun ScreenWaist(
             Column(modifier = modifier.padding(20.dp.from(ctx))) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(
-                        text = "Measuring Circumference",
+                        text = stringResource(id = R.string.measuring_circumference),
                         style = MaterialTheme.typography.body1.copy(
                             color = MaterialTheme.colors.primary,
                             fontSize = 22.sp.from(ctx)
@@ -262,7 +270,7 @@ fun ScreenWaist(
                 ) {
                     Box(modifier = modifier.padding(20.dp.from(ctx))) {
                         BaseChartView(
-                            data = chartListData.second,
+                            data = waistDataUIState.chartListData.second,
                             name = listOf(),
                             description = "",
                             maxAxis = 40f,
