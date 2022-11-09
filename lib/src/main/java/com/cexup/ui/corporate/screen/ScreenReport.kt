@@ -9,12 +9,14 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cexup.ui.corporate.component.CardMedicalInspection
 import com.cexup.ui.corporate.component.CardReportDocument
 import com.cexup.ui.corporate.theme.Heading
+import com.cexup.ui.utils.mediaquery.from
 
 @ExperimentalMaterialApi
 @Composable
@@ -24,14 +26,15 @@ fun ScreenReport(
     userCode : String,
     thumb : String = "",
 ){
+    val ctx = LocalContext.current
     Column(modifier = modifier
         .fillMaxWidth()
-        .padding(horizontal = 10.dp)) {
+        .padding(horizontal = 10.dp.from(ctx))) {
         Text(
             text = "New Check Up",
             style = MaterialTheme.typography.body1.copy(
                 color = Heading,
-                fontSize = 22.sp,
+                fontSize = 22.sp.from(ctx),
                 fontWeight = FontWeight(700)
             ),
         )
@@ -47,9 +50,9 @@ fun ScreenReport(
                 )
             }
         },
-            horizontalArrangement = Arrangement.spacedBy(10.dp)
+            horizontalArrangement = Arrangement.spacedBy(10.dp.from(ctx))
         )
-        Spacer(modifier = Modifier.height(26.dp))
+        Spacer(modifier = Modifier.height(26.dp.from(ctx)))
         Row(
             modifier = modifier.fillMaxWidth()
         ) {
@@ -64,7 +67,7 @@ fun ScreenReport(
                             text = "Check Up Result",
                             style = MaterialTheme.typography.body1.copy(
                                 color = MaterialTheme.colors.primaryVariant,
-                                fontSize = 22.sp,
+                                fontSize = 22.sp.from(ctx),
                                 fontWeight = FontWeight(700)
                             ),
                         )
@@ -72,7 +75,7 @@ fun ScreenReport(
                             text = "・",
                             style = MaterialTheme.typography.body1.copy(
                                 color = MaterialTheme.colors.primaryVariant,
-                                fontSize = 16.sp,
+                                fontSize = 16.sp.from(ctx),
                                 fontWeight = FontWeight(400)
                             ),
                         )
@@ -80,26 +83,26 @@ fun ScreenReport(
                             text = namePatient,
                             style = MaterialTheme.typography.body1.copy(
                                 color = Heading,
-                                fontSize = 16.sp,
+                                fontSize = 16.sp.from(ctx),
                                 fontWeight = FontWeight(400)
                             ),
                         )
                     }
-                    Spacer(modifier = Modifier.height(17.dp))
+                    Spacer(modifier = Modifier.height(17.dp.from(ctx)))
                 }
                 item {
                     Text(
                         text = "Health Reports Document",
                         style = MaterialTheme.typography.body1.copy(
                             color = MaterialTheme.colors.primaryVariant,
-                            fontSize = 16.sp,
+                            fontSize = 16.sp.from(ctx),
                             fontWeight = FontWeight(600)
                         ),
                     )
                 }
                 item {
                     Row(
-                        modifier = modifier.width(290.dp),
+                        modifier = modifier.width(290.dp.from(ctx)),
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
@@ -107,7 +110,7 @@ fun ScreenReport(
                             text = "This Month",
                             style = MaterialTheme.typography.body1.copy(
                                 color = MaterialTheme.colors.secondaryVariant,
-                                fontSize = 12.sp,
+                                fontSize = 12.sp.from(ctx),
                                 fontWeight = FontWeight(500)
                             ),
                         )
@@ -115,7 +118,7 @@ fun ScreenReport(
                             text = "View All",
                             style = MaterialTheme.typography.body1.copy(
                                 color = MaterialTheme.colors.secondaryVariant,
-                                fontSize = 12.sp,
+                                fontSize = 12.sp.from(ctx),
                                 fontWeight = FontWeight(500)
                             ),
                         )

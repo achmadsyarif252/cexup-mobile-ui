@@ -8,6 +8,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -18,6 +19,7 @@ import com.cexup.ui.R
 import com.cexup.ui.corporate.component.*
 import com.cexup.ui.corporate.theme.Heading
 import com.cexup.ui.utils.gridItems
+import com.cexup.ui.utils.mediaquery.from
 import compose.icons.Octicons
 import compose.icons.octicons.Sync24
 
@@ -34,6 +36,7 @@ fun ScreenCheckup(
     patients: LazyPagingItems<PatientPagingItemUIState>,
     onPatientSelected: (String) -> Unit,
 ) {
+    val ctx = LocalContext.current
     val listState = rememberLazyListState()
     var stateSelected by remember { mutableStateOf("") }
     var statePhysicalExamination by remember { mutableStateOf(false) }
@@ -41,18 +44,18 @@ fun ScreenCheckup(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 10.dp)
+            .padding(horizontal = 10.dp.from(ctx))
     ) {
-        Column(modifier = Modifier.padding(bottom = 10.dp)) {
+        Column(modifier = Modifier.padding(bottom = 10.dp.from(ctx))) {
             Text(
                 text = stringResource(id = R.string.corporate_waiting_checkup),
                 style = MaterialTheme.typography.body1.copy(
                     color = Heading,
-                    fontSize = 22.sp,
+                    fontSize = 22.sp.from(ctx),
                     fontWeight = FontWeight(700)
                 ),
             )
-            Spacer(modifier = Modifier.height(13.dp))
+            Spacer(modifier = Modifier.height(13.dp.from(ctx)))
             LazyColumn(
                 state = listState,
                 content = {
@@ -71,10 +74,10 @@ fun ScreenCheckup(
                         )
                     }
                 },
-                verticalArrangement = Arrangement.spacedBy(10.dp)
+                verticalArrangement = Arrangement.spacedBy(10.dp.from(ctx))
             )
         }
-        Spacer(modifier = Modifier.width(26.dp))
+        Spacer(modifier = Modifier.width(26.dp.from(ctx)))
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -82,9 +85,9 @@ fun ScreenCheckup(
             verticalArrangement = Arrangement.Center
         ) {
             LazyColumn(
-                verticalArrangement = Arrangement.spacedBy(10.dp),
+                verticalArrangement = Arrangement.spacedBy(10.dp.from(ctx)),
                 modifier = Modifier
-                    .padding(bottom = 10.dp)
+                    .padding(bottom = 10.dp.from(ctx))
                     .fillMaxHeight()
             ) {
                 item {
@@ -100,7 +103,7 @@ fun ScreenCheckup(
                                 text = stringResource(id = R.string.corporate_physical_exam),
                                 style = MaterialTheme.typography.body1.copy(
                                     color = Heading,
-                                    fontSize = 22.sp,
+                                    fontSize = 22.sp.from(ctx),
                                     fontWeight = FontWeight(700)
                                 ),
                             )
@@ -108,7 +111,7 @@ fun ScreenCheckup(
                                 text = "・",
                                 style = MaterialTheme.typography.body1.copy(
                                     color = Heading,
-                                    fontSize = 16.sp,
+                                    fontSize = 16.sp.from(ctx),
                                     fontWeight = FontWeight(400)
                                 ),
                             )
@@ -116,7 +119,7 @@ fun ScreenCheckup(
                                 text = selectedPatient.name,
                                 style = MaterialTheme.typography.body1.copy(
                                     color = Heading,
-                                    fontSize = 16.sp,
+                                    fontSize = 16.sp.from(ctx),
                                     fontWeight = FontWeight(400)
                                 ),
                             )
@@ -128,14 +131,14 @@ fun ScreenCheckup(
                                 Octicons.Sync24,
                                 "",
                                 tint = Color.White,
-                                modifier = Modifier.size(20.dp)
+                                modifier = Modifier.size(20.dp.from(ctx))
                             )
-                            Spacer(modifier = Modifier.width(5.dp))
+                            Spacer(modifier = Modifier.width(5.dp.from(ctx)))
                             Text(
                                 text = stringResource(id = R.string.corporate_sync_cloud),
                                 style = MaterialTheme.typography.body1.copy(
                                     color = Color.White,
-                                    fontSize = 12.sp,
+                                    fontSize = 12.sp.from(ctx),
                                     fontWeight = FontWeight(400)
                                 ),
                             )
@@ -146,7 +149,7 @@ fun ScreenCheckup(
                     gridItems(
                         count = featureList.size,
                         columnCount = 3,
-                        horizontalArrangement = Arrangement.spacedBy(10.dp),
+                        horizontalArrangement = Arrangement.spacedBy(10.dp.from(ctx)),
                     ) { index ->
                         val feature = featureList[index]
                         CardPhysicalExamination(
@@ -161,7 +164,7 @@ fun ScreenCheckup(
                     }
                 } else {
                     item {
-                        Spacer(modifier = Modifier.height(50.dp))
+                        Spacer(modifier = Modifier.height(50.dp.from(ctx)))
                         CardEmptyState(
                             drawable = R.drawable.ic_empty_state,
                             header = stringResource(

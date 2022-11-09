@@ -30,6 +30,7 @@ import com.cexup.ui.corporate.component.TabParameter
 import com.cexup.ui.corporate.theme.GreyBorder
 import com.cexup.ui.corporate.theme.SecondaryCorporate
 import com.cexup.ui.utils.coloredShadow
+import com.cexup.ui.utils.mediaquery.from
 import compose.icons.octicons.ChevronLeft24
 import compose.icons.octicons.ChevronRight24
 
@@ -55,7 +56,7 @@ fun ScreenUsg(
     }
     var searchByNameOrId by remember { mutableStateOf("") }
     var countTable by remember { mutableStateOf("10") }
-    var textFieldSize by remember { mutableStateOf(Size.Zero) }
+    val textFieldSize by remember { mutableStateOf(Size.Zero) }
     var expand by remember { mutableStateOf(false) }
     val icon = if (expand) {
         Icons.Filled.KeyboardArrowUp
@@ -70,17 +71,17 @@ fun ScreenUsg(
     val totalPage by remember {
         mutableStateOf(263)
     }
-    val numberPage by remember {
-        mutableStateOf(listOf(1, 2, 3, 4))
-    }
+//    val numberPage by remember {
+//        mutableStateOf(listOf(1, 2, 3, 4))
+//    }
 
-    val context = LocalContext.current
+    val ctx = LocalContext.current
 
     var nextPage by remember { mutableStateOf(0) }
 
     fun onNext() {
         if (screenUsgData.listIdUsg.isEmpty()) {
-            Toast.makeText(context, "Latest page!", Toast.LENGTH_LONG).show()
+            Toast.makeText(ctx, "Latest page!", Toast.LENGTH_LONG).show()
         } else {
             nextPage = nextPage.plus(1)
             onGetListUsgRemote(nextPage)
@@ -92,7 +93,7 @@ fun ScreenUsg(
             nextPage = nextPage.minus(1)
             onGetListUsgRemote(nextPage)
         } else {
-            Toast.makeText(context, "First page!", Toast.LENGTH_LONG).show()
+            Toast.makeText(ctx, "First page!", Toast.LENGTH_LONG).show()
         }
     }
 
@@ -102,18 +103,18 @@ fun ScreenUsg(
             Row(
                 modifier = modifier
                     .fillMaxWidth()
-                    .padding(vertical = 30.dp, horizontal = 33.dp),
+                    .padding(vertical = 30.dp.from(ctx), horizontal = 33.dp.from(ctx)),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
                     text = "SHOW",
                     style = MaterialTheme.typography.body1.copy(
                         fontWeight = FontWeight.Bold,
-                        letterSpacing = 0.1.sp,
-                        fontSize = 12.sp
+                        letterSpacing = 0.1.sp.from(ctx),
+                        fontSize = 12.sp.from(ctx)
                     )
                 )
-                Spacer(modifier = modifier.width(8.dp))
+                Spacer(modifier = modifier.width(8.dp.from(ctx)))
                 TextField(
                     value = countTable,
                     onValueChange = {
@@ -132,11 +133,11 @@ fun ScreenUsg(
                     enabled = false,
                     readOnly = true,
                     modifier = modifier
-                        .width(86.dp)
+                        .width(86.dp.from(ctx))
                         .border(
-                            width = 1.dp,
+                            width = 1.dp.from(ctx),
                             color = GreyBorder,
-                            shape = RoundedCornerShape(10.dp)
+                            shape = RoundedCornerShape(10.dp.from(ctx))
                         )
                         .clickable { expand = !expand }
                 )
@@ -154,7 +155,7 @@ fun ScreenUsg(
                         }
                     }
                 }
-                Spacer(modifier = modifier.width(12.dp))
+                Spacer(modifier = modifier.width(12.dp.from(ctx)))
                 TextField(
                     value = searchByNameOrId,
                     onValueChange = { searchByNameOrId = it },
@@ -162,11 +163,11 @@ fun ScreenUsg(
                     modifier = modifier
                         .navigationBarsPadding().imePadding()
                         .border(
-                            width = 1.dp,
+                            width = 1.dp.from(ctx),
                             color = GreyBorder,
-                            shape = RoundedCornerShape(10.dp)
+                            shape = RoundedCornerShape(10.dp.from(ctx))
                         )
-                        .width(375.dp),
+                        .width(375.dp.from(ctx)),
                     colors = TextFieldDefaults.textFieldColors(
                         backgroundColor = Color.Transparent,
                         focusedIndicatorColor = Color.Transparent,
@@ -175,9 +176,9 @@ fun ScreenUsg(
                     ),
                     singleLine = true,
                 )
-                Spacer(modifier = modifier.width(12.dp))
+                Spacer(modifier = modifier.width(12.dp.from(ctx)))
                 Column(
-                    modifier = modifier.width(291.3.dp)
+                    modifier = modifier.width(291.3.dp.from(ctx))
                 ) {
                     TabFeatures(
                         selectedTabIndex = tabParameter.ordinal,
@@ -187,14 +188,14 @@ fun ScreenUsg(
                         tabs = listOfTab,
                     )
                 }
-                Spacer(modifier = modifier.width(27.dp))
+                Spacer(modifier = modifier.width(27.dp.from(ctx)))
                 Button(
                     onClick = {
                         onOpenHealson()
                     },
-                    shape = RoundedCornerShape(10.dp),
+                    shape = RoundedCornerShape(10.dp.from(ctx)),
                     colors = ButtonDefaults.buttonColors(backgroundColor = SecondaryCorporate),
-                    modifier = modifier.width(90.dp)
+                    modifier = modifier.width(90.dp.from(ctx))
                 ) {
                     Text(
                         text = "Periksa",
@@ -209,10 +210,10 @@ fun ScreenUsg(
         it.toString()
         Column(
             modifier = modifier
-                .padding(start = 33.dp, end = 33.dp, bottom = 25.dp)
+                .padding(start = 33.dp.from(ctx), end = 33.dp.from(ctx), bottom = 25.dp.from(ctx))
                 .border(
-                    1.dp,
-                    GreyBorder, RoundedCornerShape(15.dp)
+                    1.dp.from(ctx),
+                    GreyBorder, RoundedCornerShape(15.dp.from(ctx))
                 )
         ) {
             LazyColumn(
@@ -222,23 +223,23 @@ fun ScreenUsg(
                             modifier = modifier
                                 .fillMaxWidth()
                                 .padding(
-                                    vertical = 7.dp, horizontal = 11.dp
+                                    vertical = 7.dp.from(ctx), horizontal = 11.dp.from(ctx)
                                 ),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text("Name")
-                            Spacer(modifier = Modifier.width(250.dp))
+                            Spacer(modifier = Modifier.width(250.dp.from(ctx)))
                             Text("File")
-                            Spacer(modifier = Modifier.width(100.dp))
+                            Spacer(modifier = Modifier.width(100.dp.from(ctx)))
                             Text("ID")
-                            Spacer(modifier = Modifier.width(200.dp))
+                            Spacer(modifier = Modifier.width(200.dp.from(ctx)))
                             Text("Action")
                         }
                     }
                     items(screenUsgData.listIdUsg) {
                         Box(
                             modifier = modifier.padding(
-                                vertical = 7.dp, horizontal = 11.dp
+                                vertical = 7.dp.from(ctx), horizontal = 11.dp.from(ctx)
                             )
                         ) {
                             ListUsgResult(
@@ -255,13 +256,13 @@ fun ScreenUsg(
                             Row(
                                 modifier = modifier
                                     .fillMaxWidth()
-                                    .padding(10.dp),
+                                    .padding(10.dp.from(ctx)),
                                 horizontalArrangement = Arrangement.Center
                             ) {
                                 Text(
                                     text = "no data",
                                     style = MaterialTheme.typography.body1.copy(
-                                        fontSize = 16.sp,
+                                        fontSize = 16.sp.from(ctx),
                                         fontWeight = FontWeight(400)
                                     ),
                                 )
@@ -272,30 +273,30 @@ fun ScreenUsg(
                         Row(
                             modifier = modifier
                                 .fillMaxWidth()
-                                .padding(10.dp),
+                                .padding(10.dp.from(ctx)),
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
                             Text(
                                 text = "showing $pageNow from $totalPage data",
                                 style = MaterialTheme.typography.body1.copy(
-                                    fontSize = 16.sp,
+                                    fontSize = 16.sp.from(ctx),
                                     fontWeight = FontWeight(400)
                                 ),
                             )
                             Row(
                                 modifier = modifier
-                                    .width(318.dp)
-                                    .height(35.dp)
-                                    .padding(horizontal = 9.dp)
+                                    .width(318.dp.from(ctx))
+                                    .height(35.dp.from(ctx))
+                                    .padding(horizontal = 9.dp.from(ctx))
                                     .coloredShadow(
                                         color = Color.Black.copy(0.25f),
-                                        offsetY = 4.dp,
-                                        borderRadius = 10.dp,
-                                        shadowRadius = 2.dp
+                                        offsetY = 4.dp.from(ctx),
+                                        borderRadius = 10.dp.from(ctx),
+                                        shadowRadius = 2.dp.from(ctx)
                                     )
                                     .background(
                                         MaterialTheme.colors.background,
-                                        RoundedCornerShape(10.dp)
+                                        RoundedCornerShape(10.dp.from(ctx))
                                     ),
                                 horizontalArrangement = Arrangement.SpaceBetween,
                                 verticalAlignment = Alignment.CenterVertically
@@ -303,7 +304,7 @@ fun ScreenUsg(
                                 Icon(
                                     Octicons.ChevronLeft24,
                                     contentDescription = "left",
-                                    modifier = modifier.size(16.dp).clickable {
+                                    modifier = modifier.size(16.dp.from(ctx)).clickable {
                                         onPrev()
                                     },
                                     tint = Color.Black
@@ -311,13 +312,13 @@ fun ScreenUsg(
     //                            LazyRow(
     //                                modifier.fillMaxHeight(),
     //                                verticalAlignment = Alignment.CenterVertically,
-    //                                horizontalArrangement = Arrangement.spacedBy(33.dp),
+    //                                horizontalArrangement = Arrangement.sp.from(ctx)acedBy(33.dp.from(ctx)),
     //                                content = {
     //                                    items(count = 4) { index ->
     //                                        Text(
     //                                            text = numberPage[index].toString(),
     //                                            style = MaterialTheme.typography.body1.copy(
-    //                                                fontSize = 16.sp,
+    //                                                fontSize = 16.sp.from(ctx),
     //                                                fontWeight = FontWeight(400)
     //                                            ),
     //                                        )
@@ -328,7 +329,7 @@ fun ScreenUsg(
                                 Icon(
                                     Octicons.ChevronRight24,
                                     contentDescription = "right",
-                                    modifier = modifier.size(16.dp).clickable {
+                                    modifier = modifier.size(16.dp.from(ctx)).clickable {
                                         onNext()
                                     },
                                     tint = Color.Black
