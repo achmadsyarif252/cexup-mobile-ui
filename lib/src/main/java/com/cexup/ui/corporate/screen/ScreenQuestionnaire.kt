@@ -9,6 +9,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -17,6 +18,7 @@ import com.cexup.ui.corporate.component.*
 import compose.icons.Octicons
 import compose.icons.octicons.Note24
 import com.cexup.ui.R
+import com.cexup.ui.utils.mediaquery.from
 
 data class QuestionnaireResponse(
     var id: String,
@@ -77,6 +79,7 @@ fun ScreenQuestionnaire(
         answer: List<Alternatives>
     ) -> Unit,
 ) {
+    val ctx = LocalContext.current
     val scaffoldState = rememberScaffoldState()
     val scrollState = rememberScrollState()
 
@@ -86,7 +89,7 @@ fun ScreenQuestionnaire(
                 Row(
                     modifier = modifier
                         .fillMaxWidth()
-                        .padding(10.dp),
+                        .padding(10.dp.from(ctx)),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -95,31 +98,31 @@ fun ScreenQuestionnaire(
                             onSubmit()
                         },
                         modifier = modifier
-                            .padding(vertical = 3.dp, horizontal = 5.dp),
+                            .padding(vertical = 3.dp.from(ctx), horizontal = 5.dp.from(ctx)),
                         colors = ButtonDefaults.buttonColors(
                             backgroundColor = MaterialTheme.colors.primary
                         ),
-                        shape = RoundedCornerShape(8.dp)
+                        shape = RoundedCornerShape(8.dp.from(ctx))
                     ) {
                         Text(
                             text = stringResource(id = R.string.submit),
                             style = MaterialTheme.typography.h1.copy(
                                 fontWeight = FontWeight.Medium,
-                                fontSize = 16.sp,
-                                letterSpacing = 1.sp,
+                                fontSize = 16.sp.from(ctx),
+                                letterSpacing = 1.sp.from(ctx),
                                 color = Color.White
                             ),
                         )
                     }
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(Octicons.Note24, "")
-                        Spacer(modifier = modifier.width(5.dp))
+                        Spacer(modifier = modifier.width(5.dp.from(ctx)))
                         Text(
                             text = stringResource(id = R.string.questionnaire),
                             style = MaterialTheme.typography.h1.copy(
-                                fontSize = 15.sp,
+                                fontSize = 15.sp.from(ctx),
                                 fontWeight = FontWeight.Bold,
-                                letterSpacing = 0.1.sp
+                                letterSpacing = 0.1.sp.from(ctx)
                             )
                         )
                     }
@@ -140,7 +143,7 @@ fun ScreenQuestionnaire(
                 .padding(padding)
                 .fillMaxSize()
                 .verticalScroll(scrollState),
-            verticalArrangement = Arrangement.spacedBy(10.dp),
+            verticalArrangement = Arrangement.spacedBy(10.dp.from(ctx)),
         ) {
             when(questionnaireDataState) {
                 QuestionnaireDataState.LOADING -> {
@@ -164,9 +167,9 @@ fun ScreenQuestionnaire(
                                     text = "${parentIndex + 1}. ${questionnaireResponse.name}",
                                     style = MaterialTheme.typography.body1.copy(
                                         fontWeight = FontWeight.Bold,
-                                        fontSize = 14.sp
+                                        fontSize = 14.sp.from(ctx)
                                     ),
-                                    modifier = modifier.padding(horizontal = 10.dp)
+                                    modifier = modifier.padding(horizontal = 10.dp.from(ctx))
                                 )
                                 questionnaireResponse.questionnaire.forEachIndexed {
                                         indexQuestionnaire, dataQuestionnaire ->

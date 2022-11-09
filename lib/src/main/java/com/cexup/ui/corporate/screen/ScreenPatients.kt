@@ -24,6 +24,7 @@ import com.cexup.ui.R
 import com.cexup.ui.corporate.component.CardPatientList
 import com.cexup.ui.corporate.theme.Heading
 import com.cexup.ui.utils.coloredShadow
+import com.cexup.ui.utils.mediaquery.from
 
 @Composable
 fun ScreenPatients(
@@ -69,7 +70,7 @@ fun ScreenPatients(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 10.dp)
+            .padding(horizontal = 10.dp.from(ctx))
     ) {
         Row(
             modifier = modifier.fillMaxWidth(),
@@ -79,18 +80,18 @@ fun ScreenPatients(
                 text = "Patients List",
                 style = MaterialTheme.typography.body1.copy(
                     color = Heading,
-                    fontSize = 22.sp,
+                    fontSize = 22.sp.from(ctx),
                     fontWeight = FontWeight(700)
                 ),
             )
             Button(
                 onClick = { onDialog() },
                 modifier = modifier
-                    .width(100.dp)
-                    .height(38.54.dp),
+                    .width(100.dp.from(ctx))
+                    .height(38.54.dp.from(ctx)),
                 colors = ButtonDefaults.buttonColors(backgroundColor = Heading),
-                shape = RoundedCornerShape(10.dp),
-                contentPadding = PaddingValues(horizontal = 11.dp)
+                shape = RoundedCornerShape(10.dp.from(ctx)),
+                contentPadding = PaddingValues(horizontal = 11.dp.from(ctx))
             ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
@@ -98,22 +99,22 @@ fun ScreenPatients(
                     Image(
                         painterResource(id = R.drawable.ic_filter),
                         contentDescription = "cancel",
-                        modifier = modifier.size(12.dp),
+                        modifier = modifier.size(12.dp.from(ctx)),
                     )
                     Text(
                         text = "Filter",
                         style = MaterialTheme.typography.body1.copy(
                             fontWeight = FontWeight(600),
-                            fontSize = 14.sp,
-                            letterSpacing = 1.sp,
+                            fontSize = 14.sp.from(ctx),
+                            letterSpacing = 1.sp.from(ctx),
                             color = Color.White
                         ),
-                        modifier = modifier.padding(5.dp)
+                        modifier = modifier.padding(5.dp.from(ctx))
                     )
                 }
             }
         }
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(10.dp.from(ctx)))
         CardPatientList(
             listUserCode = listUserCode,
             listName = listName,
@@ -122,33 +123,33 @@ fun ScreenPatients(
                 onClickPatient(userCode)
             }
         )
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(10.dp.from(ctx)))
         Row(
             modifier = modifier
                 .fillMaxWidth()
-                .padding(10.dp),
+                .padding(10.dp.from(ctx)),
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
             Text(
                 text = "showing $next page",
                 style = MaterialTheme.typography.body1.copy(
                     color = Heading,
-                    fontSize = 16.sp,
+                    fontSize = 16.sp.from(ctx),
                     fontWeight = FontWeight(400)
                 ),
             )
             Row(
                 modifier = modifier
-                    .width(318.dp)
-                    .height(35.dp)
-                    .padding(horizontal = 9.dp)
+                    .width(318.dp.from(ctx))
+                    .height(35.dp.from(ctx))
+                    .padding(horizontal = 9.dp.from(ctx))
                     .coloredShadow(
                         color = Color.Black.copy(0.25f),
-                        offsetY = 4.dp,
-                        borderRadius = 10.dp,
-                        shadowRadius = 2.dp
+                        offsetY = 4.dp.from(ctx),
+                        borderRadius = 10.dp.from(ctx),
+                        shadowRadius = 2.dp.from(ctx)
                     )
-                    .background(MaterialTheme.colors.background, RoundedCornerShape(10.dp)),
+                    .background(MaterialTheme.colors.background, RoundedCornerShape(10.dp.from(ctx))),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -161,19 +162,19 @@ fun ScreenPatients(
                     Icon(
                         Octicons.ChevronLeft24,
                         contentDescription = "left",
-                        modifier = modifier.size(16.dp),
+                        modifier = modifier.size(16.dp.from(ctx)),
                         tint = MaterialTheme.colors.secondary
                     )
                     Text(
                         text = "Previous",
                         style = MaterialTheme.typography.body1.copy(
                             color = MaterialTheme.colors.secondary,
-                            fontSize = 16.sp,
+                            fontSize = 16.sp.from(ctx),
                             fontWeight = FontWeight(400)
                         ),
                     )
                 }
-                Spacer(modifier = modifier.width(20.dp))
+                Spacer(modifier = modifier.width(20.dp.from(ctx)))
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = modifier.clickable {
@@ -184,14 +185,14 @@ fun ScreenPatients(
                         text = "Next",
                         style = MaterialTheme.typography.body1.copy(
                             color = MaterialTheme.colors.secondary,
-                            fontSize = 16.sp,
+                            fontSize = 16.sp.from(ctx),
                             fontWeight = FontWeight(400)
                         ),
                     )
                     Icon(
                         Octicons.ChevronRight24,
                         contentDescription = "right",
-                        modifier = modifier.size(16.dp),
+                        modifier = modifier.size(16.dp.from(ctx)),
                         tint = MaterialTheme.colors.secondary
                     )
                 }

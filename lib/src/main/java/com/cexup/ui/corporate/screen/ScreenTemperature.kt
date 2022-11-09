@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -32,6 +33,7 @@ import com.github.mikephil.charting.data.Entry
 import com.cexup.ui.R
 import com.cexup.ui.component.chart.BaseChartView
 import com.cexup.ui.corporate.theme.GreyBlackStetoscope
+import com.cexup.ui.utils.mediaquery.from
 
 data class TemperatureDataUIState(
     var patientName:String,
@@ -51,6 +53,7 @@ fun ScreenTemperature(
     onSave: (temp: Float) -> Unit,
     onButtonBackPressed: () -> Unit,
 ) {
+    val ctx = LocalContext.current
     val scrollState = rememberScrollState()
     var showDialogManualInput by remember { mutableStateOf(false) }
     var valueTemperature by remember { mutableStateOf(0f) }
@@ -68,13 +71,13 @@ fun ScreenTemperature(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 30.dp)
+            .padding(horizontal = 30.dp.from(ctx))
             .verticalScroll(scrollState)
     ) {
-        Spacer(modifier = Modifier.height(30.dp))
+        Spacer(modifier = Modifier.height(30.dp.from(ctx)))
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(10.dp)
+            horizontalArrangement = Arrangement.spacedBy(10.dp.from(ctx))
         ) {
             CardPatientInFeature(
                 thumb = temperatureDataUIState.patientThumb,
@@ -87,17 +90,17 @@ fun ScreenTemperature(
                     showDialogManualInput = true
                 } ,
                 modifier = Modifier
-                    .height(35.dp),
+                    .height(35.dp.from(ctx)),
                 colors = ButtonDefaults.buttonColors(backgroundColor = BlueJade),
-                shape = RoundedCornerShape(10.dp),
-                contentPadding = PaddingValues(horizontal = 11.dp)
+                shape = RoundedCornerShape(10.dp.from(ctx)),
+                contentPadding = PaddingValues(horizontal = 11.dp.from(ctx))
             ){
                 Text(
                     text = stringResource(id = R.string.corporate_input_manual),
                     style = MaterialTheme.typography.body1.copy(
                         fontWeight = FontWeight(600),
-                        fontSize = 14.sp,
-                        letterSpacing = 1.sp,
+                        fontSize = 14.sp.from(ctx),
+                        letterSpacing = 1.sp.from(ctx),
                         color = Color.White
                     ),
                 )
@@ -107,18 +110,18 @@ fun ScreenTemperature(
                     onButtonBackPressed()
                 },
                 modifier = Modifier
-                    .width(89.dp)
-                    .height(35.dp),
+                    .width(89.dp.from(ctx))
+                    .height(35.dp.from(ctx)),
                 colors = ButtonDefaults.buttonColors(backgroundColor = SecondaryCorporate),
-                shape = RoundedCornerShape(10.dp),
-                contentPadding = PaddingValues(horizontal = 11.dp)
+                shape = RoundedCornerShape(10.dp.from(ctx)),
+                contentPadding = PaddingValues(horizontal = 11.dp.from(ctx))
             ) {
                 Text(
                     text = stringResource(id = R.string.corporate_back),
                     style = MaterialTheme.typography.body1.copy(
                         fontWeight = FontWeight(600),
-                        fontSize = 14.sp,
-                        letterSpacing = 1.sp,
+                        fontSize = 14.sp.from(ctx),
+                        letterSpacing = 1.sp.from(ctx),
                         color = Color.White
                     )
                 )
@@ -128,8 +131,8 @@ fun ScreenTemperature(
         Row(
             modifier = Modifier
                 .align(CenterHorizontally)
-                .background(Heading, RoundedCornerShape(10.dp))
-                .padding(18.dp),
+                .background(Heading, RoundedCornerShape(10.dp.from(ctx)))
+                .padding(18.dp.from(ctx)),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -137,7 +140,7 @@ fun ScreenTemperature(
                 painter = painterResource(id = R.drawable.ic_thermometer),
                 contentDescription = "Temperature",
                 modifier = Modifier
-                    .size(28.dp)
+                    .size(28.dp.from(ctx))
                     .align(Alignment.CenterVertically)
             )
             Text(
@@ -148,35 +151,35 @@ fun ScreenTemperature(
                     temperatureDataUIState.value.toString(),
                 style = MaterialTheme.typography.body1.copy(
                     fontWeight = FontWeight(700),
-                    fontSize = 28.sp,
-                    letterSpacing = 1.sp,
+                    fontSize = 28.sp.from(ctx),
+                    letterSpacing = 1.sp.from(ctx),
                     color = Color.White,
                 ),
                 modifier = Modifier
                     .align(Alignment.CenterVertically)
-                    .padding(top = 5.dp),
+                    .padding(top = 5.dp.from(ctx)),
             )
             Text(
                 text = "o",
                 style = MaterialTheme.typography.body1.copy(
                     fontWeight = FontWeight(500),
-                    fontSize = 12.sp,
-                    letterSpacing = 1.sp,
+                    fontSize = 12.sp.from(ctx),
+                    letterSpacing = 1.sp.from(ctx),
                     color = Color.White,
                 ),
-                modifier = Modifier.padding(bottom = 20.dp),
+                modifier = Modifier.padding(bottom = 20.dp.from(ctx)),
             )
             Text(
                 text = "C",
                 style = MaterialTheme.typography.body1.copy(
                     fontWeight = FontWeight(700),
-                    fontSize = 28.sp,
-                    letterSpacing = 1.sp,
+                    fontSize = 28.sp.from(ctx),
+                    letterSpacing = 1.sp.from(ctx),
                     color = Color.White,
                 ),
                 modifier = Modifier
                     .align(Alignment.CenterVertically)
-                    .padding(top = 5.dp),
+                    .padding(top = 5.dp.from(ctx)),
             )
         }
 
@@ -184,8 +187,8 @@ fun ScreenTemperature(
             text = stringResource(id = temperatureDataUIState.resultAnalytic),
             style = MaterialTheme.typography.body1.copy(
                 fontWeight = FontWeight(600),
-                fontSize = 22.sp,
-                letterSpacing = 1.sp,
+                fontSize = 22.sp.from(ctx),
+                letterSpacing = 1.sp.from(ctx),
                 color = colorResource(id = temperatureDataUIState.colorAnalytic)
             ),
             modifier = Modifier.align(CenterHorizontally)
@@ -195,8 +198,8 @@ fun ScreenTemperature(
             text = "Device Status : ${if (temperatureDataUIState.deviceStatus) "Connected" else "Disconnected"}",
             style = MaterialTheme.typography.body1.copy(
                 fontWeight = FontWeight(600),
-                fontSize = 12.sp,
-                letterSpacing = 1.sp,
+                fontSize = 12.sp.from(ctx),
+                letterSpacing = 1.sp.from(ctx),
                 color = GreyBlackStetoscope
             ),
             modifier = Modifier.align(CenterHorizontally)
@@ -205,7 +208,7 @@ fun ScreenTemperature(
 
         Column(
             modifier = Modifier
-                .height(300.dp)
+                .height(300.dp.from(ctx))
         ) {
             BaseChartView(
                 data = temperatureDataUIState.listEntryTemperature.second,
@@ -221,7 +224,7 @@ fun ScreenTemperature(
 
 
 
-        Spacer(modifier = Modifier.height(30.dp))
+        Spacer(modifier = Modifier.height(30.dp.from(ctx)))
 
     }
 }

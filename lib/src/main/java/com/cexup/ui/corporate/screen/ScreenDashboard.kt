@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -24,6 +25,7 @@ import com.cexup.ui.component.chart.PieChart
 import com.cexup.ui.corporate.component.*
 import com.cexup.ui.corporate.theme.*
 import com.cexup.ui.utils.gridItems
+import com.cexup.ui.utils.mediaquery.from
 
 data class ChartUIState(
     val label : String,
@@ -46,20 +48,21 @@ fun ScreenDashboard(
         colorGradient = R.drawable.texture_fill_chart_old_patient
     ),
 ) {
+    val ctx = LocalContext.current
     val listPatientDiseases by remember {
         mutableStateOf("Diabetes")
     }
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 10.dp)
+            .padding(horizontal = 10.dp.from(ctx))
 
     ) {
 
         Row {
 
             LazyColumn(modifier = Modifier
-                .width(369.25.dp)
+                .width(369.25.dp.from(ctx))
                 .fillMaxHeight()
             ) {
                 item {
@@ -67,11 +70,11 @@ fun ScreenDashboard(
                         text = "Welcome",
                         style = MaterialTheme.typography.body1.copy(
                             color = Heading,
-                            fontSize = 22.sp,
+                            fontSize = 22.sp.from(ctx),
                             fontWeight = FontWeight(700)
                         ),
                     )
-                    Spacer(modifier = Modifier.height(20.dp))
+                    Spacer(modifier = Modifier.height(20.dp.from(ctx)))
                     Row(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
@@ -83,7 +86,7 @@ fun ScreenDashboard(
                                 onClickPatientList()
                             }
                         )
-                        Spacer(modifier = Modifier.width(32.dp))
+                        Spacer(modifier = Modifier.width(32.dp.from(ctx)))
                         CardCount(
                             imageId = R.drawable.image_patient_dashboard,
                             title = stringResource(id = R.string.our_doctors),
@@ -92,14 +95,14 @@ fun ScreenDashboard(
                                 onClickDoctorList()
                             }
                         )
-                        Spacer(modifier = Modifier.width(17.dp))
+                        Spacer(modifier = Modifier.width(17.dp.from(ctx)))
                         Image(painter = painterResource(id = R.drawable.right_grey),
                             contentDescription = "right",
                         )
 
 
                     }
-                    Spacer(modifier = Modifier.height(25.dp))
+                    Spacer(modifier = Modifier.height(25.dp.from(ctx)))
                     CardPatientHistory(
                         xValueFormatter = listOf(
                             "day 1",
@@ -150,7 +153,7 @@ fun ScreenDashboard(
                             oldPatientChartUIState.colorGradient
                         )
                     )
-                    Spacer(modifier = Modifier.height(10.dp))
+                    Spacer(modifier = Modifier.height(10.dp.from(ctx)))
 
                     CardPatientTodayChart(
                         name ="Total Patient Per day",
@@ -183,10 +186,10 @@ fun ScreenDashboard(
 
 
             }
-            Spacer(modifier = Modifier.width(30.dp))
+            Spacer(modifier = Modifier.width(30.dp.from(ctx)))
 
             LazyColumn(modifier = Modifier
-                .width(341.dp)
+                .width(341.dp.from(ctx))
                 .fillMaxHeight(),
             ) {
                 item {
@@ -194,7 +197,7 @@ fun ScreenDashboard(
                         text = "Top 10 Diseases",
                         style = MaterialTheme.typography.body1.copy(
                             color = Heading,
-                            fontSize = 22.sp,
+                            fontSize = 22.sp.from(ctx),
                             fontWeight = FontWeight(700)
                         ),
                     )
@@ -203,13 +206,13 @@ fun ScreenDashboard(
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(top = 47.dp, bottom = 37.42.dp),
+                            .padding(top = 47.dp.from(ctx), bottom = 37.42.dp.from(ctx)),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         PieChart(
                             modifier = Modifier
-                                .width(160.dp)
-                                .height(165.dp),
+                                .width(160.dp.from(ctx))
+                                .height(165.dp.from(ctx)),
                             progress = listOf(
                                 40f,
                                 30f,
@@ -256,25 +259,25 @@ fun ScreenDashboard(
                         Box(
                             modifier = Modifier
                                 .clip(CircleShape)
-                                .size(9.05.dp)
+                                .size(9.05.dp.from(ctx))
                                 .background(Secondary),
 
                             ) {
 
                         }
-                        Spacer(modifier = Modifier.width(5.66.dp))
+                        Spacer(modifier = Modifier.width(5.66.dp.from(ctx)))
                         Text(
                             text = "Stroke",
                             style = MaterialTheme.typography.body1.copy(
-                                fontSize = 12.sp,
+                                fontSize = 12.sp.from(ctx),
                                 fontWeight = FontWeight(500)
                             )
                         )
-                        Spacer(modifier = Modifier.width(25.dp))
+                        Spacer(modifier = Modifier.width(25.dp.from(ctx)))
                         Text(
                             text = "40%",
                             style = MaterialTheme.typography.body1.copy(
-                                fontSize = 11.sp,
+                                fontSize = 11.sp.from(ctx),
                                 fontWeight = FontWeight(500),
                                 color = inactive
                             )
@@ -282,12 +285,12 @@ fun ScreenDashboard(
                     }
                 }
                 item{
-                    Spacer(modifier = Modifier.height(37.33.dp))
+                    Spacer(modifier = Modifier.height(37.33.dp.from(ctx)))
                     Text(
                         text = "List Patients $listPatientDiseases",
                         style = MaterialTheme.typography.body1.copy(
                             color = Heading,
-                            fontSize = 22.sp,
+                            fontSize = 22.sp.from(ctx),
                             fontWeight = FontWeight(700)
                         ),
                     )
