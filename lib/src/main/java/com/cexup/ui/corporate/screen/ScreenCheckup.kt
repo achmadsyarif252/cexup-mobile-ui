@@ -68,7 +68,10 @@ fun ScreenCheckup(
                             onClick = {
                                 stateSelected = it
                                 statePhysicalExamination = true
-                                selectedPatient = PatientPagingItemUIState()
+                                selectedPatient = PatientPagingItemUIState(
+                                    name = patient?.name ?: "",
+                                    userCode = patient?.userCode ?: ""
+                                )
                                 onPatientSelected(patient?.userCode ?: "")
                             },
                         )
