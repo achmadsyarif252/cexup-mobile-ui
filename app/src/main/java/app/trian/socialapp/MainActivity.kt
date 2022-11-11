@@ -24,7 +24,6 @@ class MainActivity : ComponentActivity() {
                     navController = navController,
                     startDestination = "HOME",
                 ) {
-                    ScreenAccount()
 //                    ScreenReport(namePatient = "Adam SH", userCode = "165150200111152")
 
                 }
