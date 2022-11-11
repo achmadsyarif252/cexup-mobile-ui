@@ -24,33 +24,9 @@ class MainActivity : ComponentActivity() {
                     navController = navController,
                     startDestination = "HOME",
                 ) {
+                    ScreenAccount()
+//                    ScreenReport(namePatient = "Adam SH", userCode = "165150200111152")
 
-                    composable(
-                        "HOME"
-                    ) {
-
-                        BaseScreen(
-                            currentRoute = "HOME",
-                            onSearchPatient = {} ,
-                            onPatientDetail = {},
-                            onCheckUp = {},
-                            onAddPatient = {  },
-                            onProfile = {  },
-                            onLogout = {  },
-                            onNavigate = {},
-                            listMenuSidebar = listOf(
-                                SidebarMenuModel(
-                                    R.string.corporate_menu_account,
-                                    R.drawable.ic_home_unselected,
-                                    R.drawable.ic_home_selected,
-                                    "Home",
-                                    SidebarMenuType.Link
-                                )
-                            )
-                        ) {
-
-                        }
-                    }
                 }
             }
         }

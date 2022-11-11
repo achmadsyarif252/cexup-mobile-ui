@@ -231,6 +231,7 @@ fun CardAccount(
                         .padding(horizontal = 25.dp.from(ctx))
                 ) {
                     TabView(tabContents = tabs, pagerState = pagerState)
+                    TabContent(tabContents = tabs, pagerState = pagerState)
                 }
 
                 Column(
