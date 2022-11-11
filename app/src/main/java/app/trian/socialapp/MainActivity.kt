@@ -83,7 +83,7 @@ class MainActivity : ComponentActivity() {
                     listMenuSidebar = listOf(SidebarMenuModel(com.cexup.ui.R.string.corporate_menu_account,
                         com.cexup.ui.R.drawable.ic_home_unselected, com.cexup.ui.R.drawable.ic_home_selected,"Home",SidebarMenuType.Link))
                 ) {
-                    ScreenRegisterPatient(onRegisterPatient = {})
+                    ScreenAccount()
 //                    ScreenReport(namePatient = "Adam SH", userCode = "165150200111152")
                 }
             }
