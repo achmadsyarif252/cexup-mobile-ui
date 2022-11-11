@@ -169,8 +169,8 @@ fun PatientRow(
                         data = "",
                         builder = {
                             crossfade(true)
-                            placeholder(R.drawable.dummy_profile)
-                            error(R.drawable.dummy_profile)
+                            placeholder(R.drawable.dummy_profile_small)
+                            error(R.drawable.dummy_profile_small)
                         }
                     ),
                     contentDescription = "",

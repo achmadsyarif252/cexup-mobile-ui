@@ -38,7 +38,7 @@ fun CardPatientProfile(
         Image(
             painter = rememberImagePainter(data = "", builder = {
                 crossfade(true)
-                placeholder(R.drawable.dummy_profile)
+                placeholder(R.drawable.dummy_profile_small)
             }), contentDescription = "",
             contentScale = ContentScale.Crop,
             modifier = modifier

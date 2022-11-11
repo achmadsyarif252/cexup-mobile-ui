@@ -103,13 +103,13 @@ fun AppBar(
                 .clickable {
                     goToProfile()
                 },
-            imageModel = ImageBitmap.imageResource(R.drawable.dummy_profile),
+            imageModel = ImageBitmap.imageResource(R.drawable.dummy_profile_small),
             // Crop, Fit, Inside, FillHeight, FillWidth, None
             contentScale = ContentScale.Crop,
             // shows an image with a circular revealed animation.
             circularReveal = CircularReveal(duration = 250),
             // shows a placeholder ImageBitmap when loading.
-            placeHolder = ImageBitmap.imageResource(R.drawable.dummy_profile),
+            placeHolder = ImageBitmap.imageResource(R.drawable.dummy_profile_small),
             // shows an error ImageBitmap when the request failed.
             error = ImageBitmap.imageResource(R.drawable.dummy_doctor)
         )
