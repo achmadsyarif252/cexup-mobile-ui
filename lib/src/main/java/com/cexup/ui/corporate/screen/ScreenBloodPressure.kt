@@ -93,7 +93,7 @@ fun ScreenBloodPressure(
             CardPatientInFeature(
                 thumb = bloodPressureDataUIState.patientThumb,
                 name = bloodPressureDataUIState.patientName,
-                id = bloodPressureDataUIState.patientUserCode.toLong()
+                id = bloodPressureDataUIState.patientUserCode
             )
             Spacer(modifier = Modifier.weight(1f))
             Button(
