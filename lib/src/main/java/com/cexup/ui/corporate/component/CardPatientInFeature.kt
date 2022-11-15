@@ -3,7 +3,6 @@ package com.cexup.ui.corporate.component
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.LocalTextStyle
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -28,7 +27,7 @@ fun CardPatientInFeature(
     modifier: Modifier = Modifier,
     thumb: String,
     name: String,
-    id: Long,
+    id: String,
 ) {
     val ctx = LocalContext.current
     Row(
@@ -62,7 +61,7 @@ fun CardPatientInFeature(
                     color = Heading
                 )
                 Text(
-                    text = "ID $id",
+                    text = id,
                     fontSize = 12.sp.from(ctx),
                     style = MaterialTheme.typography.body1,
                     color = inactive
