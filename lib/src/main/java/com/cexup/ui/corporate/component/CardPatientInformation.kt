@@ -54,7 +54,6 @@ fun CardPatientInformation(
     var imageProfileBitmap by remember { mutableStateOf<Bitmap?>(null) }
 
     val keyboardController = LocalSoftwareKeyboardController.current
-    val scrollState = rememberScrollState()
 
     val radioOptions = listOf(stringResource(id = R.string.laki_laki), stringResource(id = R.string.perempuan))
     var selectedOption by remember { mutableStateOf(radioOptions[0]) }
@@ -77,8 +76,7 @@ fun CardPatientInformation(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(10.dp.from(ctx))
-            .verticalScroll(scrollState),
+            .padding(10.dp.from(ctx)),
         verticalArrangement = Arrangement.spacedBy(18.dp.from(ctx))
     ) {
         Row(
@@ -213,7 +211,7 @@ fun CardPatientInformation(
                 typeTextField = 2
             )
 
-            Column(modifier = Modifier.width(170.dp.from(ctx))) {
+            Column(modifier = Modifier.width(180.dp.from(ctx))) {
                 Text(
                     text = stringResource(id = R.string.gender),
                     fontSize = 16.sp.from(ctx),

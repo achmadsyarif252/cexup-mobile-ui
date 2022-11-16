@@ -18,6 +18,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -30,6 +31,7 @@ import com.cexup.ui.corporate.theme.BlackShadow
 import com.cexup.ui.corporate.theme.GreyBorder
 import com.cexup.ui.corporate.theme.Heading
 import com.cexup.ui.utils.coloredShadow
+import com.cexup.ui.utils.mediaquery.from
 
 @Composable
 fun CardDoctors(
@@ -41,21 +43,22 @@ fun CardDoctors(
     onClickWhatsapp: () -> Unit = {},
     onClickFacebook: () -> Unit = {},
 ) {
+    val ctx = LocalContext.current
     Column(
-        modifier = modifier.padding(vertical = 12.dp)
+        modifier = modifier.padding(vertical = 12.dp.from(ctx))
     ) {
         Card(
             modifier = Modifier
-                .width(166.dp)
-                .height(201.dp)
+                .width(166.dp.from(ctx))
+                .height(201.dp.from(ctx))
                 .coloredShadow(
                     alpha = 0.06f,
                     color = BlackShadow.copy(alpha = 0.08f),
-                    shadowRadius = 5.dp,
-                    offsetY = 12.dp
+                    shadowRadius = 5.dp.from(ctx),
+                    offsetY = 12.dp.from(ctx)
                 ),
-            shape = RoundedCornerShape(10.dp),
-            elevation = 0.dp
+            shape = RoundedCornerShape(10.dp.from(ctx)),
+            elevation = 0.dp.from(ctx)
 
 
         ) {
@@ -63,15 +66,15 @@ fun CardDoctors(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 22.dp),
+                        .padding(top = 22.dp.from(ctx)),
                     horizontalArrangement = Arrangement.Center
                 ) {
                     CoilImage(
                         modifier = modifier
                             .clip(CircleShape)
                             .coloredShadow(MaterialTheme.colors.primary)
-                            .width(66.dp)
-                            .height(66.dp)
+                            .width(66.dp.from(ctx))
+                            .height(66.dp.from(ctx))
                             .align(Alignment.CenterVertically),
                         imageModel = ImageBitmap.imageResource(R.drawable.dummy_profile_small),
                         // Crop, Fit, Inside, FillHeight, FillWidth, None
@@ -84,7 +87,7 @@ fun CardDoctors(
                         error = ImageBitmap.imageResource(R.drawable.dummy_doctor)
                     )
                 }
-                Spacer(modifier = Modifier.height(15.dp))
+                Spacer(modifier = Modifier.height(15.dp.from(ctx)))
                 Column(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally
@@ -93,7 +96,7 @@ fun CardDoctors(
                         text = doctorName,
                         style = MaterialTheme.typography.body1.copy(
                             color = Heading,
-                            fontSize = 16.sp,
+                            fontSize = 16.sp.from(ctx),
                             fontWeight = FontWeight(600)
                         )
                     )
@@ -101,22 +104,22 @@ fun CardDoctors(
                         text = specialistName,
                         style = MaterialTheme.typography.body1.copy(
                             color = Heading,
-                            fontSize = 12.sp,
+                            fontSize = 12.sp.from(ctx),
                             fontWeight = FontWeight(400)
                         )
                     )
                 }
-                Spacer(modifier = Modifier.height(6.dp))
+                Spacer(modifier = Modifier.height(6.dp.from(ctx)))
                 Row(
                     horizontalArrangement = Arrangement.Center,
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Box(
                         Modifier
-                            .size(27.dp)
+                            .size(27.dp.from(ctx))
                             .clip(CircleShape)
                             .border(
-                                BorderStroke(1.dp,
+                                BorderStroke(1.dp.from(ctx),
                                 GreyBorder
                             ), shape = CircleShape
                             )
@@ -134,17 +137,17 @@ fun CardDoctors(
                                 painter = painterResource(id = R.drawable.ic_instagram),
                                 contentDescription = "Icon Instagram",
                                 tint = Heading,
-                                modifier = Modifier.size(14.dp)
+                                modifier = Modifier.size(14.dp.from(ctx))
                             )
                         }
 
                     }
-                    Spacer(modifier = Modifier.width(10.dp))
+                    Spacer(modifier = Modifier.width(10.dp.from(ctx)))
                     Box(
                         Modifier
-                            .size(27.dp)
+                            .size(27.dp.from(ctx))
                             .clip(CircleShape)
-                            .border(BorderStroke(1.dp,
+                            .border(BorderStroke(1.dp.from(ctx),
                                 GreyBorder
                             ), shape = CircleShape
                             )
@@ -162,17 +165,17 @@ fun CardDoctors(
                                 painter = painterResource(id = R.drawable.ic_whatsapp),
                                 contentDescription = "Icon Whatsapp",
                                 tint = Heading,
-                                modifier = Modifier.size(14.dp)
+                                modifier = Modifier.size(14.dp.from(ctx))
                             )
                         }
 
                     }
-                    Spacer(modifier = Modifier.width(10.dp))
+                    Spacer(modifier = Modifier.width(10.dp.from(ctx)))
                     Box(
                         Modifier
-                            .size(27.dp)
+                            .size(27.dp.from(ctx))
                             .clip(CircleShape)
-                            .border(BorderStroke(1.dp,GreyBorder), shape = CircleShape)
+                            .border(BorderStroke(1.dp.from(ctx),GreyBorder), shape = CircleShape)
                             .background(Color.Transparent)
                             .clickable {
                                 onClickFacebook()
@@ -187,7 +190,7 @@ fun CardDoctors(
                                 painter = painterResource(id = R.drawable.ic_facebook),
                                 contentDescription = "Icon Facebook",
                                 tint = Heading,
-                                modifier = Modifier.size(14.dp)
+                                modifier = Modifier.size(14.dp.from(ctx))
                             )
                         }
 

@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -25,6 +26,7 @@ import com.skydoves.landscapist.coil.CoilImage
 import com.cexup.ui.R
 import com.cexup.ui.corporate.theme.Heading
 import com.cexup.ui.corporate.theme.inactive
+import com.cexup.ui.utils.mediaquery.from
 
 @Composable
 fun CardDoctorNotification(
@@ -34,10 +36,11 @@ fun CardDoctorNotification(
     time: String,
     modifier: Modifier = Modifier
 ) {
+    val ctx = LocalContext.current
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(bottom = 10.dp)
+            .padding(bottom = 10.dp.from(ctx))
             .clickable {
 
             },
@@ -47,8 +50,8 @@ fun CardDoctorNotification(
             modifier = modifier
                 .clip(CircleShape)
                 .coloredShadow(MaterialTheme.colors.primary)
-                .width(35.dp)
-                .height(35.dp),
+                .width(35.dp.from(ctx))
+                .height(35.dp.from(ctx)),
             imageModel = ImageBitmap.imageResource(R.drawable.dummy_profile_small),
             // Crop, Fit, Inside, FillHeight, FillWidth, None
             contentScale = ContentScale.Crop,
@@ -59,7 +62,7 @@ fun CardDoctorNotification(
             // shows an error ImageBitmap when the request failed.
             error = ImageBitmap.imageResource(R.drawable.dummy_doctor)
         )
-        Spacer(modifier = Modifier.width(13.89.dp))
+        Spacer(modifier = Modifier.width(13.89.dp.from(ctx)))
         Column {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
@@ -67,24 +70,24 @@ fun CardDoctorNotification(
                     style = MaterialTheme.typography.body1,
                     fontWeight = FontWeight(500),
                     color = Heading,
-                    fontSize = 12.sp,
+                    fontSize = 12.sp.from(ctx),
                     overflow = TextOverflow.Ellipsis
                 )
-                Spacer(modifier = Modifier.width(5.dp))
+                Spacer(modifier = Modifier.width(5.dp.from(ctx)))
                 Text(
                     text = status,
                     style = MaterialTheme.typography.body1,
                     fontWeight = FontWeight(300),
                     color = inactive,
-                    fontSize = 12.sp,
+                    fontSize = 12.sp.from(ctx),
                     overflow = TextOverflow.Ellipsis
                 )
-                Spacer(modifier = Modifier.width(18.11.dp))
+                Spacer(modifier = Modifier.width(18.11.dp.from(ctx)))
                 Icon(
                     Icons.Filled.Close,
                     contentDescription = "",
                     tint = inactive,
-                    modifier = modifier.size(12.dp)
+                    modifier = modifier.size(12.dp.from(ctx))
                 )
 
             }
@@ -93,7 +96,7 @@ fun CardDoctorNotification(
                 style = MaterialTheme.typography.body1,
                 fontWeight = FontWeight(400),
                 color = inactive,
-                fontSize = 8.sp,
+                fontSize = 8.sp.from(ctx),
                 overflow = TextOverflow.Ellipsis
             )
 

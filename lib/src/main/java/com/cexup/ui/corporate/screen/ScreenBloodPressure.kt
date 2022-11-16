@@ -82,6 +82,7 @@ fun ScreenBloodPressure(
     )
     Column(
         modifier = modifier
+            .verticalScroll(scrollState)
             .fillMaxSize()
             .padding(30.dp.from(ctx))
 
@@ -148,7 +149,6 @@ fun ScreenBloodPressure(
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
-                .verticalScroll(scrollState)
         )
         {
             Row(

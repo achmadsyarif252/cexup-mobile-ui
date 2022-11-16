@@ -1,5 +1,6 @@
 package com.cexup.ui.corporate.component
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -15,6 +16,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -23,20 +25,23 @@ import com.cexup.ui.corporate.theme.BlueJade
 import com.cexup.ui.corporate.theme.fontsCorp
 import compose.icons.Octicons
 import compose.icons.octicons.Eye24
+import com.cexup.ui.R
+import com.cexup.ui.utils.mediaquery.from
 
 @ExperimentalComposeUiApi
 @Composable
 fun DialogChangePassword(
+    oldPassword:String = "",
     show: Boolean = false,
+    onSaveClicked: (newPassword:String) -> Unit = {},
     onDismiss: () -> Unit
 ) {
     var oldPassword by rememberSaveable {
-        mutableStateOf("")
+        mutableStateOf(oldPassword)
     }
     var newPassword by remember {
         mutableStateOf("")
     }
-    var passwordVisibility by remember { mutableStateOf(false) }
 
     if (show) {
         Dialog(onDismissRequest = { onDismiss() }) {
@@ -58,7 +63,7 @@ fun DialogChangePassword(
                                 .padding(top = 23.dp)
                         ) {
                             Text(
-                                text = "Change Password",
+                                text = stringResource(id = R.string.change_password),
                                 fontSize = 22.sp,
                                 fontFamily = fontsCorp,
                                 fontWeight = FontWeight.SemiBold,
@@ -66,47 +71,28 @@ fun DialogChangePassword(
                             )
                         }
                         Spacer(modifier = Modifier.height(30.dp))
-                        Row {
-                            Column(modifier = Modifier.padding(start = 28.dp)) {
+                        Row(
+                            modifier = Modifier.padding(start = 28.dp),
+                            horizontalArrangement = Arrangement.spacedBy(28.dp)
+                        ) {
+                            FormTextField(
+                                nameTextField = stringResource(id = R.string.old_password),
+                                placeholderText = stringResource(id = R.string.your_secret_password),
+                                valueTextField = oldPassword,
+                                onValueChange = {
+                                    oldPassword = it
+                                },
+                            )
+                            FormTextField(
+                                nameTextField = stringResource(id = R.string.new_password),
+                                placeholderText = stringResource(id = R.string.your_secret_password),
+                                valueTextField = newPassword,
+                                onValueChange = {
+                                    newPassword = it
+                                },
 
-                                FormTextField(
-                                    nameTextField = "Old Password",
-                                    placeholderText = "Your secret password",
-                                    valueTextField = oldPassword,
-                                    isPassword = passwordVisibility,
-                                    onValueChange = {
-                                        oldPassword = it
-                                    },
-                                    trailingIcon = { value ->
-                                        Icon(
-                                            Octicons.Eye24, "",
-                                            modifier = Modifier.clickable {
-                                                passwordVisibility = value
-                                            })
-                                    },
-                                )
 
-                            }
-                            Column(modifier = Modifier.padding(start = 28.dp)) {
-
-                                FormTextField(
-                                    nameTextField = "New Password",
-                                    placeholderText = "Your secret password",
-                                    valueTextField = newPassword,
-                                    onValueChange = {
-                                        newPassword = it
-                                    },
-                                    isPassword = true,
-                                    trailingIcon = { value ->
-                                        Icon(
-                                            Octicons.Eye24, "",
-                                            modifier = Modifier.clickable {
-                                                passwordVisibility = value
-                                            })
-                                    },
-                                )
-
-                            }
+                            )
                         }
                         Spacer(modifier = Modifier.height(40.dp))
                         Column(
@@ -114,9 +100,11 @@ fun DialogChangePassword(
                             modifier = Modifier
                                 .fillMaxWidth()
                         ) {
-
                             Button(
-                                onClick = {  },
+                                onClick = {
+                                    onDismiss()
+                                    onSaveClicked(newPassword)
+                                },
                                 modifier = Modifier
                                     .clip(RoundedCornerShape(10.dp))
                                     .width(288.dp)
@@ -124,7 +112,7 @@ fun DialogChangePassword(
                                 colors = ButtonDefaults.buttonColors(BlueJade)
                             ) {
                                 Text(
-                                    text = "Save Changes",
+                                    text = stringResource(id = R.string.save_changes),
                                     fontSize = 12.sp,
                                     color = Color.White
                                 )

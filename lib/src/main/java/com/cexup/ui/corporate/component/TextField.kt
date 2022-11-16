@@ -1,6 +1,7 @@
 package com.cexup.ui.corporate.component
 
 import android.app.DatePickerDialog
+import android.util.Log
 import android.widget.DatePicker
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -31,6 +32,8 @@ import com.cexup.ui.corporate.theme.SecondaryCorporate
 import com.cexup.ui.corporate.theme.inactive
 import com.cexup.ui.utils.coloredShadow
 import com.cexup.ui.utils.mediaquery.from
+import compose.icons.Octicons
+import compose.icons.octicons.Eye24
 import org.joda.time.DateTime
 import java.util.*
 
@@ -45,7 +48,6 @@ fun FormTextField(
     placeholderText: String,
     heightTextField: Dp = 50.54.dp,
     widthTextField: Dp = 208.dp,
-    isPassword: Boolean = false,
     keyboardType: KeyboardType =KeyboardType.Text,
     leadingIcon: @Composable ((isPassword: Boolean) -> Unit)? = null,
     trailingIcon: @Composable ((isPassword: Boolean) -> Unit)? = null,
@@ -53,6 +55,7 @@ fun FormTextField(
     val keyboardController = LocalSoftwareKeyboardController.current
     val ctx = LocalContext.current
     var valueTextField by remember{ mutableStateOf("") }
+    var isHidePassword by remember{ mutableStateOf(true) }
     var dateSelect by remember {
         mutableStateOf<Long>(0)
     }
@@ -104,23 +107,17 @@ fun FormTextField(
                         unfocusedBorderColor = Color.Transparent,
                         disabledBorderColor = Color.Transparent
                     ),
-                    visualTransformation = if (isPassword) PasswordVisualTransformation() else VisualTransformation.None,
+                    visualTransformation = if (isHidePassword) PasswordVisualTransformation() else VisualTransformation.None,
                     keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
                     trailingIcon = {
-                        if (trailingIcon == null) {
-                            Box {}
-                        } else {
-                            trailingIcon(isPassword)
-                        }
+                        Icon(
+                            Octicons.Eye24, "",
+                            modifier = Modifier.clickable {
+                                isHidePassword = !isHidePassword
+                            }
+                        )
                     },
-                    leadingIcon = {
-                        if (leadingIcon == null) {
-                            Box {}
-                        } else {
-                            leadingIcon(isPassword)
-                        }
-                    }
                 )
             }
             1 -> {

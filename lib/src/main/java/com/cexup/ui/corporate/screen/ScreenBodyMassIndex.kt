@@ -84,6 +84,7 @@ fun ScreenBodyMassIndex(
     )
     Column(
         modifier = modifier
+            .verticalScroll(scrollState)
             .fillMaxSize()
             .padding(30.dp.from(ctx))
     ) {
@@ -149,10 +150,7 @@ fun ScreenBodyMassIndex(
 
         }
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight()
-                .verticalScroll(scrollState)
+            modifier = Modifier.fillMaxSize()
         )
         {
             Row(

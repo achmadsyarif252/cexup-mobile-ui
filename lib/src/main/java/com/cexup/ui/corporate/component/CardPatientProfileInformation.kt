@@ -5,8 +5,11 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringArrayResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.cexup.ui.utils.capitalizeWords
+import com.cexup.ui.R
 
 @Composable
 fun CardPatientProfileInformation(
@@ -20,13 +23,13 @@ fun CardPatientProfileInformation(
     phone_number: String = "Unknown",
 ) {
     val listPatientInformation = listOf(
-        "name",
-        "email",
-        "date of birth",
-        "gender",
-        "status",
-        "address",
-        "phone number",
+        stringResource(id = R.string.name),
+        stringResource(id = R.string.email),
+        stringResource(id = R.string.date_of_birth),
+        stringResource(id = R.string.gender),
+        stringResource(id = R.string.status),
+        stringResource(id = R.string.address),
+        stringResource(id = R.string.phone_number),
     )
 
     val valueListPatientInformation = listOf(

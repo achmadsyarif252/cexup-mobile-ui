@@ -3,6 +3,8 @@ package com.cexup.ui.corporate.screen
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -34,8 +36,11 @@ fun ScreenRegisterPatient(
     onRegisterPatient: (patient: Registration) -> Unit,
 ) {
     val ctx = LocalContext.current
+
+    val scrollState = rememberScrollState()
     Column(
         modifier = Modifier
+            .verticalScroll(scrollState)
             .fillMaxWidth()
             .padding(horizontal = 10.dp.from(ctx))
     ) {

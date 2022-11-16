@@ -165,6 +165,8 @@
     <string name="thigh">Thigh</string>
     <string name="chest">Chest</string>
     <string name="calf">Calf</string>
+    <string name="bmi">Body Mass Index</string>
+    <string name="pulse_oximetry">Pulse Oximetry</string>
 
     <string name="laki_laki">Laki-laki</string>
     <string name="perempuan">Perempuan</string>
@@ -176,6 +178,13 @@
     <string name="phone_number">Phone Number</string>
     <string name="gender">Gender</string>
     <string name="next">Next</string>
+    <string name="name">name</string>
+    <string name="status">status</string>
+    <string name="discharged">Discharged</string>
+    <string name="admitted">Admitted</string>
+    <string name="welcome">Welcome</string>
+    <string name="total_patient_per_day">Total Patient Per day</string>
+    <string name="top_diseases">Top \'%1$s\' Diseases</string>
 
     <string name="save">Save</string>
     <string name="health_condition">Health Condition</string>
@@ -187,6 +196,12 @@
     <string name="job_tittle">Job Tittle</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
+    <string name="edit_about_me">Edit About Me</string>
+    <string name="change_password">Change Password</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="old_password">Old Password</string>
+    <string name="new_password">New Password</string>
+    <string name="your_secret_password">Your secret password</string>
     
     <string name="no_list_doctor">No List Doctors</string>
     <string name="no_list_doctor2">There\'s no Doctors List for you to see yet. if you\nwant to add doctor list contact super admin user</string>

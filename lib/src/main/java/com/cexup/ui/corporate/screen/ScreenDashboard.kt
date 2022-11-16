@@ -67,7 +67,7 @@ fun ScreenDashboard(
             ) {
                 item {
                     Text(
-                        text = "Welcome",
+                        text = stringResource(id = R.string.welcome),
                         style = MaterialTheme.typography.body1.copy(
                             color = Heading,
                             fontSize = 22.sp.from(ctx),
@@ -156,7 +156,7 @@ fun ScreenDashboard(
                     Spacer(modifier = Modifier.height(10.dp.from(ctx)))
 
                     CardPatientTodayChart(
-                        name ="Total Patient Per day",
+                        name = stringResource(id = R.string.total_patient_per_day),
                         data = listOf(
                             BarEntry(1f, 10f),
                             BarEntry(3f, 50f),
@@ -194,7 +194,7 @@ fun ScreenDashboard(
             ) {
                 item {
                     Text(
-                        text = "Top 10 Diseases",
+                        text = stringResource(id = R.string.top_diseases,10),
                         style = MaterialTheme.typography.body1.copy(
                             color = Heading,
                             fontSize = 22.sp.from(ctx),

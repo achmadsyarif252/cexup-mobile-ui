@@ -20,6 +20,7 @@ import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cexup.ui.R
@@ -37,8 +38,9 @@ fun AppBar(
     goToPatient: (userCode: String) -> Unit = {},
     goToProfile: () -> Unit = {},
     checkUpPatient: (userCode: String) -> Unit = {},
-    onSearchPatient: (name: String) -> Unit = {},
-    searchPatientUIState: SearchPatientUIState,
+    onSearchPatient: suspend (name: String) -> SearchPatientUIState = { _ ->
+        SearchPatientUIState()
+    },
 ) {
     val ctx = LocalContext.current
     Row(
@@ -57,7 +59,6 @@ fun AppBar(
         Spacer(modifier = modifier.width(64.45.dp.from(ctx)))
         Box {
             SearchPatient(
-                data = searchPatientUIState.data,
                 onSearchPatient = { onSearchPatient(it) },
                 onPatientDetail = { goToPatient(it) },
                 onCheckUp = { checkUpPatient(it) }
@@ -88,7 +89,9 @@ fun AppBar(
                 style = MaterialTheme.typography.body1.copy(
                     fontWeight = FontWeight(600)
                 ),
-                color = Color.White
+                color = Color.White,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
 
         }
