@@ -1,13 +1,10 @@
 package com.cexup.ui.corporate.component
 
-import android.util.Log
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -23,21 +20,18 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.cexup.ui.corporate.theme.BlueJade
 import com.cexup.ui.corporate.theme.fontsCorp
-import compose.icons.Octicons
-import compose.icons.octicons.Eye24
 import com.cexup.ui.R
-import com.cexup.ui.utils.mediaquery.from
 
 @ExperimentalComposeUiApi
 @Composable
 fun DialogChangePassword(
-    oldPassword:String = "",
+    oldPasswordUser:String = "",
     show: Boolean = false,
     onSaveClicked: (newPassword:String) -> Unit = {},
     onDismiss: () -> Unit
 ) {
     var oldPassword by rememberSaveable {
-        mutableStateOf(oldPassword)
+        mutableStateOf(oldPasswordUser)
     }
     var newPassword by remember {
         mutableStateOf("")

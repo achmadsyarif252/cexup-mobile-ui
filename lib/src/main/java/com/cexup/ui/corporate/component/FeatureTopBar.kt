@@ -26,7 +26,7 @@ fun FeatureTopBar(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(10.dp)
     ) {
-        CardPatientInFeature(thumb = "", name = "John Stones", id = 2202020)
+        CardPatientInFeature(thumb = "", name = "John Stones", id = "2202020")
         Spacer(modifier = Modifier.weight(1f))
         Button(
             onClick = {

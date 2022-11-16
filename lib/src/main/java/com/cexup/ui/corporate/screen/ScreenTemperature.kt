@@ -82,7 +82,7 @@ fun ScreenTemperature(
             CardPatientInFeature(
                 thumb = temperatureDataUIState.patientThumb,
                 name = temperatureDataUIState.patientName,
-                id = temperatureDataUIState.patientUserCode.toLong()
+                id = "${temperatureDataUIState.patientUserCode.toLong()}"
             )
             Spacer(modifier = Modifier.weight(1f))
             Button(

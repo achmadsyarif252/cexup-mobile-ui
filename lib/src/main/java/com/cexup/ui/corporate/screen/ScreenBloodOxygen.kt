@@ -47,7 +47,7 @@ fun ScreenBloodOxygen(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            CardPatientInFeature(thumb = "", name = "John Stones", id = 2202020)
+            CardPatientInFeature(thumb = "", name = "John Stones", id = "2202020")
             Button(
                 onClick = {
 
