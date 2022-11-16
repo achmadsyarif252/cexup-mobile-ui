@@ -90,7 +90,7 @@ fun ScreenWaist(
             CardPatientInFeature(
                 thumb = waistDataUIState.patientThumb,
                 name = waistDataUIState.patientName,
-                id = waistDataUIState.patientUserCode.toLong(),
+                id = "${waistDataUIState.patientUserCode.toLong()}",
             )
             Button(
                 onClick = {onBackPressed() },
