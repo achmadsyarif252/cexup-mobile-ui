@@ -7,6 +7,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -14,6 +15,7 @@ import com.cexup.datum.*
 import com.cexup.ui.component.chart.BaseChartView
 import com.cexup.ui.corporate.theme.Heading
 import com.github.mikephil.charting.data.Entry
+import com.cexup.ui.R
 
 @Composable
 fun CardSummary(
@@ -29,7 +31,7 @@ fun CardSummary(
             modifier = modifier.height(300.dp)
         ) {
             Text(
-                text = "Waist",
+                text = stringResource(id = R.string.waist),
                 fontSize = 22.sp,
                 style = MaterialTheme.typography.body1,
                 fontWeight = FontWeight(700),
@@ -39,7 +41,7 @@ fun CardSummary(
             BaseChartView(
                 data = dataWaist.second,
                 name = dataWaist.first,
-                description = "Waist",
+                description = stringResource(id = R.string.waist),
                 maxAxis = 60f,
                 minAxis = 0f,
             )
@@ -48,7 +50,7 @@ fun CardSummary(
             modifier = modifier.height(300.dp)
         ) {
             Text(
-                text = "Temperature",
+                text = stringResource(id = R.string.corporate_measurement_temperature),
                 fontSize = 22.sp,
                 style = MaterialTheme.typography.body1,
                 fontWeight = FontWeight(700),
@@ -58,7 +60,7 @@ fun CardSummary(
             BaseChartView(
                 data = dataTemp.second,
                 name = dataTemp.first,
-                description = "Temperature",
+                description = stringResource(id = R.string.corporate_measurement_temperature),
                 maxAxis = 150f,
                 minAxis = 50f,
                 limitLine = limitLineTemperature,
@@ -69,7 +71,7 @@ fun CardSummary(
             modifier = modifier.height(300.dp)
         ) {
             Text(
-                text = "Body Mass Index",
+                text = stringResource(id = R.string.bmi),
                 fontSize = 22.sp,
                 style = MaterialTheme.typography.body1,
                 fontWeight = FontWeight(700),
@@ -79,7 +81,7 @@ fun CardSummary(
             BaseChartView(
                 data = dataBmi.second,
                 name = dataBmi.first,
-                description = "Body Mass Index",
+                description = stringResource(id = R.string.bmi),
                 maxAxis = 50f,
                 minAxis = 10f,
                 limitLine = limitLineBodyMassIndex,
@@ -90,7 +92,7 @@ fun CardSummary(
             modifier = modifier.height(300.dp)
         ) {
             Text(
-                text = "Pulse Oximetry",
+                text = stringResource(id = R.string.pulse_oximetry),
                 fontSize = 22.sp,
                 style = MaterialTheme.typography.body1,
                 fontWeight = FontWeight(700),
@@ -100,7 +102,7 @@ fun CardSummary(
             BaseChartView(
                 data = dataPulseOximeter.second,
                 name = dataPulseOximeter.first,
-                description = "Pulse Oximetry",
+                description = stringResource(id = R.string.pulse_oximetry),
                 maxAxis = 150f,
                 minAxis = 50f,
                 limitLine = limitLineBloodOxygen,
@@ -111,7 +113,7 @@ fun CardSummary(
             modifier = modifier.height(300.dp)
         ) {
             Text(
-                text = "Heart Rate",
+                text = stringResource(id = R.string.corporate_measurement_heart_rate),
                 fontSize = 22.sp,
                 style = MaterialTheme.typography.body1,
                 fontWeight = FontWeight(700),
@@ -121,7 +123,7 @@ fun CardSummary(
             BaseChartView(
                 data = dataHeartRate.second,
                 name = dataHeartRate.first,
-                description = "Heart Rate",
+                description = stringResource(id = R.string.corporate_measurement_heart_rate),
                 maxAxis = 150f,
                 minAxis = 50f,
                 limitLine = limitLineHeartRate,

@@ -5,8 +5,10 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -301,6 +303,7 @@ fun EditProfile(
 
     Row(
         modifier = modifier
+            .verticalScroll(rememberScrollState())
             .fillMaxWidth()
             .padding(top = 10.dp.from(ctx), bottom = 20.dp.from(ctx))
     ) {

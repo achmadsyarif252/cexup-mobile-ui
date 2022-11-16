@@ -11,6 +11,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.paging.compose.LazyPagingItems
@@ -31,6 +32,7 @@ data class PatientPagingItemUIState(
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun ScreenCheckup(
+    userCode:String,
     featureList: List<PhysicalExamination>,
     onClickSyncToCloud: () -> Unit,
     patients: LazyPagingItems<PatientPagingItemUIState>,
@@ -59,22 +61,50 @@ fun ScreenCheckup(
             LazyColumn(
                 state = listState,
                 content = {
-                    itemsIndexed(patients) { _, patient ->
-                        CardMedicalInspection(
-                            name = patient?.name ?: "",
-                            userCode = patient?.userCode ?: "",
-                            thumb = "",
-                            selectedState = stateSelected == patient?.userCode,
-                            onClick = {
-                                stateSelected = it
-                                statePhysicalExamination = true
-                                selectedPatient = PatientPagingItemUIState(
+                    if (userCode == "uknown") {
+                        itemsIndexed(patients) { _, patient ->
+                            CardMedicalInspection(
+                                name = patient?.name ?: "",
+                                userCode = patient?.userCode ?: "",
+                                thumb = "",
+                                selectedState = stateSelected == patient?.userCode,
+                                onClick = {
+                                    stateSelected = it
+                                    statePhysicalExamination = true
+                                    selectedPatient = PatientPagingItemUIState(
+                                        name = patient?.name ?: "",
+                                        userCode = patient?.userCode ?: ""
+                                    )
+                                    onPatientSelected(patient?.userCode ?: "")
+                                },
+                            )
+                        }
+                    }else{
+                        var patient: PatientPagingItemUIState? = null
+                        for (i in 0 until patients.itemCount) {
+                            if (patients[i]?.userCode == userCode) {
+                                patient = patients[i]
+                            }
+                        }
+                        if (patient != null) {
+                            item {
+                                CardMedicalInspection(
                                     name = patient?.name ?: "",
-                                    userCode = patient?.userCode ?: ""
+                                    userCode = patient?.userCode ?: "",
+                                    thumb = "",
+                                    selectedState = stateSelected == patient?.userCode,
+                                    onClick = {
+                                        stateSelected = it
+                                        statePhysicalExamination = true
+                                        selectedPatient = PatientPagingItemUIState(
+                                            name = patient?.name ?: "",
+                                            userCode = patient?.userCode ?: ""
+                                        )
+                                        onPatientSelected(patient?.userCode ?: "")
+                                    },
                                 )
-                                onPatientSelected(patient?.userCode ?: "")
-                            },
-                        )
+                            }
+                        }
                     }
                 },
                 verticalArrangement = Arrangement.spacedBy(10.dp.from(ctx))
@@ -99,35 +129,35 @@ fun ScreenCheckup(
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(
-                                text = stringResource(id = R.string.corporate_physical_exam),
-                                style = MaterialTheme.typography.body1.copy(
-                                    color = Heading,
-                                    fontSize = 22.sp.from(ctx),
-                                    fontWeight = FontWeight(700)
-                                ),
-                            )
-                            Text(
-                                text = "・",
-                                style = MaterialTheme.typography.body1.copy(
-                                    color = Heading,
-                                    fontSize = 16.sp.from(ctx),
-                                    fontWeight = FontWeight(400)
-                                ),
-                            )
-                            Text(
-                                text = selectedPatient.name,
-                                style = MaterialTheme.typography.body1.copy(
-                                    color = Heading,
-                                    fontSize = 16.sp.from(ctx),
-                                    fontWeight = FontWeight(400)
-                                ),
-                            )
-                        }
+                        Text(
+                            text = stringResource(id = R.string.corporate_physical_exam),
+                            style = MaterialTheme.typography.body1.copy(
+                                color = Heading,
+                                fontSize = 22.sp.from(ctx),
+                                fontWeight = FontWeight(700)
+                            ),
+                        )
+                        Text(
+                            text = "・",
+                            style = MaterialTheme.typography.body1.copy(
+                                color = Heading,
+                                fontSize = 16.sp.from(ctx),
+                                fontWeight = FontWeight(400)
+                            ),
+                        )
+                        Text(
+                            text = selectedPatient.name,
+                            style = MaterialTheme.typography.body1.copy(
+                                color = Heading,
+                                fontSize = 16.sp.from(ctx),
+                                fontWeight = FontWeight(400)
+                            ),
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                        )
+
                         Button(
+                            modifier = Modifier.widthIn(min = 80.dp.from(ctx)),
                             onClick = { onClickSyncToCloud() }
                         ) {
                             Icon(
@@ -144,6 +174,8 @@ fun ScreenCheckup(
                                     fontSize = 12.sp.from(ctx),
                                     fontWeight = FontWeight(400)
                                 ),
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis
                             )
                         }
                     }

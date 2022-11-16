@@ -77,6 +77,8 @@ dependencies {
     implementation(Libs.AndroidX.Activity.activityCompose)
     implementation(Libs.Io.CoilKt.coilCompose)
 
+    implementation("androidx.paging:paging-compose:1.0.0-alpha14")
+
     with(Libs.Com.Google.Accompanist){
         implementation(accompanistSystemUiController)
         implementation(accompanistPager)

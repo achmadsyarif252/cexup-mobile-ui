@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -21,6 +22,7 @@ import com.cexup.ui.corporate.theme.Heading
 import com.cexup.ui.corporate.theme.OrangeCardCount
 import com.cexup.ui.corporate.theme.inactive
 import com.cexup.ui.utils.coloredShadow
+import com.cexup.ui.utils.mediaquery.from
 
 @Composable
 fun CardCount(
@@ -30,17 +32,17 @@ fun CardCount(
     modifier: Modifier = Modifier,
     onNavigate : () -> Unit
 ){
-
+    val ctx = LocalContext.current
     Card(
         backgroundColor = Color.White,
-        shape = RoundedCornerShape(4.dp),
+        shape = RoundedCornerShape(4.dp.from(ctx)),
         modifier = modifier
-            .width(153.dp)
-            .height(48.dp)
+            .width(153.dp.from(ctx))
+            .height(48.dp.from(ctx))
             .coloredShadow(
                 color = Color.Black,
-                shadowRadius = 4.dp,
-                offsetY = 2.dp,
+                shadowRadius = 4.dp.from(ctx),
+                offsetY = 2.dp.from(ctx),
             )
             .clickable {
                 onNavigate()
@@ -49,13 +51,13 @@ fun CardCount(
         Row(
             modifier = modifier
                 .fillMaxWidth()
-                .padding(horizontal = 7.dp),
+                .padding(horizontal = 7.dp.from(ctx)),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Box(
                 modifier = modifier
-                    .size(34.dp)
-                    .clip(RoundedCornerShape(4.dp))
+                    .size(34.dp.from(ctx))
+                    .clip(RoundedCornerShape(4.dp.from(ctx)))
                     .background(OrangeCardCount),
                 contentAlignment = Alignment.Center
             ) {
@@ -63,18 +65,17 @@ fun CardCount(
                     painter = painterResource(id = imageId),
                     contentDescription = "Logo",
                     modifier = modifier
-                        .size(20.dp)
+                        .size(20.dp.from(ctx))
                 )
-
             }
-            Spacer(modifier = Modifier.width(8.dp))
+            Spacer(modifier = Modifier.width(8.dp.from(ctx)))
             Column(
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
                     text = title,
                     style = MaterialTheme.typography.body1.copy(
-                        fontSize = 12.sp,
+                        fontSize = 12.sp.from(ctx),
                         fontWeight = FontWeight(600),
                         color = inactive
                     )
@@ -82,7 +83,7 @@ fun CardCount(
                 Text(
                     text = countValue.toString(),
                     style = MaterialTheme.typography.body1.copy(
-                        fontSize = 16.sp,
+                        fontSize = 16.sp.from(ctx),
                         fontWeight = FontWeight(600),
                         color = Heading
                     )

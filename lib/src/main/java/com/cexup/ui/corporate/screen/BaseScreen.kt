@@ -23,9 +23,8 @@ data class SearchPatientUIState(
 @Composable
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 fun BaseScreen(
-    searchPatientUIState: SearchPatientUIState = SearchPatientUIState(),
     currentRoute: String,
-    onSearchPatient: (String) -> Unit,
+    onSearchPatient: suspend (String) -> SearchPatientUIState,
     onPatientDetail: (String) -> Unit,
     onCheckUp: (String) -> Unit,
     onAddPatient: () -> Unit,
@@ -39,7 +38,6 @@ fun BaseScreen(
     Scaffold(
         topBar = {
             AppBar(
-                searchPatientUIState = searchPatientUIState,
                 goToAddPatient = { onAddPatient() },
                 goToPatient = { onPatientDetail(it) },
                 goToProfile = { onProfile() },
