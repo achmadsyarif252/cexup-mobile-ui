@@ -64,10 +64,13 @@ fun ScreenPatientProfile(
     patientProfileUIState: PatientProfileUIState,
     ewsPatientProfileUIState: EwsPatientProfileUIState,
     patientMeasurementUIState: PatientMeasurementUIState,
+    initialPage:Int = 0,
 ) {
     val ctx = LocalContext.current
     val scrollState = rememberScrollState()
-    val pagerState = rememberPagerState()
+    val pagerState = rememberPagerState(
+        initialPage = initialPage
+    )
     val tabs = listOf(
         TabContentRow(header = stringResource(id = R.string.patient_information)) {
             CardPatientProfileInformation(

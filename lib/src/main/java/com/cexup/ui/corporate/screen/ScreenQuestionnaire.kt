@@ -18,6 +18,7 @@ import com.cexup.ui.corporate.component.*
 import compose.icons.Octicons
 import compose.icons.octicons.Note24
 import com.cexup.ui.R
+import com.cexup.ui.corporate.theme.SecondaryCorporate
 import com.cexup.ui.utils.mediaquery.from
 
 data class QuestionnaireResponse(
@@ -61,6 +62,7 @@ fun ScreenQuestionnaire(
     modifier: Modifier = Modifier,
     questionnaireDataState: QuestionnaireDataState,
     questionnaireResponses: List<QuestionnaireResponse>,
+    onBackPress: () -> Unit,
     onSubmit: () -> Unit,
     onRadioValue: (
         parentIndex: Int,
@@ -126,8 +128,32 @@ fun ScreenQuestionnaire(
                             )
                         )
                     }
-                    Box {
-
+                    Button(
+                        onClick = {
+                            onBackPress()
+                        },
+                        modifier = modifier
+                            .width(89.dp.from(ctx))
+                            .height(35.dp.from(ctx)),
+                        colors = ButtonDefaults.buttonColors(backgroundColor = SecondaryCorporate),
+                        shape = RoundedCornerShape(10.dp.from(ctx)),
+                        contentPadding = PaddingValues(horizontal = 11.dp.from(ctx))
+                    ) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.Center
+                        ) {
+                            Text(
+                                text = stringResource(id = R.string.corporate_back),
+                                style = MaterialTheme.typography.body1.copy(
+                                    fontWeight = FontWeight(600),
+                                    fontSize = 14.sp.from(ctx),
+                                    letterSpacing = 1.sp.from(ctx),
+                                    color = Color.White
+                                ),
+                                modifier = modifier.padding(5.dp.from(ctx))
+                            )
+                        }
                     }
                 }
             }

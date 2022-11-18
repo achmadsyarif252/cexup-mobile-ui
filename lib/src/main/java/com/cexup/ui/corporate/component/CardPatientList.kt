@@ -38,6 +38,9 @@ fun PatientRow(
     name: String = "",
     currentDisease: String = "",
     status: String = "",
+    onCheckupClicked: () -> Unit = {},
+    onProfileClicked: () -> Unit = {},
+    onSummaryClicked: () -> Unit = {},
     onClicked: () -> Unit = {},
 ) {
     var expanded = remember {
@@ -105,7 +108,9 @@ fun PatientRow(
                     fontSize = 12.sp.from(ctx),
                     style = MaterialTheme.typography.body1,
                     color = Heading,
-                    fontWeight = FontWeight(400)
+                    fontWeight = FontWeight(400),
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
                 )
             }
             Row(
@@ -119,7 +124,9 @@ fun PatientRow(
                     fontSize = 12.sp.from(ctx),
                     style = MaterialTheme.typography.body1,
                     color = Heading,
-                    fontWeight = FontWeight(400)
+                    fontWeight = FontWeight(400),
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
                 )
             }
             Row(
@@ -163,9 +170,19 @@ fun PatientRow(
                                 modifier = Modifier
                                     .heightIn(max = 28.dp.from(ctx)),
                                 onClick = {
+                                    when(index){
+                                        0 -> {
+                                            onProfileClicked()
+                                        }
+                                        1 -> {
+                                            onCheckupClicked()
+                                        }
+                                        2 -> {
+                                            onSummaryClicked()
+                                        }
+                                    }
                                 },
-
-                                ) {
+                            ) {
                                 Text(
                                     text = s,
                                     style = MaterialTheme.typography.body1.copy(

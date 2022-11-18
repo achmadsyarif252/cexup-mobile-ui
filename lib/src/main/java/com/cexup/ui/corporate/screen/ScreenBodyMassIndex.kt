@@ -95,7 +95,7 @@ fun ScreenBodyMassIndex(
             CardPatientInFeature(
                 thumb = bodyMassIndexDataUIState.patientThumb,
                 name = bodyMassIndexDataUIState.patientName,
-                id = "${bodyMassIndexDataUIState.patientUserCode.toLong()}"
+                id = bodyMassIndexDataUIState.patientUserCode
             )
             Spacer(modifier = Modifier.weight(1f))
             Button(

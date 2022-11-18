@@ -137,7 +137,7 @@ fun ScreenDoctors(
                     gridItems(
                         data = listDoctor,
                         columnCount = 4,
-                        horizontalArrangement = Arrangement.spacedBy(22.dp.from(ctx)),
+                        horizontalArrangement = Arrangement.spacedBy(16.dp.from(ctx)),
                     ) { data ->
                         CardDoctors(
                             doctorName = data.title.capitalizeWords(),

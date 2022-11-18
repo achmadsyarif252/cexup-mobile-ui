@@ -35,6 +35,8 @@ fun ScreenPatients(
     modifier: Modifier = Modifier,
     listPatient: List<PatientProfileUIState>,
     onGetPatient:(isNext: Boolean) -> Unit,
+    onClickCheckUpPatient:(userCode: String) -> Unit = {},
+    onClickSummaryPatient:(userCode:String, initialPage:Int) -> Unit = {_,_ ->},
     onClickPatient: (userCode: String) -> Unit,
     next: Int,
 ) {
@@ -182,6 +184,15 @@ fun ScreenPatients(
                 status = "Old Patient",
                 onClicked = {
                     onClickPatient(listUserCode[index])
+                },
+                onCheckupClicked = {
+                    onClickCheckUpPatient(listUserCode[index])
+                },
+                onProfileClicked = {
+                    onClickPatient(listUserCode[index])
+                },
+                onSummaryClicked = {
+                    onClickSummaryPatient(listUserCode[index], 1)
                 }
             )
         }
