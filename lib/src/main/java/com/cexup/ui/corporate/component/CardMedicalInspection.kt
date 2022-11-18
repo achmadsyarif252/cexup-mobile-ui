@@ -85,7 +85,7 @@ fun CardMedicalInspection(
                 error = ImageBitmap.imageResource(R.drawable.dummy_doctor)
             )
             Spacer(modifier = modifier.width(15.dp.from(ctx)))
-            Column {
+            Column (modifier = Modifier.widthIn(max = 90.dp.from(ctx))) {
                 Text(
                     text = name.capitalizeWords(),
                     fontSize = 16.sp.from(ctx),
@@ -105,8 +105,8 @@ fun CardMedicalInspection(
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                 )
-
             }
+            Spacer(modifier = Modifier.weight(1f))
             Image(
                 painter = if (selectedState) painterResource(
                     id = R.drawable.ic_right_arrow_unselected

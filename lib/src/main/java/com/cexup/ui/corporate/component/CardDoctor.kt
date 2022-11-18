@@ -22,23 +22,25 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.skydoves.landscapist.CircularReveal
-import com.skydoves.landscapist.coil.CoilImage
 import com.cexup.ui.R
 import com.cexup.ui.corporate.theme.BlackShadow
 import com.cexup.ui.corporate.theme.GreyBorder
 import com.cexup.ui.corporate.theme.Heading
 import com.cexup.ui.utils.coloredShadow
 import com.cexup.ui.utils.mediaquery.from
+import com.skydoves.landscapist.CircularReveal
+import com.skydoves.landscapist.coil.CoilImage
 
 @Composable
 fun CardDoctors(
     modifier: Modifier = Modifier,
-    doctorName : String = "",
-    specialistName : String = "",
-    thumb : String = "",
+    doctorName: String = "",
+    specialistName: String = "",
+    thumb: String = "",
     onClickInstagram: () -> Unit = {},
     onClickWhatsapp: () -> Unit = {},
     onClickFacebook: () -> Unit = {},
@@ -49,7 +51,7 @@ fun CardDoctors(
     ) {
         Card(
             modifier = Modifier
-                .width(166.dp.from(ctx))
+                .width(172.dp.from(ctx))
                 .height(201.dp.from(ctx))
                 .coloredShadow(
                     alpha = 0.06f,
@@ -59,14 +61,17 @@ fun CardDoctors(
                 ),
             shape = RoundedCornerShape(10.dp.from(ctx)),
             elevation = 0.dp.from(ctx)
-
-
         ) {
-            Column {
+            Column (
+                modifier = Modifier
+                    .padding(
+                        vertical = 18.dp.from(ctx),
+                        horizontal = 8.dp.from(ctx)
+                    )
+            ) {
                 Row(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 22.dp.from(ctx)),
+                        .fillMaxWidth(),
                     horizontalArrangement = Arrangement.Center
                 ) {
                     CoilImage(
@@ -93,115 +98,103 @@ fun CardDoctors(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
+                        modifier = Modifier.fillMaxWidth(),
                         text = doctorName,
                         style = MaterialTheme.typography.body1.copy(
                             color = Heading,
                             fontSize = 16.sp.from(ctx),
                             fontWeight = FontWeight(600)
-                        )
+                        ),
+                        textAlign = TextAlign.Center,
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis
                     )
                     Text(
+                        modifier = Modifier.fillMaxWidth(),
                         text = specialistName,
                         style = MaterialTheme.typography.body1.copy(
                             color = Heading,
                             fontSize = 12.sp.from(ctx),
                             fontWeight = FontWeight(400)
-                        )
+                        ),
+                        textAlign = TextAlign.Center,
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis
                     )
                 }
-                Spacer(modifier = Modifier.height(6.dp.from(ctx)))
-                Row(
-                    horizontalArrangement = Arrangement.Center,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Box(
-                        Modifier
-                            .size(27.dp.from(ctx))
-                            .clip(CircleShape)
-                            .border(
-                                BorderStroke(1.dp.from(ctx),
-                                GreyBorder
-                            ), shape = CircleShape
-                            )
-                            .background(Color.Transparent)
-                            .clickable {
-                                onClickInstagram()
-                            }
-                    ) {
-                        Column(
-                            modifier = Modifier.fillMaxSize(),
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.Center
-                        ) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_instagram),
-                                contentDescription = "Icon Instagram",
-                                tint = Heading,
-                                modifier = Modifier.size(14.dp.from(ctx))
-                            )
-                        }
-
-                    }
-                    Spacer(modifier = Modifier.width(10.dp.from(ctx)))
-                    Box(
-                        Modifier
-                            .size(27.dp.from(ctx))
-                            .clip(CircleShape)
-                            .border(BorderStroke(1.dp.from(ctx),
-                                GreyBorder
-                            ), shape = CircleShape
-                            )
-                            .background(Color.Transparent)
-                            .clickable {
-                                onClickWhatsapp()
-                            }
-                    ) {
-                        Column(
-                            modifier = Modifier.fillMaxSize(),
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.Center
-                        ) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_whatsapp),
-                                contentDescription = "Icon Whatsapp",
-                                tint = Heading,
-                                modifier = Modifier.size(14.dp.from(ctx))
-                            )
-                        }
-
-                    }
-                    Spacer(modifier = Modifier.width(10.dp.from(ctx)))
-                    Box(
-                        Modifier
-                            .size(27.dp.from(ctx))
-                            .clip(CircleShape)
-                            .border(BorderStroke(1.dp.from(ctx),GreyBorder), shape = CircleShape)
-                            .background(Color.Transparent)
-                            .clickable {
-                                onClickFacebook()
-                            }
-                    ) {
-                        Column(
-                            modifier = Modifier.fillMaxSize(),
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.Center
-                        ) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_facebook),
-                                contentDescription = "Icon Facebook",
-                                tint = Heading,
-                                modifier = Modifier.size(14.dp.from(ctx))
-                            )
-                        }
-
-                    }
-
-
-                }
-
+//                Spacer(modifier = Modifier.height(6.dp.from(ctx)))
+//                Row(
+//                    horizontalArrangement = Arrangement.Center,
+//                    modifier = Modifier.fillMaxWidth()
+//                ) {
+//                    Box(
+//                        Modifier
+//                            .size(27.dp.from(ctx))
+//                            .clip(CircleShape)
+//                            .border(
+//                                BorderStroke(
+//                                    1.dp.from(ctx),
+//                                    GreyBorder
+//                                ), shape = CircleShape
+//                            )
+//                            .background(Color.Transparent)
+//                            .clickable {
+//                                onClickInstagram()
+//                            },
+//                        contentAlignment = Alignment.Center
+//                    ) {
+//                        Icon(
+//                            painter = painterResource(id = R.drawable.ic_instagram),
+//                            contentDescription = "Icon Instagram",
+//                            tint = Heading,
+//                            modifier = Modifier.size(14.dp.from(ctx))
+//                        )
+//                    }
+//                    Spacer(modifier = Modifier.width(10.dp.from(ctx)))
+//                    Box(
+//                        Modifier
+//                            .size(27.dp.from(ctx))
+//                            .clip(CircleShape)
+//                            .border(
+//                                BorderStroke(
+//                                    1.dp.from(ctx),
+//                                    GreyBorder
+//                                ), shape = CircleShape
+//                            )
+//                            .background(Color.Transparent)
+//                            .clickable {
+//                                onClickWhatsapp()
+//                            },
+//                        contentAlignment = Alignment.Center
+//                    ) {
+//                        Icon(
+//                            painter = painterResource(id = R.drawable.ic_whatsapp),
+//                            contentDescription = "Icon Whatsapp",
+//                            tint = Heading,
+//                            modifier = Modifier.size(14.dp.from(ctx))
+//                        )
+//                    }
+//                    Spacer(modifier = Modifier.width(10.dp.from(ctx)))
+//                    Box(
+//                        Modifier
+//                            .size(27.dp.from(ctx))
+//                            .clip(CircleShape)
+//                            .border(BorderStroke(1.dp.from(ctx), GreyBorder), shape = CircleShape)
+//                            .background(Color.Transparent)
+//                            .clickable {
+//                                onClickFacebook()
+//                            },
+//                        contentAlignment = Alignment.Center
+//                    ) {
+//                        Icon(
+//                            painter = painterResource(id = R.drawable.ic_facebook),
+//                            contentDescription = "Icon Facebook",
+//                            tint = Heading,
+//                            modifier = Modifier.size(14.dp.from(ctx))
+//                        )
+//                    }
+//                }
             }
-
-
         }
     }
 }

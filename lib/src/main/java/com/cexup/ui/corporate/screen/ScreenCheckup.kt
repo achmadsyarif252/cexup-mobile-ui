@@ -127,10 +127,9 @@ fun ScreenCheckup(
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Text(
-                            text = stringResource(id = R.string.corporate_physical_exam),
+                            text = stringResource(id = R.string.corporate_physical_exam) + " ・ ",
                             style = MaterialTheme.typography.body1.copy(
                                 color = Heading,
                                 fontSize = 22.sp.from(ctx),
@@ -138,14 +137,7 @@ fun ScreenCheckup(
                             ),
                         )
                         Text(
-                            text = "・",
-                            style = MaterialTheme.typography.body1.copy(
-                                color = Heading,
-                                fontSize = 16.sp.from(ctx),
-                                fontWeight = FontWeight(400)
-                            ),
-                        )
-                        Text(
+                            modifier = Modifier.widthIn(max = 140.dp.from(ctx)),
                             text = selectedPatient.name,
                             style = MaterialTheme.typography.body1.copy(
                                 color = Heading,
@@ -155,7 +147,7 @@ fun ScreenCheckup(
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis,
                         )
-
+                        Spacer(modifier = Modifier.weight(1f))
                         Button(
                             modifier = Modifier.widthIn(min = 80.dp.from(ctx)),
                             onClick = { onClickSyncToCloud() }
