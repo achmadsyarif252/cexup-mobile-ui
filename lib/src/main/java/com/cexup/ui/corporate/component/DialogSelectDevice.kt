@@ -70,6 +70,7 @@ fun DialogSelectDevice(
                                 items(deviceList) { device ->
                                     DeviceRow(
                                         name = device.first,
+                                        mac = device.second,
                                         onSelectDevice = { deviceAddress ->
                                             onSelectedDevice(deviceAddress)
                                         }
