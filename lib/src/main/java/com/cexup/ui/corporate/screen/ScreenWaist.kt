@@ -43,7 +43,7 @@ data class WaistDataUIState(
     var patientUserCode:String,
     var patientThumb:String = "",
     var receivedDistance: Float,
-    var chartListData: Pair<List<Entry>, List<Entry>>
+    var chartListData: Pair<List<String>, List<Entry>>
 )
 
 @Composable
@@ -271,9 +271,8 @@ fun ScreenWaist(
                     Box(modifier = modifier.padding(20.dp.from(ctx))) {
                         BaseChartView(
                             data = waistDataUIState.chartListData.second,
-                            name = listOf(),
+                            name = waistDataUIState.chartListData.first,
                             description = "",
-                            maxAxis = 40f,
                             minAxis = 0f,
                         )
                     }
