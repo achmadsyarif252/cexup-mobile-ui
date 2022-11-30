@@ -24,4 +24,4 @@ jobs:
           JVM_REPOSITORY_TOKEN: $
         run: echo JVM_REPOSITORY_TOKEN=\"$JVM_REPOSITORY_TOKEN\" > ./local.properties
       - name: Publish with Gradle
-        run: ./gradlew publishReleasePublicationToCexupRepository
+        run: ./gradlew publishReleasePublicationToMavenRepository
