@@ -19,6 +19,3 @@ local.properties
 /buildSrc/build
 ./buildSrc/build
 
-gradle.properties
-./gradle.properties
-
