@@ -16,7 +16,7 @@ jobs:
       - name: Set Kotlin Code-style
         run: echo kotlin.code.style=official > ./gradle.properties
       - name: Set Non-Transitive class
-        run: android.nonTransitiveRClass=true > ./gradle.properties
+        run: echo android.nonTransitiveRClass=true > ./gradle.properties
       - name: Access ENDPOINT_JVM_REPOSITORY
         env:
           JVM_REPOSITORY_USERNAME: $
