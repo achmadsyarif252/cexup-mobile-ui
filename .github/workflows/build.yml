@@ -11,11 +11,12 @@ jobs:
           java-version: 18
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
+      - name: Set up Gradle
+        uses: gradle/gradle-build-action@v2
       - name: Set up gradle.properties
         shell: bash
         run: |
           mkdir -p ~/.gradle/
-          echo "::set-env name=GRADLE_USER_HOME::$HOME/.gradle"
           echo android.useAndroidX=true > ~/.gradle/gradle.properties
           echo kotlin.code.style=official > ~/.gradle/gradle.properties
           echo android.nonTransitiveRClass=true > ~/.gradle/gradle.properties
