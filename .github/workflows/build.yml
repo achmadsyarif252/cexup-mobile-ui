@@ -1,0 +1,27 @@
+name: Publish project to Maven repository
+on: workflow_dispatch
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 18
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+      - name: Access ENDPOINT_JVM_REPOSITORY
+        env:
+          JVM_REPOSITORY_USERNAME: $
+        run: echo ENDPOINT_JVM_REPOSITORY=\"$ENDPOINT_JVM_REPOSITORY\" > ./local.properties
+      - name: Access JVM_REPOSITORY_USERNAME
+        env:
+          JVM_REPOSITORY_USERNAME: $
+        run: echo JVM_REPOSITORY_USERNAME=\"$JVM_REPOSITORY_USERNAME\" > ./local.properties
+      - name: Access JVM_REPOSITORY_TOKEN
+        env:
+          JVM_REPOSITORY_TOKEN: $
+        run: echo JVM_REPOSITORY_TOKEN=\"$JVM_REPOSITORY_TOKEN\" > ./local.properties
+      - name: Publish with Gradle
+        run: ./gradlew publishReleasePublicationToCexupRepository
