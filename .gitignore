@@ -18,5 +18,7 @@ local.properties
 .idea
 /buildSrc/build
 ./buildSrc/build
-/app/src/main/java/app/trian/socialapp/MainActivity.kt
-./app/src/main/java/app/trian/socialapp/MainActivity.kt
+
+gradle.properties
+./gradle.properties
+

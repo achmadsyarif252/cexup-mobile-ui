@@ -5,6 +5,10 @@ plugins {
     id("maven-publish")
 }
 
+val jvmRepositoryEndpoint = findProperty("ENDPOINT_JVM_REPOSITORY")
+val jvmRepositoryUsername = findProperty("JVM_REPOSITORY_USERNAME")
+val jvmRepositoryToken = findProperty("JVM_REPOSITORY_TOKEN")
+
 android{
     compileSdk = 33
     defaultConfig {
@@ -13,6 +17,10 @@ android{
         }
         minSdk = 23
         targetSdk = 33
+
+        buildConfigField("String", "ENDPOINT_JVM_REPOSITORY", "\"$jvmRepositoryEndpoint\"")
+        buildConfigField("String", "JVM_REPOSITORY_USERNAME", "\"$jvmRepositoryUsername\"")
+        buildConfigField("String", "JVM_REPOSITORY_TOKEN", "\"$jvmRepositoryToken\"")
     }
     buildFeatures {
         compose= true
@@ -23,7 +31,6 @@ android{
     publishing {
         singleVariant("release") {
             withSourcesJar()
-            withJavadocJar()
         }
     }
     compileOptions {
@@ -39,15 +46,29 @@ android{
     }
 }
 
-publishing {
-    publications {
-        register<MavenPublication>("release") {
-            groupId = "com.cexup"
-            artifactId = "ui"
-            version = "1.0.0"
+afterEvaluate {
+    publishing {
+        publications {
+            register<MavenPublication>("release") {
+                groupId = "com.cexup"
+                artifactId = "ui"
+                version = "1.0.0-alpha13"
 
-            afterEvaluate {
                 from(components["release"])
+
+            }
+        }
+        repositories {
+            maven {
+                url = uri("$jvmRepositoryEndpoint")
+                isAllowInsecureProtocol = true
+                credentials {
+                    username = "$jvmRepositoryUsername"
+                    password = "$jvmRepositoryToken"
+                }
+                authentication {
+                    create<BasicAuthentication>("basic")
+                }
             }
         }
     }
