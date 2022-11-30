@@ -11,6 +11,12 @@ jobs:
           java-version: 18
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
+      - name: Enable AndroidX
+        run: echo android.useAndroidX=true > ./gradle.properties
+      - name: Set Kotlin Code-style
+        run: echo kotlin.code.style=official > ./gradle.properties
+      - name: Set Non-Transitive class
+        run: android.nonTransitiveRClass=true > ./gradle.properties
       - name: Access ENDPOINT_JVM_REPOSITORY
         env:
           JVM_REPOSITORY_USERNAME: $
