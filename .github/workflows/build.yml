@@ -17,13 +17,18 @@ jobs:
           gradle-version: 7.3.3
       - name: Set up gradle.properties
         shell: bash
+        env:
+          ENDPOINT_JVM_REPOSITORY: ${{ secrets.ENDPOINT_JVM_REPOSITORY }}
+          JVM_REPOSITORY_USERNAME: ${{ secrets.JVM_REPOSITORY_USERNAME }}
+          JVM_REPOSITORY_TOKEN: ${{ secrets.JVM_REPOSITORY_TOKEN }}
         run: |
           mkdir -p ~/.gradle/
           echo android.useAndroidX=true > ~/.gradle/gradle.properties
           echo kotlin.code.style=official > ~/.gradle/gradle.properties
           echo android.nonTransitiveRClass=true > ~/.gradle/gradle.properties
-          echo ENDPOINT_JVM_REPOSITORY=${{ secrets.ENDPOINT_JVM_REPOSITORY }} > ~/.gradle/gradle.properties
-          echo JVM_REPOSITORY_USERNAME=${{ secrets.JVM_REPOSITORY_USERNAME }} > ~/.gradle/gradle.properties
-          echo JVM_REPOSITORY_TOKEN=${{ secrets.JVM_REPOSITORY_TOKEN }} > ~/.gradle/gradle.properties
+          echo ENDPOINT_JVM_REPOSITORY=$ENDPOINT_JVM_REPOSITORY > ~/.gradle/gradle.properties
+          echo JVM_REPOSITORY_USERNAME=$secrets.JVM_REPOSITORY_USERNAME > ~/.gradle/gradle.properties
+          echo JVM_REPOSITORY_TOKEN=$secrets.JVM_REPOSITORY_TOKEN > ~/.gradle/gradle.properties
+          cat ~/.gradle/gradle.properties
       - name: Publish with Gradle
         run: ./gradlew publishReleasePublicationToMavenRepository
