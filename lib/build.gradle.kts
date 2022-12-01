@@ -66,10 +66,7 @@ afterEvaluate {
             maven {
                 url = uri("$jvmRepositoryEndpoint")
                 isAllowInsecureProtocol = true
-                credentials {
-                    username = "$jvmRepositoryUsername"
-                    password = "$jvmRepositoryToken"
-                }
+                credentials(PasswordCredentials::class)
                 authentication {
                     create<BasicAuthentication>("basic")
                 }
