@@ -18,26 +18,26 @@ jobs:
       - name: Make .gradle directory
         run: mkdir -p ~/.gradle/
       - name: Set AndroidX
-        run: echo android.useAndroidX=true > ~/.gradle/gradle.properties
+        run: echo android.useAndroidX=true >> ~/.gradle/gradle.properties
       - name: Set Kotlin Code-style
-        run: echo kotlin.code.style=official > ~/.gradle/gradle.properties
+        run: echo kotlin.code.style=official >> ~/.gradle/gradle.properties
       - name: Set non-transitive
-        run: echo android.nonTransitiveRClass=true > ~/.gradle/gradle.properties
+        run: echo android.nonTransitiveRClass=true >> ~/.gradle/gradle.properties
         
       - name: Copy endpoint secret to gradle.properties
         env:
           ENDPOINT_JVM_REPOSITORY: ${{ secrets.ENDPOINT_JVM_REPOSITORY }}
-        run: echo ENDPOINT_JVM_REPOSITORY=$ENDPOINT_JVM_REPOSITORY > ~/.gradle/gradle.properties
+        run: echo ENDPOINT_JVM_REPOSITORY=$ENDPOINT_JVM_REPOSITORY >> ~/.gradle/gradle.properties
         
       - name: Copy username secret to gradle.properties
         env:
           JVM_REPOSITORY_USERNAME: ${{ secrets.JVM_REPOSITORY_USERNAME }}
-        run: echo JVM_REPOSITORY_USERNAME=$JVM_REPOSITORY_USERNAME > ~/.gradle/gradle.properties
+        run: echo JVM_REPOSITORY_USERNAME=$JVM_REPOSITORY_USERNAME >> ~/.gradle/gradle.properties
 
       - name: Copy token secret to gradle.properties
         env:
           JVM_REPOSITORY_TOKEN: ${{ secrets.JVM_REPOSITORY_TOKEN }}
-        run: echo JVM_REPOSITORY_TOKEN=$JVM_REPOSITORY_TOKEN > ~/.gradle/gradle.properties
+        run: echo JVM_REPOSITORY_TOKEN=$JVM_REPOSITORY_TOKEN >> ~/.gradle/gradle.properties
         
       - name: Check gradle.properties
         run: cat ~/.gradle/gradle.properties
