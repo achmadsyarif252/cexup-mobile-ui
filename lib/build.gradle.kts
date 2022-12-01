@@ -9,6 +9,10 @@ val jvmRepositoryEndpoint = findProperty("ENDPOINT_JVM_REPOSITORY")
 val jvmRepositoryUsername = findProperty("JVM_REPOSITORY_USERNAME")
 val jvmRepositoryToken = findProperty("JVM_REPOSITORY_TOKEN")
 
+println("$jvmRepositoryEndpoint")
+println("$jvmRepositoryUsername")
+println("$jvmRepositoryToken")
+
 android{
     compileSdk = 33
     defaultConfig {
