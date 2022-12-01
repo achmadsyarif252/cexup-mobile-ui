@@ -52,6 +52,7 @@ afterEvaluate {
         }
         repositories {
             maven {
+                name = "Cexup"
                 url = uri("http://43.231.128.50:8080/releases")
                 isAllowInsecureProtocol = true
                 credentials(PasswordCredentials::class)
