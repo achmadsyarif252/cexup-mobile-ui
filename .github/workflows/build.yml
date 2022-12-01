@@ -18,11 +18,12 @@ jobs:
       - name: Set up gradle.properties
         shell: bash
         run: |
-          echo android.useAndroidX=true > ./gradle.properties
-          echo kotlin.code.style=official > ./gradle.properties
-          echo android.nonTransitiveRClass=true > ./gradle.properties
-          echo ENDPOINT_JVM_REPOSITORY=\"$ENDPOINT_JVM_REPOSITORY\" > ./gradle.properties
-          echo JVM_REPOSITORY_USERNAME=\"$JVM_REPOSITORY_USERNAME\" > ./gradle.properties
-          echo JVM_REPOSITORY_TOKEN=\"$JVM_REPOSITORY_TOKEN\" > ./gradle.properties
+          mkdir -p ~/.gradle/
+          echo android.useAndroidX=true > ~/.gradle/gradle.properties
+          echo kotlin.code.style=official > ~/.gradle/gradle.properties
+          echo android.nonTransitiveRClass=true > ~/.gradle/gradle.properties
+          echo ENDPOINT_JVM_REPOSITORY=$ENDPOINT_JVM_REPOSITORY > ~/.gradle/gradle.properties
+          echo JVM_REPOSITORY_USERNAME=$JVM_REPOSITORY_USERNAME > ~/.gradle/gradle.properties
+          echo JVM_REPOSITORY_TOKEN=$JVM_REPOSITORY_TOKEN > ~/.gradle/gradle.properties
       - name: Publish with Gradle
         run: ./gradlew publishReleasePublicationToMavenRepository
