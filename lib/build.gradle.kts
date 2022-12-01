@@ -5,14 +5,6 @@ plugins {
     id("maven-publish")
 }
 
-val jvmRepositoryEndpoint = findProperty("ENDPOINT_JVM_REPOSITORY")
-val jvmRepositoryUsername = findProperty("JVM_REPOSITORY_USERNAME")
-val jvmRepositoryToken = findProperty("JVM_REPOSITORY_TOKEN")
-
-println("$jvmRepositoryEndpoint")
-println("$jvmRepositoryUsername")
-println("$jvmRepositoryToken")
-
 android{
     compileSdk = 33
     defaultConfig {
@@ -21,10 +13,6 @@ android{
         }
         minSdk = 23
         targetSdk = 33
-
-        buildConfigField("String", "ENDPOINT_JVM_REPOSITORY", "\"$jvmRepositoryEndpoint\"")
-        buildConfigField("String", "JVM_REPOSITORY_USERNAME", "\"$jvmRepositoryUsername\"")
-        buildConfigField("String", "JVM_REPOSITORY_TOKEN", "\"$jvmRepositoryToken\"")
     }
     buildFeatures {
         compose= true
@@ -64,7 +52,8 @@ afterEvaluate {
         }
         repositories {
             maven {
-                url = uri("$jvmRepositoryEndpoint")
+                name = "Cexup"
+                url = uri("http://43.231.128.50:8080/releases")
                 isAllowInsecureProtocol = true
                 credentials(PasswordCredentials::class)
                 authentication {
