@@ -35,4 +35,4 @@ jobs:
         run: cat ~/.gradle/gradle.properties
         
       - name: Publish with Gradle
-        run: ./gradlew publishReleasePublicationToMavenRepository
+        run: ./gradlew publishReleasePublicationToCexupRepository
