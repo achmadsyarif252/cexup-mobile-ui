@@ -4,32 +4,25 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Set up JDK
-        uses: actions/setup-java@v1
+      - uses: actions/checkout@v3
+
+      - name: Set up JDK and cache Gradle
+        uses: actions/setup-java@v3
         with:
-          java-version: 18
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'gradle'
+
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
-      - name: Set up Gradle
-        uses: gradle/gradle-build-action@v2
-        with:
-          gradle-version: 7.3.3
           
-      - name: Make .gradle directory and set up gradle.properties
+      - name: Set up gradle.properties
+        env:
+          GOOGLE_PROPERTIES_BASE64_PROPERTIES: ${{ secrets.GOOGLE_PROPERTIES_BASE64_PROPERTIES }}
         run: |
           mkdir -p ~/.gradle/
-          echo android.useAndroidX=true >> ~/.gradle/gradle.properties
-          echo kotlin.code.style=official >> ~/.gradle/gradle.properties
-          echo android.nonTransitiveRClass=true >> ~/.gradle/gradle.properties
-        
-      - name: Copy credentials to global gradle.properties
-        env:
-          JVM_REPOSITORY_USERNAME: ${{ secrets.JVM_REPOSITORY_USERNAME }}
-          JVM_REPOSITORY_TOKEN: ${{ secrets.JVM_REPOSITORY_TOKEN }}
-        run: |
-          echo CexupUsername=$JVM_REPOSITORY_USERNAME >> ~/.gradle/gradle.properties
-          echo CexupPassword=$JVM_REPOSITORY_TOKEN >> ~/.gradle/gradle.properties
+          echo "$GOOGLE_PROPERTIES_BASE64_PROPERTIES" > ~/.gradle/gradle.properties.b64
+          base64 -d -i gradle.properties > ~/.gradle/gradle.properties
         
       - name: Check gradle.properties
         run: cat ~/.gradle/gradle.properties
