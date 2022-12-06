@@ -23,7 +23,6 @@ android{
     publishing {
         singleVariant("release") {
             withSourcesJar()
-            withJavadocJar()
         }
     }
     compileOptions {
@@ -39,15 +38,27 @@ android{
     }
 }
 
-publishing {
-    publications {
-        register<MavenPublication>("release") {
-            groupId = "com.cexup"
-            artifactId = "ui"
-            version = "1.0.0"
+afterEvaluate {
+    publishing {
+        publications {
+            register<MavenPublication>("release") {
+                groupId = "com.cexup"
+                artifactId = "ui"
+                version = "1.0.0-alpha13"
 
-            afterEvaluate {
                 from(components["release"])
+
+            }
+        }
+        repositories {
+            maven {
+                name = "Cexup"
+                url = uri("http://43.231.128.50:8080/releases")
+                isAllowInsecureProtocol = true
+                credentials(PasswordCredentials::class)
+                authentication {
+                    create<BasicAuthentication>("basic")
+                }
             }
         }
     }
