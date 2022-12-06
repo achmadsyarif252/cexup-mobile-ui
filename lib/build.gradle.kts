@@ -42,9 +42,13 @@ afterEvaluate {
     publishing {
         publications {
             register<MavenPublication>("release") {
-                groupId = "com.cexup"
-                artifactId = "ui"
-                version = "1.0.0-alpha13"
+                groupId = Publish.groupId
+                artifactId = Publish.artifactId
+                version = "" +
+                        "${Publish.versionMajor}." +
+                        "${Publish.versionMinor}." +
+                        "${Publish.versionPatch}-" +
+                        Publish.versionBuild
 
                 from(components["release"])
 
