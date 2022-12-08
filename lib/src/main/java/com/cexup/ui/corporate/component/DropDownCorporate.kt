@@ -183,7 +183,8 @@ fun DropDownCorporate(
             val datePickerDialog = DatePickerDialog(
                 ctx,
                 { _: DatePicker, year: Int, month: Int, day: Int ->
-                    val finalMonth = if(month<10) "0${month}" else month
+                    val monthF =  month +1
+                    val finalMonth = if(monthF<10) "0${monthF}" else monthF
                     val finalDay = if(day<10) "0$day" else day
                     valueTextField = "$year-$finalMonth-$finalDay"
                     onChange(valueTextField)
