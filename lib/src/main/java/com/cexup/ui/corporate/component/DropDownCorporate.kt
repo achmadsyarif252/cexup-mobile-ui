@@ -21,7 +21,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import compose.icons.Octicons
 import compose.icons.octicons.ChevronRight16
-import org.joda.time.DateTime
 import java.util.*
 import com.cexup.ui.R
 import com.cexup.ui.corporate.theme.GrayGlucose
@@ -184,7 +183,7 @@ fun DropDownCorporate(
             val datePickerDialog = DatePickerDialog(
                 ctx,
                 { _: DatePicker, year: Int, month: Int, day: Int ->
-                    val finalMonth = if(month + 1<10) "0${month + 1}" else month
+                    val finalMonth = if(month<10) "0${month}" else month
                     val finalDay = if(day<10) "0$day" else day
                     valueTextField = "$year-$finalMonth-$finalDay"
                     onChange(valueTextField)
