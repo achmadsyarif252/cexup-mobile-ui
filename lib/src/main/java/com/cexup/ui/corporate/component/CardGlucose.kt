@@ -307,8 +307,8 @@ fun CardConnectGlucose(
 fun CardGlucoseLevels(
     isList: Boolean,
     is1Day: Boolean,
-    onAddMedicine: (Boolean) -> Unit,
-    onAddFoodAndDrink: (Boolean) -> Unit,
+    onAddMedicine: (Boolean, Long) -> Unit,
+    onAddFoodAndDrink: (Boolean, Long) -> Unit,
     listDummyData: List<ValueBloodGlucose>,
     onDetailsClicked: (Insulin: Int, Pill: Int, FoodAndDrink: String) -> Unit,
     onIconClick: (isList: Boolean) -> Unit,
@@ -466,9 +466,9 @@ fun CardGlucoseLevels(
                                                 DropdownMenuItem(
                                                     onClick = {
                                                         if (items[index].equals("Add Food & Drink")) {
-                                                            onAddFoodAndDrink(true)
+                                                            onAddFoodAndDrink(true,data.id)
                                                         } else {
-                                                            onAddMedicine(true)
+                                                            onAddMedicine(true,data.id)
                                                         }
                                                         expanded = false
                                                     },

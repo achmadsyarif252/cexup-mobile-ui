@@ -48,6 +48,7 @@ data class GlucoseDataUIState(
 )
 
 data class ValueBloodGlucose(
+    var id:Long,
     var value: Int,
     var time: String,
     var mealState: Int,
@@ -91,9 +92,9 @@ fun ScreenGlucose(
     onConnect: () -> Unit,
     onDisconnect: () -> Unit,
     onAddGlucose: (Date:String,Hours:String,Value:String,ValueDetail:Int) -> Unit,
-    onAddMedicine: (Date:String,Hours:String,Value:String,ValueDetail:Int) -> Unit,
+    onAddMedicine: (Date:String,Hours:String,Value:String,ValueDetail:Int,idDataGlucose: Long, TypeMedicine:Boolean) -> Unit,
     onAddHemoglobin: (Date:String,Hours:String,Value:String) -> Unit,
-    onAddFoodAndDrink: (Value:String) -> Unit,
+    onAddFoodAndDrink: (Value:String,idDataGlucose: Long) -> Unit,
     onButtonBackPressed: () -> Unit,
 ) {
     val ctx = LocalContext.current
@@ -105,15 +106,18 @@ fun ScreenGlucose(
     var showDialogAddData by remember { mutableStateOf(false) }
     var showDialogHistoryHemoglobin by remember { mutableStateOf(false) }
     var showDialogDetailsGlucose by remember { mutableStateOf(false) }
+    var idDataGlucose by remember { mutableStateOf(0L) }
     val tabs = listOf(
         TabContentRow(header = stringResource(id = R.string.one_day)) {
             ContentTabGlucose(
-                onAddMedicineClicked = {
-                    isAddMedicine = it
+                onAddMedicineClicked = { bool, id ->
+                    isAddMedicine = bool
+                    idDataGlucose = id
                     showDialogAddData = true
                 },
-                onAddFoodAndDrinkClicked = {
-                    isAddFoodAndDrink = it
+                onAddFoodAndDrinkClicked = { bool, id ->
+                    isAddFoodAndDrink = bool
+                    idDataGlucose = id
                     showDialogAddData = true
                 },
                 isList = isList,
@@ -130,12 +134,14 @@ fun ScreenGlucose(
         },
         TabContentRow(header = stringResource(id = R.string.one_weeks)) {
             ContentTabGlucose(
-                onAddMedicineClicked = {
-                    isAddMedicine = it
+                onAddMedicineClicked = { bool, id ->
+                    isAddMedicine = bool
+                    idDataGlucose = id
                     showDialogAddData = true
                 },
-                onAddFoodAndDrinkClicked = {
-                    isAddFoodAndDrink = it
+                onAddFoodAndDrinkClicked = { bool, id ->
+                    isAddFoodAndDrink = bool
+                    idDataGlucose = id
                     showDialogAddData = true
                 },
                 isList = isList,
@@ -151,12 +157,14 @@ fun ScreenGlucose(
         },
         TabContentRow(header = stringResource(id = R.string.two_weeks)) {
             ContentTabGlucose(
-                onAddMedicineClicked = {
-                    isAddMedicine = it
+                onAddMedicineClicked = { bool, id ->
+                    isAddMedicine = bool
+                    idDataGlucose = id
                     showDialogAddData = true
                 },
-                onAddFoodAndDrinkClicked = {
-                    isAddFoodAndDrink = it
+                onAddFoodAndDrinkClicked = { bool, id ->
+                    isAddFoodAndDrink = bool
+                    idDataGlucose = id
                     showDialogAddData = true
                 },
                 isList = isList,
@@ -172,12 +180,14 @@ fun ScreenGlucose(
         },
         TabContentRow(header = stringResource(id = R.string.one_month)) {
             ContentTabGlucose(
-                onAddMedicineClicked = {
-                    isAddMedicine = it
+                onAddMedicineClicked = { bool, id ->
+                    isAddMedicine = bool
+                    idDataGlucose = id
                     showDialogAddData = true
                 },
-                onAddFoodAndDrinkClicked = {
-                    isAddFoodAndDrink = it
+                onAddFoodAndDrinkClicked = { bool, id ->
+                    isAddFoodAndDrink = bool
+                    idDataGlucose = id
                     showDialogAddData = true
                 },
                 isList = isList,
@@ -204,14 +214,17 @@ fun ScreenGlucose(
                 TypeAddData.Glucose -> {
                     onAddGlucose(Date,Hours,Value,ValueDetail)
                 }
-                TypeAddData.Pill, TypeAddData.Insulin -> {
-                    onAddMedicine(Date,Hours,Value,ValueDetail)
+                TypeAddData.Pill -> {
+                    onAddMedicine(Date,Hours,Value,ValueDetail,idDataGlucose,true)
+                }
+                TypeAddData.Insulin -> {
+                    onAddMedicine(Date,Hours,Value,ValueDetail,idDataGlucose,false)
                 }
                 TypeAddData.Hemoglobin -> {
                     onAddHemoglobin(Date,Hours,Value)
                 }
                 TypeAddData.FoodAndDrink -> {
-                    onAddFoodAndDrink(Value)
+                    onAddFoodAndDrink(Value,idDataGlucose)
                 }
             }
             showDialogAddData = false
@@ -336,8 +349,8 @@ fun ScreenGlucose(
 fun ContentTabGlucose(
     isList: Boolean,
     is1Day: Boolean = false,
-    onAddMedicineClicked: (Boolean) -> Unit,
-    onAddFoodAndDrinkClicked: (Boolean) -> Unit,
+    onAddMedicineClicked: (Boolean,Long) -> Unit,
+    onAddFoodAndDrinkClicked: (Boolean,Long) -> Unit,
     onIconClick: (isList: Boolean) -> Unit,
     onDetailsClicked: (Insulin: Int, Pill: Int, FoodAndDrink: String) -> Unit,
     listDataValueGlucose: List<ValueBloodGlucose>
@@ -348,8 +361,12 @@ fun ContentTabGlucose(
             onIconClick(it)
         },
         listDummyData = listDataValueGlucose,
-        onAddMedicine = { onAddMedicineClicked(it) },
-        onAddFoodAndDrink = { onAddFoodAndDrinkClicked(it) },
+        onAddMedicine = { bool, id ->
+            onAddMedicineClicked(bool,id)
+        },
+        onAddFoodAndDrink = { bool, id ->
+            onAddFoodAndDrinkClicked(bool,id)
+        },
         is1Day = is1Day,
         onDetailsClicked = { insulin, pill, foodAndDrink ->
             onDetailsClicked(insulin, pill, foodAndDrink)
