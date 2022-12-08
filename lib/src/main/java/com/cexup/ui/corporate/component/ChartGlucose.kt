@@ -277,6 +277,7 @@ fun ChartGlucose(
                 override fun onValueSelected(e: Entry?, h: Highlight?) {
                     var cek = false
                     var xIndex = 0
+                    var xIndexNonDetail = 0
                     dataWithDetails.forEach {entryDetails ->
                         if (entryDetails.x.toInt() == e?.x?.toInt() && entryDetails.y == e.y) {
                             if (!is1Day)
@@ -287,6 +288,12 @@ fun ChartGlucose(
                                         xIndex = index
                                 }
                             cek = true
+                        }
+
+                    }
+                    dataGlucose.forEachIndexed { index, entry ->
+                        if (entry.x.toInt() == e?.x?.toInt() && entry.y == e.y) {
+                            xIndexNonDetail = index
                         }
                     }
                     if (cek){
@@ -308,34 +315,6 @@ fun ChartGlucose(
                                 else
                                     listGlucose[xIndex].insulin ?: 0
                             )
-//                            if (is1Day){
-//                                view.marker = CustomChartMarkerGlucose(
-//                                    context,
-//                                    R.layout.layout_marker_chart_glucose,
-//                                    true,
-//                                    valueFoodAndDrink = listGlucose[e?.x!!.toInt()].foodAndDrink
-//                                        ?: "",
-//                                    valueMedicine =
-//                                    if (listGlucose[e?.x!!.toInt()].insulin == 0)
-//                                        listGlucose[e?.x!!.toInt()].pills ?: 0
-//                                    else
-//                                        listGlucose[e?.x!!.toInt()].insulin ?: 0
-//                                )
-//                            }
-//                            else {
-//                                view.marker = CustomChartMarkerGlucose(
-//                                    context,
-//                                    R.layout.layout_marker_chart_glucose,
-//                                    true,
-//                                    valueFoodAndDrink = listGlucose[e?.x!!.toInt()].foodAndDrink
-//                                        ?: "",
-//                                    valueMedicine =
-//                                    if (listGlucose[e?.x!!.toInt()].insulin == 0)
-//                                        listGlucose[e?.x!!.toInt()].pills ?: 0
-//                                    else
-//                                        listGlucose[e?.x!!.toInt()].insulin ?: 0
-//                                )
-//                            }
                         }
                     }else if(e?.y == 0f){
                         h.apply { view.marker = null }
@@ -346,7 +325,7 @@ fun ChartGlucose(
                                 context = context,
                                 layoutResource = R.layout.layout_marker_chart_glucose,
                                 isMedicine = false,
-                                valueDateAndTime = listGlucose[xIndex].time,
+                                valueDateAndTime = listGlucose[xIndexNonDetail].time,
                             )
                         }
                     }
