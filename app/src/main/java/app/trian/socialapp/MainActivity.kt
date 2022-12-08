@@ -47,17 +47,17 @@ class MainActivity : ComponentActivity() {
                                     patientName = "Sumbul Muhammad",
                                     patientUserCode = "165150200111154",
                                     listDataGlucose1Day = listOf(
-                                        ValueBloodGlucose(
+                                        ValueBloodGlucose(id = 1,
                                             value = 120,
                                             mealState = MealType.NoMeal,
                                             time = "2022-10-18 08:42"
                                         ),
-                                        ValueBloodGlucose(
+                                        ValueBloodGlucose(id = 2,
                                             value = 70,
                                             mealState = MealType.NoMeal,
                                             time = "2022-10-18 10:42"
                                         ),
-                                        ValueBloodGlucose(
+                                        ValueBloodGlucose(id = 3,
                                             value = 220,
                                             mealState = MealType.AfterMeal,
                                             time = "2022-10-18 13:42",
@@ -65,14 +65,22 @@ class MainActivity : ComponentActivity() {
                                             foodAndDrink = "Makan Sate Usus Minum Amer",
                                             isDetail = true
                                         ),
-                                        ValueBloodGlucose(
+                                        ValueBloodGlucose(id = 3,
+                                            value = 333,
+                                            mealState = MealType.AfterMeal,
+                                            time = "2022-10-18 15:42",
+                                            insulin = 7,
+                                            foodAndDrink = "Makan Sate Usus Minum Amer",
+                                            isDetail = true
+                                        ),
+                                        ValueBloodGlucose(id = 4,
                                             value = 150,
                                             mealState = MealType.BeforeMeal,
                                             time = "2022-10-18 16:42"
                                         )
                                     ),
                                     listDataGlucose1Week = listOf(
-                                        ValueBloodGlucose(
+                                        ValueBloodGlucose(id = 5,
                                             value = 200,
                                             mealState = MealType.NoMeal,
                                             time = "2022-10-18 16:42",
@@ -80,34 +88,34 @@ class MainActivity : ComponentActivity() {
                                             foodAndDrink = "Makan Sate Usus Minum Amer",
                                             isDetail = true
                                         ),
-                                        ValueBloodGlucose(
+                                        ValueBloodGlucose(id = 6,
                                             value = 55,
                                             mealState = MealType.NoMeal,
                                             time = "2022-10-18 16:42"
                                         ),
-                                        ValueBloodGlucose(
+                                        ValueBloodGlucose(id = 7,
                                             value = 123,
                                             mealState = MealType.AfterMeal,
                                             time = "2022-10-18 16:42",
                                         ),
-                                        ValueBloodGlucose(
+                                        ValueBloodGlucose(id = 8,
                                             value = 66,
                                             mealState = MealType.BeforeMeal,
                                             time = "2022-10-18 16:42"
                                         )
                                     ),
                                     listDataGlucose2Week = listOf(
-                                        ValueBloodGlucose(
+                                        ValueBloodGlucose(id = 9,
                                             value = 120,
                                             mealState = MealType.NoMeal,
                                             time = "2022-10-18 16:42"
                                         ),
-                                        ValueBloodGlucose(
+                                        ValueBloodGlucose(id = 10,
                                             value = 70,
                                             mealState = MealType.NoMeal,
                                             time = "2022-10-18 16:42"
                                         ),
-                                        ValueBloodGlucose(
+                                        ValueBloodGlucose(id = 11,
                                             value = 220,
                                             mealState = MealType.AfterMeal,
                                             time = "2022-10-18 16:42",
@@ -115,14 +123,14 @@ class MainActivity : ComponentActivity() {
                                             foodAndDrink = "Makan Sate Usus Minum Amer",
                                             isDetail = true
                                         ),
-                                        ValueBloodGlucose(
+                                        ValueBloodGlucose(id = 12,
                                             value = 150,
                                             mealState = MealType.BeforeMeal,
                                             time = "2022-10-18 16:42"
                                         )
                                     ),
                                     listDataGlucose1Month = listOf(
-                                        ValueBloodGlucose(
+                                        ValueBloodGlucose(id = 13,
                                             value = 99,
                                             mealState = MealType.NoMeal,
                                             time = "2022-10-18 16:42",
@@ -130,17 +138,17 @@ class MainActivity : ComponentActivity() {
                                             foodAndDrink = "Makan Sate Usus Minum Amer",
                                             isDetail = true
                                         ),
-                                        ValueBloodGlucose(
+                                        ValueBloodGlucose(id = 14,
                                             value = 55,
                                             mealState = MealType.NoMeal,
                                             time = "2022-10-18 16:42"
                                         ),
-                                        ValueBloodGlucose(
+                                        ValueBloodGlucose(id = 15,
                                             value = 123,
                                             mealState = MealType.AfterMeal,
                                             time = "2022-10-18 16:42",
                                         ),
-                                        ValueBloodGlucose(
+                                        ValueBloodGlucose(id = 16,
                                             value = 66,
                                             mealState = MealType.BeforeMeal,
                                             time = "2022-10-18 16:42"
@@ -168,11 +176,11 @@ class MainActivity : ComponentActivity() {
                                 onButtonBackPressed = {},
                                 onConnect = {},
                                 onDisconnect = {},
-                                onAddFoodAndDrink = {},
+                                onAddFoodAndDrink = {_,_ ->},
                                 onAddGlucose = {_,_,_,_->},
                                 onSync = {},
                                 onAddHemoglobin = {_,_,_->},
-                                onAddMedicine = {_,_,_,_ ->}
+                                onAddMedicine = {_,_,_,_,_,_ ->}
                             )
 //                        }
                     }
