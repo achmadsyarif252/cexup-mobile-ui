@@ -2,15 +2,18 @@ package com.example.app_corporate.ui.component
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.Space
 import android.widget.TextView
+import androidx.compose.ui.res.stringResource
 import com.github.mikephil.charting.components.MarkerView
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.utils.MPPointF
 import com.cexup.ui.R
+import org.w3c.dom.Text
 
 /**
  * `Custom Marker`
@@ -25,12 +28,14 @@ class CustomChartMarkerGlucose(
     isMedicine: Boolean,
     typeMedicine:String = "",
     valueMedicine: Int = 0,
+    valueDetailMedicine: Int = 0,
     valueDateAndTime: String = "",
-    valueFoodAndDrink: String = "Ketoprak, Pop Ice Vanila Blue"
+    valueFoodAndDrink: String = "",
 ):MarkerView(context,layoutResource) {
     private val totalWidth = resources.displayMetrics.widthPixels
     val isMedicine = isMedicine
     val valueMedicine = valueMedicine
+    val valueDetailMedicine = valueDetailMedicine
     val valueFoodAndDrink = valueFoodAndDrink
     val typeMedicine = typeMedicine
     val valueDateAndTime = valueDateAndTime
@@ -51,21 +56,31 @@ class CustomChartMarkerGlucose(
             val titleFoodAndDrink = findViewById<TextView>(R.id.titleFoodAndDrink)
             val spaceFoodAndDrink = findViewById<Space>(R.id.spaceFoodAndDrink)
             val tvMedicine = findViewById<TextView>(R.id.tvMedicine)
+            val tvDetailMedicine = findViewById<TextView>(R.id.tvDetailMedicine)
             val tvFoodAndDrink = findViewById<TextView>(R.id.tvFoodAndDrink)
-            val tvValueGlucose = findViewById<TextView>(R.id.tvValueIfMedicine)
+            val tvValueGlucose = findViewById<TextView>(R.id.tvValueGlucose)
             val tvDateTime = findViewById<TextView>(R.id.tvValueDateAndTime)
-            if (typeMedicine == "Pills")
-                tvMedicine.text = "$valueMedicine $typeMedicine"
-            else
-                tvMedicine.text = "$typeMedicine $valueMedicine mg/dl"
+            if (typeMedicine == "Pills") {
+                tvMedicine.text = "Dossage : $valueMedicine mg/dl"
+                tvDetailMedicine.text = "$valueDetailMedicine $typeMedicine"
+            }
+            else {
+                tvMedicine.text = "$typeMedicine : $valueMedicine mg/dl"
+                if(valueDetailMedicine == 0){
+                    tvDetailMedicine.text = "Short-Acting"
+                }else{
+                    tvDetailMedicine.text = "Long-Acting"
+                }
+            }
             if (valueFoodAndDrink.isEmpty()) {
                 titleFoodAndDrink.visibility = View.GONE
                 tvFoodAndDrink.visibility = View.GONE
                 spaceFoodAndDrink.visibility = View.GONE
             }
-            if (valueMedicine == 0 || valueMedicine == null){
-                titleMedicine.visibility = View.GONE
-                tvMedicine.visibility = View.GONE
+            if (valueMedicine != 0 && valueMedicine != null){
+                titleMedicine.visibility = View.VISIBLE
+                tvMedicine.visibility = View.VISIBLE
+                tvDetailMedicine.visibility = View.VISIBLE
             }
             tvFoodAndDrink.text = valueFoodAndDrink
             tvValueGlucose.text = "$resText mg/dl"

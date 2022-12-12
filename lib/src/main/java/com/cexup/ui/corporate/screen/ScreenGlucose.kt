@@ -51,12 +51,20 @@ data class ValueBloodGlucose(
     var id:Long,
     var value: Int,
     var time: String,
-    var mealState: Int,
-    var insulin: Int? = null,
-    var pills: Int? = null,
+    var mealType: Int,
+    var typeMedicine: Int = 0,
+    var brandMedicine: String? = null,
+    var valueMedicine: Int? = null,
+    var valueDetailMedicine: Int? = null,
     var foodAndDrink: String? = null,
     var isDetail: Boolean = false,
 )
+
+object MedicineType{
+    const val noMedicine = 0
+    const val Pills = 1
+    const val Insulin = 2
+}
 
 object MealType {
     const val BeforeMeal = 0
@@ -102,7 +110,7 @@ fun ScreenGlucose(
     var isList by remember { mutableStateOf(false) }
     var isAddMedicine by remember { mutableStateOf(false) }
     var isAddFoodAndDrink by remember { mutableStateOf(false) }
-    var dataDetailGlucose by remember { mutableStateOf(DetailsGlucose(null, null, "")) }
+    var dataDetailGlucose by remember { mutableStateOf(DetailsGlucose(0, null,null, null,"")) }
     var showDialogAddData by remember { mutableStateOf(false) }
     var showDialogHistoryHemoglobin by remember { mutableStateOf(false) }
     var showDialogDetailsGlucose by remember { mutableStateOf(false) }
@@ -126,8 +134,8 @@ fun ScreenGlucose(
                     isList = it
                 },
                 is1Day = true,
-                onDetailsClicked = { insulin, pill, foodAndDrink ->
-                    dataDetailGlucose = DetailsGlucose(insulin, pill, foodAndDrink)
+                onDetailsClicked = { typeMedicine, brandMedicine, valueMedicine, valueDetailMedicine, FoodAndDrink ->
+                    dataDetailGlucose = DetailsGlucose(typeMedicine, brandMedicine, valueMedicine, valueDetailMedicine, FoodAndDrink)
                     showDialogDetailsGlucose = true
                 }
             )
@@ -149,8 +157,8 @@ fun ScreenGlucose(
                 onIconClick = {
                     isList = it
                 },
-                onDetailsClicked = { insulin, pill, foodAndDrink ->
-                    dataDetailGlucose = DetailsGlucose(insulin, pill, foodAndDrink)
+                onDetailsClicked = { typeMedicine, brandMedicine, valueMedicine, valueDetailMedicine, FoodAndDrink ->
+                    dataDetailGlucose = DetailsGlucose(typeMedicine, brandMedicine, valueMedicine, valueDetailMedicine, FoodAndDrink)
                     showDialogDetailsGlucose = true
                 }
             )
@@ -172,8 +180,8 @@ fun ScreenGlucose(
                 onIconClick = {
                     isList = it
                 },
-                onDetailsClicked = { insulin, pill, foodAndDrink ->
-                    dataDetailGlucose = DetailsGlucose(insulin, pill, foodAndDrink)
+                onDetailsClicked = { typeMedicine, brandMedicine, valueMedicine, valueDetailMedicine, FoodAndDrink ->
+                    dataDetailGlucose = DetailsGlucose(typeMedicine, brandMedicine, valueMedicine, valueDetailMedicine, FoodAndDrink)
                     showDialogDetailsGlucose = true
                 }
             )
@@ -195,8 +203,8 @@ fun ScreenGlucose(
                 onIconClick = {
                     isList = it
                 },
-                onDetailsClicked = { insulin, pill, foodAndDrink ->
-                    dataDetailGlucose = DetailsGlucose(insulin, pill, foodAndDrink)
+                onDetailsClicked = { typeMedicine, brandMedicine, valueMedicine, valueDetailMedicine, FoodAndDrink ->
+                    dataDetailGlucose = DetailsGlucose(typeMedicine, brandMedicine, valueMedicine, valueDetailMedicine, FoodAndDrink)
                     showDialogDetailsGlucose = true
                 }
             )
@@ -352,7 +360,7 @@ fun ContentTabGlucose(
     onAddMedicineClicked: (Boolean,Long) -> Unit,
     onAddFoodAndDrinkClicked: (Boolean,Long) -> Unit,
     onIconClick: (isList: Boolean) -> Unit,
-    onDetailsClicked: (Insulin: Int, Pill: Int, FoodAndDrink: String) -> Unit,
+    onDetailsClicked: (typeMedicine: Int, brandMedicine:String, valueMedicine: Int, valueDetailMedicine: Int, FoodAndDrink: String) -> Unit,
     listDataValueGlucose: List<ValueBloodGlucose>
 ) {
     CardGlucoseLevels(
@@ -368,8 +376,8 @@ fun ContentTabGlucose(
             onAddFoodAndDrinkClicked(bool,id)
         },
         is1Day = is1Day,
-        onDetailsClicked = { insulin, pill, foodAndDrink ->
-            onDetailsClicked(insulin, pill, foodAndDrink)
+        onDetailsClicked = { typeMedicine, brandMedicine, valueMedicine, valueDetailMedicine, FoodAndDrink ->
+            onDetailsClicked(typeMedicine, brandMedicine, valueMedicine, valueDetailMedicine, FoodAndDrink)
         }
     )
 

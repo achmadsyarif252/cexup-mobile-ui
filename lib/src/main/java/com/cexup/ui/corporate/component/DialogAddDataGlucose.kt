@@ -19,19 +19,20 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.cexup.ui.R
-import com.cexup.ui.corporate.theme.*
+import com.cexup.ui.corporate.theme.GrayGlucose
+import com.cexup.ui.corporate.theme.Heading
 import com.cexup.ui.utils.mediaquery.from
 import com.example.app_corporate.ui.component.cards.*
 
 @Composable
 fun DialogAddDataGlucose(
     modifier: Modifier = Modifier,
-    show:Boolean= false,
-    onCancel : ()-> Unit,
-    onSave: (TypeAddData: String, Date: String, Hours: String, Value:String, ValueDetail:Int) -> Unit,
-    isAddMedicine:Boolean = false,
+    show: Boolean = false,
+    onCancel: () -> Unit,
+    onSave: (TypeAddData: String, Date: String, Hours: String, Value: String, ValueDetail: Int) -> Unit,
+    isAddMedicine: Boolean = false,
     isAddFoodAndDrink: Boolean = false,
-){
+) {
     val ctx = LocalContext.current
     var textTypeAddData by remember { mutableStateOf("") }
     var textDateAddData by remember { mutableStateOf("") }
@@ -47,13 +48,12 @@ fun DialogAddDataGlucose(
                 "Pill"
             )
             textTypeAddData = "Insulin"
-        }else if (isAddFoodAndDrink){
+        } else if (isAddFoodAndDrink) {
             listTypeAddData = listOf(
                 "Food & Drink Note"
             )
             textTypeAddData = "Food & Drink Note"
-        }
-        else {
+        } else {
             listTypeAddData = listOf(
                 "Glucose",
                 "Hemoglobin",
@@ -105,77 +105,113 @@ fun DialogAddDataGlucose(
                         DropDownCorporate(
                             valueTextFieldDefault = textTypeAddData,
                             typeDropDown = dropDownType.DEFFAULT,
-//                        isEnable = !isAddMedicine,
                             dropDownWidth = 531.dp.from(ctx),
                             textFieldWidth = 531.dp.from(ctx),
                             onChange = { textTypeAddData = it },
                             listDropDown = listTypeAddData
                         )
-                        DropDownCorporate(
-                            typeDropDown = dropDownType.DATE,
-//                        isEnable = !isAddMedicine,
-                            dropDownWidth = 531.dp.from(ctx),
-                            textFieldWidth = 531.dp.from(ctx),
-                            onChange = { textDateAddData = it },
-                        )
-                        DropDownCorporate(
-                            typeDropDown = dropDownType.HOURS,
-//                        isEnable = !isAddMedicine,
-                            dropDownWidth = 531.dp.from(ctx),
-                            textFieldWidth = 531.dp.from(ctx),
-                            onChange = { textHoursAddData = it },
-                        )
+                        if (textTypeAddData == "Glucose" || textTypeAddData == "Hemoglobin") {
+                            DropDownCorporate(
+                                typeDropDown = dropDownType.DATE,
+                                dropDownWidth = 531.dp.from(ctx),
+                                textFieldWidth = 531.dp.from(ctx),
+                                onChange = { textDateAddData = it },
+                            )
+                            DropDownCorporate(
+                                typeDropDown = dropDownType.HOURS,
+                                dropDownWidth = 531.dp.from(ctx),
+                                textFieldWidth = 531.dp.from(ctx),
+                                onChange = { textHoursAddData = it },
+                            )
+                        }
+
                     }
-                    when(textTypeAddData){
+                    when (textTypeAddData) {
                         "Glucose" -> {
                             CardAddDataGlucose(
                                 onValueChange = {
-                                textValueAddData = it
-                            }
+                                    textValueAddData = it
+                                }
                             )
                             CardGlucoseMeal(
                                 onSelectedMeal = {
-                                textValueDetail = it
-                            }
+                                    textValueDetail = it
+                                }
                             )
                         }
                         "Insulin" -> {
                             CardAddDataInsulin(
                                 onValueChange = {
-                                textValueAddData = it}
+                                    textValueAddData = it
+                                }
                             )
                             CardGlucoseActing(
                                 onSelectedActing = {
-                                textValueDetail = it}
+                                    textValueDetail = it
+                                }
                             )
                         }
                         "Pill" -> {
                             CardAddDataPill(
                                 onValueChange = {
-                                textValueAddData = it}
+                                    textValueAddData = it
+                                }
                             )
                             CardGlucosePill(
                                 onValueChange = {
-                                textValueDetail = it}
+                                    textValueDetail = it
+                                }
                             )
                         }
                         "Hemoglobin" -> {
                             CardGlucoseHemoglobin(
                                 onValueChange = {
-                                textValueAddData = it
-                            }
+                                    textValueAddData = it
+                                }
                             )
                         }
                         "Food & Drink Note" -> {
                             CardFoodAndDrink(onValueChange = {
-                                textValueAddData = it}
+                                textValueAddData = it
+                            }
                             )
                         }
                     }
                     Button(
                         onClick = {
-                            onSave(textTypeAddData,textDateAddData,textHoursAddData,textValueAddData,textValueDetail)
+                            onSave(
+                                textTypeAddData,
+                                textDateAddData,
+                                textHoursAddData,
+                                textValueAddData,
+                                textValueDetail
+                            )
                             textTypeAddData = "Glucose"
+                        },
+                        enabled = when (textTypeAddData) {
+                            "Glucose" -> {
+                                !textTypeAddData.isEmpty() &&
+                                !textDateAddData.isEmpty() &&
+                                !textHoursAddData.isEmpty() &&
+                                !textValueAddData.isEmpty() &&
+                                textValueDetail > -1
+                            }
+                            "Insulin", "Pill" -> {
+
+                                !textTypeAddData.isEmpty() &&
+                                !textValueAddData.isEmpty() &&
+                                textValueDetail > -1
+                            }
+                            "Food & Drink Note" -> {
+                                !textTypeAddData.isEmpty() &&
+                                !textValueAddData.isEmpty()
+                            }
+                            else -> {
+                                !textTypeAddData.isEmpty() &&
+                                !textDateAddData.isEmpty() &&
+                                !textHoursAddData.isEmpty() &&
+                                !textValueAddData.isEmpty()
+                            }
                         },
                         modifier = modifier
                             .fillMaxWidth()

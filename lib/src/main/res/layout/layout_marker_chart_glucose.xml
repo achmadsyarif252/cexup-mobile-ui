@@ -20,11 +20,26 @@
             android:layout_marginRight="5dp"
             android:ellipsize="end"
             android:fontFamily="@font/poppins_medium"
-            android:text="Medicine:"
+            android:text="Medicine"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/black"
+            android:visibility="gone"
             android:textFontWeight="500"
             android:textSize="12sp" />
+
+
+        <TextView
+            android:id="@+id/tvBrandMedicine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:ellipsize="end"
+            android:visibility="gone"
+            android:text="textView"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/black"
+            android:textSize="10sp" />
 
         <TextView
             android:id="@+id/tvMedicine"
@@ -33,6 +48,20 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:ellipsize="end"
+            android:visibility="gone"
+            android:text="textView"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/black"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/tvDetailMedicine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:ellipsize="end"
+            android:visibility="gone"
             android:text="textView"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/black"
@@ -51,7 +80,7 @@
             android:layout_marginRight="5dp"
             android:ellipsize="end"
             android:fontFamily="@font/poppins_medium"
-            android:text="Food &amp; Drink:"
+            android:text="Food &amp; Drink"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/black"
             android:textFontWeight="500"
@@ -87,7 +116,7 @@
             android:textSize="12sp" />
 
         <TextView
-            android:id="@+id/tvValueIfMedicine"
+            android:id="@+id/tvValueGlucose"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
