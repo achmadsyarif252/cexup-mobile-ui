@@ -55,13 +55,15 @@ class MainActivity : ComponentActivity() {
                                         ValueBloodGlucose(id = 2,
                                             value = 70,
                                             mealState = MealType.NoMeal,
-                                            time = "2022-10-18 10:42"
+                                            foodAndDrink = "Makan Sate Usus Minum Amer",
+                                            time = "2022-10-18 10:42",
+                                            isDetail = true
                                         ),
                                         ValueBloodGlucose(id = 3,
                                             value = 220,
                                             mealState = MealType.AfterMeal,
                                             time = "2022-10-18 13:42",
-                                            insulin = 12,
+                                            pills = 12,
                                             foodAndDrink = "Makan Sate Usus Minum Amer",
                                             isDetail = true
                                         ),
@@ -70,7 +72,6 @@ class MainActivity : ComponentActivity() {
                                             mealState = MealType.AfterMeal,
                                             time = "2022-10-18 15:42",
                                             insulin = 7,
-                                            foodAndDrink = "Makan Sate Usus Minum Amer",
                                             isDetail = true
                                         ),
                                         ValueBloodGlucose(id = 4,
