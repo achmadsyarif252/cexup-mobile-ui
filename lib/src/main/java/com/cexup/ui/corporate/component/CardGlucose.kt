@@ -308,7 +308,7 @@ fun CardGlucoseLevels(
     onAddMedicine: (Boolean, Long) -> Unit,
     onAddFoodAndDrink: (Boolean, Long) -> Unit,
     listDataValueGlucose: List<ValueBloodGlucose>,
-    onDetailsClicked: (Insulin: Int, Pill: Int, FoodAndDrink: String) -> Unit,
+    onDetailsClicked: (typeMedicine: Int, brandMedicine: String, valueMedicine: Int, valueDetailMedicine: Int, FoodAndDrink: String) -> Unit,
     onIconClick: (isList: Boolean) -> Unit,
 ) {
     var expanded by remember { mutableStateOf(false) }
@@ -406,9 +406,9 @@ fun CardGlucoseLevels(
                                 Text(
                                     modifier = Modifier.width(188.dp.from(ctx)),
                                     text =
-                                    if (data.mealState == MealType.AfterMeal)
+                                    if (data.mealType == MealType.AfterMeal)
                                         stringResource(id = R.string.after_meal)
-                                    else if (data.mealState == MealType.NoMeal)
+                                    else if (data.mealType == MealType.NoMeal)
                                         stringResource(id = R.string.no_meal)
                                     else
                                         stringResource(id = R.string.before_meal),
@@ -428,8 +428,10 @@ fun CardGlucoseLevels(
                                                 indication = null
                                             ) {
                                                 onDetailsClicked(
-                                                    data.insulin ?: 0,
-                                                    data.pills ?: 0,
+                                                    data.typeMedicine,
+                                                    data.brandMedicine ?: "",
+                                                    data.valueMedicine ?: 0,
+                                                    data.valueDetailMedicine ?: 0,
                                                     data.foodAndDrink ?: ""
                                                 )
                                             },
@@ -471,7 +473,7 @@ fun CardGlucoseLevels(
                                                         expanded = false
                                                     },
 
-                                                    ) {
+                                                ) {
                                                     Text(text = s)
                                                 }
                                             }
@@ -737,8 +739,92 @@ fun CardAddDataPill(
                 ),
                 keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
             )
-
         }
+    }
+}
+
+@Composable
+fun CardDetailValueMedicine(
+    valueText:String,
+){
+    val ctx = LocalContext.current
+    Box(
+        modifier = Modifier
+            .border(1.dp, GrayDivider, RoundedCornerShape(10.dp.from(ctx)))
+            .clip(RoundedCornerShape(10.dp.from(ctx)))
+    ) {
+        Text(
+            modifier = Modifier
+                .padding(16.dp.from(ctx))
+                .fillMaxWidth(),
+            text = valueText,
+            style = MaterialTheme.typography.h1.copy(
+                fontWeight = FontWeight.Medium,
+                fontSize = 16.sp.from(ctx),
+                lineHeight = 24.sp.from(ctx),
+                color = Color.Black
+            ),
+            maxLines = 1,
+        )
+
+    }
+}
+
+@Composable
+fun CardBrandMedicine(
+    resourceStringTypeBrand: Int,
+    valueText: String = "",
+    enable: Boolean = true,
+    onValueChange: (String) -> Unit,
+){
+    var valueTextField by remember { mutableStateOf(valueText) }
+    val keyboardController = LocalSoftwareKeyboardController.current
+    val ctx = LocalContext.current
+    Box(
+        modifier = Modifier
+            .border(1.dp, GrayDivider, RoundedCornerShape(10.dp.from(ctx)))
+            .clip(RoundedCornerShape(10.dp.from(ctx)))
+    ) {
+        OutlinedTextField(
+            modifier = Modifier
+                .fillMaxWidth(),
+            value = valueTextField,
+            onValueChange = {
+                valueTextField = it
+                onValueChange(it)
+            },
+            enabled = enable,
+            shape = RoundedCornerShape(10.dp.from(ctx)),
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                backgroundColor = Color.White,
+                disabledBorderColor = Color.White,
+                focusedBorderColor = Color.White,
+                unfocusedBorderColor = Color.White
+            ),
+            textStyle = MaterialTheme.typography.h1.copy(
+                fontWeight = FontWeight.Medium,
+                fontSize = 16.sp.from(ctx),
+                lineHeight = 24.sp.from(ctx),
+                color = Color.Black
+            ),
+            placeholder = {
+                Text(
+                    text = stringResource(id = resourceStringTypeBrand),
+                    style = MaterialTheme.typography.h1.copy(
+                        fontWeight = FontWeight.Medium,
+                        fontSize = 16.sp.from(ctx),
+                        lineHeight = 24.sp.from(ctx),
+                        color = GrayAddDataTextField
+                    ),
+                )
+            },
+            maxLines = 1,
+            keyboardOptions = KeyboardOptions(
+                imeAction = ImeAction.Done
+            ),
+            keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
+        )
+
     }
 }
 

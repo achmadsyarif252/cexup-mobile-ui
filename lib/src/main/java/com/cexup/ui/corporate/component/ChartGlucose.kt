@@ -179,7 +179,7 @@ fun ChartGlucose(
                 setNoDataText("No Data to be shown!")
 
                 //Part10
-                animateX(1800, Easing.EaseInExpo)
+//                animateX(1800, Easing.EaseInExpo)
 
                 //add custom marker
 //                val markerView = CustomChartMarker(context, R.layout.layout_marker_chart,false)
@@ -305,15 +305,18 @@ fun ChartGlucose(
                                 valueDateAndTime = listGlucose[xIndex].time,
                                 valueFoodAndDrink = listGlucose[xIndex].foodAndDrink
                                     ?: "",
-                                typeMedicine = if (listGlucose[xIndex].insulin == 0)
+                                typeMedicine =
+                                if (listGlucose[xIndex].typeMedicine == 1){
                                    "Pills"
-                                else
-                                    "Insulin",
-                                valueMedicine =
-                                if (listGlucose[xIndex].insulin == 0)
-                                    listGlucose[xIndex].pills ?: 0
-                                else
-                                    listGlucose[xIndex].insulin ?: 0
+                                }
+                                else if(listGlucose[xIndex].typeMedicine == 2){
+                                    "Insulin"
+                                }
+                                else{
+                                    ""
+                                },
+                                valueDetailMedicine = listGlucose[xIndex].valueDetailMedicine ?: 0,
+                                valueMedicine = listGlucose[xIndex].valueMedicine ?: 0
                             )
                         }
                     }else if(e?.y == 0f){
