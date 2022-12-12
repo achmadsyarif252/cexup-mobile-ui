@@ -191,7 +191,7 @@ class MainActivity : ComponentActivity() {
                                 onAddGlucose = {_,_,_,_->},
                                 onSync = {},
                                 onAddHemoglobin = {_,_,_->},
-                                onAddMedicine = {_,_,_,_,_,_ ->}
+                                onAddMedicine = {_,_,_,_,_,_,_ ->}
                             )
 //                        }
                     }

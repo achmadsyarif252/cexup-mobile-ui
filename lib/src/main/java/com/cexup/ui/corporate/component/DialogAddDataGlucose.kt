@@ -29,7 +29,7 @@ fun DialogAddDataGlucose(
     modifier: Modifier = Modifier,
     show: Boolean = false,
     onCancel: () -> Unit,
-    onSave: (TypeAddData: String, Date: String, Hours: String, Value: String, ValueDetail: Int) -> Unit,
+    onSave: (TypeAddData: String, Date: String, Hours: String, MedicineName: String, Value: String, ValueDetail: Int) -> Unit,
     isAddMedicine: Boolean = false,
     isAddFoodAndDrink: Boolean = false,
 ) {
@@ -37,6 +37,7 @@ fun DialogAddDataGlucose(
     var textTypeAddData by remember { mutableStateOf("") }
     var textDateAddData by remember { mutableStateOf("") }
     var textHoursAddData by remember { mutableStateOf("") }
+    var textMedicineName by remember { mutableStateOf("") }
     var textValueAddData by remember { mutableStateOf("") }
     var textValueDetail by remember { mutableStateOf(0) }
     var listTypeAddData = listOf("")
@@ -140,6 +141,12 @@ fun DialogAddDataGlucose(
                             )
                         }
                         "Insulin" -> {
+                            CardBrandMedicine(
+                                resourceStringTypeBrand = R.string.insulin_name,
+                                onValueChange = {
+                                    textMedicineName = it
+                                }
+                            )
                             CardAddDataInsulin(
                                 onValueChange = {
                                     textValueAddData = it
@@ -152,6 +159,12 @@ fun DialogAddDataGlucose(
                             )
                         }
                         "Pill" -> {
+                            CardBrandMedicine(
+                                resourceStringTypeBrand = R.string.pill_name,
+                                onValueChange = {
+                                    textMedicineName = it
+                                }
+                            )
                             CardAddDataPill(
                                 onValueChange = {
                                     textValueAddData = it
@@ -183,6 +196,7 @@ fun DialogAddDataGlucose(
                                 textTypeAddData,
                                 textDateAddData,
                                 textHoursAddData,
+                                textMedicineName,
                                 textValueAddData,
                                 textValueDetail
                             )
@@ -191,26 +205,26 @@ fun DialogAddDataGlucose(
                         enabled = when (textTypeAddData) {
                             "Glucose" -> {
                                 !textTypeAddData.isEmpty() &&
-                                !textDateAddData.isEmpty() &&
-                                !textHoursAddData.isEmpty() &&
-                                !textValueAddData.isEmpty() &&
-                                textValueDetail > -1
+                                        !textDateAddData.isEmpty() &&
+                                        !textHoursAddData.isEmpty() &&
+                                        !textValueAddData.isEmpty() &&
+                                        textValueDetail > -1
                             }
                             "Insulin", "Pill" -> {
-
-                                !textTypeAddData.isEmpty() &&
-                                !textValueAddData.isEmpty() &&
-                                textValueDetail > -1
+                                !textMedicineName.isEmpty() &&
+                                        !textTypeAddData.isEmpty() &&
+                                        !textValueAddData.isEmpty() &&
+                                        textValueDetail > -1
                             }
                             "Food & Drink Note" -> {
                                 !textTypeAddData.isEmpty() &&
-                                !textValueAddData.isEmpty()
+                                        !textValueAddData.isEmpty()
                             }
                             else -> {
                                 !textTypeAddData.isEmpty() &&
-                                !textDateAddData.isEmpty() &&
-                                !textHoursAddData.isEmpty() &&
-                                !textValueAddData.isEmpty()
+                                        !textDateAddData.isEmpty() &&
+                                        !textHoursAddData.isEmpty() &&
+                                        !textValueAddData.isEmpty()
                             }
                         },
                         modifier = modifier
