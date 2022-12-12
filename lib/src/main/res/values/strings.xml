@@ -221,6 +221,7 @@
     <string name="value">Value</string>
     <string name="insulin_amount">Insulin Amount</string>
     <string name="pill_name">Pill Name</string>
+    <string name="dossage">Dossage</string>
     <string name="hemoglobin_level">Hemoglobin Level</string>
     <string name="no_meal">No Meal</string>
     <string name="before_meal">Before Meal</string>

@@ -28,8 +28,8 @@ import com.example.app_corporate.ui.component.cards.CardAddDataPill
 import com.example.app_corporate.ui.component.cards.CardFoodAndDrink
 
 data class DetailsGlucose(
-    val insulin:Int,
-    val pills:Int,
+    val insulin:Int ?= null,
+    val pills:Int ?= null,
     val foodDrink:String,
 )
 
@@ -75,25 +75,26 @@ fun DialogDetailsGlucose(
                         )
                     }
                     Divider(color = GrayDivider, thickness = 1.dp.from(ctx))
-
-                    if (dataDetailsGlucose.insulin!=0){
+                    if (dataDetailsGlucose.insulin != 0 && dataDetailsGlucose.insulin != null){
                         CardAddDataInsulin(
                             valueText = dataDetailsGlucose.insulin.toString(),
                             enable = false,
                             onValueChange = {}
                         )
-                    }else{
+                    }else if (dataDetailsGlucose.pills != 0 && dataDetailsGlucose.pills != null){
                         CardAddDataPill(
                             valueText = dataDetailsGlucose.pills.toString(),
                             enable = false,
                             onValueChange = {}
                         )
                     }
-                    CardFoodAndDrink(
-                        valueText = dataDetailsGlucose.foodDrink.toString(),
-                        enable = false,
-                        onValueChange = {}
-                    )
+                    if (dataDetailsGlucose.foodDrink != "" && !dataDetailsGlucose.foodDrink.isEmpty()) {
+                        CardFoodAndDrink(
+                            valueText = dataDetailsGlucose.foodDrink,
+                            enable = false,
+                            onValueChange = {}
+                        )
+                    }
                 }
             }
         }

@@ -2,7 +2,6 @@
 
 package com.example.app_corporate.ui.component.cards
 
-import android.util.Log
 import androidx.compose.foundation.*
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
@@ -38,7 +37,6 @@ import com.cexup.ui.corporate.theme.*
 import com.cexup.ui.utils.coloredShadow
 import com.cexup.ui.utils.mediaquery.from
 import com.example.app_corporate.ui.component.ChartGlucose
-import com.github.mikephil.charting.data.Entry
 
 @Composable
 fun CardHemoglobin(
@@ -309,7 +307,7 @@ fun CardGlucoseLevels(
     is1Day: Boolean,
     onAddMedicine: (Boolean, Long) -> Unit,
     onAddFoodAndDrink: (Boolean, Long) -> Unit,
-    listDummyData: List<ValueBloodGlucose>,
+    listDataValueGlucose: List<ValueBloodGlucose>,
     onDetailsClicked: (Insulin: Int, Pill: Int, FoodAndDrink: String) -> Unit,
     onIconClick: (isList: Boolean) -> Unit,
 ) {
@@ -382,7 +380,7 @@ fun CardGlucoseLevels(
                         verticalArrangement = Arrangement.spacedBy(14.dp.from(ctx))
                     ) {
                         Divider(color = GrayDivider, thickness = 1.dp.from(ctx))
-                        listDummyData.forEachIndexed { indexData, data ->
+                        listDataValueGlucose.forEachIndexed { indexData, data ->
                             Row(horizontalArrangement = Arrangement.spacedBy(32.dp.from(ctx))) {
                                 Text(
                                     modifier = Modifier.width(188.dp.from(ctx)),
@@ -495,7 +493,7 @@ fun CardGlucoseLevels(
 
                         ChartGlucose(
 //                            dataWithInsulin = dataWithInsulin,
-                            listGlucose = listDummyData,
+                            listGlucose = listDataValueGlucose,
                             description = "",
                             is1Day = is1Day
                         )
@@ -681,7 +679,7 @@ fun CardAddDataPill(
             modifier = Modifier.padding(16.dp.from(ctx))
         ) {
             Text(
-                text = stringResource(id = R.string.pill_name),
+                text = stringResource(id = R.string.dossage),
                 style = MaterialTheme.typography.h1.copy(
                     color = BlueDarkGlucose,
                     fontSize = 16.sp.from(ctx),
@@ -1196,7 +1194,7 @@ fun CardFoodAndDrink(
                 keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
                 decorationBox = { innerTextField ->
                     Box {
-                        if (valueTextField.isEmpty()) {
+                        if (valueTextField.isEmpty()&&enable) {
                             Text(
                                 text = "Placeholder",
                                 style = MaterialTheme.typography.body1.copy(

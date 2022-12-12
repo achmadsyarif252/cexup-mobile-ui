@@ -4,11 +4,13 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.view.View
 import android.widget.LinearLayout
+import android.widget.Space
 import android.widget.TextView
 import com.github.mikephil.charting.components.MarkerView
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.utils.MPPointF
+import com.cexup.ui.R
 
 /**
  * `Custom Marker`
@@ -33,8 +35,8 @@ class CustomChartMarkerGlucose(
     val typeMedicine = typeMedicine
     val valueDateAndTime = valueDateAndTime
     override fun refreshContent(e: Entry?, highlight: Highlight?) {
-        val layoutWithoutInsulin = findViewById<LinearLayout>(com.cexup.ui.R.id.valueOnly)
-        val layoutWithInsulin = findViewById<LinearLayout>(com.cexup.ui.R.id.valueWithInsulin)
+        val layoutWithoutInsulin = findViewById<LinearLayout>(R.id.valueOnly)
+        val layoutWithInsulin = findViewById<LinearLayout>(R.id.valueWithInsulin)
         if (isMedicine){
             layoutWithInsulin.visibility = View.VISIBLE
             layoutWithoutInsulin.visibility = View.GONE
@@ -45,14 +47,26 @@ class CustomChartMarkerGlucose(
             }else{
                 value.toString()
             }
-            val tvMedicine = findViewById<TextView>(com.cexup.ui.R.id.tvMedicine)
-            val tvFoodAndDrink = findViewById<TextView>(com.cexup.ui.R.id.tvFoodAndDrink)
-            val tvValueGlucose = findViewById<TextView>(com.cexup.ui.R.id.tvValueIfMedicine)
-            val tvDateTime = findViewById<TextView>(com.cexup.ui.R.id.tvValueDateAndTime)
+            val titleMedicine = findViewById<TextView>(R.id.titleMedicine)
+            val titleFoodAndDrink = findViewById<TextView>(R.id.titleFoodAndDrink)
+            val spaceFoodAndDrink = findViewById<Space>(R.id.spaceFoodAndDrink)
+            val tvMedicine = findViewById<TextView>(R.id.tvMedicine)
+            val tvFoodAndDrink = findViewById<TextView>(R.id.tvFoodAndDrink)
+            val tvValueGlucose = findViewById<TextView>(R.id.tvValueIfMedicine)
+            val tvDateTime = findViewById<TextView>(R.id.tvValueDateAndTime)
             if (typeMedicine == "Pills")
                 tvMedicine.text = "$valueMedicine $typeMedicine"
             else
                 tvMedicine.text = "$typeMedicine $valueMedicine mg/dl"
+            if (valueFoodAndDrink.isEmpty()) {
+                titleFoodAndDrink.visibility = View.GONE
+                tvFoodAndDrink.visibility = View.GONE
+                spaceFoodAndDrink.visibility = View.GONE
+            }
+            if (valueMedicine == 0 || valueMedicine == null){
+                titleMedicine.visibility = View.GONE
+                tvMedicine.visibility = View.GONE
+            }
             tvFoodAndDrink.text = valueFoodAndDrink
             tvValueGlucose.text = "$resText mg/dl"
             tvDateTime.text = valueDateAndTime
@@ -60,8 +74,8 @@ class CustomChartMarkerGlucose(
             layoutWithoutInsulin.visibility = View.VISIBLE
             layoutWithInsulin.visibility = View.GONE
             val value = e?.y?.toDouble() ?: 0.0
-            val tv = findViewById<TextView>(com.cexup.ui.R.id.tvValue)
-            val tvDateTime = findViewById<TextView>(com.cexup.ui.R.id.tvValueDateAndTime2)
+            val tv = findViewById<TextView>(R.id.tvValue)
+            val tvDateTime = findViewById<TextView>(R.id.tvValueDateAndTime2)
             var resText = ""
             resText = if(value.toString().length > 8){
                 value.toString().substring(0,7)

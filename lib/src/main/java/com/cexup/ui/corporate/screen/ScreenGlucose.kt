@@ -52,9 +52,9 @@ data class ValueBloodGlucose(
     var value: Int,
     var time: String,
     var mealState: Int,
-    var insulin: Int? = 0,
-    var pills: Int? = 0,
-    var foodAndDrink: String? = "",
+    var insulin: Int? = null,
+    var pills: Int? = null,
+    var foodAndDrink: String? = null,
     var isDetail: Boolean = false,
 )
 
@@ -102,7 +102,7 @@ fun ScreenGlucose(
     var isList by remember { mutableStateOf(false) }
     var isAddMedicine by remember { mutableStateOf(false) }
     var isAddFoodAndDrink by remember { mutableStateOf(false) }
-    var dataDetailGlucose by remember { mutableStateOf(DetailsGlucose(0, 0, "")) }
+    var dataDetailGlucose by remember { mutableStateOf(DetailsGlucose(null, null, "")) }
     var showDialogAddData by remember { mutableStateOf(false) }
     var showDialogHistoryHemoglobin by remember { mutableStateOf(false) }
     var showDialogDetailsGlucose by remember { mutableStateOf(false) }
@@ -360,7 +360,7 @@ fun ContentTabGlucose(
         onIconClick = {
             onIconClick(it)
         },
-        listDummyData = listDataValueGlucose,
+        listDataValueGlucose = listDataValueGlucose,
         onAddMedicine = { bool, id ->
             onAddMedicineClicked(bool,id)
         },
