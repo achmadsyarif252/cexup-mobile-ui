@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.ui.ExperimentalComposeUiApi
+import com.cexup.ui.corporate.component.SidebarMenuModel
 import com.cexup.ui.corporate.component.ValueHemoglobin
 import com.cexup.ui.corporate.screen.*
 import com.cexup.ui.corporate.theme.CexupTheme
@@ -12,6 +13,8 @@ import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.pager.ExperimentalPagerApi
+import com.cexup.ui.R
+import com.cexup.ui.corporate.component.SidebarMenuType
 
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalAnimationApi::class, ExperimentalComposeUiApi::class,
@@ -39,9 +42,12 @@ class MainActivity : ComponentActivity() {
 //                            onLogout = { /*TODO*/ },
 //                            onNavigate = {},
 //                            listMenuSidebar = listOf(
-//                                SidebarMenuModel(R.string.high, R.drawable.ic_pills, R.drawable.ic_glucose,"HOME",SidebarMenuType.Link)
+//                                SidebarMenuModel(R.string.high, R.drawable.ic_pills, R.drawable.ic_glucose,"HOME",
+//                                    SidebarMenuType.Link)
 //                            )
 //                        ) {
+//                            ScreenRegisterPatient(onRegisterPatient = {})
+//                        }
                             ScreenGlucose(
                                 glucoseDataUIState = GlucoseDataUIState(
                                     patientName = "Sumbul Muhammad",
@@ -50,14 +56,18 @@ class MainActivity : ComponentActivity() {
                                         ValueBloodGlucose(id = 1,
                                             value = 120,
                                             mealType = MealType.NoMeal,
-                                            time = "2022-10-18 08:42"
+                                            time = "2022-10-18 08:42",
+                                            isDeleted = true,
+                                            noteDeleted = "anjay mujay mabar"
                                         ),
                                         ValueBloodGlucose(id = 2,
                                             value = 70,
                                             mealType = MealType.NoMeal,
                                             foodAndDrink = "Makan Sate Usus Minum Amer",
                                             time = "2022-10-18 10:42",
-                                            isDetail = true
+                                            isDetail = true,
+                                            isDeleted = true,
+                                            noteDeleted = "salah masukin insulin ges"
                                         ),
                                         ValueBloodGlucose(id = 3,
                                             value = 220,
@@ -166,15 +176,11 @@ class MainActivity : ComponentActivity() {
                                         )
                                     ),
                                     listDataHemoglobin = listOf(
-                                        ValueHemoglobin(
-                                            105,
-                                            "2022-10-18 16:42"
+                                        ValueHemoglobin(200,"2022-10-18 16:42"),
+                                        ValueHemoglobin(232,"2022-10-17 16:42"),
+                                        ValueHemoglobin(111,"2022-10-08 16:42"),
+
                                         ),
-                                        ValueHemoglobin(
-                                            202,
-                                            "2022-10-19 09:23"
-                                        )
-                                    ),
                                     totalGlucose1Day = 180,
                                     totalGlucose1Week = 200,
                                     totalGlucose2Week = 220,
@@ -191,7 +197,9 @@ class MainActivity : ComponentActivity() {
                                 onAddGlucose = {_,_,_,_->},
                                 onSync = {},
                                 onAddHemoglobin = {_,_,_->},
-                                onAddMedicine = {_,_,_,_,_,_,_ ->}
+                                onAddMedicine = {_,_,_,_,_,_,_ ->},
+                                onRemoveGlucoseData = {_,_,_ ->},
+                                onSortHistoryHemoglobin = {_,_ ->}
                             )
 //                        }
                     }
