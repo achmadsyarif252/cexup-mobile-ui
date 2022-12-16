@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -32,6 +33,7 @@ fun DialogAddDataGlucose(
     onSave: (TypeAddData: String, Date: String, Hours: String, MedicineName: String, Value: String, ValueDetail: Int) -> Unit,
     isAddMedicine: Boolean = false,
     isAddFoodAndDrink: Boolean = false,
+    isRemovedData: Boolean = false,
 ) {
     val ctx = LocalContext.current
     var textTypeAddData by remember { mutableStateOf("") }
@@ -50,11 +52,11 @@ fun DialogAddDataGlucose(
             )
             textTypeAddData = "Insulin"
         } else if (isAddFoodAndDrink) {
-            listTypeAddData = listOf(
-                "Food & Drink Note"
-            )
             textTypeAddData = "Food & Drink Note"
-        } else {
+        } else if (isRemovedData){
+            textTypeAddData = "Note Data Removed"
+        }
+        else {
             listTypeAddData = listOf(
                 "Glucose",
                 "Hemoglobin",
@@ -77,7 +79,7 @@ fun DialogAddDataGlucose(
                         .width(531.dp.from(ctx)),
                     verticalArrangement = Arrangement.spacedBy(24.dp.from(ctx))
                 ) {
-                    if (!isAddFoodAndDrink) {
+                    if (!isAddFoodAndDrink && !isRemovedData) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Text(
                                 text = "Add Data",
@@ -183,10 +185,22 @@ fun DialogAddDataGlucose(
                                 }
                             )
                         }
+                        "Note Data Removed" -> {
+                            CardNoteGlucose(
+                                titleText = stringResource(id = R.string.note_data_removed),
+                                placeHolderText = stringResource(id = R.string.reason_why_data_deleted),
+                                onValueChange = {
+                                    textValueAddData = it
+                                }
+                            )
+                        }
                         "Food & Drink Note" -> {
-                            CardFoodAndDrink(onValueChange = {
-                                textValueAddData = it
-                            }
+                            CardNoteGlucose(
+                                titleText = stringResource(id = R.string.food_and_drink_note),
+                                placeHolderText = stringResource(id = R.string.your_food_and_drink),
+                                onValueChange = {
+                                    textValueAddData = it
+                                }
                             )
                         }
                     }
@@ -216,7 +230,7 @@ fun DialogAddDataGlucose(
                                         !textValueAddData.isEmpty() &&
                                         textValueDetail > -1
                             }
-                            "Food & Drink Note" -> {
+                            "Food & Drink Note", "Note Data Removed" -> {
                                 !textTypeAddData.isEmpty() &&
                                         !textValueAddData.isEmpty()
                             }

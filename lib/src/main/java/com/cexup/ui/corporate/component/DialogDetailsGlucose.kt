@@ -116,10 +116,12 @@ fun DialogDetailsGlucose(
                         else ->{}
                     }
                     if (dataDetailsGlucose.foodAndDrink != "" && !dataDetailsGlucose.foodAndDrink.isEmpty()) {
-                        CardFoodAndDrink(
+                        CardNoteGlucose(
                             valueText = dataDetailsGlucose.foodAndDrink,
                             enable = false,
-                            onValueChange = {}
+                            onValueChange = {},
+                            titleText = stringResource(id = R.string.food_and_drink_note),
+                            placeHolderText = stringResource(id = R.string.your_food_and_drink),
                         )
                     }
                 }

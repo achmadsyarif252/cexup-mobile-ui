@@ -29,6 +29,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cexup.ui.R
+import com.cexup.ui.corporate.component.ValueHemoglobin
 import com.cexup.ui.corporate.screen.InsulinType
 import com.cexup.ui.corporate.screen.MealType
 import com.cexup.ui.corporate.screen.StateGlucoseSDK
@@ -40,11 +41,17 @@ import com.example.app_corporate.ui.component.ChartGlucose
 
 @Composable
 fun CardHemoglobin(
-    textValue: String = "",
+    dataHemoglobin: List<ValueHemoglobin> = listOf(),
     onHistoryClicked: (Boolean) -> Unit,
 ) {
     val interactionSource = MutableInteractionSource()
     val ctx = LocalContext.current
+    val textValue =
+        if (dataHemoglobin.isEmpty()) {
+            "-"
+        } else {
+            dataHemoglobin.get(0).valueHemoglobin.toString()
+        }
     Card(
         modifier = Modifier
             .widthIn(max = 343.dp.from(ctx))
@@ -73,12 +80,20 @@ fun CardHemoglobin(
                     )
                 )
                 Text(
-                    text = textValue + " mg/dL",
-                    style = MaterialTheme.typography.h1.copy(
+                    text = "$textValue ",
+                    style = MaterialTheme.typography.h4.copy(
                         fontWeight = FontWeight.SemiBold,
-                        fontSize = 28.sp.from(ctx),
+                        fontSize = 24.sp.from(ctx),
                         lineHeight = 32.sp.from(ctx),
-                        letterSpacing = -1.sp.from(ctx),
+                        letterSpacing = -2.sp.from(ctx),
+                        color = GreenGlucose
+                    )
+                )
+                Text(
+                    text = stringResource(id = R.string.mg_per_dl),
+                    style = MaterialTheme.typography.subtitle1.copy(
+                        fontSize = 16.sp.from(ctx),
+                        lineHeight = 28.sp.from(ctx),
                         color = GreenGlucose
                     )
                 )
@@ -86,10 +101,11 @@ fun CardHemoglobin(
             Divider(color = GrayDivider, thickness = 1.dp.from(ctx))
             Box(
                 modifier = Modifier
-                    .padding(top = 12.dp.from(ctx))
                     .fillMaxWidth()
+                    .padding(top = 12.dp.from(ctx))
                     .heightIn(min = 30.dp.from(ctx))
                     .clickable(
+                        enabled = textValue != "-",
                         interactionSource = interactionSource,
                         indication = null
                     ) {
@@ -277,6 +293,7 @@ fun CardConnectGlucose(
                     else
                         BlueConnectGlucose
                 ),
+                contentPadding = PaddingValues(vertical = 8.dp.from(ctx)),
                 shape = RoundedCornerShape(8.dp.from(ctx))
             ) {
                 Text(
@@ -308,14 +325,28 @@ fun CardGlucoseLevels(
     onAddMedicine: (Boolean, Long) -> Unit,
     onAddFoodAndDrink: (Boolean, Long) -> Unit,
     listDataValueGlucose: List<ValueBloodGlucose>,
+    onRemoveData: (id: Long) -> Unit,
+    onNoteRemovedClicked: (noteRemoved:String) -> Unit,
     onDetailsClicked: (typeMedicine: Int, brandMedicine: String, valueMedicine: Int, valueDetailMedicine: Int, FoodAndDrink: String) -> Unit,
     onIconClick: (isList: Boolean) -> Unit,
 ) {
     var expanded by remember { mutableStateOf(false) }
-    val items = listOf("Add Medicine", "Add Food & Drink")
+    val items = listOf("Add Medicine", "Add Food & Drink", "Remove")
     var selectedItem by remember { mutableStateOf(0) }
+    var isAllData by remember { mutableStateOf(true) }
     val ctx = LocalContext.current
     val interactionSource = MutableInteractionSource()
+
+    var dataGlucose = listDataValueGlucose
+    var dataGlucoseStillAlive = mutableListOf<ValueBloodGlucose>()
+    listDataValueGlucose.forEach{
+        if (!it.isDeleted)
+            dataGlucoseStillAlive.add(it)
+    }
+    if (isAllData)
+        dataGlucose = listDataValueGlucose
+    else
+        dataGlucose = dataGlucoseStillAlive
 
     Card(
         modifier = Modifier
@@ -333,9 +364,10 @@ fun CardGlucoseLevels(
     ) {
         Column(
             modifier = Modifier
-                .padding(16.dp.from(ctx))
+                .padding(vertical = 16.dp.from(ctx))
         ) {
             Row(
+                modifier = Modifier.padding(horizontal = 16.dp.from(ctx)),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(16.dp.from(ctx))
             ) {
@@ -349,6 +381,28 @@ fun CardGlucoseLevels(
                     )
                 )
                 Spacer(modifier = Modifier.weight(1f))
+                if(isList) {
+                    Text(
+                        text = if (isAllData)
+                            stringResource(id = R.string.show_all_data_on)
+                        else
+                            stringResource(id = R.string.show_all_data_off),
+                        style = MaterialTheme.typography.h2.copy(
+                            fontWeight = FontWeight.Medium,
+                            fontSize = 18.sp.from(ctx),
+                            lineHeight = 28.sp.from(ctx),
+                            letterSpacing = -0.25f.sp.from(ctx),
+                        )
+                    )
+                    Switch(
+                        checked = isAllData,
+                        onCheckedChange = {
+                            isAllData = it
+                        },
+                        interactionSource = interactionSource,
+                        colors = SwitchDefaults.colors(BlueJade)
+                    )
+                }
                 Icon(
                     modifier = Modifier.clickable(
                         enabled = !isList,
@@ -374,79 +428,86 @@ fun CardGlucoseLevels(
             }
             when (isList) {
                 true -> {
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        verticalArrangement = Arrangement.spacedBy(14.dp.from(ctx))
-                    ) {
-                        Divider(color = GrayDivider, thickness = 1.dp.from(ctx))
-                        listDataValueGlucose.forEachIndexed { indexData, data ->
-                            Row(horizontalArrangement = Arrangement.spacedBy(32.dp.from(ctx))) {
-                                Text(
-                                    modifier = Modifier.width(188.dp.from(ctx)),
-                                    text = data.time,
-                                    style = MaterialTheme.typography.body2.copy(
-                                        fontWeight = FontWeight.SemiBold,
-                                        fontSize = 14.sp.from(ctx),
-                                        lineHeight = 20.sp.from(ctx),
-                                        color = GrayGlucose
-                                    ),
-                                )
-                                Text(
-                                    modifier = Modifier.width(188.dp.from(ctx)),
-                                    text = "${data.value} mg/dL",
-                                    style = MaterialTheme.typography.body2.copy(
-                                        fontWeight = FontWeight.SemiBold,
-                                        fontSize = 14.sp.from(ctx),
-                                        lineHeight = 20.sp.from(ctx),
-                                        color = if (data.value > 160) RedHyperGlucose else if (data.value < 80) BlueHypoGlucose else GreenNormalGlucose
-                                    ),
-                                    textAlign = TextAlign.Center
-                                )
-                                Text(
-                                    modifier = Modifier.width(188.dp.from(ctx)),
-                                    text =
-                                    if (data.mealType == MealType.AfterMeal)
-                                        stringResource(id = R.string.after_meal)
-                                    else if (data.mealType == MealType.NoMeal)
-                                        stringResource(id = R.string.no_meal)
+                    Divider(color = GrayDivider, thickness = 1.dp.from(ctx))
+                    dataGlucose.forEachIndexed { indexData, data ->
+                        Row(
+                            modifier = Modifier
+                                .background(
+                                    color =
+                                    if (data.isDeleted)
+                                        MaterialTheme.colors.onSurface.copy(alpha = 0.12f)
                                     else
-                                        stringResource(id = R.string.before_meal),
+                                        Color.Transparent
+                                )
+                                .padding(vertical = 14.dp.from(ctx), horizontal = 16.dp.from(ctx)),
+                            horizontalArrangement = Arrangement.spacedBy(32.dp.from(ctx))
+                        ) {
+                            Text(
+                                modifier = Modifier.width(178.dp.from(ctx)),
+                                text = data.time,
+                                style = MaterialTheme.typography.body2.copy(
+                                    fontWeight = FontWeight.SemiBold,
+                                    fontSize = 14.sp.from(ctx),
+                                    lineHeight = 20.sp.from(ctx),
+                                    color = GrayGlucose
+                                ),
+                            )
+                            Text(
+                                modifier = Modifier.width(178.dp.from(ctx)),
+                                text = "${data.value} mg/dl",
+                                style = MaterialTheme.typography.body2.copy(
+                                    fontWeight = FontWeight.SemiBold,
+                                    fontSize = 14.sp.from(ctx),
+                                    lineHeight = 20.sp.from(ctx),
+                                    color = if (data.value > 160) RedHyperGlucose else if (data.value < 80) BlueHypoGlucose else GreenNormalGlucose
+                                ),
+                                textAlign = TextAlign.Center
+                            )
+                            Text(
+                                modifier = Modifier.width(178.dp.from(ctx)),
+                                text =
+                                if (data.mealType == MealType.AfterMeal)
+                                    stringResource(id = R.string.after_meal)
+                                else if (data.mealType == MealType.NoMeal)
+                                    stringResource(id = R.string.no_meal)
+                                else
+                                    stringResource(id = R.string.before_meal),
+                                style = MaterialTheme.typography.body2.copy(
+                                    fontWeight = FontWeight.SemiBold,
+                                    fontSize = 14.sp.from(ctx),
+                                    lineHeight = 20.sp.from(ctx),
+                                ),
+                                textAlign = TextAlign.Center
+                            )
+                            if (data.isDetail) {
+                                Text(
+                                    modifier = Modifier
+                                        .width(178.dp.from(ctx))
+                                        .clickable(
+                                            interactionSource = interactionSource,
+                                            indication = null
+                                        ) {
+                                            onDetailsClicked(
+                                                data.typeMedicine,
+                                                data.brandMedicine ?: "",
+                                                data.valueMedicine ?: 0,
+                                                data.valueDetailMedicine ?: 0,
+                                                data.foodAndDrink ?: ""
+                                            )
+                                        },
+                                    text = stringResource(id = R.string.details),
                                     style = MaterialTheme.typography.body2.copy(
                                         fontWeight = FontWeight.SemiBold,
                                         fontSize = 14.sp.from(ctx),
                                         lineHeight = 20.sp.from(ctx),
+                                        color = BlueJade,
+                                        textDecoration = TextDecoration.Underline
                                     ),
                                     textAlign = TextAlign.Center
                                 )
-                                if (data.isDetail) {
-                                    Text(
-                                        modifier = Modifier
-                                            .width(188.dp.from(ctx))
-                                            .clickable(
-                                                interactionSource = interactionSource,
-                                                indication = null
-                                            ) {
-                                                onDetailsClicked(
-                                                    data.typeMedicine,
-                                                    data.brandMedicine ?: "",
-                                                    data.valueMedicine ?: 0,
-                                                    data.valueDetailMedicine ?: 0,
-                                                    data.foodAndDrink ?: ""
-                                                )
-                                            },
-                                        text = stringResource(id = R.string.details),
-                                        style = MaterialTheme.typography.body2.copy(
-                                            fontWeight = FontWeight.SemiBold,
-                                            fontSize = 14.sp.from(ctx),
-                                            lineHeight = 20.sp.from(ctx),
-                                            color = BlueJade,
-                                            textDecoration = TextDecoration.Underline
-                                        ),
-                                        textAlign = TextAlign.Center
-                                    )
-                                }
-                                Spacer(modifier = Modifier.weight(1f))
+                            }
+                            Spacer(modifier = Modifier.weight(1f))
+                            if (!data.isDeleted) {
                                 Box {
                                     Image(
                                         painter = painterResource(id = R.drawable.ic_threedot),
@@ -462,31 +523,61 @@ fun CardGlucoseLevels(
                                             onDismissRequest = { expanded = false },
                                             modifier = Modifier.width(170.dp.from(ctx))
                                         ) {
-                                            items.forEachIndexed { index, s ->
+                                            items.forEachIndexed { index, text ->
                                                 DropdownMenuItem(
                                                     onClick = {
                                                         if (items[index].equals("Add Food & Drink")) {
-                                                            onAddFoodAndDrink(true,data.id)
+                                                            onAddFoodAndDrink(true, data.id)
+                                                        } else if (items[index].equals("Remove")) {
+                                                            onRemoveData(data.id)
                                                         } else {
-                                                            onAddMedicine(true,data.id)
+                                                            onAddMedicine(true, data.id)
                                                         }
                                                         expanded = false
                                                     },
 
-                                                ) {
-                                                    Text(text = s)
+                                                    ) {
+                                                    Text(
+                                                        text = text,
+                                                        style = MaterialTheme.typography.subtitle1.copy(
+                                                            fontSize = 16.sp.from(ctx),
+                                                            lineHeight = 28.sp.from(ctx),
+                                                        )
+                                                    )
                                                 }
                                             }
                                         }
                                     }
                                 }
-
-
+                            } else {
+                                Text(
+                                    modifier = Modifier
+                                        .width(100.dp.from(ctx))
+                                        .clip(RoundedCornerShape(10.dp.from(ctx)))
+                                        .background(Color.White)
+                                        .clickable(
+                                            interactionSource = interactionSource,
+                                            indication = null
+                                        ) {
+                                            onNoteRemovedClicked(data.noteDeleted!!)
+                                        },
+                                    text = stringResource(id = R.string.note_removed),
+                                    style = MaterialTheme.typography.body2.copy(
+                                        fontWeight = FontWeight.SemiBold,
+                                        fontSize = 14.sp.from(ctx),
+                                        lineHeight = 20.sp.from(ctx),
+                                        color = MaterialTheme.colors.onSurface,
+                                    ),
+                                    textAlign = TextAlign.Center
+                                )
                             }
-                            Divider(color = GrayDivider, thickness = 1.dp.from(ctx))
+
 
                         }
+                        Divider(color = GrayDivider, thickness = 1.dp.from(ctx))
+
                     }
+
                 }
                 else -> {
                     Column(
@@ -495,7 +586,7 @@ fun CardGlucoseLevels(
 
                         ChartGlucose(
 //                            dataWithInsulin = dataWithInsulin,
-                            listGlucose = listDataValueGlucose,
+                            listGlucose = dataGlucoseStillAlive as List<ValueBloodGlucose>,
                             description = "",
                             is1Day = is1Day
                         )
@@ -745,8 +836,8 @@ fun CardAddDataPill(
 
 @Composable
 fun CardDetailValueMedicine(
-    valueText:String,
-){
+    valueText: String,
+) {
     val ctx = LocalContext.current
     Box(
         modifier = Modifier
@@ -776,7 +867,7 @@ fun CardBrandMedicine(
     valueText: String = "",
     enable: Boolean = true,
     onValueChange: (String) -> Unit,
-){
+) {
     var valueTextField by remember { mutableStateOf(valueText) }
     val keyboardController = LocalSoftwareKeyboardController.current
     val ctx = LocalContext.current
@@ -1230,9 +1321,13 @@ fun CardGlucoseHemoglobin(
 }
 
 @Composable
-fun CardFoodAndDrink(
+fun CardNoteGlucose(
+    titleText: String,
     valueText: String = "",
+    placeHolderText: String,
     enable: Boolean = true,
+    isNote: Boolean = false,
+    onCancel: () -> Unit = {},
     onValueChange: (String) -> Unit
 ) {
     var valueTextField by remember { mutableStateOf(valueText) }
@@ -1247,14 +1342,29 @@ fun CardFoodAndDrink(
             modifier = Modifier.padding(24.dp.from(ctx)),
             verticalArrangement = Arrangement.spacedBy(12.dp.from(ctx))
         ) {
-            Text(
-                text = stringResource(id = R.string.food_and_drink_note),
-                style = MaterialTheme.typography.subtitle1.copy(
-                    fontWeight = FontWeight.Medium,
-                    fontSize = 16.sp.from(ctx),
-                    lineHeight = 28.sp.from(ctx),
+            Row {
+                Text(
+                    text = titleText,
+                    style = MaterialTheme.typography.subtitle1.copy(
+                        fontWeight = FontWeight.Medium,
+                        fontSize = 16.sp.from(ctx),
+                        lineHeight = 28.sp.from(ctx),
+                    )
                 )
-            )
+                Spacer(modifier = Modifier.weight(1f))
+                if (isNote) {
+                    Image(
+                        modifier = Modifier
+                            .clickable {
+                                onCancel()
+                            }
+                            .padding(5.dp.from(ctx)),
+                        painter = painterResource(id = R.drawable.ic_close),
+                        contentDescription = ""
+                    )
+                }
+            }
+
             Divider(
                 color = GrayDivider,
                 thickness = 1.dp.from(ctx)
@@ -1280,9 +1390,9 @@ fun CardFoodAndDrink(
                 keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
                 decorationBox = { innerTextField ->
                     Box {
-                        if (valueTextField.isEmpty()&&enable) {
+                        if (valueTextField.isEmpty() && enable) {
                             Text(
-                                text = "Placeholder",
+                                text = placeHolderText,
                                 style = MaterialTheme.typography.body1.copy(
                                     fontSize = 16.sp.from(ctx),
                                     lineHeight = 24.sp.from(ctx),

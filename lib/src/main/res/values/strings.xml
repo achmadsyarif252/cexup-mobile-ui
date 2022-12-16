@@ -168,6 +168,7 @@
     <string name="calf">Calf</string>
     <string name="bmi">Body Mass Index</string>
     <string name="pulse_oximetry">Pulse Oximetry</string>
+    <string name="note_removed">Note Removed</string>
 
     <string name="laki_laki">Laki-laki</string>
     <string name="perempuan">Perempuan</string>
@@ -234,12 +235,16 @@
     <string name="two_weeks">2 Weeks</string>
     <string name="one_month">1 Month</string>
     <string name="food_and_drink_note">Food &amp; Drink Note</string>
+    <string name="your_food_and_drink">Your Food &amp; Drink</string>
+    <string name="note_data_removed">Note Data Removed</string>
+    <string name="reason_why_data_deleted">Reason Why Data Deleted</string>
     <string name="history">History</string>
     <string name="hemoglobin">Hemoglobin</string>
     <string name="history_hemoglobin">History Hemoglobin</string>
     <string name="no">No</string>
     <string name="result">Result</string>
-    
+    <string name="show_all_data_on">Show All Data On</string>
+    <string name="show_all_data_off">Show All Data Off</string>
     <string name="no_list_doctor">No List Doctors</string>
     <string name="no_list_doctor2">There\'s no Doctors List for you to see yet. if you\nwant to add doctor list contact super admin user</string>
     <string name="go_back">Go back</string>
