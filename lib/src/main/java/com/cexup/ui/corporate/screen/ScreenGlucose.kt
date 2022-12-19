@@ -108,6 +108,7 @@ fun ScreenGlucose(
     onAddMedicine: (Date: String, Hours: String, MedicineName: String, Value: String, ValueDetail: Int, idDataGlucose: Long, TypeMedicine: Boolean) -> Unit,
     onAddHemoglobin: (Date: String, Hours: String, Value: String) -> Unit,
     onAddFoodAndDrink: (Value: String, idDataGlucose: Long) -> Unit,
+    onEditMealType: (id:Long, mealType:Int) -> Unit,
     onRemoveGlucoseData: (idDataGlucose:Long, isRemoveData:Boolean, noteRemove:String) -> Unit,
     onSortHistoryHemoglobin: (isSortDate:Boolean,isASC: Boolean) -> Unit,
     onButtonBackPressed: () -> Unit,
@@ -122,10 +123,12 @@ fun ScreenGlucose(
     var isRemoveData by remember { mutableStateOf(false) }
     var dataDetailGlucose by remember { mutableStateOf(DetailsGlucose(0, null, null, null, "")) }
     var dataNoteRemoved by remember { mutableStateOf("") }
+    var dataMealState by remember { mutableStateOf(0) }
     var showDialogAddData by remember { mutableStateOf(false) }
     var showDialogHistoryHemoglobin by remember { mutableStateOf(false) }
     var showDialogDetailsGlucose by remember { mutableStateOf(false) }
     var showDialogNoteRemovedData by remember { mutableStateOf(false) }
+    var showDialogEditMealType by remember { mutableStateOf(false) }
     var idDataGlucose by remember { mutableStateOf(0L) }
     val tabs = listOf(
         TabContentRow(header = stringResource(id = R.string.one_day)) {
@@ -164,6 +167,11 @@ fun ScreenGlucose(
                 onNoteRemovedClicked = {
                     dataNoteRemoved = it
                     showDialogNoteRemovedData = true
+                },
+                onEditMealType = {id,mealType ->
+                    dataMealState = mealType
+                    idDataGlucose = id
+                    showDialogEditMealType = true
                 }
             )
         },
@@ -202,6 +210,11 @@ fun ScreenGlucose(
                 onNoteRemovedClicked = {
                     dataNoteRemoved = it
                     showDialogNoteRemovedData = true
+                },
+                onEditMealType = {id,mealType ->
+                    dataMealState = mealType
+                    idDataGlucose = id
+                    showDialogEditMealType = true
                 }
             )
         },
@@ -240,6 +253,11 @@ fun ScreenGlucose(
                 onNoteRemovedClicked = {
                     dataNoteRemoved = it
                     showDialogNoteRemovedData = true
+                },
+                onEditMealType = {id,mealType ->
+                    dataMealState = mealType
+                    idDataGlucose = id
+                    showDialogEditMealType = true
                 }
             )
         },
@@ -278,6 +296,11 @@ fun ScreenGlucose(
                 onNoteRemovedClicked = {
                     dataNoteRemoved = it
                     showDialogNoteRemovedData = true
+                },
+                onEditMealType = {id,mealType ->
+                    dataMealState = mealType
+                    idDataGlucose = id
+                    showDialogEditMealType = true
                 }
             )
         },
@@ -368,6 +391,16 @@ fun ScreenGlucose(
         dataDetailsGlucose = dataDetailGlucose,
         show = showDialogDetailsGlucose,
         onCancel = { showDialogDetailsGlucose = false }
+    )
+    DialogEditMealTypeGlucose(
+        mealState = dataMealState,
+        show = showDialogEditMealType,
+        onCancel = { showDialogEditMealType = false },
+        onChoose = {
+            dataMealState = it
+            showDialogEditMealType = false
+            onEditMealType(idDataGlucose,dataMealState)
+        }
     )
     DialogNoteRemovedGlucose(
         valueNoteRemoved = dataNoteRemoved,
@@ -477,6 +510,7 @@ fun ContentTabGlucose(
     is1Day: Boolean = false,
     onAddMedicineClicked: (Boolean, Long) -> Unit,
     onAddFoodAndDrinkClicked: (Boolean, Long) -> Unit,
+    onEditMealType:(id: Long, mealType:Int) -> Unit,
     onIconClick: (isList: Boolean) -> Unit,
     onDetailsClicked: (typeMedicine: Int, brandMedicine: String, valueMedicine: Int, valueDetailMedicine: Int, FoodAndDrink: String) -> Unit,
     listDataValueGlucose: List<ValueBloodGlucose>,
@@ -506,7 +540,9 @@ fun ContentTabGlucose(
             )
         },
         onRemoveData = { onRemoveData(it) },
-        onNoteRemovedClicked = { onNoteRemovedClicked(it) }
+        onNoteRemovedClicked = { onNoteRemovedClicked(it) },
+        onEditMealType = {id,mealType ->
+            onEditMealType(id,mealType)}
     )
 
 }

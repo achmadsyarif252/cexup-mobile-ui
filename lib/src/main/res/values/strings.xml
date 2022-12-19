@@ -273,6 +273,7 @@
     <string name="patient_history">Patient History</string>
     <string name="questionnaire">Questionnaire</string>
     <string name="submit">Submit</string>
+    <string name="choose">Choose</string>
 
     <!-- Questionnaire Type-->
     <string name="questionnaire_type_radio">radio</string>

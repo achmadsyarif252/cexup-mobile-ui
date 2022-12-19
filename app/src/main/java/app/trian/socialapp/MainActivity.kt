@@ -199,7 +199,8 @@ class MainActivity : ComponentActivity() {
                                 onAddHemoglobin = {_,_,_->},
                                 onAddMedicine = {_,_,_,_,_,_,_ ->},
                                 onRemoveGlucoseData = {_,_,_ ->},
-                                onSortHistoryHemoglobin = {_,_ ->}
+                                onSortHistoryHemoglobin = {_,_ ->},
+                                onEditMealType = {_,_ ->}
                             )
 //                        }
                     }
