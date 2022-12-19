@@ -322,16 +322,17 @@ fun CardConnectGlucose(
 fun CardGlucoseLevels(
     isList: Boolean,
     is1Day: Boolean,
+    listDataValueGlucose: List<ValueBloodGlucose>,
+    onEditMealType:(id: Long, mealType:Int) -> Unit,
     onAddMedicine: (Boolean, Long) -> Unit,
     onAddFoodAndDrink: (Boolean, Long) -> Unit,
-    listDataValueGlucose: List<ValueBloodGlucose>,
     onRemoveData: (id: Long) -> Unit,
     onNoteRemovedClicked: (noteRemoved:String) -> Unit,
     onDetailsClicked: (typeMedicine: Int, brandMedicine: String, valueMedicine: Int, valueDetailMedicine: Int, FoodAndDrink: String) -> Unit,
     onIconClick: (isList: Boolean) -> Unit,
 ) {
     var expanded by remember { mutableStateOf(false) }
-    val items = listOf("Add Medicine", "Add Food & Drink", "Remove")
+    val items = listOf("Edit Meal Type","Add Medicine", "Add Food & Drink", "Remove")
     var selectedItem by remember { mutableStateOf(0) }
     var isAllData by remember { mutableStateOf(true) }
     val ctx = LocalContext.current
@@ -526,17 +527,23 @@ fun CardGlucoseLevels(
                                             items.forEachIndexed { index, text ->
                                                 DropdownMenuItem(
                                                     onClick = {
-                                                        if (items[index].equals("Add Food & Drink")) {
-                                                            onAddFoodAndDrink(true, data.id)
-                                                        } else if (items[index].equals("Remove")) {
-                                                            onRemoveData(data.id)
-                                                        } else {
-                                                            onAddMedicine(true, data.id)
+                                                        when(items[index]){
+                                                            "Edit Meal Type" -> {
+                                                                onEditMealType(data.id,data.mealType)
+                                                            }
+                                                            "Add Food & Drink" -> {
+                                                                onAddFoodAndDrink(true, data.id)
+                                                            }
+                                                            "Remove" -> {
+                                                                onRemoveData(data.id)
+                                                            }
+                                                            "Add Medicine" -> {
+                                                                onAddMedicine(true, data.id)
+                                                            }
                                                         }
                                                         expanded = false
                                                     },
-
-                                                    ) {
+                                                ) {
                                                     Text(
                                                         text = text,
                                                         style = MaterialTheme.typography.subtitle1.copy(
@@ -921,9 +928,10 @@ fun CardBrandMedicine(
 
 @Composable
 fun CardGlucoseMeal(
+    stateMeal:Int = MealType.BeforeMeal,
     onSelectedMeal: (Int) -> Unit = {},
 ) {
-    var stateMeal by remember { mutableStateOf(MealType.BeforeMeal) }
+    var stateMeal by remember { mutableStateOf(stateMeal) }
     val ctx = LocalContext.current
     Box(
         modifier = Modifier.background(BlueConnectGlucose, RoundedCornerShape(10.dp.from(ctx))),
