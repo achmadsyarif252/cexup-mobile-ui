@@ -50,6 +50,7 @@ fun FormTextField(
     placeholderText: String,
     heightTextField: Dp = 50.54.dp,
     widthTextField: Dp = 208.dp,
+    maxCharacter: Int = Int.MAX_VALUE,
     keyboardType: KeyboardType = KeyboardType.Text,
     leadingIcon: @Composable ((isPassword: Boolean) -> Unit)? = null,
     trailingIcon: @Composable ((isPassword: Boolean) -> Unit)? = null,
@@ -57,7 +58,7 @@ fun FormTextField(
     val keyboardController = LocalSoftwareKeyboardController.current
 
     val ctx = LocalContext.current
-    var valueTextField by remember { mutableStateOf("") }
+    var valueTextField by remember { mutableStateOf(valueTextField) }
     var isHidePassword by remember { mutableStateOf(true) }
     var dateSelect by remember {
         mutableStateOf<Long>(0)
@@ -130,6 +131,7 @@ fun FormTextField(
                         valueTextField = "$year-${month + 1}-${day}"
                         val date = DateTime(year, (month + 1), day, 0, 0)
                         dateSelect = date.millis
+                        onValueChange(valueTextField)
                     },
                     year, month, day,
                 )
@@ -137,7 +139,6 @@ fun FormTextField(
                     value = valueTextField,
                     onValueChange = {
                         valueTextField = it
-                        onValueChange(it)
                     },
                     placeholder = {
                         Text(
@@ -181,8 +182,10 @@ fun FormTextField(
                 TextFieldCexup(
                     value = valueTextField,
                     onValueChange = {
-                        valueTextField = it
-                        onValueChange(it)
+                        if (it.length <= maxCharacter) {
+                            valueTextField = it
+                            onValueChange(it)
+                        }
                     },
                     placeholder = {
                         Text(
