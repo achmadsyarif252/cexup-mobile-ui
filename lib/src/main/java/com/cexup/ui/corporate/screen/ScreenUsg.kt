@@ -7,6 +7,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -236,7 +237,7 @@ fun ScreenUsg(
                             Text("Action")
                         }
                     }
-                    items(screenUsgData.listIdUsg) {
+                    itemsIndexed(screenUsgData.listIdUsg) {index, item ->
                         Box(
                             modifier = modifier.padding(
                                 vertical = 7.dp.from(ctx), horizontal = 11.dp.from(ctx)
@@ -245,7 +246,7 @@ fun ScreenUsg(
                             ListUsgResult(
                                 patientName = screenUsgData.patientName,
                                 patientId = screenUsgData.patientUserCode,
-                                onClickViewResult = { onViewResult(it) },
+                                onClickViewResult = { onViewResult(screenUsgData.listIdUsg[index]) },
                                 onClickDownload = { onDownload() },
                                 onClickKebabIcon = {  }
                             )
