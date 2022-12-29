@@ -78,6 +78,7 @@ fun TabView(
                         },
                         style = MaterialTheme.typography.body1.copy(
                             fontSize = 16.sp.from(ctx),
+                            lineHeight = 24.sp.from(ctx),
                             fontWeight = FontWeight(500),
                             textAlign = TextAlign.Start
                         ),

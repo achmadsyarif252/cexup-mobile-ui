@@ -43,7 +43,7 @@ data class ScreenUsgData(
 @Composable
 fun ScreenUsg(
     modifier: Modifier = Modifier,
-    onViewResult: () -> Unit = {},
+    onViewResult: (id: Int) -> Unit = {},
     onBackPressed: () -> Unit = {},
     onDownload: () -> Unit = {},
     onOpenHealson: () -> Unit = {},
@@ -245,7 +245,7 @@ fun ScreenUsg(
                             ListUsgResult(
                                 patientName = screenUsgData.patientName,
                                 patientId = screenUsgData.patientUserCode,
-                                onClickViewResult = { onViewResult() },
+                                onClickViewResult = { onViewResult(it) },
                                 onClickDownload = { onDownload() },
                                 onClickKebabIcon = {  }
                             )

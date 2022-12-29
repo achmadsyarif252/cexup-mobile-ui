@@ -275,6 +275,19 @@
     <string name="submit">Submit</string>
     <string name="choose">Choose</string>
 
+    <string name="see_profile">See Profile</string>
+    <string name="usg_examination">USG Examination</string>
+    <string name="full_history">Full History</string>
+    <string name="last_checkup">Last Checkup</string>
+    <string name="gestational_age">Gestational Age</string>
+    <string name="date_examination">Date Examination</string>
+    <string name="action">Action</string>
+    <string name="description">Description</string>
+    <string name="diagnosis">Dianosis</string>
+    <string name="picture">Picture</string>
+    <string name="pdf">PDF</string>
+    <string name="report">Report</string>
+
     <!-- Questionnaire Type-->
     <string name="questionnaire_type_radio">radio</string>
     <string name="questionnaire_type_checkbox">checkbox</string>
