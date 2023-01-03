@@ -45,10 +45,6 @@ data class DataUSG(
     val idData: Long,
     val date: String,
     val gestationalAge: String,
-    val imageList: List<String>,
-    val description: String,
-    val diagnosis: String,
-    val fileLocation: String,
 )
 data class DataCheckup(
     val idData: Long,

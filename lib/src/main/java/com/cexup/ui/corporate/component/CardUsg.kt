@@ -583,10 +583,6 @@ fun PreviewCardUSG(){
                         date = "22/03/2020 12:34 AM",
                         gestationalAge = "Week 13 - 1st trimester",
                         idData = 1,
-                        imageList = listOf(),
-                        description = "",
-                        fileLocation = "",
-                        diagnosis = ""
                     )
                 )
             )

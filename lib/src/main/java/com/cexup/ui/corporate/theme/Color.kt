@@ -113,6 +113,8 @@ val BlueHypoGlucose = Color(0xFF3267E3)
 val RedHyperGlucose = Color(0xFFCB3A31)
 
 val Natural = Color(0xFF0A0A0A)
+val Natural90 = Color(0xFF404040)
 val Natural80 = Color(0xFF616161)
 val BlueUSG = Color(0xFFF2F9FA)
+val GrayLoadingUSG = Color(0xFFD9D9D9)
 

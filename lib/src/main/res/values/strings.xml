@@ -288,6 +288,7 @@
     <string name="pdf">PDF</string>
     <string name="report">Report</string>
     <string name="usg_information">USG Information</string>
+    <string name="usg_detail_examination">USG Details Examination</string>
 
     <!-- Questionnaire Type-->
     <string name="questionnaire_type_radio">radio</string>
