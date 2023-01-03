@@ -30,12 +30,19 @@ import com.cexup.ui.corporate.theme.SecondaryCorporate
 import com.cexup.ui.utils.mediaquery.from
 import java.io.File
 
+data class ScreenDetailUsgUIState(
+    val data: DataDetailUSG? = null,
+    val message: String = "",
+    val error: Boolean = false,
+    val loading: Boolean = true,
+)
+
 data class DataDetailUSG(
-    val patientName: String,
-    val idData: Long,
-    val date: String,
-    val gestationalAge: String,
-    val imageList: List<ImageBitmap>,
+    val patientName: String? = null,
+    val idData: Long? = null,
+    val date: String? = null,
+    val gestationalAge: String? = null,
+    val imageList: List<ImageBitmap>? = listOf(),
     val description: String,
     val diagnosis: String,
     val fileLocation: File,
@@ -47,8 +54,8 @@ enum class ItemDetailUsg {
 }
 
 @Composable
-fun ScreenDetailUsgNew(
-    dataDetailsUsg: DataDetailUSG,
+fun ScreenDetailUsg(
+    dataDetailsUsg: ScreenDetailUsgUIState,
     onButtonBackPressed: () -> Unit = {},
 ) {
     var typeItemDetail by remember { mutableStateOf(ItemDetailUsg.Picture) }
@@ -96,7 +103,7 @@ fun ScreenDetailUsgNew(
                 )
             }
         }
-        Row (horizontalArrangement = Arrangement.spacedBy(12.dp.from(ctx))) {
+        Row(horizontalArrangement = Arrangement.spacedBy(12.dp.from(ctx))) {
             Column(
                 modifier = Modifier
                     .verticalScroll(rememberScrollState())
@@ -105,13 +112,13 @@ fun ScreenDetailUsgNew(
                 verticalArrangement = Arrangement.spacedBy(16.dp.from(ctx))
             ) {
                 CardPatientUsgDetail(
-                    patientName = dataDetailsUsg.patientName,
-                    date = dataDetailsUsg.date
+                    patientName = dataDetailsUsg.data?.patientName ?: "",
+                    date = dataDetailsUsg.data?.date ?: ""
                 )
                 CardListDetailItemUSG(
-                    listPicture = dataDetailsUsg.imageList,
-                    pathPDF = dataDetailsUsg.fileLocation,
-                    onItemClick = {indexItem, typeItem ->
+                    listPicture = dataDetailsUsg.data?.imageList ?: listOf(),
+                    pathPDF = dataDetailsUsg.data?.fileLocation ?: File(""),
+                    onItemClick = { indexItem, typeItem ->
                         indexImageClicked = indexItem
                         typeItemDetail = typeItem
                     })
@@ -119,17 +126,16 @@ fun ScreenDetailUsgNew(
             if (typeItemDetail == ItemDetailUsg.Picture) {
                 CardImageUsgDetail(
                     imageBitmap =
-                    if (dataDetailsUsg.imageList == null || dataDetailsUsg.imageList.isEmpty())
+                    if (dataDetailsUsg.data?.imageList == null || dataDetailsUsg.data.imageList.isEmpty())
                         null
                     else
-                        dataDetailsUsg.imageList[indexImageClicked]
-                    ,
-                    descriptionValue = dataDetailsUsg.description,
-                    diagnosisValue = dataDetailsUsg.diagnosis
+                        dataDetailsUsg.data?.imageList[indexImageClicked],
+                    descriptionValue = dataDetailsUsg.data?.description ?: "",
+                    diagnosisValue = dataDetailsUsg.data?.diagnosis ?: ""
                 )
             } else {
                 CardReportDetailUSG(
-                    pathPDF = dataDetailsUsg.fileLocation
+                    pathPDF = dataDetailsUsg.data?.fileLocation?: File("")
                 )
             }
         }
@@ -139,16 +145,19 @@ fun ScreenDetailUsgNew(
 @Preview(device = Devices.TABLET)
 @Composable
 fun PreviewScreenDetailUSGNew() {
-    ScreenDetailUsgNew(
-        dataDetailsUsg = DataDetailUSG(
-            patientName = "sumbul asli",
-            date = "22/03/2020 12:34 AM",
-            idData = 0,
-            gestationalAge = "",
-            fileLocation = File(""),
-            description = "Bocchi the rock season 2",
-            imageList = listOf(),
-            diagnosis = "Anjay mujay mabar",
+    ScreenDetailUsg(
+        dataDetailsUsg =
+        ScreenDetailUsgUIState(
+            data = DataDetailUSG(
+                patientName = "sumbul asli",
+                date = "22/03/2020 12:34 AM",
+                idData = 0,
+                gestationalAge = "",
+                fileLocation = File(""),
+                description = "Bocchi the rock season 2",
+                imageList = listOf(),
+                diagnosis = "Anjay mujay mabar",
+            )
         )
     )
 }

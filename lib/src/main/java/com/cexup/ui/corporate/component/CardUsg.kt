@@ -519,7 +519,7 @@ fun CardListDataUSG(
                     )
                     Text(
                         modifier = Modifier.width(258.33f.dp.from(ctx)),
-                        text = item.date,
+                        text = item.date?:"",
                         style = MaterialTheme.typography.subtitle1.copy(
                             fontWeight = FontWeight.SemiBold,
                             fontSize = 16.sp.from(ctx),
@@ -530,7 +530,7 @@ fun CardListDataUSG(
                     )
                     Text(
                         modifier = Modifier.width(258.33f.dp.from(ctx)),
-                        text = item.gestationalAge,
+                        text = item.gestationalAge?:"",
                         style = MaterialTheme.typography.subtitle1.copy(
                             fontWeight = FontWeight.SemiBold,
                             fontSize = 16.sp.from(ctx),
@@ -546,19 +546,19 @@ fun CardListDataUSG(
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Icon(
-                            modifier = Modifier.clickable { onDownloadClicked(item.idData) },
+                            modifier = Modifier.clickable { onDownloadClicked(item.idData?: 0L) },
                             painter = painterResource(id = R.drawable.ic_download),
                             contentDescription = "USG Download File $nomor",
                             tint = BlueJade
                         )
                         Icon(
-                            modifier = Modifier.clickable { onFolderClicked(item.idData) },
+                            modifier = Modifier.clickable { onFolderClicked(item.idData?: 0L) },
                             painter = painterResource(id = R.drawable.ic_folder),
                             contentDescription = "USG Download File $nomor",
                             tint = BlueJade
                         )
                         Icon(
-                            modifier = Modifier.clickable { onThreeDotClicked(item.idData) },
+                            modifier = Modifier.clickable { onThreeDotClicked(item.idData?: 0L) },
                             painter = painterResource(id = R.drawable.ic_threedot_with_circle),
                             contentDescription = "USG Download File $nomor",
                             tint = BlueJade

@@ -29,26 +29,26 @@ import com.cexup.ui.corporate.theme.SecondaryCorporate
 import com.cexup.ui.utils.mediaquery.from
 
 data class ScreenUSGUIState(
-    val patientName: String,
+    val patientName: String? = null,
     val patientThumb: String? = null,
-    val patientGender: String,
-    val patientAge: Int,
-    val patientEws: String,
-    val dataUSG: List<DataUSG>,
-    val dataCheckup: List<DataCheckup>,
-    val message: String,
-    val error: Boolean,
-    val loading: Boolean,
+    val patientGender: String? = null,
+    val patientAge: Int? = null,
+    val patientEws: String? = null,
+    val dataUSG: List<DataUSG>? = listOf(),
+    val dataCheckup: List<DataCheckup>? = listOf(),
+    val message: String = "",
+    val error: Boolean = false,
+    val loading: Boolean = true,
 )
 
 data class DataUSG(
-    val idData: Long,
-    val date: String,
-    val gestationalAge: String,
+    val idData: Long? = null,
+    val date: String? = null,
+    val gestationalAge: String? = null,
 )
 data class DataCheckup(
-    val idData: Long,
-    val date: String,
+    val idData: Long? = null,
+    val date: String? = null,
     val bloodPressureValue: String? = null,
     val heartRateValue: Int? = null,
     val temperatureValue: Float? = null,
@@ -56,7 +56,7 @@ data class DataCheckup(
 )
 
 @Composable
-fun ScreenUsgNew(
+fun ScreenUsg(
     usgUIState: ScreenUSGUIState,
     onButtonBackPressed: () -> Unit,
     onSeeProfileClicked: () -> Unit,
@@ -71,7 +71,7 @@ fun ScreenUsgNew(
     var isFirst by remember { mutableStateOf(true) }
     var isLast by remember { mutableStateOf(false) }
     when (positionData) {
-        usgUIState.dataCheckup.size-1 -> isLast = true
+        usgUIState.dataCheckup?.size ?: 1-1 -> isLast = true
         0 -> isFirst = true
         else -> {
             isLast = false
@@ -125,15 +125,15 @@ fun ScreenUsgNew(
         Row {
             CardPatientUSG(
                 patientThumb = usgUIState.patientThumb ?: "",
-                patientGender = usgUIState.patientGender,
-                patientAge = usgUIState.patientAge,
+                patientGender = usgUIState.patientGender ?: "",
+                patientAge = usgUIState.patientAge ?: 17 ,
                 gestationalAge =
-                    if (usgUIState.dataUSG.isNotEmpty())
-                        usgUIState.dataUSG[0].gestationalAge
+                    if (usgUIState.dataUSG?.isNotEmpty() == true)
+                        usgUIState.dataUSG[0].gestationalAge?: ""
                     else
                         "-",
-                patientName = usgUIState.patientName,
-                patientEws = usgUIState.patientEws,
+                patientName = usgUIState.patientName?: "",
+                patientEws = usgUIState.patientEws?: "",
                 onSeeProfileClicked = {
                     onSeeProfileClicked()
                 },
@@ -144,28 +144,28 @@ fun ScreenUsgNew(
             Spacer(modifier = Modifier.width(24.dp.from(ctx)))
             CardStatusPatientUSG(
                 date =
-                    if (usgUIState.dataCheckup.isNotEmpty())
-                        usgUIState.dataCheckup[positionData].date
+                    if (usgUIState.dataCheckup?.isNotEmpty() == true)
+                        usgUIState.dataCheckup[positionData].date ?: ""
                     else
                         "-",
                 temperatureValue =
-                    if (usgUIState.dataCheckup.isNotEmpty())
-                        usgUIState.dataCheckup[positionData].temperatureValue.toString()
+                    if (usgUIState.dataCheckup?.isNotEmpty() == true)
+                        usgUIState.dataCheckup[positionData].temperatureValue.toString() ?: ""
                     else
                         "-",
                 heartRateValue =
-                    if (usgUIState.dataCheckup.isNotEmpty())
-                        usgUIState.dataCheckup[positionData].heartRateValue.toString()
+                    if (usgUIState.dataCheckup?.isNotEmpty() == true)
+                        usgUIState.dataCheckup[positionData].heartRateValue.toString()?: ""
                     else
                         "-",
                 bloodPressureValue =
-                    if (usgUIState.dataCheckup.isNotEmpty())
-                        usgUIState.dataCheckup[positionData].bloodPressureValue.toString()
+                    if (usgUIState.dataCheckup?.isNotEmpty() == true)
+                        usgUIState.dataCheckup[positionData].bloodPressureValue.toString() ?: ""
                     else
                         "-",
                 weightValue =
-                    if (usgUIState.dataCheckup.isNotEmpty())
-                        usgUIState.dataCheckup[positionData].weightValue.toString()
+                    if (usgUIState.dataCheckup?.isNotEmpty() == true)
+                        usgUIState.dataCheckup[positionData].weightValue.toString() ?: ""
                     else
                         "-",
                 isFirstData = isFirst,
@@ -188,7 +188,7 @@ fun ScreenUsgNew(
             )
         }
         CardListDataUSG(
-            listHistoryExaminationUSG = usgUIState.dataUSG,
+            listHistoryExaminationUSG = usgUIState.dataUSG?: listOf(),
             onDownloadClicked = { onDownloadClicked(it) },
             onFolderClicked = { onFolderClicked(it) },
             onThreeDotClicked = { onThreeDotClicked(it) }
@@ -203,7 +203,7 @@ fun ScreenUsgNew(
 fun PreviewScreenUSGNew() {
     CexupTheme {
         Column(modifier = Modifier.width(1200.dp)) {
-            ScreenUsgNew(
+            ScreenUsg(
                 onButtonBackPressed = {},
                 usgUIState = ScreenUSGUIState(
                     patientName = "Goto Hitori",
