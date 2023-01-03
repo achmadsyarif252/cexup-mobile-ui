@@ -58,7 +58,7 @@ fun ScreenDetailUsg(
     dataDetailsUsg: ScreenDetailUsgUIState,
     onButtonBackPressed: () -> Unit = {},
 ) {
-    var typeItemDetail by remember { mutableStateOf(ItemDetailUsg.Picture) }
+    var typeItemDetail by remember { mutableStateOf(ItemDetailUsg.PDF) }
     var indexImageClicked by remember { mutableStateOf(0) }
     val ctx = LocalContext.current
     Column(
@@ -121,7 +121,9 @@ fun ScreenDetailUsg(
                     onItemClick = { indexItem, typeItem ->
                         indexImageClicked = indexItem
                         typeItemDetail = typeItem
-                    })
+                    },
+                    stateLoading = dataDetailsUsg.loading
+                )
             }
             if (typeItemDetail == ItemDetailUsg.Picture) {
                 CardImageUsgDetail(
@@ -131,10 +133,12 @@ fun ScreenDetailUsg(
                     else
                         dataDetailsUsg.data?.imageList[indexImageClicked],
                     descriptionValue = dataDetailsUsg.data?.description ?: "",
-                    diagnosisValue = dataDetailsUsg.data?.diagnosis ?: ""
+                    diagnosisValue = dataDetailsUsg.data?.diagnosis ?: "",
+                    stateLoading = dataDetailsUsg.loading
                 )
             } else {
                 CardReportDetailUSG(
+                    stateLoading = dataDetailsUsg.loading,
                     pathPDF = dataDetailsUsg.data?.fileLocation?: File("")
                 )
             }

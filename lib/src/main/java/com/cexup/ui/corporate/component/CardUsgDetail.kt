@@ -30,8 +30,12 @@ import androidx.compose.ui.viewinterop.AndroidView
 import com.cexup.ui.R
 import com.cexup.ui.corporate.screen.ItemDetailUsg
 import com.cexup.ui.corporate.theme.*
+import com.cexup.ui.utils.coloredShadow
 import com.cexup.ui.utils.mediaquery.from
 import com.github.barteksc.pdfviewer.PDFView
+import com.google.accompanist.placeholder.PlaceholderHighlight
+import com.google.accompanist.placeholder.material.placeholder
+import com.google.accompanist.placeholder.material.shimmer
 import compose.icons.Octicons
 import compose.icons.octicons.ChevronRight16
 import java.io.File
@@ -80,6 +84,7 @@ fun CardPatientUsgDetail(
 
 @Composable
 fun CardImageUsgDetail(
+    stateLoading: Boolean,
     imageBitmap: ImageBitmap?,
     descriptionValue: String,
     diagnosisValue: String,
@@ -100,12 +105,18 @@ fun CardImageUsgDetail(
                 .verticalScroll(rememberScrollState())
         ) {
             Spacer(modifier = Modifier.height(16.dp.from(ctx)))
-            if (imageBitmap == null) {
+            if (imageBitmap == null||stateLoading) {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
                         .clip(RoundedCornerShape(8.dp.from(ctx)))
                         .height(326.dp.from(ctx))
+                        .coloredShadow(MaterialTheme.colors.primary)
+                        .placeholder(
+                            visible = true,
+                            highlight = PlaceholderHighlight.shimmer(),
+                            color = Color.LightGray,
+                        )
                         .background(GrayLoadingUSG),
 
                     ) {
@@ -160,6 +171,7 @@ fun CardImageUsgDetail(
 
 @Composable
 fun CardListDetailItemUSG(
+    stateLoading: Boolean,
     listPicture: List<ImageBitmap>?,
     pathPDF: File,
     onItemClick: (indexItem: Int, typeItem: ItemDetailUsg) -> Unit,
@@ -206,12 +218,18 @@ fun CardListDetailItemUSG(
                     tint = Natural.copy(alpha = 0.7f)
                 )
             }
-            if (listPicture == null || listPicture.isEmpty()) {
+            if (listPicture == null || listPicture.isEmpty() || stateLoading) {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
                         .clip(RoundedCornerShape(8.dp.from(ctx)))
                         .height(110.dp.from(ctx))
+                        .coloredShadow(MaterialTheme.colors.primary)
+                        .placeholder(
+                            visible = true,
+                            highlight = PlaceholderHighlight.shimmer(),
+                            color = Color.LightGray,
+                        )
                         .background(GrayLoadingUSG),
                 )
             } else {
@@ -296,6 +314,7 @@ fun CardListDetailItemUSG(
 
 @Composable
 fun CardReportDetailUSG(
+    stateLoading: Boolean,
     pathPDF: File,
 ){
     val ctx = LocalContext.current
@@ -312,7 +331,8 @@ fun CardReportDetailUSG(
                 .padding(
                     top = 8.dp.from(ctx),
                     start = 12.dp.from(ctx),
-                    end = 12.dp.from(ctx)
+                    end = 12.dp.from(ctx),
+                    bottom = if (stateLoading) 8.dp.from(ctx) else 0.dp
                 ),
             verticalArrangement = Arrangement.spacedBy(12.dp.from(ctx))
         ) {
@@ -341,28 +361,45 @@ fun CardReportDetailUSG(
                 Spacer(modifier = Modifier.width(15.dp.from(ctx)))
                 Icon(painter = painterResource(id = R.drawable.ic_share), contentDescription = "Share")
             }
-            AndroidView(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(480.dp.from(ctx)),
-                factory = {
-                    PDFView(it, null)
-                },
-                update = { pdfView->
+            if (stateLoading){
+                Box(
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(8.dp.from(ctx)))
+                        .height(480.dp.from(ctx))
+                        .fillMaxWidth()
+                        .coloredShadow(MaterialTheme.colors.primary)
+                        .placeholder(
+                            visible = true,
+                            highlight = PlaceholderHighlight.shimmer(),
+                            color = Color.LightGray,
+                        ),
+                )
+            }
+            else {
+                AndroidView(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(480.dp.from(ctx)),
+                    factory = {
+                        PDFView(it, null)
+                    },
+                    update = { pdfView ->
 //                    pdfView.fromAsset("Skripsi Pengenalan Kanker Melanoma [FINAL].pdf")
 
-                    pdfView.fromFile(pathPDF)
-                        .onDraw { canvas, pageWidth, pageHeight, displayedPage ->
-                            zoomLevel = (pdfView.zoom*100f).toInt()
-                        }
+                        pdfView.fromFile(pathPDF)
+                            .onDraw { canvas, pageWidth, pageHeight, displayedPage ->
+                                zoomLevel = (pdfView.zoom * 100f).toInt()
+                            }
 
-                        .load()
-                    pdfView.zoomTo(1.75f)
-                }
-            )
+                            .load()
+                        pdfView.zoomTo(1.75f)
+                    }
+                )
+            }
         }
     }
 }
+
 
 @Preview(device = Devices.TABLET)
 @Composable
@@ -375,12 +412,14 @@ fun PreviewCardUsgDetail() {
         CardImageUsgDetail(
             imageBitmap = ImageBitmap.imageResource(id = R.drawable.bg_rs),
             descriptionValue = "asd",
-            diagnosisValue = "asd"
+            diagnosisValue = "asd",
+            stateLoading = false
         )
         CardListDetailItemUSG(
             onItemClick = { _, _ -> },
             listPicture = listOf(),
-            pathPDF = File("")
+            pathPDF = File(""),
+            stateLoading = false
         )
     }
 }
