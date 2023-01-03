@@ -30,6 +30,9 @@ object Libs {
             object Skydoves {
                 val landscapist by lazy { "com.github.skydoves:landscapist-coil:1.4.1" }
             }
+            object Barteksc{
+                val pdfViewer by lazy { "com.github.barteksc:android-pdf-viewer:3.2.0-beta.1" }
+            }
         }
 
 
