@@ -102,6 +102,7 @@ dependencies {
     implementation(Libs.AndroidX.Appcompat.appcompat)
     implementation(Libs.Io.CoilKt.coilCompose)
     implementation(Libs.Com.Github.Skydoves.landscapist)
+    implementation(Libs.Com.Github.Barteksc.pdfViewer)
     implementation(Libs.JodaTime.jodaTime)
 
 
@@ -112,5 +113,6 @@ dependencies {
     testImplementation(Libs.Org.Robolectric.robolectric)
     debugImplementation(Libs.AndroidX.Compose.Ui.uiTestManifest)
     debugImplementation("androidx.customview:customview-poolingcontainer:1.0.0")
+
 
 }

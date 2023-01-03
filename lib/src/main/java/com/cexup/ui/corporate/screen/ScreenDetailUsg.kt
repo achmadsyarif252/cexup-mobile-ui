@@ -1,382 +1,154 @@
 package com.cexup.ui.corporate.screen
 
-import android.annotation.SuppressLint
-import android.content.ContentResolver
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.net.Uri
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Devices
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cexup.ui.R
-import com.cexup.ui.corporate.component.TabFeatures
-import com.cexup.ui.corporate.component.TabParameter
-import com.cexup.ui.corporate.theme.GreyBorder
+import com.cexup.ui.corporate.component.CardImageUsgDetail
+import com.cexup.ui.corporate.component.CardListDetailItemUSG
+import com.cexup.ui.corporate.component.CardPatientUsgDetail
+import com.cexup.ui.corporate.component.CardReportDetailUSG
+import com.cexup.ui.corporate.theme.BlueJade
 import com.cexup.ui.corporate.theme.SecondaryCorporate
-import com.cexup.ui.utils.coloredShadow
-import compose.icons.Octicons
-import compose.icons.octicons.DotFill24
+import com.cexup.ui.utils.mediaquery.from
+import java.io.File
+
+data class DataDetailUSG(
+    val patientName: String,
+    val idData: Long,
+    val date: String,
+    val gestationalAge: String,
+    val imageList: List<ImageBitmap>,
+    val description: String,
+    val diagnosis: String,
+    val fileLocation: File,
+)
+
+
+enum class ItemDetailUsg {
+    Picture, PDF
+}
 
 @Composable
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
-fun ScreenDetailUsg(
-    onBackPressed: () -> Unit,
-    imagesReport: List<Uri>,
-    patientName: String,
-    patientUserCode: String,
+fun ScreenDetailUsgNew(
+    dataDetailsUsg: DataDetailUSG,
+    onButtonBackPressed: () -> Unit = {},
 ) {
-    val listOfTabFeature = listOf(TabParameter.Details, TabParameter.Pictures)
-    var tabParameter by remember {
-        mutableStateOf(TabParameter.Details)
-    }
-
-    Scaffold(
-        topBar = {
-            Row(
+    var typeItemDetail by remember { mutableStateOf(ItemDetailUsg.Picture) }
+    var indexImageClicked by remember { mutableStateOf(0) }
+    val ctx = LocalContext.current
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight()
+            .background(MaterialTheme.colors.background)
+            .padding(top = 32.dp.from(ctx), end = 32.dp.from(ctx), start = 32.dp.from(ctx)),
+        verticalArrangement = Arrangement.spacedBy(23.dp.from(ctx))
+    ) {
+        Row {
+            Text(
+                text = stringResource(id = R.string.usg_detail_examination),
+                style = MaterialTheme.typography.h5.copy(
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 24.sp.from(ctx),
+                    lineHeight = 32.sp.from(ctx),
+                    letterSpacing = -2.sp.from(ctx),
+                    color = BlueJade
+                )
+            )
+            Spacer(modifier = Modifier.weight(1f))
+            Button(
+                onClick = {
+                    onButtonBackPressed()
+                },
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 43.dp, vertical = 34.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Icon(Octicons.DotFill24, "", tint = MaterialTheme.colors.primary)
-                    Text(text = patientUserCode, color = MaterialTheme.colors.primary)
-                }
-                Column(
-                    modifier = Modifier.width(258.dp)
-                ) {
-                    TabFeatures(
-                        selectedTabIndex = tabParameter.ordinal,
-                        onSelectedTab = { tabParameter = it },
-                        tabs = listOfTabFeature
-                    )
-                }
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(
-                        painterResource(id = R.drawable.ic_download),
-                        "",
-                        tint = MaterialTheme.colors.primary
-                    )
-                    Spacer(modifier = Modifier.width(30.dp))
-                    Icon(
-                        painterResource(id = R.drawable.ic_bx_printer),
-                        "",
-                        tint = MaterialTheme.colors.primary
-                    )
-                    Spacer(modifier = Modifier.width(40.dp))
-                    Button(
-                        onClick = {
-                            onBackPressed()
-                        },
-                        shape = RoundedCornerShape(10.dp),
-                        colors = ButtonDefaults.buttonColors(backgroundColor = SecondaryCorporate),
-                        modifier = Modifier.width(90.dp)
-                    ) {
-                        Text(
-                            text = "Back",
-                            style = TextStyle(
-                                color = Color.White
-                            )
-                        )
-                    }
-                }
-            }
-        }
-    ) {
-        when (tabParameter) {
-            TabParameter.Details -> {
-                ScreenPatientDetailUsg()
-            }
-            TabParameter.Pictures -> {
-                ScreenPictureUsg(
-                    imagesList = imagesReport.toList(),
-                    patientName = patientName,
-                )
-            }
-            else -> {}
-        }
-    }
-
-}
-
-@Composable
-fun ScreenPatientDetailUsg(
-    modifier: Modifier = Modifier,
-) {
-    var nameState by remember { mutableStateOf("") }
-    var birthOfDateState by remember { mutableStateOf("") }
-    var sexState by remember { mutableStateOf("") }
-    var addressState by remember { mutableStateOf("") }
-    var ageState by remember { mutableStateOf("") }
-    var phoneState by remember { mutableStateOf("") }
-    Column(modifier = modifier.fillMaxWidth()) {
-        Row(
-            modifier = modifier
-                .padding(start = 43.dp, end = 43.dp)
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Column {
-                Text(text = "Name")
-                OutlinedTextField(
-                    value = nameState,
-                    onValueChange = {
-                        nameState = it
-                    },
-                    placeholder = { Text(text = "Sri Astuti") },
-                    singleLine = true,
-                    modifier = modifier
-                        .width(448.76.dp)
-                        .navigationBarsPadding()
-                        .imePadding(),
-                    shape = RoundedCornerShape(40.dp),
-
-                    )
-            }
-            Column {
-                Text(text = "Birthday")
-                OutlinedTextField(
-                    value = birthOfDateState,
-                    onValueChange = {
-                        birthOfDateState = it
-                    },
-                    placeholder = { Text(text = "30/10/1981") },
-                    singleLine = true,
-                    modifier = modifier
-                        .width(448.76.dp)
-                        .navigationBarsPadding()
-                        .imePadding(),
-                    shape = RoundedCornerShape(40.dp),
-                )
-            }
-        }
-        Row(
-            modifier = modifier
-                .padding(start = 43.dp, end = 43.dp, top = 30.dp)
-                .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Column {
-                Text(text = "Sex")
-                OutlinedTextField(
-                    value = sexState,
-                    onValueChange = {
-                        sexState = it
-                    },
-                    placeholder = { Text(text = "Sri Astuti") },
-                    singleLine = true,
-                    modifier = modifier
-                        .width(448.76.dp)
-                        .navigationBarsPadding()
-                        .imePadding(),
-                    shape = RoundedCornerShape(40.dp),
-
-                    )
-            }
-            Column {
-                Text(text = "Address")
-                OutlinedTextField(
-                    value = addressState,
-                    onValueChange = {
-                        addressState = it
-                    },
-                    placeholder = { Text(text = "Sri Astuti") },
-                    singleLine = true,
-                    modifier = modifier
-                        .width(448.76.dp)
-                        .navigationBarsPadding()
-                        .imePadding(),
-                    shape = RoundedCornerShape(40.dp),
-
-                    )
-            }
-        }
-        Row(
-            modifier = modifier
-                .padding(start = 43.dp, end = 43.dp, top = 30.dp)
-                .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Column {
-                Text(text = "Age")
-                OutlinedTextField(
-                    value = ageState,
-                    onValueChange = {
-                        ageState = it
-                    },
-                    placeholder = { Text(text = "Sri Astuti") },
-                    singleLine = true,
-                    modifier = modifier
-                        .width(448.76.dp)
-                        .navigationBarsPadding()
-                        .imePadding(),
-                    shape = RoundedCornerShape(40.dp),
-
-                    )
-            }
-            Column {
-                Text(text = "Phone")
-                OutlinedTextField(
-                    value = phoneState,
-                    onValueChange = {
-                        phoneState = it
-                    },
-                    placeholder = { Text(text = "088212381378") },
-                    singleLine = true,
-                    modifier = modifier
-                        .width(448.76.dp)
-                        .navigationBarsPadding()
-                        .imePadding(),
-                    shape = RoundedCornerShape(40.dp),
-                )
-            }
-        }
-        Spacer(modifier = modifier.height(22.dp))
-        Box(
-            modifier = modifier
-                .align(Alignment.End)
-                .padding(end = 43.dp)
-        ) {
-            Text(
-                text = "Date 14/10/2021 10:12",
-                style = MaterialTheme.typography.body1.copy(
-                    color = MaterialTheme.colors.primary,
-                    fontSize = 16.sp
-                )
-            )
-        }
-        Spacer(modifier = modifier.height(25.dp))
-        Button(
-            onClick = { },
-            shape = RoundedCornerShape(100.dp),
-            colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary),
-            modifier = modifier
-                .width(448.76.dp)
-                .height(59.13.dp)
-                .coloredShadow(GreyBorder)
-                .align(Alignment.CenterHorizontally)
-        ) {
-            Text(
-                text = "Save New Changes",
-                style = TextStyle(
-                    color = Color.White
-                )
-            )
-        }
-
-    }
-}
-
-@Composable
-fun ScreenPictureUsg(
-    modifier: Modifier = Modifier,
-    imagesList: List<Uri>,
-    patientName: String,
-) {
-    var bigImage by remember { mutableStateOf<Uri>(Uri.parse("")) }
-
-    Row(
-        modifier
-            .fillMaxSize(),
-    ) {
-        LazyColumn(modifier = modifier.padding(start = 50.dp)) {
-            items(imagesList) { image ->
-                Card(
-                    shape = RoundedCornerShape(10.dp),
-                    elevation = 0.dp,
-                    modifier = modifier
-                        .width(271.dp)
-                        .height(153.dp)
-                        .padding(bottom = 10.dp)
-                        .clickable {
-                            bigImage = image
-                        }
-                ) {
-                    image.getBitmap(LocalContext.current.contentResolver)?.let {
-                        Image(
-                            bitmap = it.asImageBitmap(),
-                            contentDescription = "",
-                            modifier = modifier
-                                .clip(shape = RoundedCornerShape(10.dp))
-                                .width(616.dp)
-                                .height(350.dp)
-                        )
-                    }
-                }
-            }
-        }
-        Column(modifier = modifier.padding(horizontal = 33.dp)) {
-            bigImage.getBitmap(LocalContext.current.contentResolver)?.let {
-                Image(
-                    bitmap = it.asImageBitmap(),
-                    contentDescription = "",
-                    modifier = modifier
-                        .clip(RoundedCornerShape(10.dp))
-                        .width(616.dp)
-                        .height(350.dp)
-                )
-            }
-            Spacer(modifier = modifier.height(20.dp))
-            Row(
-                modifier = modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+                    .width(89.dp.from(ctx))
+                    .height(35.dp.from(ctx)),
+                colors = ButtonDefaults.buttonColors(backgroundColor = SecondaryCorporate),
+                shape = RoundedCornerShape(10.dp.from(ctx)),
+                contentPadding = PaddingValues(horizontal = 11.dp.from(ctx))
             ) {
                 Text(
-                    patientName,
+                    text = "Back",
                     style = MaterialTheme.typography.body1.copy(
-                        color = MaterialTheme.colors.primary,
-                        fontSize = 22.sp,
+                        fontWeight = FontWeight(600),
+                        fontSize = 14.sp.from(ctx),
+                        letterSpacing = 1.sp.from(ctx),
+                        color = Color.White
                     )
                 )
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_bx_mail_send),
-                        contentDescription = "",
-                        tint = MaterialTheme.colors.primary,
-                        modifier = modifier.width(30.dp)
-                    )
-                    Spacer(modifier = modifier.width(33.dp))
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_bx_share_alt),
-                        contentDescription = "",
-                        tint = MaterialTheme.colors.primary,
-                        modifier = modifier.width(30.dp)
-                    )
-                }
+            }
+        }
+        Row (horizontalArrangement = Arrangement.spacedBy(12.dp.from(ctx))) {
+            Column(
+                modifier = Modifier
+                    .verticalScroll(rememberScrollState())
+                    .padding(bottom = 16.dp.from(ctx), end = 12.dp.from(ctx))
+                    .width(207.dp.from(ctx)),
+                verticalArrangement = Arrangement.spacedBy(16.dp.from(ctx))
+            ) {
+                CardPatientUsgDetail(
+                    patientName = dataDetailsUsg.patientName,
+                    date = dataDetailsUsg.date
+                )
+                CardListDetailItemUSG(
+                    listPicture = dataDetailsUsg.imageList,
+                    pathPDF = dataDetailsUsg.fileLocation,
+                    onItemClick = {indexItem, typeItem ->
+                        indexImageClicked = indexItem
+                        typeItemDetail = typeItem
+                    })
+            }
+            if (typeItemDetail == ItemDetailUsg.Picture) {
+                CardImageUsgDetail(
+                    imageBitmap =
+                    if (dataDetailsUsg.imageList == null || dataDetailsUsg.imageList.isEmpty())
+                        null
+                    else
+                        dataDetailsUsg.imageList[indexImageClicked]
+                    ,
+                    descriptionValue = dataDetailsUsg.description,
+                    diagnosisValue = dataDetailsUsg.diagnosis
+                )
+            } else {
+                CardReportDetailUSG(
+                    pathPDF = dataDetailsUsg.fileLocation
+                )
             }
         }
     }
 }
 
-fun Uri.getBitmap(c: ContentResolver): Bitmap? {
-    return try {
-        val input = c.openInputStream(this)
-        BitmapFactory.decodeStream(input)
-    } catch (e: Exception) {
-        null
-    }
+@Preview(device = Devices.TABLET)
+@Composable
+fun PreviewScreenDetailUSGNew() {
+    ScreenDetailUsgNew(
+        dataDetailsUsg = DataDetailUSG(
+            patientName = "sumbul asli",
+            date = "22/03/2020 12:34 AM",
+            idData = 0,
+            gestationalAge = "",
+            fileLocation = File(""),
+            description = "Bocchi the rock season 2",
+            imageList = listOf(),
+            diagnosis = "Anjay mujay mabar",
+        )
+    )
 }
