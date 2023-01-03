@@ -286,26 +286,42 @@ fun CardListDetailItemUSG(
                     tint = Natural.copy(alpha = 0.7f)
                 )
             }
-
-            AndroidView(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(if (stateOnClickPDF) 400.dp.from(ctx) else 194.dp.from(ctx)),
-                factory = {
-                    PDFView(it, null)
-                },
-                update = {
-//                        it.fromAsset("Skripsi Pengenalan Kanker Melanoma [FINAL].pdf")
-                    it.fromFile(pathPDF)
-                        .onTap {
-                            onItemClick(0, ItemDetailUsg.PDF)
-                            true
-                        }
-                        .enableDoubletap(false)
-                        .enableSwipe(false)
-                        .load()
-                }
-            )
+            if (stateLoading){
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(8.dp.from(ctx)))
+                        .height(if (stateOnClickPDF) 400.dp.from(ctx) else 194.dp.from(ctx))
+                        .coloredShadow(MaterialTheme.colors.primary)
+                        .placeholder(
+                            visible = true,
+                            highlight = PlaceholderHighlight.shimmer(),
+                            color = Color.LightGray,
+                        )
+                        .background(GrayLoadingUSG),
+                )
+            }
+            else{
+                AndroidView(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(if (stateOnClickPDF) 400.dp.from(ctx) else 194.dp.from(ctx)),
+                    factory = {
+                        PDFView(it, null)
+                    },
+                    update = {
+    //                        it.fromAsset("Skripsi Pengenalan Kanker Melanoma [FINAL].pdf")
+                        it.fromFile(pathPDF)
+                            .onTap {
+                                onItemClick(0, ItemDetailUsg.PDF)
+                                true
+                            }
+                            .enableDoubletap(false)
+                            .enableSwipe(false)
+                            .load()
+                    }
+                )
+            }
 
             Spacer(modifier = Modifier.height(8.dp.from(ctx)))
         }
