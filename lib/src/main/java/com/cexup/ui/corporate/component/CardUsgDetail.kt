@@ -1,5 +1,8 @@
 package com.cexup.ui.corporate.component
 
+import android.gesture.GestureLibraries.fromFile
+import android.net.Uri.fromFile
+import android.util.Log
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -102,7 +105,7 @@ fun CardImageUsgDetail(
                     modifier = Modifier
                         .fillMaxWidth()
                         .clip(RoundedCornerShape(8.dp.from(ctx)))
-                        .height(110.dp.from(ctx))
+                        .height(326.dp.from(ctx))
                         .background(GrayLoadingUSG),
 
                     ) {
@@ -113,7 +116,7 @@ fun CardImageUsgDetail(
                     modifier = Modifier
                         .clip(RoundedCornerShape(8.dp.from(ctx)))
                         .fillMaxWidth()
-                        .height(110.dp.from(ctx)),
+                        .height(326.dp.from(ctx)),
                     bitmap = imageBitmap,
                     contentDescription = "Image"
                 )
@@ -208,7 +211,7 @@ fun CardListDetailItemUSG(
                     modifier = Modifier
                         .fillMaxWidth()
                         .clip(RoundedCornerShape(8.dp.from(ctx)))
-                        .height(326.dp.from(ctx))
+                        .height(110.dp.from(ctx))
                         .background(GrayLoadingUSG),
                 )
             } else {
@@ -217,6 +220,7 @@ fun CardListDetailItemUSG(
                         Image(
                             modifier = Modifier
                                 .clip(RoundedCornerShape(8.dp.from(ctx)))
+                                .height(110.dp.from(ctx))
                                 .clickable {
                                     onItemClick(index, ItemDetailUsg.Picture)
                                 }
@@ -229,6 +233,7 @@ fun CardListDetailItemUSG(
                     Image(
                         modifier = Modifier
                             .clip(RoundedCornerShape(8.dp.from(ctx)))
+                            .height(110.dp.from(ctx))
                             .clickable {
                                 onItemClick(0, ItemDetailUsg.Picture)
                             }
@@ -294,9 +299,11 @@ fun CardReportDetailUSG(
     pathPDF: File,
 ){
     val ctx = LocalContext.current
+    var zoomLevel by remember { mutableStateOf(100) }
     Surface(
         shape = RoundedCornerShape(8.dp.from(ctx)),
         modifier = Modifier
+            .padding(bottom = 16.dp.from(ctx))
             .fillMaxWidth(),
         elevation = 2.dp.from(ctx)
     ) {
@@ -320,9 +327,9 @@ fun CardReportDetailUSG(
                     )
                 )
                 Spacer(modifier = Modifier.weight(1f))
-                Icon(painter = painterResource(id = R.drawable.ic_zoom_out), contentDescription = "Zoom Out")
+//                Icon(painter = painterResource(id = R.drawable.ic_zoom_out), contentDescription = "Zoom Out")
                 Text(
-                    text = "100",
+                    text = "$zoomLevel%",
                     style = MaterialTheme.typography.body1.copy(
                         fontWeight = FontWeight.Medium,
                         fontSize = 16.sp.from(ctx),
@@ -330,7 +337,8 @@ fun CardReportDetailUSG(
                         color = Color.Black
                     )
                 )
-                Icon(painter = painterResource(id = R.drawable.ic_zoom_in), contentDescription = "Zoom In")
+//                Icon(painter = painterResource(id = R.drawable.ic_zoom_in), contentDescription = "Zoom In")
+                Spacer(modifier = Modifier.width(15.dp.from(ctx)))
                 Icon(painter = painterResource(id = R.drawable.ic_share), contentDescription = "Share")
             }
             AndroidView(
@@ -340,10 +348,16 @@ fun CardReportDetailUSG(
                 factory = {
                     PDFView(it, null)
                 },
-                update = {
-//                        it.fromAsset("Skripsi Pengenalan Kanker Melanoma [FINAL].pdf")
-                    it.fromFile(pathPDF)
+                update = { pdfView->
+//                    pdfView.fromAsset("Skripsi Pengenalan Kanker Melanoma [FINAL].pdf")
+
+                    pdfView.fromFile(pathPDF)
+                        .onDraw { canvas, pageWidth, pageHeight, displayedPage ->
+                            zoomLevel = (pdfView.zoom*100f).toInt()
+                        }
+
                         .load()
+                    pdfView.zoomTo(1.75f)
                 }
             )
         }
