@@ -43,9 +43,9 @@ data class DataDetailUSG(
     val date: String? = null,
     val gestationalAge: String? = null,
     val imageList: List<ImageBitmap>? = listOf(),
-    val description: String,
-    val diagnosis: String,
-    val fileLocation: File,
+    val description: String? = null,
+    val diagnosis: String? = null,
+    val fileLocation: File? = null,
 )
 
 
@@ -58,7 +58,7 @@ fun ScreenDetailUsg(
     dataDetailsUsg: ScreenDetailUsgUIState,
     onButtonBackPressed: () -> Unit = {},
 ) {
-    var typeItemDetail by remember { mutableStateOf(ItemDetailUsg.PDF) }
+    var typeItemDetail by remember { mutableStateOf(ItemDetailUsg.Picture) }
     var indexImageClicked by remember { mutableStateOf(0) }
     val ctx = LocalContext.current
     Column(
