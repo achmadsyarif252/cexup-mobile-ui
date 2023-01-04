@@ -1,4 +1,4 @@
-package com.example.app_corporate.ui.component
+package com.cexup.ui.corporate.component
 
 import android.annotation.SuppressLint
 import android.content.Context
