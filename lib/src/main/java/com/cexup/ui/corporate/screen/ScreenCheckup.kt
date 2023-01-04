@@ -196,7 +196,7 @@ fun ScreenCheckup(
                             drawable = R.drawable.ic_empty_state,
                             header = stringResource(
                                 id = R.string.greet_nurse,
-                                formatArgs = arrayOf("Sus")
+                                formatArgs = arrayOf("Nurse")
                             ),
                             body = stringResource(id = R.string.corporate_checkup_empty)
                         )
