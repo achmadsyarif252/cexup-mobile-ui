@@ -127,6 +127,7 @@
     <string name="kg_per_m2">kg/m2</string>
     <string name="kg">kg</string>
     <string name="kg_with_value">1%d kg</string>
+    <string name="cm_with_value">1%d cm</string>
     <string name="fat_free_body_weight">Fat-free Body Weight</string>
     <string name="no_body_type">No Body Type</string>
     <string name="hidden_obesity">Hidden obesity</string>
