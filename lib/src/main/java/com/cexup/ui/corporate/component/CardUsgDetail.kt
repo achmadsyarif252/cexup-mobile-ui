@@ -313,7 +313,7 @@ fun CardReportDetailUSG(
     pathPDF: File,
 ) {
     val ctx = LocalContext.current
-    var zoomLevel by remember { mutableStateOf(100) }
+//    var zoomLevel by remember { mutableStateOf(100) }
     Surface(
         shape = RoundedCornerShape(8.dp.from(ctx)),
         modifier = Modifier
@@ -343,15 +343,15 @@ fun CardReportDetailUSG(
                 )
                 Spacer(modifier = Modifier.weight(1f))
 //                Icon(painter = painterResource(id = R.drawable.ic_zoom_out), contentDescription = "Zoom Out")
-                Text(
-                    text = "$zoomLevel%",
-                    style = MaterialTheme.typography.body1.copy(
-                        fontWeight = FontWeight.Medium,
-                        fontSize = 16.sp.from(ctx),
-                        lineHeight = 24.sp.from(ctx),
-                        color = Color.Black
-                    )
-                )
+//                Text(
+//                    text = "$zoomLevel%",
+//                    style = MaterialTheme.typography.body1.copy(
+//                        fontWeight = FontWeight.Medium,
+//                        fontSize = 16.sp.from(ctx),
+//                        lineHeight = 24.sp.from(ctx),
+//                        color = Color.Black
+//                    )
+//                )
 //                Icon(painter = painterResource(id = R.drawable.ic_zoom_in), contentDescription = "Zoom In")
                 Spacer(modifier = Modifier.width(15.dp.from(ctx)))
                 Icon(
@@ -381,13 +381,16 @@ fun CardReportDetailUSG(
                         PDFView(it, null)
                     },
                     update = { pdfView ->
-//                    pdfView.fromAsset("Skripsi Pengenalan Kanker Melanoma [FINAL].pdf")
 
                         pdfView.fromFile(pathPDF)
-                            .onDraw { canvas, pageWidth, pageHeight, displayedPage ->
-                                zoomLevel = (pdfView.zoom * 100f).toInt()
-                            }
+//                    pdfView.fromAsset("ULTRASOUND-ITGRSUInJ372ohRwH-1672209580572.pdf")
+//                        pdfView.fromFile(File("/data/user/0/com.cexup.ui/files/USG/ITGRSUInJ372ohRwH/ULTRASOUND-ITGRSUInJ372ohRwH-1672209580572.pdf"))
+//                            .onDraw { canvas, pageWidth, pageHeight, displayedPage ->
+//                                zoomLevel = (pdfView.zoom * 100f).toInt()
+//                            }
                             .load()
+//                        pdfView.zoomTo(zoomLevel/100f)
+//                        pdfView.
                     }
                 )
             }
