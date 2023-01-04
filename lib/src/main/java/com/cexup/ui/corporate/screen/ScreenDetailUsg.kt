@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalMaterialApi::class)
+
 package com.cexup.ui.corporate.screen
 
 import androidx.compose.foundation.background
@@ -5,10 +7,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -31,21 +30,21 @@ import com.cexup.ui.utils.mediaquery.from
 import java.io.File
 
 data class ScreenDetailUsgUIState(
-    val data: DataDetailUSG? = null,
+    val data: DataDetailUSG? = DataDetailUSG(),
     val message: String = "",
     val error: Boolean = false,
     val loading: Boolean = true,
 )
 
 data class DataDetailUSG(
-    val patientName: String? = null,
-    val idData: Long? = null,
-    val date: String? = null,
-    val gestationalAge: String? = null,
+    val patientName: String? = "",
+    val idData: Long? = 0,
+    val date: String? = "",
+    val gestationalAge: String? = "",
     val imageList: List<ImageBitmap>? = listOf(),
-    val description: String? = null,
-    val diagnosis: String? = null,
-    val fileLocation: File? = null,
+    val description: String? = "",
+    val diagnosis: String? = "",
+    val fileLocation: File? = File(""),
 )
 
 
@@ -81,26 +80,30 @@ fun ScreenDetailUsg(
                 )
             )
             Spacer(modifier = Modifier.weight(1f))
-            Button(
-                onClick = {
-                    onButtonBackPressed()
-                },
-                modifier = Modifier
-                    .width(89.dp.from(ctx))
-                    .height(35.dp.from(ctx)),
-                colors = ButtonDefaults.buttonColors(backgroundColor = SecondaryCorporate),
-                shape = RoundedCornerShape(10.dp.from(ctx)),
-                contentPadding = PaddingValues(horizontal = 11.dp.from(ctx))
+            CompositionLocalProvider(
+                LocalMinimumTouchTargetEnforcement provides false,
             ) {
-                Text(
-                    text = "Back",
-                    style = MaterialTheme.typography.body1.copy(
-                        fontWeight = FontWeight(600),
-                        fontSize = 14.sp.from(ctx),
-                        letterSpacing = 1.sp.from(ctx),
-                        color = Color.White
+                Button(
+                    onClick = {
+                        onButtonBackPressed()
+                    },
+                    modifier = Modifier
+                        .width(89.dp.from(ctx))
+                        .height(35.dp.from(ctx)),
+                    colors = ButtonDefaults.buttonColors(backgroundColor = SecondaryCorporate),
+                    shape = RoundedCornerShape(10.dp.from(ctx)),
+                    contentPadding = PaddingValues(horizontal = 11.dp.from(ctx))
+                ) {
+                    Text(
+                        text = "Back",
+                        style = MaterialTheme.typography.body1.copy(
+                            fontWeight = FontWeight(600),
+                            fontSize = 14.sp.from(ctx),
+                            letterSpacing = 1.sp.from(ctx),
+                            color = Color.White
+                        )
                     )
-                )
+                }
             }
         }
         Row(horizontalArrangement = Arrangement.spacedBy(12.dp.from(ctx))) {
