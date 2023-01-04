@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalMaterialApi::class)
+
 package com.cexup.ui.corporate.screen
 
 import androidx.compose.foundation.background
@@ -5,10 +7,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -29,11 +28,11 @@ import com.cexup.ui.corporate.theme.SecondaryCorporate
 import com.cexup.ui.utils.mediaquery.from
 
 data class ScreenUSGUIState(
-    val patientName: String? = null,
-    val patientThumb: String? = null,
-    val patientGender: String? = null,
-    val patientAge: Int? = null,
-    val patientEws: String? = null,
+    val patientName: String? = "",
+    val patientThumb: String? = "",
+    val patientGender: String? = "",
+    val patientAge: Int? = 0,
+    val patientEws: String? = "",
     val dataUSG: List<DataUSG>? = listOf(),
     val dataCheckup: List<DataCheckup>? = listOf(),
     val message: String = "",
@@ -42,17 +41,17 @@ data class ScreenUSGUIState(
 )
 
 data class DataUSG(
-    val idData: Long? = null,
-    val date: String? = null,
-    val gestationalAge: String? = null,
+    val idData: Long? = 0,
+    val date: String? = "",
+    val gestationalAge: String? = "",
 )
 data class DataCheckup(
-    val idData: Long? = null,
-    val date: String? = null,
-    val bloodPressureValue: String? = null,
-    val heartRateValue: Int? = null,
-    val temperatureValue: Float? = null,
-    val weightValue: Int? = null,
+    val idData: Long? = 0,
+    val date: String? = "",
+    val bloodPressureValue: String? = "",
+    val heartRateValue: Int? = 0,
+    val temperatureValue: Float? = 0f,
+    val weightValue: Int? = 0,
 )
 
 @Composable
@@ -81,8 +80,7 @@ fun ScreenUsg(
     Column(
         modifier = Modifier
             .verticalScroll(rememberScrollState())
-            .fillMaxWidth()
-            .fillMaxHeight()
+            .fillMaxSize()
             .background(MaterialTheme.colors.background)
             .padding(top = 32.dp.from(ctx), end = 32.dp.from(ctx), start = 32.dp.from(ctx)),
         verticalArrangement = Arrangement.spacedBy(23.dp.from(ctx))
@@ -99,29 +97,32 @@ fun ScreenUsg(
                 )
             )
             Spacer(modifier = Modifier.weight(1f))
-            Button(
-                onClick = {
-                    onButtonBackPressed()
-                },
-                modifier = Modifier
-                    .width(89.dp.from(ctx))
-                    .height(35.dp.from(ctx)),
-                colors = ButtonDefaults.buttonColors(backgroundColor = SecondaryCorporate),
-                shape = RoundedCornerShape(10.dp.from(ctx)),
-                contentPadding = PaddingValues(horizontal = 11.dp.from(ctx))
+            CompositionLocalProvider(
+                LocalMinimumTouchTargetEnforcement provides false,
             ) {
-                Text(
-                    text = "Back",
-                    style = MaterialTheme.typography.body1.copy(
-                        fontWeight = FontWeight(600),
-                        fontSize = 14.sp.from(ctx),
-                        letterSpacing = 1.sp.from(ctx),
-                        color = Color.White
+                Button(
+                    onClick = {
+                        onButtonBackPressed()
+                    },
+                    modifier = Modifier
+                        .width(89.dp.from(ctx))
+                        .height(35.dp.from(ctx)),
+                    colors = ButtonDefaults.buttonColors(backgroundColor = SecondaryCorporate),
+                    shape = RoundedCornerShape(10.dp.from(ctx)),
+                    contentPadding = PaddingValues(horizontal = 11.dp.from(ctx))
+                ) {
+                    Text(
+                        text = "Back",
+                        style = MaterialTheme.typography.body1.copy(
+                            fontWeight = FontWeight(600),
+                            fontSize = 14.sp.from(ctx),
+                            letterSpacing = 1.sp.from(ctx),
+                            color = Color.White
+                        )
                     )
-                )
+                }
             }
         }
-        Spacer(modifier = Modifier.height(2.5f.dp.from(ctx)))
         Row {
             CardPatientUSG(
                 patientThumb = usgUIState.patientThumb ?: "",

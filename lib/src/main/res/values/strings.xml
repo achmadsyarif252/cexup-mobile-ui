@@ -126,6 +126,8 @@
     <string name="result_bmi">Result BMI</string>
     <string name="kg_per_m2">kg/m2</string>
     <string name="kg">kg</string>
+    <string name="kg_with_value">1%d kg</string>
+    <string name="cm_with_value">1%d cm</string>
     <string name="fat_free_body_weight">Fat-free Body Weight</string>
     <string name="no_body_type">No Body Type</string>
     <string name="hidden_obesity">Hidden obesity</string>
@@ -274,7 +276,7 @@
     <string name="questionnaire">Questionnaire</string>
     <string name="submit">Submit</string>
     <string name="choose">Choose</string>
-
+    <!-- USG -->
     <string name="see_profile">See Profile</string>
     <string name="usg_examination">USG Examination</string>
     <string name="full_history">Full History</string>
@@ -289,6 +291,24 @@
     <string name="report">Report</string>
     <string name="usg_information">USG Information</string>
     <string name="usg_detail_examination">USG Details Examination</string>
+    <string name="years_old">1%s, 2%d years old</string>
+    <string name="wib">1%s WIB</string>
+    <!-- USG -->
+
+    <!-- Baby Weight -->
+    <string name="mother_weight">Mother Weight</string>
+    <string name="baby_weight">Baby Weight</string>
+    <string name="mother_and_baby_weight">Mother &amp; Baby Weight</string>
+    <string name="baby_height">Baby Height</string>
+    <string name="measurement">MEASUREMENT</string>
+    <string name="see_chart">See Chart</string>
+    <string name="baby_bmi">Baby BMI</string>
+    <string name="step_1_baby_weight">Mother must be weighed first</string>
+    <string name="step_2_baby_weight">Please wait until the weight is stable  before holding baby to weight</string>
+    <string name="step_3_baby_weight">The baby’s height is automatically calculated on the app</string>
+    <string name="little_one_growth_data">Little One\'s Growth Data</string>
+    <!-- Baby Weight -->
+    
 
     <!-- Questionnaire Type-->
     <string name="questionnaire_type_radio">radio</string>

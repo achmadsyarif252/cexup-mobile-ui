@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalMaterialApi::class, ExperimentalMaterialApi::class)
+@file:OptIn(ExperimentalMaterialApi::class)
 
 package com.cexup.ui.corporate.component
 
@@ -40,10 +40,10 @@ import com.cexup.ui.utils.mediaquery.from
 fun CardPatientUSG(
     modifier: Modifier = Modifier,
     patientThumb: String = "",
-    patientName: String = "Kita Ikuyo",
-    patientGender: String = "Female",
-    patientAge: Int = 18,
-    gestationalAge: String = "Week 13 - 1st trimester",
+    patientName: String = "",
+    patientGender: String = "",
+    patientAge: Int = 17,
+    gestationalAge: String = "",
     patientEws: String = "Normal",
     onSeeProfileClicked: () -> Unit = {},
     onUSGExaminationClicked: () -> Unit = {},
@@ -82,7 +82,7 @@ fun CardPatientUSG(
                 )
                 Column {
                     Text(
-                        text = patientName,
+                        text = patientName.ifEmpty { "-" },
                         style = MaterialTheme.typography.h6.copy(
                             fontWeight = FontWeight.Medium,
                             fontSize = 20.sp.from(ctx),
@@ -91,7 +91,11 @@ fun CardPatientUSG(
                         )
                     )
                     Text(
-                        text = "$patientGender, $patientAge years old",
+                        text =
+                        if (patientGender.isNotEmpty()&& patientAge != 0 || patientAge != null)
+                            stringResource(id = R.string.years_old, patientGender, patientAge)
+                        else
+                            "-",
                         style = MaterialTheme.typography.subtitle1.copy(
                             fontSize = 16.sp.from(ctx),
                             lineHeight = 28.sp.from(ctx),
@@ -99,7 +103,7 @@ fun CardPatientUSG(
                         )
                     )
                     Text(
-                        text = gestationalAge,
+                        text = gestationalAge.ifEmpty { "-" },
                         style = MaterialTheme.typography.subtitle1.copy(
                             fontSize = 16.sp.from(ctx),
                             lineHeight = 28.sp.from(ctx),
@@ -117,7 +121,7 @@ fun CardPatientUSG(
                         .height(36.dp.from(ctx))
                 ) {
                     Text(
-                        text = patientEws,
+                        text = patientEws.ifEmpty { "-" },
                         fontWeight = FontWeight.Medium,
                         fontSize = 18.sp.from(ctx),
                         lineHeight = 20.sp.from(ctx),
@@ -230,7 +234,7 @@ fun CardStatusPatientUSG(
                     contentDescription = ""
                 )
                 Text(
-                    text = "$date WIB",
+                    text = stringResource(id = R.string.wib,date.ifEmpty { "-" }),
                     style = MaterialTheme.typography.subtitle2.copy(
                         fontSize = 14.sp.from(ctx),
                         lineHeight = 22.sp.from(ctx),

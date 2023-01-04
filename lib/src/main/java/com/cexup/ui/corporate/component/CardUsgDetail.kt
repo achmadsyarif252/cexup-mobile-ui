@@ -1,8 +1,5 @@
 package com.cexup.ui.corporate.component
 
-import android.gesture.GestureLibraries.fromFile
-import android.net.Uri.fromFile
-import android.util.Log
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -105,7 +102,7 @@ fun CardImageUsgDetail(
                 .verticalScroll(rememberScrollState())
         ) {
             Spacer(modifier = Modifier.height(16.dp.from(ctx)))
-            if (imageBitmap == null||stateLoading) {
+            if (imageBitmap == null || stateLoading) {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -178,7 +175,6 @@ fun CardListDetailItemUSG(
 ) {
     val ctx = LocalContext.current
     var stateOnClickPicture by remember { mutableStateOf(false) }
-    var stateOnClickPDF by remember { mutableStateOf(false) }
     Surface(
         shape = RoundedCornerShape(8.dp.from(ctx)),
         modifier = Modifier
@@ -261,37 +257,21 @@ fun CardListDetailItemUSG(
                     )
                 }
             }
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.clickable {
-                    stateOnClickPDF = !stateOnClickPDF
-                }
-            ) {
-                Text(
-                    text = stringResource(id = R.string.pdf),
-                    style = MaterialTheme.typography.body1.copy(
-                        fontWeight = FontWeight.Medium,
-                        fontSize = 16.sp.from(ctx),
-                        lineHeight = 24.sp.from(ctx),
-                        color = Natural90.copy(alpha = 0.9f)
-                    )
+            Text(
+                text = stringResource(id = R.string.pdf),
+                style = MaterialTheme.typography.body1.copy(
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 16.sp.from(ctx),
+                    lineHeight = 24.sp.from(ctx),
+                    color = Natural90.copy(alpha = 0.9f)
                 )
-                Spacer(modifier = Modifier.weight(1f))
-                Icon(
-                    Octicons.ChevronRight16,
-                    contentDescription = "",
-                    modifier = Modifier
-                        .size(24.dp.from(ctx))
-                        .rotate(if (stateOnClickPDF) 270f else 90f),
-                    tint = Natural.copy(alpha = 0.7f)
-                )
-            }
-            if (stateLoading){
+            )
+            if (stateLoading) {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
                         .clip(RoundedCornerShape(8.dp.from(ctx)))
-                        .height(if (stateOnClickPDF) 400.dp.from(ctx) else 194.dp.from(ctx))
+                        .height(194.dp.from(ctx))
                         .coloredShadow(MaterialTheme.colors.primary)
                         .placeholder(
                             visible = true,
@@ -300,17 +280,16 @@ fun CardListDetailItemUSG(
                         )
                         .background(GrayLoadingUSG),
                 )
-            }
-            else{
+            } else {
                 AndroidView(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(if (stateOnClickPDF) 400.dp.from(ctx) else 194.dp.from(ctx)),
+                        .height(194.dp.from(ctx)),
                     factory = {
                         PDFView(it, null)
                     },
                     update = {
-    //                        it.fromAsset("Skripsi Pengenalan Kanker Melanoma [FINAL].pdf")
+                        //                        it.fromAsset("Skripsi Pengenalan Kanker Melanoma [FINAL].pdf")
                         it.fromFile(pathPDF)
                             .onTap {
                                 onItemClick(0, ItemDetailUsg.PDF)
@@ -332,9 +311,9 @@ fun CardListDetailItemUSG(
 fun CardReportDetailUSG(
     stateLoading: Boolean,
     pathPDF: File,
-){
+) {
     val ctx = LocalContext.current
-    var zoomLevel by remember { mutableStateOf(100) }
+//    var zoomLevel by remember { mutableStateOf(100) }
     Surface(
         shape = RoundedCornerShape(8.dp.from(ctx)),
         modifier = Modifier
@@ -364,20 +343,23 @@ fun CardReportDetailUSG(
                 )
                 Spacer(modifier = Modifier.weight(1f))
 //                Icon(painter = painterResource(id = R.drawable.ic_zoom_out), contentDescription = "Zoom Out")
-                Text(
-                    text = "$zoomLevel%",
-                    style = MaterialTheme.typography.body1.copy(
-                        fontWeight = FontWeight.Medium,
-                        fontSize = 16.sp.from(ctx),
-                        lineHeight = 24.sp.from(ctx),
-                        color = Color.Black
-                    )
-                )
+//                Text(
+//                    text = "$zoomLevel%",
+//                    style = MaterialTheme.typography.body1.copy(
+//                        fontWeight = FontWeight.Medium,
+//                        fontSize = 16.sp.from(ctx),
+//                        lineHeight = 24.sp.from(ctx),
+//                        color = Color.Black
+//                    )
+//                )
 //                Icon(painter = painterResource(id = R.drawable.ic_zoom_in), contentDescription = "Zoom In")
                 Spacer(modifier = Modifier.width(15.dp.from(ctx)))
-                Icon(painter = painterResource(id = R.drawable.ic_share), contentDescription = "Share")
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_share),
+                    contentDescription = "Share"
+                )
             }
-            if (stateLoading){
+            if (stateLoading) {
                 Box(
                     modifier = Modifier
                         .clip(RoundedCornerShape(8.dp.from(ctx)))
@@ -390,8 +372,7 @@ fun CardReportDetailUSG(
                             color = Color.LightGray,
                         ),
                 )
-            }
-            else {
+            } else {
                 AndroidView(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -400,15 +381,16 @@ fun CardReportDetailUSG(
                         PDFView(it, null)
                     },
                     update = { pdfView ->
-//                    pdfView.fromAsset("Skripsi Pengenalan Kanker Melanoma [FINAL].pdf")
 
                         pdfView.fromFile(pathPDF)
-                            .onDraw { canvas, pageWidth, pageHeight, displayedPage ->
-                                zoomLevel = (pdfView.zoom * 100f).toInt()
-                            }
-
+//                    pdfView.fromAsset("ULTRASOUND-ITGRSUInJ372ohRwH-1672209580572.pdf")
+//                        pdfView.fromFile(File("/data/user/0/com.cexup.ui/files/USG/ITGRSUInJ372ohRwH/ULTRASOUND-ITGRSUInJ372ohRwH-1672209580572.pdf"))
+//                            .onDraw { canvas, pageWidth, pageHeight, displayedPage ->
+//                                zoomLevel = (pdfView.zoom * 100f).toInt()
+//                            }
                             .load()
-                        pdfView.zoomTo(1.75f)
+//                        pdfView.zoomTo(zoomLevel/100f)
+//                        pdfView.
                     }
                 )
             }
