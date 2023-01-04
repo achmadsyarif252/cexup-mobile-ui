@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Popup
 import com.cexup.ui.R
+import com.cexup.ui.component.common.TextFieldCexup
 import com.cexup.ui.corporate.screen.SearchPatientUIState
 import com.cexup.ui.corporate.theme.GreyBlackStetoscope
 import com.cexup.ui.corporate.theme.inactive
@@ -44,7 +45,7 @@ fun SearchPatient(
 ) {
     val ctx = LocalContext.current
     val state = remember {
-        mutableStateOf(TextFieldValue(""))
+        mutableStateOf("")
     }
     val scope = rememberCoroutineScope()
     var list by remember { mutableStateOf<List<Pair<String, String>>>(listOf()) }
@@ -145,14 +146,14 @@ fun SearchPatient(
             elevation = 2.dp.from(ctx),
             modifier = Modifier.height(56.dp.from(ctx))
         ) {
-            TextField(
+            TextFieldCexup(
                 value = state.value,
                 onValueChange = { value ->
                     scope.launch {
-                        if (value != TextFieldValue("")) {
+                        if (!value.isEmpty()) {
                             state.value = value
                             expanded.value = true
-                            val searchResult = onSearchPatient(value.text)
+                            val searchResult = onSearchPatient(value)
                             list = searchResult.data
                         } else {
                             state.value = value
@@ -186,10 +187,10 @@ fun SearchPatient(
                     )
                 },
                 trailingIcon = {
-                    if (state.value != TextFieldValue("")) {
+                    if (!state.value.isEmpty()) {
                         IconButton(
                             onClick = {
-                                state.value = TextFieldValue("")
+                                state.value = ""
                                 expanded.value = false
                             }) {
                             Icon(

@@ -179,7 +179,7 @@ fun ChartGlucose(
                 setNoDataText("No Data to be shown!")
 
                 //Part10
-                animateX(1800, Easing.EaseInExpo)
+//                animateX(1800, Easing.EaseInExpo)
 
                 //add custom marker
 //                val markerView = CustomChartMarker(context, R.layout.layout_marker_chart,false)
@@ -277,6 +277,7 @@ fun ChartGlucose(
                 override fun onValueSelected(e: Entry?, h: Highlight?) {
                     var cek = false
                     var xIndex = 0
+                    var xIndexNonDetail = 0
                     dataWithDetails.forEach {entryDetails ->
                         if (entryDetails.x.toInt() == e?.x?.toInt() && entryDetails.y == e.y) {
                             if (!is1Day)
@@ -288,6 +289,12 @@ fun ChartGlucose(
                                 }
                             cek = true
                         }
+
+                    }
+                    dataGlucose.forEachIndexed { index, entry ->
+                        if (entry.x.toInt() == e?.x?.toInt() && entry.y == e.y) {
+                            xIndexNonDetail = index
+                        }
                     }
                     if (cek){
                         h.apply {
@@ -298,44 +305,19 @@ fun ChartGlucose(
                                 valueDateAndTime = listGlucose[xIndex].time,
                                 valueFoodAndDrink = listGlucose[xIndex].foodAndDrink
                                     ?: "",
-                                typeMedicine = if (listGlucose[xIndex].insulin == 0)
+                                typeMedicine =
+                                if (listGlucose[xIndex].typeMedicine == 1){
                                    "Pills"
-                                else
-                                    "Insulin",
-                                valueMedicine =
-                                if (listGlucose[xIndex].insulin == 0)
-                                    listGlucose[xIndex].pills ?: 0
-                                else
-                                    listGlucose[xIndex].insulin ?: 0
+                                }
+                                else if(listGlucose[xIndex].typeMedicine == 2){
+                                    "Insulin"
+                                }
+                                else{
+                                    ""
+                                },
+                                valueDetailMedicine = listGlucose[xIndex].valueDetailMedicine ?: 0,
+                                valueMedicine = listGlucose[xIndex].valueMedicine ?: 0
                             )
-//                            if (is1Day){
-//                                view.marker = CustomChartMarkerGlucose(
-//                                    context,
-//                                    R.layout.layout_marker_chart_glucose,
-//                                    true,
-//                                    valueFoodAndDrink = listGlucose[e?.x!!.toInt()].foodAndDrink
-//                                        ?: "",
-//                                    valueMedicine =
-//                                    if (listGlucose[e?.x!!.toInt()].insulin == 0)
-//                                        listGlucose[e?.x!!.toInt()].pills ?: 0
-//                                    else
-//                                        listGlucose[e?.x!!.toInt()].insulin ?: 0
-//                                )
-//                            }
-//                            else {
-//                                view.marker = CustomChartMarkerGlucose(
-//                                    context,
-//                                    R.layout.layout_marker_chart_glucose,
-//                                    true,
-//                                    valueFoodAndDrink = listGlucose[e?.x!!.toInt()].foodAndDrink
-//                                        ?: "",
-//                                    valueMedicine =
-//                                    if (listGlucose[e?.x!!.toInt()].insulin == 0)
-//                                        listGlucose[e?.x!!.toInt()].pills ?: 0
-//                                    else
-//                                        listGlucose[e?.x!!.toInt()].insulin ?: 0
-//                                )
-//                            }
                         }
                     }else if(e?.y == 0f){
                         h.apply { view.marker = null }
@@ -346,7 +328,7 @@ fun ChartGlucose(
                                 context = context,
                                 layoutResource = R.layout.layout_marker_chart_glucose,
                                 isMedicine = false,
-                                valueDateAndTime = listGlucose[xIndex].time,
+                                valueDateAndTime = listGlucose[xIndexNonDetail].time,
                             )
                         }
                     }

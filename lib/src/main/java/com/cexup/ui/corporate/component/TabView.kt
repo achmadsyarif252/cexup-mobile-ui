@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -20,6 +21,7 @@ import com.cexup.ui.corporate.theme.BackgroundLight
 import com.cexup.ui.corporate.theme.Heading
 import com.cexup.ui.corporate.theme.SecondaryCorporate
 import com.cexup.ui.corporate.theme.inactive
+import com.cexup.ui.utils.mediaquery.from
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
@@ -39,6 +41,7 @@ fun TabView(
     modifier: Modifier = Modifier,
     colorUnderline: Color = SecondaryCorporate,
 ) {
+    val ctx = LocalContext.current
     val scope = rememberCoroutineScope()
     TabRow(
         modifier = modifier,
@@ -49,13 +52,13 @@ fun TabView(
             TabRowDefaults.Indicator(
                 modifier = Modifier
                     .pagerTabIndicatorOffset(pagerState, tabPositions)
-                    .clip(RoundedCornerShape(10.dp))
-                    .width(80.dp),
+                    .clip(RoundedCornerShape(10.dp.from(ctx)))
+                    .width(80.dp.from(ctx)),
                 color = colorUnderline,
-                height = 3.dp,
+                height = 3.dp.from(ctx),
             )
         },
-//            edgePadding = 0.dp,
+//            edgePadding = 0.dp.from(ctx),
     ) {
         tabContents.forEachIndexed { index, tab ->
             LeadingIconTab(
@@ -65,7 +68,7 @@ fun TabView(
                         pagerState.animateScrollToPage(index)
                     }
                 },
-                modifier = Modifier.padding(0.dp),
+                modifier = Modifier.padding(0.dp.from(ctx)),
                 text = {
                     Text(
                         text = tab.header,
@@ -74,7 +77,8 @@ fun TabView(
                             else -> inactive
                         },
                         style = MaterialTheme.typography.body1.copy(
-                            fontSize = 16.sp,
+                            fontSize = 16.sp.from(ctx),
+                            lineHeight = 24.sp.from(ctx),
                             fontWeight = FontWeight(500),
                             textAlign = TextAlign.Start
                         ),
@@ -108,11 +112,12 @@ fun TabFeatures(
     onSelectedTab: (TabParameter) -> Unit,
     tabs: List<TabParameter>
 ) {
+    val ctx = LocalContext.current
     TabRow(
         selectedTabIndex = selectedTabIndex,
         modifier = Modifier
-            .clip(RoundedCornerShape(7.dp))
-            .height(29.dp),
+            .clip(RoundedCornerShape(7.dp.from(ctx)))
+            .height(29.dp.from(ctx)),
         indicator = {},
         backgroundColor = BackgroundLight
     ) {
@@ -124,7 +129,7 @@ fun TabFeatures(
                     Text(
                         text = tabParameter.parameter,
                         style = MaterialTheme.typography.body1.copy(
-                            fontSize = 12.sp,
+                            fontSize = 12.sp.from(ctx),
                             color = if (selectedTabIndex == index) BackgroundLight else inactive
                         ),
                     )

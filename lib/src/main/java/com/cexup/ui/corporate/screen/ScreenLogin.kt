@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.sp
 import compose.icons.Octicons
 import compose.icons.octicons.Eye24
 import com.cexup.ui.R
+import com.cexup.ui.component.common.TextFieldCexup
 import com.cexup.ui.corporate.theme.BackgroundLight
 import com.cexup.ui.corporate.theme.ColorGray
 import com.cexup.ui.corporate.theme.Heading
@@ -123,7 +124,7 @@ fun ScreenLogin(
                     color = Heading,
                 )
                 Spacer(modifier = Modifier.height(5.41.dp.from(ctx)))
-                TextField(
+                TextFieldCexup(
                     value = userName,
                     onValueChange = { value ->
                         userName = value
@@ -159,7 +160,7 @@ fun ScreenLogin(
                     color = Heading,
                 )
                 Spacer(modifier = Modifier.height(5.41.dp.from(ctx)))
-                TextField(
+                TextFieldCexup(
                     value = userPassword,
                     onValueChange = { value ->
                         userPassword = value

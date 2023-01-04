@@ -32,7 +32,7 @@ data class GlucoseDataUIState(
     var patientUserCode: String,
     var patientThumb: String = "",
 
-    var listDataHemoglobin: List<ValueHemoglobin>,
+    var listDataHemoglobin: List<ValueHemoglobin>?,
     var listDataGlucose1Day: List<ValueBloodGlucose>,
     var listDataGlucose1Week: List<ValueBloodGlucose>,
     var listDataGlucose2Week: List<ValueBloodGlucose>,
@@ -48,30 +48,44 @@ data class GlucoseDataUIState(
 )
 
 data class ValueBloodGlucose(
+    var id: Long,
     var value: Int,
     var time: String,
-    var mealState: Int,
-    var insulin: Int? = 0,
-    var pills: Int? = 0,
-    var foodAndDrink: String? = "",
+    var mealType: Int,
+    var typeMedicine: Int = 0,
+    var brandMedicine: String? = null,
+    var valueMedicine: Int? = null,
+    var valueDetailMedicine: Int? = null,
+    var foodAndDrink: String? = null,
     var isDetail: Boolean = false,
+    var isDeleted: Boolean = false,
+    var noteDeleted: String? = null,
 )
+
+object MedicineType {
+    const val noMedicine = 0
+    const val Pills = 1
+    const val Insulin = 2
+}
 
 object MealType {
     const val BeforeMeal = 0
     const val AfterMeal = 1
     const val NoMeal = 2
 }
-object InsulinType{
+
+object InsulinType {
     const val ShortActing = 0
     const val LongActing = 1
 }
-object TypeAddData{
+
+object TypeAddData {
     const val Glucose = "Glucose"
     const val Hemoglobin = "Hemoglobin"
     const val Insulin = "Insulin"
     const val Pill = "Pill"
     const val FoodAndDrink = "Food & Drink Note"
+    const val NoteRemoved = "Note Data Removed"
 }
 
 data class StateGlucoseSDK(
@@ -90,30 +104,43 @@ fun ScreenGlucose(
     onSync: () -> Unit,
     onConnect: () -> Unit,
     onDisconnect: () -> Unit,
-    onAddGlucose: (Date:String,Hours:String,Value:String,ValueDetail:Int) -> Unit,
-    onAddMedicine: (Date:String,Hours:String,Value:String,ValueDetail:Int) -> Unit,
-    onAddHemoglobin: (Date:String,Hours:String,Value:String) -> Unit,
-    onAddFoodAndDrink: (Value:String) -> Unit,
+    onAddGlucose: (Date: String, Hours: String, Value: String, ValueDetail: Int) -> Unit,
+    onAddMedicine: (Date: String, Hours: String, MedicineName: String, Value: String, ValueDetail: Int, idDataGlucose: Long, TypeMedicine: Boolean) -> Unit,
+    onAddHemoglobin: (Date: String, Hours: String, Value: String) -> Unit,
+    onAddFoodAndDrink: (Value: String, idDataGlucose: Long) -> Unit,
+    onEditMealType: (id:Long, mealType:Int) -> Unit,
+    onRemoveGlucoseData: (idDataGlucose:Long, isRemoveData:Boolean, noteRemove:String) -> Unit,
+    onSortHistoryHemoglobin: (isSortDate:Boolean,isASC: Boolean) -> Unit,
     onButtonBackPressed: () -> Unit,
 ) {
     val ctx = LocalContext.current
     val pagerState = rememberPagerState()
+    var isSortDateHemoglobin by remember { mutableStateOf(true) }
+    var isSortValueHemoglobin by remember { mutableStateOf(true) }
     var isList by remember { mutableStateOf(false) }
     var isAddMedicine by remember { mutableStateOf(false) }
     var isAddFoodAndDrink by remember { mutableStateOf(false) }
-    var dataDetailGlucose by remember { mutableStateOf(DetailsGlucose(0, 0, "")) }
+    var isRemoveData by remember { mutableStateOf(false) }
+    var dataDetailGlucose by remember { mutableStateOf(DetailsGlucose(0, null, null, null, "")) }
+    var dataNoteRemoved by remember { mutableStateOf("") }
+    var dataMealState by remember { mutableStateOf(0) }
     var showDialogAddData by remember { mutableStateOf(false) }
     var showDialogHistoryHemoglobin by remember { mutableStateOf(false) }
     var showDialogDetailsGlucose by remember { mutableStateOf(false) }
+    var showDialogNoteRemovedData by remember { mutableStateOf(false) }
+    var showDialogEditMealType by remember { mutableStateOf(false) }
+    var idDataGlucose by remember { mutableStateOf(0L) }
     val tabs = listOf(
         TabContentRow(header = stringResource(id = R.string.one_day)) {
             ContentTabGlucose(
-                onAddMedicineClicked = {
-                    isAddMedicine = it
+                onAddMedicineClicked = { bool, id ->
+                    isAddMedicine = bool
+                    idDataGlucose = id
                     showDialogAddData = true
                 },
-                onAddFoodAndDrinkClicked = {
-                    isAddFoodAndDrink = it
+                onAddFoodAndDrinkClicked = { bool, id ->
+                    isAddFoodAndDrink = bool
+                    idDataGlucose = id
                     showDialogAddData = true
                 },
                 isList = isList,
@@ -122,20 +149,42 @@ fun ScreenGlucose(
                     isList = it
                 },
                 is1Day = true,
-                onDetailsClicked = { insulin, pill, foodAndDrink ->
-                    dataDetailGlucose = DetailsGlucose(insulin, pill, foodAndDrink)
+                onDetailsClicked = { typeMedicine, brandMedicine, valueMedicine, valueDetailMedicine, FoodAndDrink ->
+                    dataDetailGlucose = DetailsGlucose(
+                        typeMedicine,
+                        brandMedicine,
+                        valueMedicine,
+                        valueDetailMedicine,
+                        FoodAndDrink
+                    )
                     showDialogDetailsGlucose = true
+                },
+                onRemoveData = {
+                    isRemoveData = true
+                    idDataGlucose = it
+                    showDialogAddData = true
+                },
+                onNoteRemovedClicked = {
+                    dataNoteRemoved = it
+                    showDialogNoteRemovedData = true
+                },
+                onEditMealType = {id,mealType ->
+                    dataMealState = mealType
+                    idDataGlucose = id
+                    showDialogEditMealType = true
                 }
             )
         },
         TabContentRow(header = stringResource(id = R.string.one_weeks)) {
             ContentTabGlucose(
-                onAddMedicineClicked = {
-                    isAddMedicine = it
+                onAddMedicineClicked = { bool, id ->
+                    isAddMedicine = bool
+                    idDataGlucose = id
                     showDialogAddData = true
                 },
-                onAddFoodAndDrinkClicked = {
-                    isAddFoodAndDrink = it
+                onAddFoodAndDrinkClicked = { bool, id ->
+                    isAddFoodAndDrink = bool
+                    idDataGlucose = id
                     showDialogAddData = true
                 },
                 isList = isList,
@@ -143,20 +192,42 @@ fun ScreenGlucose(
                 onIconClick = {
                     isList = it
                 },
-                onDetailsClicked = { insulin, pill, foodAndDrink ->
-                    dataDetailGlucose = DetailsGlucose(insulin, pill, foodAndDrink)
+                onDetailsClicked = { typeMedicine, brandMedicine, valueMedicine, valueDetailMedicine, FoodAndDrink ->
+                    dataDetailGlucose = DetailsGlucose(
+                        typeMedicine,
+                        brandMedicine,
+                        valueMedicine,
+                        valueDetailMedicine,
+                        FoodAndDrink
+                    )
                     showDialogDetailsGlucose = true
+                },
+                onRemoveData = {
+                    isRemoveData = true
+                    idDataGlucose = it
+                    showDialogAddData = true
+                },
+                onNoteRemovedClicked = {
+                    dataNoteRemoved = it
+                    showDialogNoteRemovedData = true
+                },
+                onEditMealType = {id,mealType ->
+                    dataMealState = mealType
+                    idDataGlucose = id
+                    showDialogEditMealType = true
                 }
             )
         },
         TabContentRow(header = stringResource(id = R.string.two_weeks)) {
             ContentTabGlucose(
-                onAddMedicineClicked = {
-                    isAddMedicine = it
+                onAddMedicineClicked = { bool, id ->
+                    isAddMedicine = bool
+                    idDataGlucose = id
                     showDialogAddData = true
                 },
-                onAddFoodAndDrinkClicked = {
-                    isAddFoodAndDrink = it
+                onAddFoodAndDrinkClicked = { bool, id ->
+                    isAddFoodAndDrink = bool
+                    idDataGlucose = id
                     showDialogAddData = true
                 },
                 isList = isList,
@@ -164,20 +235,42 @@ fun ScreenGlucose(
                 onIconClick = {
                     isList = it
                 },
-                onDetailsClicked = { insulin, pill, foodAndDrink ->
-                    dataDetailGlucose = DetailsGlucose(insulin, pill, foodAndDrink)
+                onDetailsClicked = { typeMedicine, brandMedicine, valueMedicine, valueDetailMedicine, FoodAndDrink ->
+                    dataDetailGlucose = DetailsGlucose(
+                        typeMedicine,
+                        brandMedicine,
+                        valueMedicine,
+                        valueDetailMedicine,
+                        FoodAndDrink
+                    )
                     showDialogDetailsGlucose = true
+                },
+                onRemoveData = {
+                    isRemoveData = true
+                    idDataGlucose = it
+                    showDialogAddData = true
+                },
+                onNoteRemovedClicked = {
+                    dataNoteRemoved = it
+                    showDialogNoteRemovedData = true
+                },
+                onEditMealType = {id,mealType ->
+                    dataMealState = mealType
+                    idDataGlucose = id
+                    showDialogEditMealType = true
                 }
             )
         },
         TabContentRow(header = stringResource(id = R.string.one_month)) {
             ContentTabGlucose(
-                onAddMedicineClicked = {
-                    isAddMedicine = it
+                onAddMedicineClicked = { bool, id ->
+                    isAddMedicine = bool
+                    idDataGlucose = id
                     showDialogAddData = true
                 },
-                onAddFoodAndDrinkClicked = {
-                    isAddFoodAndDrink = it
+                onAddFoodAndDrinkClicked = { bool, id ->
+                    isAddFoodAndDrink = bool
+                    idDataGlucose = id
                     showDialogAddData = true
                 },
                 isList = isList,
@@ -185,9 +278,29 @@ fun ScreenGlucose(
                 onIconClick = {
                     isList = it
                 },
-                onDetailsClicked = { insulin, pill, foodAndDrink ->
-                    dataDetailGlucose = DetailsGlucose(insulin, pill, foodAndDrink)
+                onDetailsClicked = { typeMedicine, brandMedicine, valueMedicine, valueDetailMedicine, FoodAndDrink ->
+                    dataDetailGlucose = DetailsGlucose(
+                        typeMedicine,
+                        brandMedicine,
+                        valueMedicine,
+                        valueDetailMedicine,
+                        FoodAndDrink
+                    )
                     showDialogDetailsGlucose = true
+                },
+                onRemoveData = {
+                    isRemoveData = true
+                    idDataGlucose = it
+                    showDialogAddData = true
+                },
+                onNoteRemovedClicked = {
+                    dataNoteRemoved = it
+                    showDialogNoteRemovedData = true
+                },
+                onEditMealType = {id,mealType ->
+                    dataMealState = mealType
+                    idDataGlucose = id
+                    showDialogEditMealType = true
                 }
             )
         },
@@ -198,43 +311,101 @@ fun ScreenGlucose(
             showDialogAddData = false
             isAddMedicine = false
             isAddFoodAndDrink = false
+            isRemoveData = false
         },
-        onSave = {typeAddData, Date, Hours, Value, ValueDetail->
-            when(typeAddData){
+        onSave = { typeAddData, Date, Hours, MedicineName, Value, ValueDetail ->
+            when (typeAddData) {
                 TypeAddData.Glucose -> {
-                    onAddGlucose(Date,Hours,Value,ValueDetail)
+                    onAddGlucose(Date, Hours, Value, ValueDetail)
                 }
-                TypeAddData.Pill, TypeAddData.Insulin -> {
-                    onAddMedicine(Date,Hours,Value,ValueDetail)
+                TypeAddData.Pill -> {
+                    onAddMedicine(
+                        Date,
+                        Hours,
+                        MedicineName,
+                        Value,
+                        ValueDetail,
+                        idDataGlucose,
+                        true
+                    )
+                }
+                TypeAddData.Insulin -> {
+                    onAddMedicine(
+                        Date,
+                        Hours,
+                        MedicineName,
+                        Value,
+                        ValueDetail,
+                        idDataGlucose,
+                        false
+                    )
                 }
                 TypeAddData.Hemoglobin -> {
-                    onAddHemoglobin(Date,Hours,Value)
+                    onAddHemoglobin(Date, Hours, Value)
                 }
                 TypeAddData.FoodAndDrink -> {
-                    onAddFoodAndDrink(Value)
+                    onAddFoodAndDrink(Value, idDataGlucose)
+                }
+                TypeAddData.NoteRemoved -> {
+                    onRemoveGlucoseData(idDataGlucose,true,Value)
                 }
             }
             showDialogAddData = false
             isAddMedicine = false
             isAddFoodAndDrink = false
+            isRemoveData = false
         },
         show = showDialogAddData,
         isAddMedicine = isAddMedicine,
-        isAddFoodAndDrink = isAddFoodAndDrink
+        isAddFoodAndDrink = isAddFoodAndDrink,
+        isRemovedData = isRemoveData,
     )
     DialogHistoryHemoglobin(
         onCancel = {
             showDialogHistoryHemoglobin = false
         },
         show = showDialogHistoryHemoglobin,
-        onSortDateClicked = {},
-        onSortResultClicked = {},
-        dataHemoglobin = glucoseDataUIState.listDataHemoglobin
+        onSortDateClicked = {
+            if (isSortDateHemoglobin) {
+                onSortHistoryHemoglobin(true, isSortDateHemoglobin)
+                isSortDateHemoglobin = false
+            }
+            else{
+                onSortHistoryHemoglobin(true,isSortDateHemoglobin)
+                isSortDateHemoglobin = true
+            }
+        },
+        onSortResultClicked = {
+            if (isSortDateHemoglobin) {
+                onSortHistoryHemoglobin(false, isSortValueHemoglobin)
+                isSortValueHemoglobin = false
+            }
+            else{
+                onSortHistoryHemoglobin(false,isSortValueHemoglobin)
+                isSortValueHemoglobin = true
+            }
+        },
+        dataHemoglobin = glucoseDataUIState.listDataHemoglobin ?: listOf()
     )
     DialogDetailsGlucose(
         dataDetailsGlucose = dataDetailGlucose,
         show = showDialogDetailsGlucose,
         onCancel = { showDialogDetailsGlucose = false }
+    )
+    DialogEditMealTypeGlucose(
+        mealState = dataMealState,
+        show = showDialogEditMealType,
+        onCancel = { showDialogEditMealType = false },
+        onChoose = {
+            dataMealState = it
+            showDialogEditMealType = false
+            onEditMealType(idDataGlucose,dataMealState)
+        }
+    )
+    DialogNoteRemovedGlucose(
+        valueNoteRemoved = dataNoteRemoved,
+        show = showDialogNoteRemovedData,
+        onCancel = {showDialogNoteRemovedData = false}
     )
     Column(
         modifier = Modifier
@@ -259,7 +430,8 @@ fun ScreenGlucose(
             ) {
                 Image(
                     painter = painterResource(
-                        id = R.drawable.ic_sync),
+                        id = R.drawable.ic_sync
+                    ),
                     contentDescription = "",
                 )
             }
@@ -279,8 +451,8 @@ fun ScreenGlucose(
                     text = "Back",
                     style = MaterialTheme.typography.body1.copy(
                         fontWeight = FontWeight(600),
-                        fontSize = 14.sp,
-                        letterSpacing = 1.sp,
+                        fontSize = 14.sp.from(ctx),
+                        letterSpacing = 1.sp.from(ctx),
                         color = Color.White
                     )
                 )
@@ -300,7 +472,7 @@ fun ScreenGlucose(
             modifier = Modifier.padding(horizontal = 15.dp.from(ctx)),
         ) {
             CardHemoglobin(
-                textValue = glucoseDataUIState.listDataHemoglobin[0].valueHemoglobin.toString(),
+                dataHemoglobin = glucoseDataUIState.listDataHemoglobin ?: listOf(),
                 onHistoryClicked = { showDialogHistoryHemoglobin = it })
             CardPills(
                 valuePills = when (pagerState.currentPage) {
@@ -336,24 +508,41 @@ fun ScreenGlucose(
 fun ContentTabGlucose(
     isList: Boolean,
     is1Day: Boolean = false,
-    onAddMedicineClicked: (Boolean) -> Unit,
-    onAddFoodAndDrinkClicked: (Boolean) -> Unit,
+    onAddMedicineClicked: (Boolean, Long) -> Unit,
+    onAddFoodAndDrinkClicked: (Boolean, Long) -> Unit,
+    onEditMealType:(id: Long, mealType:Int) -> Unit,
     onIconClick: (isList: Boolean) -> Unit,
-    onDetailsClicked: (Insulin: Int, Pill: Int, FoodAndDrink: String) -> Unit,
-    listDataValueGlucose: List<ValueBloodGlucose>
+    onDetailsClicked: (typeMedicine: Int, brandMedicine: String, valueMedicine: Int, valueDetailMedicine: Int, FoodAndDrink: String) -> Unit,
+    listDataValueGlucose: List<ValueBloodGlucose>,
+    onRemoveData: (id: Long) -> Unit,
+    onNoteRemovedClicked: (noteRemoved:String) -> Unit,
 ) {
     CardGlucoseLevels(
         isList = isList,
         onIconClick = {
             onIconClick(it)
         },
-        listDummyData = listDataValueGlucose,
-        onAddMedicine = { onAddMedicineClicked(it) },
-        onAddFoodAndDrink = { onAddFoodAndDrinkClicked(it) },
+        listDataValueGlucose = listDataValueGlucose,
+        onAddMedicine = { bool, id ->
+            onAddMedicineClicked(bool, id)
+        },
+        onAddFoodAndDrink = { bool, id ->
+            onAddFoodAndDrinkClicked(bool, id)
+        },
         is1Day = is1Day,
-        onDetailsClicked = { insulin, pill, foodAndDrink ->
-            onDetailsClicked(insulin, pill, foodAndDrink)
-        }
+        onDetailsClicked = { typeMedicine, brandMedicine, valueMedicine, valueDetailMedicine, FoodAndDrink ->
+            onDetailsClicked(
+                typeMedicine,
+                brandMedicine,
+                valueMedicine,
+                valueDetailMedicine,
+                FoodAndDrink
+            )
+        },
+        onRemoveData = { onRemoveData(it) },
+        onNoteRemovedClicked = { onNoteRemovedClicked(it) },
+        onEditMealType = {id,mealType ->
+            onEditMealType(id,mealType)}
     )
 
 }

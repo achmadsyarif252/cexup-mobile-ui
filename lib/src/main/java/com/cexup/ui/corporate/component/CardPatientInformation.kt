@@ -1,6 +1,7 @@
 package com.cexup.ui.corporate.component
 
 import android.graphics.Bitmap
+import android.util.Log
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.selectable
@@ -154,7 +155,8 @@ fun CardPatientInformation(
                     nik = it
                 },
                 keyboardType = KeyboardType.Number,
-                typeTextField = 2
+                typeTextField = 2,
+                maxCharacter = 16,
             )
         }
         Row(
@@ -188,6 +190,7 @@ fun CardPatientInformation(
                 placeholderText = "yyyy-mm-dd (1993-09-27)",
                 valueTextField = dateOfBirth,
                 onValueChange = {
+                    Log.e("kambing bandot", it)
                     dateOfBirth = it
                 },
                 typeTextField = 1
@@ -208,7 +211,8 @@ fun CardPatientInformation(
                     phoneNumber = it
                 },
                 keyboardType = KeyboardType.Number,
-                typeTextField = 2
+                typeTextField = 2,
+                maxCharacter = 13
             )
 
             Column(modifier = Modifier.width(180.dp.from(ctx))) {
@@ -293,6 +297,11 @@ fun CardPatientInformation(
                         keyboardController?.hide()
                         onClickNext()
                     },
+                    enabled = nik.length >= 16
+                            && dateOfBirth != ""
+                            && placeOfBirth != ""
+                            && address != ""
+                            && patientName != "",
                     modifier = modifier
                         .width(90.dp.from(ctx))
                         .height(38.54.dp.from(ctx)),
