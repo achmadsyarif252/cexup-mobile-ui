@@ -126,8 +126,8 @@
     <string name="result_bmi">Result BMI</string>
     <string name="kg_per_m2">kg/m2</string>
     <string name="kg">kg</string>
-    <string name="kg_with_value">1%d kg</string>
-    <string name="cm_with_value">1%d cm</string>
+    <string name="kg_with_value">%1$d kg</string>
+    <string name="cm_with_value">%1$d cm</string>
     <string name="fat_free_body_weight">Fat-free Body Weight</string>
     <string name="no_body_type">No Body Type</string>
     <string name="hidden_obesity">Hidden obesity</string>
@@ -291,8 +291,8 @@
     <string name="report">Report</string>
     <string name="usg_information">USG Information</string>
     <string name="usg_detail_examination">USG Details Examination</string>
-    <string name="years_old">1%s, 2%d years old</string>
-    <string name="wib">1%s WIB</string>
+    <string name="years_old">%1$s, %2$d years old</string>
+    <string name="wib">%1$s WIB</string>
     <!-- USG -->
 
     <!-- Baby Weight -->
@@ -307,6 +307,7 @@
     <string name="step_2_baby_weight">Please wait until the weight is stable  before holding baby to weight</string>
     <string name="step_3_baby_weight">The baby’s height is automatically calculated on the app</string>
     <string name="little_one_growth_data">Little One\'s Growth Data</string>
+    <string name="bmi_for_baby">BMI For Baby</string>
     <!-- Baby Weight -->
     
 

@@ -117,4 +117,6 @@ val Natural90 = Color(0xFF404040)
 val Natural80 = Color(0xFF616161)
 val BlueUSG = Color(0xFFF2F9FA)
 val GrayLoadingUSG = Color(0xFFD9D9D9)
+val GreenNormalBabyBMI = Color(0xFF16A34A)
+val BlueStepBabyBMI = Color(0xFF0D7F96)
 
