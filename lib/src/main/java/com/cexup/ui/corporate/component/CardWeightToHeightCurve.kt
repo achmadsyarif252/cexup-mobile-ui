@@ -18,7 +18,6 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -37,10 +36,10 @@ import compose.icons.octicons.ChevronRight16
 import androidx.compose.foundation.layout.padding as padding1
 
 @Composable
-fun CardWeightToHeight(
+fun CardWeightToAge(
     modifier: Modifier = Modifier,
-    title: String = "Weight To Height Curve",
-    xAxisUnit: String = "Height(cm)",
+    title: String = "Weight To Age Curve",
+    xAxisUnit: String = "Age(Month)",
     yAxisUnit: String = "Weight(kg)",
     listDropDown: List<String> = listOf("Chart 1", "Chart 2"),
     listDataChart : List<Int> = listOf(),
@@ -49,7 +48,6 @@ fun CardWeightToHeight(
     onRightClick : () -> Unit
 ) {
     val ctx = LocalContext.current
-    val screenWidth = ctx.resources.displayMetrics.widthPixels.dp / LocalDensity.current.density
 
     var stateOnClick by remember {
         mutableStateOf(false)
@@ -66,7 +64,7 @@ fun CardWeightToHeight(
                 offsetY = 4.dp.from(ctx),
                 shadowRadius = 5.dp.from(ctx)
             )
-            .width(screenWidth / 1.08f - 16.dp)
+            .width(457.dp.from(ctx))
             .height(535.dp.from(ctx)),
         shape = RoundedCornerShape(12.dp.from(ctx)),
         elevation = 0.1.dp,
@@ -126,7 +124,7 @@ fun CardWeightToHeight(
             Column(
                 modifier = modifier
                     .fillMaxWidth()
-                    .padding1(horizontal = 16.dp.from(ctx), vertical = 16.dp.from(ctx))
+                    .padding1(horizontal = 16.dp.from(ctx), vertical = 12.dp.from(ctx))
             ) {
                 Row(
                     modifier = modifier
@@ -175,7 +173,7 @@ fun CardWeightToHeight(
                             ) {
                                 Card(
                                     modifier = modifier
-                                        .width(screenWidth / 1.08f - 16.dp)
+                                        .width(457.dp.from(ctx))
                                         .padding1(horizontal = 16.dp.from(ctx)),
                                     elevation = 1.dp,
                                     shape = RoundedCornerShape(10.dp.from(ctx)),
@@ -223,7 +221,6 @@ fun CardWeightToHeight(
                 modifier = modifier
                     .fillMaxWidth()
                     .padding1(horizontal = 16.dp.from(ctx)),
-                verticalArrangement = Arrangement.spacedBy(10.dp.from(ctx))
             ) {
                 Text(
                     text = yAxisUnit,
@@ -238,7 +235,7 @@ fun CardWeightToHeight(
                 Column(
                     modifier = modifier
                         .fillMaxWidth()
-                        .height(305.dp.from(ctx))
+                        .height(296.62.dp.from(ctx))
                 ) {
                     BaseChartView(data = listOf(), description = "")
                 }
@@ -257,6 +254,7 @@ fun CardWeightToHeight(
                         )
                     )
                 }
+                Spacer(modifier = modifier.height(10.dp.from(ctx)))
                 Row(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
