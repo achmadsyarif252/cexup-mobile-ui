@@ -1,6 +1,5 @@
 package com.cexup.ui.corporate.screen
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -40,13 +39,13 @@ data class ScreenBabyWeightUIState(
 
 data class DataBabyWeight(
     val idData: Long? = 0,
-    val motherWeight: Int? = 0,
+    val motherWeight: Double? = 0.0,
     val stateStepMotherWeight: StepBabyBMI? = StepBabyBMI.PRE_MEASUREMENT,
-    val babyWeight: Int? = 0,
+    val babyWeight: Double? = 0.0,
     val stateStepBabyWeight: StepBabyBMI? = StepBabyBMI.PRE_MEASUREMENT,
-    val babyHeight: Int? = 0,
+    val babyHeight: Double? = 0.0,
     val stateStepBabyHeight: StepBabyBMI? = StepBabyBMI.PRE_MEASUREMENT,
-    val babyBMI: Int? = 0,
+    val babyBMI: Double? = 0.0,
     val statusBabyBMI: String? = "Normal",
     val statusRangeBabyBMI: String? = "≥ 18.5 – < 25"
 )
@@ -61,6 +60,7 @@ data class ResourceStepBabyBMI(
     val descriptionText: String,
 )
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun ScreenBabyWeight(
     babyWeightUIState: ScreenBabyWeightUIState,
@@ -159,15 +159,15 @@ fun ScreenBabyWeight(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             CardResultBabyWeight(
-                motherWeight = babyWeightUIState.data.motherWeight ?: 0,
-                babyWeight = babyWeightUIState.data.babyWeight ?: 0,
-                babyHeight = babyWeightUIState.data.babyHeight ?: 0,
+                motherWeight = babyWeightUIState.data.motherWeight ?: 0.0,
+                babyWeight = babyWeightUIState.data.babyWeight ?: 0.0,
+                babyHeight = babyWeightUIState.data.babyHeight ?: 0.0,
                 onSeeChartClicked = {
                     onSeeChartClicked()
                 }
             )
             CardBmiBabyWeight(
-                babyBmi = babyWeightUIState.data.babyBMI ?: 0,
+                babyBmi = babyWeightUIState.data.babyBMI ?: 0.0,
                 bmiStatus = babyWeightUIState.data.statusBabyBMI ?: "",
                 bmiRangeValue = babyWeightUIState.data.statusRangeBabyBMI ?: "",
                 onRemeasurementClicked = {onRemeasurementClicked()}
@@ -203,12 +203,13 @@ fun ScreenBabyWeight(
                             }
                         }
                     },
-                    isEnabled = when(index){
-                        0 -> true
-                        1 -> babyWeightUIState.data.stateStepMotherWeight == StepBabyBMI.POST_MEASUREMENT
-                        2 -> babyWeightUIState.data.stateStepMotherWeight == StepBabyBMI.POST_MEASUREMENT && babyWeightUIState.data.stateStepBabyWeight == StepBabyBMI.POST_MEASUREMENT
-                        else -> {false}
-                    }
+//                    isEnabled = when(index){
+//                        0 -> true
+//                        1 -> babyWeightUIState.data.stateStepMotherWeight == StepBabyBMI.POST_MEASUREMENT
+//                        2 -> babyWeightUIState.data.stateStepMotherWeight == StepBabyBMI.POST_MEASUREMENT && babyWeightUIState.data.stateStepBabyWeight == StepBabyBMI.POST_MEASUREMENT
+//                        else -> {false}
+//                    }
+                    isEnabled = true
                 )
             }
         }
