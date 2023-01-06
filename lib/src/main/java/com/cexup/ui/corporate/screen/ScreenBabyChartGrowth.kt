@@ -31,13 +31,13 @@ data class ScreenBabyChartGrowthUIState(
 )
 
 data class DataBabyChartGrowth(
-
-    val listWeightToHeight: List<Int> = listOf(),
-    val listWeightToAge: List<Int> = listOf(),
+    val listWeightToHeight: List<Entry> = listOf(),
+    val listWeightToAge: List<Entry> = listOf(),
 )
 
 @Composable
 fun ScreenBabyChartGrowth(
+    dataBabyChart: ScreenBabyChartGrowthUIState,
     onButtonBackPressed:() -> Unit,
 ) {
     val ctx = LocalContext.current
@@ -91,19 +91,15 @@ fun ScreenBabyChartGrowth(
                 index = 0,
                 title = stringResource(id = R.string.weight_to_height_curve),
                 xAxisUnit = stringResource(id = R.string.height_cm),
-                yAxisUnit = stringResource(id = R.string.weight_kg)
+                yAxisUnit = stringResource(id = R.string.weight_kg),
+                listDataChart = dataBabyChart.data.listWeightToHeight
             )
             CardWeightToAge(
                 index = 1,
                 title = stringResource(id = R.string.weight_curve_for_age),
                 xAxisUnit = stringResource(id = R.string.age_month),
                 yAxisUnit = stringResource(id = R.string.weight_kg),
-                listDataChart = listOf(
-                    Entry(1f,66f),
-                    Entry(2f,77f),
-                    Entry(3f,55f),
-                    Entry(4f,99f)
-                )
+                listDataChart = dataBabyChart.data.listWeightToAge
             )
         }
     }
