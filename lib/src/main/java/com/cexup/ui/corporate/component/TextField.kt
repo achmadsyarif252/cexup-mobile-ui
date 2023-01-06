@@ -128,9 +128,10 @@ fun FormTextField(
                 val datePickerDialog = DatePickerDialog(
                     ctx,
                     { _: DatePicker, year: Int, month: Int, day: Int ->
-                        valueTextField = "$year-${month + 1}-${day}"
-                        val date = DateTime(year, (month + 1), day, 0, 0)
-                        dateSelect = date.millis
+                        val monthF =  month +1
+                        val finalMonth = if(monthF<10) "0${monthF}" else monthF
+                        val finalDay = if(day<10) "0$day" else day
+                        valueTextField = "$year-$finalMonth-$finalDay"
                         onValueChange(valueTextField)
                     },
                     year, month, day,
