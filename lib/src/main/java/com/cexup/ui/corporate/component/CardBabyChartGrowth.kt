@@ -90,10 +90,10 @@ fun CardWeightToAge(
                         .height(263.46.dp.from(ctx))
                 ) {
                     ChartBabyGrowth(
-                        data = if (listDataChart.isEmpty()) listOf(Entry(1f,0f)) else listDataChart,
+                        data = if (listDataChart.isEmpty()) listOf(Entry(-1f,-1f)) else listDataChart,
                         description = "",
                         maxAxisX = if (listDataChart.isEmpty())5f else listDataChart[listDataChart.size-1].x,
-                        maxAxisY = if (listDataChart.isEmpty())180f else listDataChart[listDataChart.size-1].y,
+                        maxAxisY = if (listDataChart.isEmpty())10f else listDataChart[listDataChart.size-1].y,
                     )
                 }
                 Text(

@@ -42,7 +42,7 @@ data class DataBabyWeight(
     val motherWeight: String? = "-- kg",
     val babyWeight: String? = "-- kg",
     val babyHeight: String? = "-- cm",
-    val babyBMI: Double? = 0.0,
+    val babyBMI: String? = "--",
     val statusBabyBMI: String? = "Normal",
     val statusRangeBabyBMI: String? = "≥ 18.5 – < 25"
 )
@@ -169,7 +169,7 @@ fun ScreenBabyWeight(
                 }
             )
             CardBmiBabyWeight(
-                babyBmi = babyWeightUIState.data.babyBMI ?: 0.0,
+                babyBmi = babyWeightUIState.data.babyBMI ?: "",
                 bmiStatus = babyWeightUIState.data.statusBabyBMI ?: "",
                 bmiRangeValue = babyWeightUIState.data.statusRangeBabyBMI ?: "",
                 onRemeasurementClicked = {onRemeasurementClicked()}
