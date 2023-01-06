@@ -47,7 +47,6 @@ fun ChartBabyGrowth(
     description: String,
     maxAxisX: Float = 200f,
     maxAxisY: Float = 200f,
-    minAxis: Float = 10f,
     paddingValues: PaddingValues = PaddingValues(vertical = 16.dp)
 ) {
 
@@ -81,8 +80,8 @@ fun ChartBabyGrowth(
 
 
                 axisLeft.apply {
-                    axisMaximum = maxAxisY + 20f
-                    axisMinimum = minAxis
+                    axisMaximum = maxAxisY + 5f
+                    axisMinimum = 0f
                     removeAllLimitLines()
                     limitLine.forEach {
                             limitLine ->
@@ -104,6 +103,8 @@ fun ChartBabyGrowth(
                     labelRotationAngle = 0f
 
                     granularity = 1f
+
+                    axisMinimum = 0f
 
                     axisMaximum = maxAxisX + 0.1f
                     //

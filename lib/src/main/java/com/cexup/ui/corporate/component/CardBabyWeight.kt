@@ -202,7 +202,7 @@ fun CardResultBabyWeight(
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun CardBmiBabyWeight(
-    babyBmi: Double,
+    babyBmi: String,
     bmiStatus: String,
     bmiRangeValue: String,
     onRemeasurementClicked: () -> Unit,
@@ -245,7 +245,7 @@ fun CardBmiBabyWeight(
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Text(
-                            text = if (babyBmi > 0) babyBmi.toString() else "--",
+                            text = babyBmi,
                             style = MaterialTheme.typography.h5.copy(
                                 fontWeight = FontWeight.SemiBold,
                                 fontSize = 24.sp.from(ctx),
@@ -492,7 +492,7 @@ fun PreviewCardBabyWeight() {
                 onSeeChartClicked = {}
             )
             CardBmiBabyWeight(
-                babyBmi = 33.0,
+                babyBmi = "33",
                 bmiStatus = "Normal",
                 bmiRangeValue = "27-30 BMI",
                 onRemeasurementClicked = {}
