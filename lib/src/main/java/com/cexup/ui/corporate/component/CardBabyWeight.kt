@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalMaterialApi::class)
-
 package com.cexup.ui.corporate.component
 
 import androidx.compose.foundation.*
@@ -27,11 +25,12 @@ import com.cexup.ui.corporate.screen.StepBabyBMI
 import com.cexup.ui.corporate.theme.*
 import com.cexup.ui.utils.mediaquery.from
 
+@ExperimentalMaterialApi
 @Composable
 fun CardResultBabyWeight(
-    motherWeight: Int,
-    babyWeight: Int,
-    babyHeight: Int,
+    motherWeight: Double,
+    babyWeight: Double,
+    babyHeight: Double,
     onSeeChartClicked: () -> Unit,
 ) {
     val ctx = LocalContext.current
@@ -218,9 +217,10 @@ fun CardResultBabyWeight(
     }
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun CardBmiBabyWeight(
-    babyBmi: Int,
+    babyBmi: Double,
     bmiStatus: String,
     bmiRangeValue: String,
     onRemeasurementClicked: () -> Unit,
@@ -473,19 +473,20 @@ fun CardChartWHOBaby() {
 
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Preview(device = Devices.TABLET)
 @Composable
 fun PreviewCardBabyWeight() {
     CexupTheme {
         Column {
             CardResultBabyWeight(
-                motherWeight = 0,
-                babyWeight = 0,
-                babyHeight = 0,
+                motherWeight = 0.0,
+                babyWeight = 0.0,
+                babyHeight = 0.0,
                 onSeeChartClicked = {}
             )
             CardBmiBabyWeight(
-                babyBmi = 33,
+                babyBmi = 33.0,
                 bmiStatus = "Normal",
                 bmiRangeValue = "27-30 BMI",
                 onRemeasurementClicked = {}
