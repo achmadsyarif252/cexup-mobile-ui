@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -22,8 +23,12 @@ import androidx.compose.ui.unit.sp
 import com.cexup.ui.R
 import com.cexup.ui.corporate.theme.BlueJade
 import com.cexup.ui.corporate.theme.Natural
+import com.cexup.ui.utils.coloredShadow
 import com.cexup.ui.utils.mediaquery.from
 import com.github.mikephil.charting.data.Entry
+import com.google.accompanist.placeholder.PlaceholderHighlight
+import com.google.accompanist.placeholder.material.placeholder
+import com.google.accompanist.placeholder.material.shimmer
 
 @Composable
 fun CardWeightToAge(
@@ -132,6 +137,23 @@ fun CardWeightToAge(
         }
 
     }
+}
+
+@Composable
+fun CardBabyChartShimmer(){
+    val ctx = LocalContext.current
+    Box(
+        modifier = Modifier
+            .clip(RoundedCornerShape(12.dp.from(ctx)))
+            .height(400.dp.from(ctx))
+            .width(457.dp.from(ctx))
+            .coloredShadow(MaterialTheme.colors.primary)
+            .placeholder(
+                visible = true,
+                highlight = PlaceholderHighlight.shimmer(),
+                color = Color.LightGray,
+            ),
+    )
 }
 
 

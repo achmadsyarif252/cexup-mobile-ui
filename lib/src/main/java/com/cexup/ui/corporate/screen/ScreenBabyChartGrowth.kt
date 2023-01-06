@@ -20,6 +20,7 @@ import com.cexup.ui.corporate.component.CardWeightToAge
 import com.cexup.ui.corporate.theme.SecondaryCorporate
 import com.cexup.ui.utils.mediaquery.from
 import com.cexup.ui.R
+import com.cexup.ui.corporate.component.CardBabyChartShimmer
 import com.cexup.ui.corporate.theme.Natural90
 import com.github.mikephil.charting.data.Entry
 
@@ -87,20 +88,25 @@ fun ScreenBabyChartGrowth(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            CardWeightToAge(
-                index = 0,
-                title = stringResource(id = R.string.weight_to_height_curve),
-                xAxisUnit = stringResource(id = R.string.height_cm),
-                yAxisUnit = stringResource(id = R.string.weight_kg),
-                listDataChart = dataBabyChart.data.listWeightToHeight
-            )
-            CardWeightToAge(
-                index = 1,
-                title = stringResource(id = R.string.weight_curve_for_age),
-                xAxisUnit = stringResource(id = R.string.age_month),
-                yAxisUnit = stringResource(id = R.string.weight_kg),
-                listDataChart = dataBabyChart.data.listWeightToAge
-            )
+            if (dataBabyChart.loading) {
+                CardBabyChartShimmer()
+                CardBabyChartShimmer()
+            } else {
+                CardWeightToAge(
+                    index = 0,
+                    title = stringResource(id = R.string.weight_to_height_curve),
+                    xAxisUnit = stringResource(id = R.string.height_cm),
+                    yAxisUnit = stringResource(id = R.string.weight_kg),
+                    listDataChart = dataBabyChart.data.listWeightToHeight
+                )
+                CardWeightToAge(
+                    index = 1,
+                    title = stringResource(id = R.string.weight_curve_for_age),
+                    xAxisUnit = stringResource(id = R.string.age_month),
+                    yAxisUnit = stringResource(id = R.string.weight_kg),
+                    listDataChart = dataBabyChart.data.listWeightToAge
+                )
+            }
         }
     }
 }
