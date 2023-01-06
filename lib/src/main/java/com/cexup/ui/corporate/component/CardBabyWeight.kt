@@ -28,9 +28,9 @@ import com.cexup.ui.utils.mediaquery.from
 @ExperimentalMaterialApi
 @Composable
 fun CardResultBabyWeight(
-    motherWeight: Double,
-    babyWeight: Double,
-    babyHeight: Double,
+    motherWeight: String,
+    babyWeight: String,
+    babyHeight: String,
     onSeeChartClicked: () -> Unit,
 ) {
     val ctx = LocalContext.current
@@ -72,13 +72,7 @@ fun CardResultBabyWeight(
                         )
                         Spacer(modifier = Modifier.width(8.dp.from(ctx)))
                         Text(
-                            text = if (motherWeight > 0)
-                                stringResource(
-                                    id = R.string.kg_with_value,
-                                    motherWeight
-                                )
-                            else
-                                "-- kg",
+                            text = motherWeight,
                             style = MaterialTheme.typography.h6.copy(
                                 fontWeight = FontWeight.SemiBold,
                                 fontSize = 20.sp.from(ctx),
@@ -119,13 +113,7 @@ fun CardResultBabyWeight(
                         )
                         Spacer(modifier = Modifier.width(8.dp.from(ctx)))
                         Text(
-                            text = if (babyWeight > 0)
-                                stringResource(
-                                    id = R.string.kg_with_value,
-                                    babyWeight
-                                )
-                            else
-                                "-- kg",
+                            text = babyWeight,
                             style = MaterialTheme.typography.h6.copy(
                                 fontWeight = FontWeight.SemiBold,
                                 fontSize = 20.sp.from(ctx),
@@ -166,13 +154,7 @@ fun CardResultBabyWeight(
                         )
                         Spacer(modifier = Modifier.width(8.dp.from(ctx)))
                         Text(
-                            text =
-                            if (babyHeight > 0)
-                                stringResource(
-                                    id = R.string.cm_with_value,
-                                    babyHeight
-                                ) else
-                                "-- cm",
+                            text = babyHeight,
                             style = MaterialTheme.typography.h6.copy(
                                 fontWeight = FontWeight.SemiBold,
                                 fontSize = 20.sp.from(ctx),
@@ -220,7 +202,7 @@ fun CardResultBabyWeight(
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun CardBmiBabyWeight(
-    babyBmi: Double,
+    babyBmi: String,
     bmiStatus: String,
     bmiRangeValue: String,
     onRemeasurementClicked: () -> Unit,
@@ -263,7 +245,7 @@ fun CardBmiBabyWeight(
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Text(
-                            text = if (babyBmi> 0) babyBmi.toString() else "--",
+                            text = babyBmi,
                             style = MaterialTheme.typography.h5.copy(
                                 fontWeight = FontWeight.SemiBold,
                                 fontSize = 24.sp.from(ctx),
@@ -343,7 +325,7 @@ fun CardStepBabyWeight(
     textDetails: String,
     stateStep: StepBabyBMI,
     isEnabled: Boolean,
-    onCardStepClicked: (numberStep: Int) -> Unit,
+    onCardStepClicked: (numberStep: Int, textTitle: String) -> Unit,
 ) {
     val ctx = LocalContext.current
     Surface(
@@ -373,7 +355,7 @@ fun CardStepBabyWeight(
                     }
                 )
                 .clickable(enabled = isEnabled) {
-                    onCardStepClicked(numberStep)
+                    onCardStepClicked(numberStep, textTitle)
                 }
                 .border(
                     width = if (stateStep == StepBabyBMI.MEASURING) 2.dp.from(ctx) else 0.dp,
@@ -384,53 +366,77 @@ fun CardStepBabyWeight(
                 .fillMaxWidth()
                 .padding(16.dp.from(ctx)),
         ) {
-            Box(
-                modifier = Modifier
-                    .align(Alignment.TopEnd)
-                    .size(40.dp.from(ctx))
-                    .clip(CircleShape)
-                    .background(
-                        if (stateStep == StepBabyBMI.MEASURING || stateStep == StepBabyBMI.POST_MEASUREMENT) {
-                            GreenNormalBabyBMI
-                        } else {
-                            if (numberStep == 2) {
-                                BlueJade
-                            } else {
-                                Color.Transparent
-                            }
-                        }
-                    )
-                    .border(
-                        1.dp.from(ctx), color =
-                        if (stateStep == StepBabyBMI.MEASURING || stateStep == StepBabyBMI.POST_MEASUREMENT) {
-                            GreenNormalBabyBMI
-                        } else {
-                            if (numberStep == 2) {
-                                Color.Transparent
-                            } else {
-                                BlueJade
-                            }
-                        },
-                        shape = CircleShape
-                    ),
-                contentAlignment = Alignment.Center
-            ) {
-                if (stateStep == StepBabyBMI.MEASURING || stateStep == StepBabyBMI.POST_MEASUREMENT) {
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_checkmark),
-                        contentDescription = ""
-                    )
-                } else {
-                    Text(
-                        text = numberStep.toString(),
-                        fontWeight = FontWeight.SemiBold,
-                        fontSize = 24.sp.from(ctx),
-                        lineHeight = 24.sp.from(ctx),
-                        color = if (numberStep == 2) Color.White else BlueStepBabyBMI
-                    )
-                }
-
-            }
+//            Box(
+//                modifier = Modifier
+//                    .align(Alignment.TopEnd)
+//                    .size(40.dp.from(ctx))
+//                    .clip(CircleShape)
+//                    .background(
+//                        if (stateStep == StepBabyBMI.MEASURING){
+//                            BlueJade
+//                        }else {
+//                            GreenNormalBabyBMI
+//                        }
+////                        if (stateStep == StepBabyBMI.MEASURING || stateStep == StepBabyBMI.POST_MEASUREMENT) {
+////                            GreenNormalBabyBMI
+////                        } else {
+////                            if (numberStep == 2) {
+////                                BlueJade
+////                            } else {
+////                                Color.Transparent
+////                            }
+////                        }
+//                    )
+//                    .border(
+//                        1.dp.from(ctx), color =
+//                        if (stateStep == StepBabyBMI.MEASURING){
+//                            BlueJade
+//                        }else {
+//                            GreenNormalBabyBMI
+//                        },
+////                        if (stateStep == StepBabyBMI.MEASURING || stateStep == StepBabyBMI.POST_MEASUREMENT) {
+////                            GreenNormalBabyBMI
+////                        } else {
+////                            if (numberStep == 2) {
+////                                Color.Transparent
+////                            } else {
+////                                BlueJade
+////                            }
+////                        },
+//                        shape = CircleShape
+//                    ),
+//                contentAlignment = Alignment.Center
+//            ) {
+//                if (stateStep == StepBabyBMI.MEASURING){
+//                    Text(
+//                        text = "-",
+//                        fontWeight = FontWeight.SemiBold,
+//                        fontSize = 24.sp.from(ctx),
+//                        lineHeight = 24.sp.from(ctx),
+//                        color = Color.White
+//                    )
+//                }else{
+//                    Image(
+//                        painter = painterResource(id = R.drawable.ic_checkmark),
+//                        contentDescription = ""
+//                    )
+//                }
+////                if (stateStep == StepBabyBMI.MEASURING || stateStep == StepBabyBMI.POST_MEASUREMENT) {
+////                    Image(
+////                        painter = painterResource(id = R.drawable.ic_checkmark),
+////                        contentDescription = ""
+////                    )
+////                } else {
+////                    Text(
+////                        text = numberStep.toString(),
+////                        fontWeight = FontWeight.SemiBold,
+////                        fontSize = 24.sp.from(ctx),
+////                        lineHeight = 24.sp.from(ctx),
+////                        color = if (numberStep == 2) Color.White else BlueStepBabyBMI
+////                    )
+////                }
+//
+//            }
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -480,13 +486,13 @@ fun PreviewCardBabyWeight() {
     CexupTheme {
         Column {
             CardResultBabyWeight(
-                motherWeight = 0.0,
-                babyWeight = 0.0,
-                babyHeight = 0.0,
+                motherWeight = "",
+                babyWeight = "",
+                babyHeight = "",
                 onSeeChartClicked = {}
             )
             CardBmiBabyWeight(
-                babyBmi = 33.0,
+                babyBmi = "33",
                 bmiStatus = "Normal",
                 bmiRangeValue = "27-30 BMI",
                 onRemeasurementClicked = {}
@@ -497,7 +503,7 @@ fun PreviewCardBabyWeight() {
                 textTitle = "pepe",
                 textDetails = "cek bebi cek",
                 stateStep = StepBabyBMI.PRE_MEASUREMENT,
-                onCardStepClicked = {},
+                onCardStepClicked = { _, _ -> },
                 isEnabled = true
             )
         }

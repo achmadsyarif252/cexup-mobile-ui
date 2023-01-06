@@ -39,13 +39,10 @@ data class ScreenBabyWeightUIState(
 
 data class DataBabyWeight(
     val idData: Long? = 0,
-    val motherWeight: Double? = 0.0,
-    val stateStepMotherWeight: StepBabyBMI? = StepBabyBMI.PRE_MEASUREMENT,
-    val babyWeight: Double? = 0.0,
-    val stateStepBabyWeight: StepBabyBMI? = StepBabyBMI.PRE_MEASUREMENT,
-    val babyHeight: Double? = 0.0,
-    val stateStepBabyHeight: StepBabyBMI? = StepBabyBMI.PRE_MEASUREMENT,
-    val babyBMI: Double? = 0.0,
+    val motherWeight: String? = "-- kg",
+    val babyWeight: String? = "-- kg",
+    val babyHeight: String? = "-- cm",
+    val babyBMI: String? = "--",
     val statusBabyBMI: String? = "Normal",
     val statusRangeBabyBMI: String? = "≥ 18.5 – < 25"
 )
@@ -73,6 +70,11 @@ fun ScreenBabyWeight(
     onButtonBackPressed: () -> Unit,
 ) {
     val ctx = LocalContext.current
+
+    var selectedOption by remember{ mutableStateOf("") }
+    val onSelectionChange = { text: String ->
+        selectedOption = text
+    }
     val dataStep = listOf(
         ResourceStepBabyBMI(
             resourceImage = R.drawable.ic_baby_bmi_1,
@@ -159,15 +161,15 @@ fun ScreenBabyWeight(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             CardResultBabyWeight(
-                motherWeight = babyWeightUIState.data.motherWeight ?: 0.0,
-                babyWeight = babyWeightUIState.data.babyWeight ?: 0.0,
-                babyHeight = babyWeightUIState.data.babyHeight ?: 0.0,
+                motherWeight = babyWeightUIState.data.motherWeight ?: "",
+                babyWeight = babyWeightUIState.data.babyWeight ?: "",
+                babyHeight = babyWeightUIState.data.babyHeight ?: "",
                 onSeeChartClicked = {
                     onSeeChartClicked()
                 }
             )
             CardBmiBabyWeight(
-                babyBmi = babyWeightUIState.data.babyBMI ?: 0.0,
+                babyBmi = babyWeightUIState.data.babyBMI ?: "",
                 bmiStatus = babyWeightUIState.data.statusBabyBMI ?: "",
                 bmiRangeValue = babyWeightUIState.data.statusRangeBabyBMI ?: "",
                 onRemeasurementClicked = {onRemeasurementClicked()}
@@ -184,21 +186,25 @@ fun ScreenBabyWeight(
                     resourceImage = resourceStepBabyBMI.resourceImage,
                     textTitle = resourceStepBabyBMI.titleText,
                     textDetails = resourceStepBabyBMI.descriptionText,
-                    stateStep = when(index){
-                        0 -> babyWeightUIState.data.stateStepMotherWeight ?: StepBabyBMI.PRE_MEASUREMENT
-                        1 -> babyWeightUIState.data.stateStepBabyWeight ?: StepBabyBMI.PRE_MEASUREMENT
-                        2 -> babyWeightUIState.data.stateStepBabyHeight ?: StepBabyBMI.PRE_MEASUREMENT
-                        else -> {StepBabyBMI.PRE_MEASUREMENT}
-                    },
-                    onCardStepClicked = {
+                    stateStep = if (resourceStepBabyBMI.titleText == selectedOption) StepBabyBMI.MEASURING else StepBabyBMI.POST_MEASUREMENT,
+//                    stateStep = when(index){
+//                        0 -> babyWeightUIState.data.stateStepMotherWeight ?: StepBabyBMI.PRE_MEASUREMENT
+//                        1 -> babyWeightUIState.data.stateStepBabyWeight ?: StepBabyBMI.PRE_MEASUREMENT
+//                        2 -> babyWeightUIState.data.stateStepBabyHeight ?: StepBabyBMI.PRE_MEASUREMENT
+//                        else -> {StepBabyBMI.PRE_MEASUREMENT}
+//                    },
+                    onCardStepClicked = { it, title ->
                         when(it){
                             1 -> {
+                                onSelectionChange(title)
                                 onMotherWeightMeasurement()
                             }
                             2 -> {
+                                onSelectionChange(title)
                                 onMotherAndBabyWeightMeasurement()
                             }
                             3 -> {
+                                onSelectionChange(title)
                                 onBabyHeightMeasurement()
                             }
                         }
