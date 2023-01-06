@@ -308,6 +308,12 @@
     <string name="step_3_baby_weight">The baby’s height is automatically calculated on the app</string>
     <string name="little_one_growth_data">Little One\'s Growth Data</string>
     <string name="bmi_for_baby">BMI For Baby</string>
+    <string name="baby_chart_growth">Baby Chart Growth</string>
+    <string name="weight_to_height_curve">Weight To Height Curve</string>
+    <string name="weight_curve_for_age">Weight Curve For Age</string>
+    <string name="weight_kg">Weight(kg)</string>
+    <string name="height_cm">Height(cm)</string>
+    <string name="age_month">Age(Month)</string>
     <!-- Baby Weight -->
     
 
