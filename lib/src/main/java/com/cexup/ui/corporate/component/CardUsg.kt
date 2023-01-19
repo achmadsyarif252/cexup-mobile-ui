@@ -70,8 +70,8 @@ fun CardPatientUSG(
                 Image(
                     painter = rememberImagePainter(data = patientThumb, builder = {
                         crossfade(true)
-                        placeholder(R.drawable.dummy_profile_small)
-                        error(R.drawable.dummy_profile_small)
+                        placeholder(R.drawable.dummy_user_profile)
+                        error(R.drawable.dummy_user_profile)
                     }), contentDescription = "",
                     contentScale = ContentScale.Crop,
                     modifier = modifier

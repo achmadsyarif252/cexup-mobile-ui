@@ -18,6 +18,7 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.itemsIndexed
 import com.cexup.ui.R
 import com.cexup.ui.corporate.component.*
+import com.cexup.ui.corporate.theme.BlueJade
 import com.cexup.ui.corporate.theme.Heading
 import com.cexup.ui.utils.gridItems
 import com.cexup.ui.utils.mediaquery.from
@@ -48,7 +49,7 @@ fun ScreenCheckup(
             .fillMaxWidth()
             .padding(horizontal = 10.dp.from(ctx))
     ) {
-        Column(modifier = Modifier.padding(bottom = 10.dp.from(ctx))) {
+        Column {
             Text(
                 text = stringResource(id = R.string.corporate_waiting_checkup),
                 style = MaterialTheme.typography.body1.copy(
@@ -109,6 +110,7 @@ fun ScreenCheckup(
                 },
                 verticalArrangement = Arrangement.spacedBy(10.dp.from(ctx))
             )
+            Spacer(modifier = Modifier.width(10.dp.from(ctx)))
         }
         Spacer(modifier = Modifier.width(26.dp.from(ctx)))
         Column(
@@ -120,7 +122,6 @@ fun ScreenCheckup(
             LazyColumn(
                 verticalArrangement = Arrangement.spacedBy(10.dp.from(ctx)),
                 modifier = Modifier
-                    .padding(bottom = 10.dp.from(ctx))
                     .fillMaxHeight()
             ) {
                 item {
@@ -150,7 +151,10 @@ fun ScreenCheckup(
                         Spacer(modifier = Modifier.weight(1f))
                         Button(
                             modifier = Modifier.widthIn(min = 80.dp.from(ctx)),
-                            onClick = { onClickSyncToCloud() }
+                            onClick = { onClickSyncToCloud() },
+                            colors = ButtonDefaults.buttonColors(
+                                BlueJade
+                            )
                         ) {
                             Icon(
                                 Octicons.Sync24,
@@ -160,7 +164,7 @@ fun ScreenCheckup(
                             )
                             Spacer(modifier = Modifier.width(5.dp.from(ctx)))
                             Text(
-                                text = stringResource(id = R.string.corporate_sync_cloud),
+                                text = stringResource(id = R.string.corporate_create_soap),
                                 style = MaterialTheme.typography.body1.copy(
                                     color = Color.White,
                                     fontSize = 12.sp.from(ctx),
@@ -201,6 +205,9 @@ fun ScreenCheckup(
                             body = stringResource(id = R.string.corporate_checkup_empty)
                         )
                     }
+                }
+                item {
+                    Spacer(modifier = Modifier.width(10.dp.from(ctx)))
                 }
             }
         }
