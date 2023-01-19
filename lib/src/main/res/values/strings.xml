@@ -65,6 +65,7 @@
     <string name="sort">Sort</string>
     <string name="filter">Filter</string>
     <string name="reset">Reset</string>
+    <string name="back">Back</string>
     
     <string name="medical_check_up">Medical Check Up</string>
     <string name="swab_pcr">Swab PCR</string>
@@ -102,9 +103,10 @@
     <string name="corporate_menu_logout">Logout</string>
 
     <string name="corporate_checkup_empty">Please Select the patient you wish to examine. Hopefully the patient is always healthy.</string>
-    <string name="corporate_waiting_checkup">"Waiting Check Up</string>
-    <string name="corporate_physical_exam">"Physical Examination</string>
-    <string name="corporate_sync_cloud">"Sync to cloud</string>
+    <string name="corporate_waiting_checkup">Waiting Check Up</string>
+    <string name="corporate_physical_exam">Physical Examination</string>
+    <string name="corporate_sync_cloud">Sync to cloud</string>
+    <string name="corporate_create_soap">Create SOAP</string>
 
     <string name="corporate_back">Back</string>
     <string name="corporate_input_manual">Input Manual</string>
@@ -188,7 +190,7 @@
     <string name="admitted">Admitted</string>
     <string name="welcome">Welcome</string>
     <string name="total_patient_per_day">Total Patient Per day</string>
-    <string name="top_diseases">Top \'%1$s\' Diseases</string>
+    <string name="top_diseases">Top %1$d Diseases</string>
 
     <string name="save">Save</string>
     <string name="health_condition">Health Condition</string>
@@ -276,6 +278,7 @@
     <string name="questionnaire">Questionnaire</string>
     <string name="submit">Submit</string>
     <string name="choose">Choose</string>
+    
     <!-- USG -->
     <string name="see_profile">See Profile</string>
     <string name="usg_examination">USG Examination</string>
@@ -293,7 +296,6 @@
     <string name="usg_detail_examination">USG Details Examination</string>
     <string name="years_old">%1$s, %2$d years old</string>
     <string name="wib">%1$s WIB</string>
-    <!-- USG -->
 
     <!-- Baby Weight -->
     <string name="mother_weight">Mother Weight</string>
@@ -314,7 +316,6 @@
     <string name="weight_kg">Weight(kg)</string>
     <string name="height_cm">Height(cm)</string>
     <string name="age_month">Age(Month)</string>
-    <!-- Baby Weight -->
     
 
     <!-- Questionnaire Type-->
@@ -323,6 +324,11 @@
     <string name="questionnaire_type_essay">essay</string>
     <string name="questionnaire_type_date">date</string>
     <string name="questionnaire_type_image">image</string>
-    <!-- Questionnaire Type-->
+    
+    <!-- SOAP -->
+    <string name="subjective_soap">Subjective :</string>
+    <string name="objective_soap">Objective :</string>
+    <string name="assessment_soap">Assessment :</string>
+    <string name="planning_soap">Planning :</string>
 
 </resources>

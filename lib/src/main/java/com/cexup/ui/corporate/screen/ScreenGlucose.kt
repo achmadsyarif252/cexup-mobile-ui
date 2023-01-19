@@ -62,6 +62,13 @@ data class ValueBloodGlucose(
     var noteDeleted: String? = null,
 )
 
+//data class StateGlucose(
+//    val loading:Boolean,
+//    val error:Boolean,
+//    val message:String,
+//    val data:
+//)
+
 object MedicineType {
     const val noMedicine = 0
     const val Pills = 1
@@ -74,11 +81,21 @@ object MealType {
     const val NoMeal = 2
 }
 
+//enum class Type {
+//    BeforMeal
+//
+//    fun aliasOf(value:Int):Type{
+//        when(value){
+//            1->BeforMeal
+//            else->BeforMeal
+//        }
+//    }
+//}
+
 object InsulinType {
     const val ShortActing = 0
     const val LongActing = 1
 }
-
 object TypeAddData {
     const val Glucose = "Glucose"
     const val Hemoglobin = "Hemoglobin"
@@ -130,6 +147,11 @@ fun ScreenGlucose(
     var showDialogNoteRemovedData by remember { mutableStateOf(false) }
     var showDialogEditMealType by remember { mutableStateOf(false) }
     var idDataGlucose by remember { mutableStateOf(0L) }
+
+//    val type = Type.BeforMeal
+//
+//    val satu = 1
+//    type.aliasOf(satu)
     val tabs = listOf(
         TabContentRow(header = stringResource(id = R.string.one_day)) {
             ContentTabGlucose(

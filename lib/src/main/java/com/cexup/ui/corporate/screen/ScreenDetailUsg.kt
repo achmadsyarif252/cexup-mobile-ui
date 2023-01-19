@@ -109,8 +109,9 @@ fun ScreenDetailUsg(
         Row(horizontalArrangement = Arrangement.spacedBy(12.dp.from(ctx))) {
             Column(
                 modifier = Modifier
+                    .padding( end = 12.dp.from(ctx))
                     .verticalScroll(rememberScrollState())
-                    .padding(bottom = 16.dp.from(ctx), end = 12.dp.from(ctx))
+                    .padding(bottom = 16.dp.from(ctx))
                     .width(207.dp.from(ctx)),
                 verticalArrangement = Arrangement.spacedBy(16.dp.from(ctx))
             ) {

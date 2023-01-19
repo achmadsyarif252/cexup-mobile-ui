@@ -71,8 +71,8 @@ fun ScreenTemperature(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 30.dp.from(ctx))
             .verticalScroll(scrollState)
+            .padding(horizontal = 30.dp.from(ctx))
     ) {
         Spacer(modifier = Modifier.height(30.dp.from(ctx)))
         Row(

@@ -44,12 +44,14 @@ fun CardMedicalInspection(
     val ctx = LocalContext.current
     Card(
         shape = RoundedCornerShape(10.dp.from(ctx)),
-        modifier = modifier.selectable(
-            selected = selectedState,
-            onClick = {
-                onClick(userCode)
-            }
-        )
+        modifier = modifier
+            .clip(RoundedCornerShape(10.dp.from(ctx)))
+            .selectable(
+                selected = selectedState,
+                onClick = {
+                    onClick(userCode)
+                }
+            )
     ) {
         Row(
             modifier = modifier

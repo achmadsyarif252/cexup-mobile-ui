@@ -95,11 +95,11 @@ fun CardImageUsgDetail(
     ) {
         Column(
             modifier = Modifier
+                .verticalScroll(rememberScrollState())
                 .padding(
                     start = 16.dp.from(ctx),
                     end = 16.dp.from(ctx)
                 )
-                .verticalScroll(rememberScrollState())
         ) {
             Spacer(modifier = Modifier.height(16.dp.from(ctx)))
             if (imageBitmap == null || stateLoading) {
@@ -178,6 +178,7 @@ fun CardListDetailItemUSG(
     Surface(
         shape = RoundedCornerShape(8.dp.from(ctx)),
         modifier = Modifier
+            .padding(bottom = 8.dp.from(ctx))
             .fillMaxWidth(),
         elevation = 2.dp.from(ctx)
     ) {
