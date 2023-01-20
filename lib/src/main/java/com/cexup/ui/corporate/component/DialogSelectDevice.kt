@@ -5,14 +5,14 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -22,7 +22,9 @@ import androidx.compose.ui.window.DialogProperties
 import com.cexup.ui.corporate.theme.BlueJade
 import com.cexup.ui.corporate.theme.fontsCorp
 import com.cexup.ui.R
+import com.cexup.ui.utils.mediaquery.from
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun DialogSelectDevice(
     show: Boolean,
@@ -30,6 +32,7 @@ fun DialogSelectDevice(
     onSelectedDevice:(deviceName:String)->Unit,
     onBackPressed:()->Unit,
 ) {
+    val ctx = LocalContext.current
     if (show) {
         Dialog(
             onDismissRequest = { onBackPressed() },
@@ -42,30 +45,30 @@ fun DialogSelectDevice(
                 Box(
                     modifier = Modifier
                         .clip(
-                            RoundedCornerShape(20.dp)
+                            RoundedCornerShape(20.dp.from(ctx))
                         )
-                        .height(435.dp)
-                        .width(357.dp)
+                        .height(435.dp.from(ctx))
+                        .width(357.dp.from(ctx))
                         .background(Color.White)
                 ) {
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(top = 23.dp)
+                            .padding(top = 23.dp.from(ctx))
                     ) {
                         Text(
                             text = "Select Device",
-                            fontSize = 22.sp,
-                            fontFamily = fontsCorp,
+                            fontSize = 22.sp.from(ctx),
+                            lineHeight = 33.sp.from(ctx),
                             fontWeight = FontWeight.SemiBold,
                             color = BlueJade
                         )
-                        Spacer(modifier = Modifier.height(24.dp))
+                        Spacer(modifier = Modifier.height(24.dp.from(ctx)))
                         LazyColumn(
                             modifier = Modifier
-                                .width(300.dp)
-                                .height(250.dp),
+                                .width(300.dp.from(ctx))
+                                .height(250.dp.from(ctx)),
                             content = {
                                 items(deviceList) { device ->
                                     DeviceRow(
@@ -76,43 +79,42 @@ fun DialogSelectDevice(
                                         }
                                     )
                                 }
-                            }
+                            },
+                            verticalArrangement = Arrangement.spacedBy(8.dp.from(ctx))
                         )
-                        Spacer(modifier = Modifier.height(5.dp))
+                        Spacer(modifier = Modifier.height(5.dp.from(ctx)))
                         Text(
                             text = "Scanning...",
-                            fontSize = 16.sp,
+                            fontSize = 16.sp.from(ctx),
+                            lineHeight = 22.sp.from(ctx),
                             fontFamily = fontsCorp,
                             fontWeight = FontWeight(600),
                             color = BlueJade
                         )
-                        Spacer(modifier = Modifier.height(5.dp))
-                        Column(
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                        ) {
+                        Spacer(modifier = Modifier.height(5.dp.from(ctx)))
                             Button(
                                 onClick = {
                                     onBackPressed()
                                 },
                                 colors = ButtonDefaults.buttonColors(BlueJade),
                                 modifier = Modifier
-                                    .clip(RoundedCornerShape(10.dp))
-                                    .height(40.dp)
-                                    .width(288.dp)
-
+                                    .clip(RoundedCornerShape(10.dp.from(ctx)))
+                                    .padding(horizontal = 35.dp.from(ctx))
+                                    .height(36.dp.from(ctx))
+                                    .fillMaxWidth()
+                                    .defaultMinSize(minWidth = 1.dp, minHeight = 1.dp),
+                                contentPadding = PaddingValues(0.dp),
                             ) {
                                 Text(
                                     text = "Back",
-                                    fontSize = 16.sp,
-                                    fontFamily = fontsCorp,
+                                    fontSize = 16.sp.from(ctx),
+                                    lineHeight = 22.sp.from(ctx),
                                     fontWeight = FontWeight(600),
                                     color = Color.White
 
                                 )
                             }
-                        }
+
                     }
                 }
             }
@@ -126,43 +128,40 @@ fun DeviceRow(
     mac: String = "",
     onSelectDevice: (deviceAddress:String)->Unit,
 ) {
+    val ctx = LocalContext.current
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(10.dp))
+            .clip(RoundedCornerShape(10.dp.from(ctx)))
             .border(
-                BorderStroke(1.dp, Color.Black.copy(0.5f)
-            ), shape = RoundedCornerShape(10.dp)
+                BorderStroke(1.dp.from(ctx), Color.Black.copy(0.5f)),
+                shape = RoundedCornerShape(10.dp.from(ctx))
             )
-            .padding(top = 10.dp, bottom = 10.dp, start = 10.dp, end = 10.dp)
             .clickable {
                 onSelectDevice(mac)
-            },
-        horizontalArrangement = Arrangement.SpaceBetween
-
+            }
+            .padding(10.dp.from(ctx)),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(15.dp.from(ctx))
     ) {
-        Row(
-            horizontalArrangement = Arrangement.Start
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.ic_blue_jade_rectangle),
-                contentDescription = "",
-                modifier = Modifier.size(15.dp)
-
-            )
-            Spacer(modifier = Modifier.width(35.dp))
-            Text(
-                text = name,
-                fontSize = 16.sp,
-                fontFamily = fontsCorp,
-                fontWeight = FontWeight.Normal,
-                color = Color.Black
-            )
-        }
-        Spacer(modifier = Modifier.width(10.dp))
+        Image(
+            painter = painterResource(id = R.drawable.ic_blue_jade_rectangle),
+            contentDescription = "",
+            modifier = Modifier.size(15.dp.from(ctx))
+        )
         Text(
+            modifier = Modifier.weight(1f),
+            text = name,
+            fontSize = 16.sp.from(ctx),
+            lineHeight = 24.sp.from(ctx),
+            fontFamily = fontsCorp,
+            fontWeight = FontWeight.Normal,
+            color = Color.Black
+        )
+        Text(
+            modifier = Modifier.widthIn(min = 72.dp.from(ctx)),
             text = "Connect",
-            fontSize = 16.sp,
+            fontSize = 16.sp.from(ctx),
             fontFamily = fontsCorp,
             fontWeight = FontWeight.Normal,
             color = BlueJade
