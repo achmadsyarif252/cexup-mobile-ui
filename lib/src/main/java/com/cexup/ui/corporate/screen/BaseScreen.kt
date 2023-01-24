@@ -50,7 +50,6 @@ fun BaseScreen(
     val scaffoldState = rememberScaffoldState()
     val scope =  rememberCoroutineScope()
     var height by remember{ mutableStateOf(0f) }
-//    var width by remember{ mutableStateOf(291.dp.from(ctx).value) }
     val width = with(LocalDensity.current) { 291.dp.from(ctx).toPx() }
     Scaffold(
         modifier = Modifier

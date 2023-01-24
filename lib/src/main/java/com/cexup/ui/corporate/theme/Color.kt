@@ -124,4 +124,6 @@ val BlueDarkJade = Color(0xFF0D7F96)
 val BlueSelectedJade = Color(0xFFE7F2F5)
 val BlueLightJade = Color(0xFF00B3D7)
 val BlackJade = Color(0xFF333333)
+val FoundationBorderline = Color(0xFFF3F3F3)
+val FoundationInactive = Color(0xFFA3A3A3)
 
