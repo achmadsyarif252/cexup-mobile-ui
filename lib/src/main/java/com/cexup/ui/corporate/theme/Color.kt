@@ -120,3 +120,8 @@ val GrayLoadingUSG = Color(0xFFD9D9D9)
 val GreenNormalBabyBMI = Color(0xFF16A34A)
 val BlueStepBabyBMI = Color(0xFF0D7F96)
 
+val BlueDarkJade = Color(0xFF0D7F96)
+val BlueSelectedJade = Color(0xFFE7F2F5)
+val BlueLightJade = Color(0xFF00B3D7)
+val BlackJade = Color(0xFF333333)
+
