@@ -1,5 +1,6 @@
 package com.cexup.ui.corporate.component
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -15,10 +16,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.IntOffset
@@ -28,11 +28,11 @@ import androidx.compose.ui.window.Popup
 import com.cexup.ui.R
 import com.cexup.ui.component.common.TextFieldCexup
 import com.cexup.ui.corporate.screen.SearchPatientUIState
+import com.cexup.ui.corporate.theme.FoundationBorderline
+import com.cexup.ui.corporate.theme.FoundationInactive
 import com.cexup.ui.corporate.theme.GreyBlackStetoscope
 import com.cexup.ui.corporate.theme.inactive
 import com.cexup.ui.utils.mediaquery.from
-import compose.icons.Octicons
-import compose.icons.octicons.Search16
 import kotlinx.coroutines.launch
 
 @Composable
@@ -67,7 +67,7 @@ fun SearchPatient(
                         ),
                         modifier = Modifier
                             .heightIn(max = (ctx.resources.displayMetrics.heightPixels.dp / LocalDensity.current.density) / 2.59f)
-                            .width(421.66.dp.from(ctx)),
+                            .width(543.dp.from(ctx)),
                         elevation = 2.dp.from(ctx)
                     ) {
                         LazyColumn(verticalArrangement = Arrangement.spacedBy(16.dp.from(ctx))) {
@@ -142,8 +142,7 @@ fun SearchPatient(
             }
         }
         Card(
-            shape = RoundedCornerShape(25.dp.from(ctx)),
-            elevation = 2.dp.from(ctx),
+            shape = RoundedCornerShape(8.dp.from(ctx)),
             modifier = Modifier.height(56.dp.from(ctx))
         ) {
             TextFieldCexup(
@@ -161,29 +160,30 @@ fun SearchPatient(
                         }
                     }
                 },
-                modifier = Modifier
-                    .width(421.66.dp.from(ctx)),
-                textStyle = TextStyle(
-                    color = Color.Black,
-                    fontSize = 18.sp.from(ctx),
+                modifier = Modifier.width(543.dp.from(ctx)),
+                textStyle = MaterialTheme.typography.h4.copy(
+                    fontWeight = FontWeight.Normal,
+                    fontSize = 14.sp.from(ctx),
+                    lineHeight = 22.sp.from(ctx),
+                    color = Color.Black
                 ),
                 placeholder = {
                     Text(
                         text = stringResource(id = R.string.search_patients),
-                        style = MaterialTheme.typography.body1.copy(
-                            fontSize = 16.sp.from(ctx),
-                            fontWeight = FontWeight(600),
-                            color = MaterialTheme.colors.secondaryVariant
+                        style = MaterialTheme.typography.h4.copy(
+                            fontWeight = FontWeight.Normal,
+                            fontSize = 14.sp.from(ctx),
+                            lineHeight = 22.sp.from(ctx),
+                            color = FoundationInactive
                         ),
                     )
                 },
                 leadingIcon = {
-                    Icon(
-                        imageVector = Octicons.Search16,
-                        contentDescription = "",
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_search),
+                        contentDescription = "search",
                         modifier = Modifier
-                            .size(24.dp.from(ctx)),
-                        tint = inactive
+                            .size(20.dp.from(ctx)),
                     )
                 },
                 trailingIcon = {
@@ -199,19 +199,17 @@ fun SearchPatient(
                                 modifier = Modifier
                                     .padding(15.dp.from(ctx))
                                     .size(24.dp.from(ctx)),
-                                tint = inactive
+                                tint = FoundationInactive
                             )
                         }
                     }
                 },
                 singleLine = true,
-                shape = RoundedCornerShape(25.dp.from(ctx)),
+                shape = RoundedCornerShape(8.dp.from(ctx)),
                 colors = TextFieldDefaults.textFieldColors(
                     textColor = Color.Black,
                     cursorColor = Color.Black,
-                    leadingIconColor = Color.White,
-                    trailingIconColor = Color.White,
-                    backgroundColor = Color.White,
+                    backgroundColor = FoundationBorderline,
                     focusedIndicatorColor = Color.Transparent,
                     unfocusedIndicatorColor = Color.Transparent,
                     disabledIndicatorColor = Color.Transparent
