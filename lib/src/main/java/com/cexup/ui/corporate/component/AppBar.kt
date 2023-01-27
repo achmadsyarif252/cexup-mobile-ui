@@ -1,51 +1,46 @@
 package com.cexup.ui.corporate.component
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.relocation.BringIntoViewRequester
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.cexup.ui.R
 import com.cexup.ui.corporate.screen.SearchPatientUIState
 import com.cexup.ui.corporate.theme.BlueDarkJade
-import com.cexup.ui.corporate.theme.BlueJade
 import com.cexup.ui.corporate.theme.BlueLightJade
-import com.cexup.ui.corporate.theme.Heading
+import com.cexup.ui.corporate.theme.MaterialThemeCexup
 import com.cexup.ui.utils.coloredShadow
 import com.cexup.ui.utils.mediaquery.from
 import com.cexup.ui.utils.noRippleClick
 import com.skydoves.landscapist.CircularReveal
 import com.skydoves.landscapist.coil.CoilImage
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun AppBar(
     modifier: Modifier = Modifier,
-    goToAddPatient: () -> Unit = {},
-    goToPatient: (userCode: String) -> Unit = {},
+    valueTextSearch: String = "",
+    onValueChange: (value: String) -> Unit = {},
     goToProfile: () -> Unit = {},
-    checkUpPatient: (userCode: String) -> Unit = {},
-    onSearchPatient: suspend (name: String) -> SearchPatientUIState = { _ ->
-        SearchPatientUIState()
-    },
+    isSearch: Boolean = false,
+    onSearchClicked: () -> Unit = {},
     onLogoClicked: () -> Unit = {},
+    onBackIconClicked: () -> Unit = {},
 ) {
     val ctx = LocalContext.current
     Row(
@@ -55,76 +50,87 @@ fun AppBar(
             .padding(horizontal = 28.dp.from(ctx)),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Icon(
-            painter = painterResource(id = R.drawable.ic_menu),
-            contentDescription = "menu",
-            tint = BlueJade,
-            modifier = Modifier.noRippleClick {
-                onLogoClicked()
+        if (isSearch){
+            IconButton(
+                onClick = { onBackIconClicked() },
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_arrow_left),
+                    contentDescription = "arrow back search",
+                    modifier = Modifier.size(24.dp.from(ctx))
+                )
             }
-        )
-        Spacer(modifier = modifier.width(40.dp.from(ctx)))
-        SearchPatient(
-            onSearchPatient = { onSearchPatient(it) },
-            onPatientDetail = { goToPatient(it) },
-            onCheckUp = { checkUpPatient(it) }
-        )
-        Spacer(modifier = Modifier.weight(1f))
-        Button(
-            onClick = { goToAddPatient() },
-            shape = RoundedCornerShape(4.dp.from(ctx)),
-            colors = ButtonDefaults.buttonColors(BlueDarkJade),
-            elevation = ButtonDefaults.elevation(2.dp.from(ctx)),
-            modifier = modifier
-                .defaultMinSize(minWidth = 1.dp, minHeight = 1.dp),
-        ) {
-            Text(
-                text = stringResource(R.string.corporate_add_patient),
-                style = MaterialTheme.typography.body1.copy(
-                    fontWeight = FontWeight.SemiBold,
-                    fontSize = 14.sp.from(ctx),
-                    lineHeight = 20.sp.from(ctx),
-                    letterSpacing = 0.14f.sp.from(ctx)
-                ),
-                color = Color.White,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
+            Spacer(modifier = Modifier.width(28.dp.from(ctx)))
+            SearchPatientNew(
+                valueTextSearch = valueTextSearch,
+                onValueChange = {
+                    onValueChange(it)
+                }
             )
-
         }
-        Spacer(modifier = Modifier.width(24.dp.from(ctx)))
-        CardNotificationBar()
-        Spacer(modifier = Modifier.width(24.dp.from(ctx)))
-        Box(
-            modifier = Modifier
-                .coloredShadow(MaterialTheme.colors.primary)
-                .clip(CircleShape)
-                .size(51.66.dp.from(ctx))
-                .background(
-                    brush = Brush.verticalGradient(
-                        colors = listOf(
-                            BlueDarkJade,
-                            BlueLightJade
+        else{
+            Icon(
+                painter = painterResource(id = R.drawable.ic_menu),
+                contentDescription = "menu",
+                tint = MaterialThemeCexup.colors.color.text.textMain,
+                modifier = Modifier.noRippleClick {
+                    onLogoClicked()
+                }
+            )
+            Spacer(modifier = modifier.width(24.dp.from(ctx)))
+            Image(
+                painter = painterResource(id = R.drawable.logo_corporate),
+                contentDescription = "",
+                modifier = modifier
+                    .width(122.dp.from(ctx))
+                    .height(34.16f.dp.from(ctx))
+            )
+            Spacer(modifier = Modifier.weight(1f))
+            IconButton(onClick = { onSearchClicked() }) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_search),
+                    contentDescription = "search",
+                    modifier = Modifier
+                        .size(32.dp.from(ctx)),
+                    tint = MaterialThemeCexup.colors.color.text.textMain
+                )
+            }
+            Spacer(modifier = Modifier.width(24.dp.from(ctx)))
+            CardNotificationBar()
+            Spacer(modifier = Modifier.width(24.dp.from(ctx)))
+            Box(
+                modifier = Modifier
+                    .coloredShadow(MaterialTheme.colors.primary)
+                    .clip(CircleShape)
+                    .size(51.66.dp.from(ctx))
+                    .background(
+                        brush = Brush.verticalGradient(
+                            colors = listOf(
+                                BlueDarkJade,
+                                BlueLightJade
+                            )
                         )
                     )
+                    .clickable {
+                        goToProfile()
+                    },
+            ) {
+                CoilImage(
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .size(21.33f.dp.from(ctx)),
+                    imageModel = painterResource(id = R.drawable.ic_profile_dummy),
+                    // Crop, Fit, Inside, FillHeight, FillWidth, None
+                    contentScale = ContentScale.Crop,
+                    // shows an image with a circular revealed animation.
+                    circularReveal = CircularReveal(duration = 250),
+                    // shows a placeholder ImageBitmap when loading.
+                    placeHolder = painterResource(id = R.drawable.ic_profile_dummy),
+                    // shows an error ImageBitmap when the request failed.
+                    error = painterResource(id = R.drawable.ic_profile_dummy)
                 )
-                .clickable {
-                    goToProfile()
-                },
-        ) {
-            CoilImage(
-                modifier = Modifier.align(Alignment.Center)
-                    .size(21.33f.dp.from(ctx)),
-                imageModel = painterResource(id = R.drawable.ic_profile_dummy),
-                // Crop, Fit, Inside, FillHeight, FillWidth, None
-                contentScale = ContentScale.Crop,
-                // shows an image with a circular revealed animation.
-                circularReveal = CircularReveal(duration = 250),
-                // shows a placeholder ImageBitmap when loading.
-                placeHolder = painterResource(id = R.drawable.ic_profile_dummy),
-                // shows an error ImageBitmap when the request failed.
-                error = painterResource(id = R.drawable.ic_profile_dummy)
-            )
+            }
+
         }
     }
 }
