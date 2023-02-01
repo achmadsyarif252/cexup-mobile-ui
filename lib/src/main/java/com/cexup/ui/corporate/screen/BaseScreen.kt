@@ -1,9 +1,12 @@
 package com.cexup.ui.corporate.screen
 
 import android.annotation.SuppressLint
+import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.relocation.BringIntoViewRequester
 import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.*
@@ -20,6 +23,7 @@ import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.cexup.ui.corporate.component.AppBar
+import com.cexup.ui.corporate.component.ContentSearch
 import com.cexup.ui.corporate.component.NavigationDrawerCorporate
 import com.cexup.ui.corporate.component.SidebarMenuModel
 import com.cexup.ui.utils.mediaquery.from
@@ -30,8 +34,10 @@ data class SearchPatientUIState(
     val error: Boolean = false,
     val errorMessage: String = "",
     val data: List<Pair<String, String>> = listOf(),
+    val dataHistory: List<Pair<String, String>> = listOf(),
 )
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 fun BaseScreen(
@@ -39,7 +45,6 @@ fun BaseScreen(
     onSearchPatient: suspend (String) -> SearchPatientUIState,
     onPatientDetail: (String) -> Unit,
     onCheckUp: (String) -> Unit,
-    onAddPatient: () -> Unit,
     onProfile: () -> Unit,
     onLogout: () -> Unit,
     onNavigate: (String) -> Unit,
@@ -48,9 +53,12 @@ fun BaseScreen(
 ) {
     val ctx = LocalContext.current
     val scaffoldState = rememberScaffoldState()
-    val scope =  rememberCoroutineScope()
-    var height by remember{ mutableStateOf(0f) }
+    val scope = rememberCoroutineScope()
+    var height by remember { mutableStateOf(0f) }
     val width = with(LocalDensity.current) { 291.dp.from(ctx).toPx() }
+    var isSearch by remember { mutableStateOf(false) }
+    var valueTextSearch by remember { mutableStateOf("") }
+    var list by remember { mutableStateOf<List<Pair<String, String>>>(listOf()) }
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
@@ -60,18 +68,39 @@ fun BaseScreen(
         scaffoldState = scaffoldState,
         topBar = {
             AppBar(
-                goToAddPatient = { onAddPatient() },
-                goToPatient = { onPatientDetail(it) },
+                valueTextSearch = valueTextSearch,
+                isSearch = isSearch,
+                onValueChange = {
+                    if (!it.isEmpty()) {
+                        scope.launch {
+                            valueTextSearch = it
+                            val searchResult = onSearchPatient(it)
+                            list = searchResult.data
+                        }
+                    }else{
+                        scope.launch {
+                            valueTextSearch = it
+                            val searchResult = onSearchPatient("")
+                            list = searchResult.dataHistory
+                        }
+                    }
+                },
                 goToProfile = { onProfile() },
-                onSearchPatient = { onSearchPatient(it) },
-                checkUpPatient = { onCheckUp(it) },
                 onLogoClicked = {
                     scope.launch {
                         scaffoldState.drawerState.open()
                     }
+                },
+                onSearchClicked = {
+                    isSearch = true
+                },
+                onBackIconClicked = {
+                    valueTextSearch = ""
+                    isSearch = false
                 }
             )
         },
+        drawerGesturesEnabled = !isSearch,
         drawerContent = {
             NavigationDrawerCorporate(
                 selectedRoute = currentRoute,
@@ -92,13 +121,37 @@ fun BaseScreen(
             height = height
         )
     ) {
+        if (isSearch) {
+            BackHandler() {
+                valueTextSearch = ""
+                isSearch = false
+            }
+        }
         Row(
             modifier = Modifier
                 .padding(it)
                 .padding(start = 30.dp.from(ctx), end = 30.dp.from(ctx), top = 30.dp.from(ctx))
         ) {
-
-            content.invoke()
+            if (isSearch) {
+                ContentSearch(
+                    list = list,
+                    onUpArrowClicked = {
+                        scope.launch {
+                            valueTextSearch = it
+                            val searchResult = onSearchPatient(it)
+                            list = searchResult.data
+                        }
+                    },
+                    onSearchClicked = {
+                        onPatientDetail(it)
+                    },
+                    onCheckupClicked = {
+                        onCheckUp(it)
+                    }
+                )
+            } else {
+                content.invoke()
+            }
         }
     }
 }
@@ -106,7 +159,7 @@ fun BaseScreen(
 fun customShape(
     width: Float,
     height: Float,
-) =  object : Shape {
+) = object : Shape {
     override fun createOutline(
         size: Size,
         layoutDirection: LayoutDirection,
@@ -118,8 +171,8 @@ fun customShape(
                 0f,
                 width /* width */,
                 height /* height */,
-                topRightCornerRadius = CornerRadius(16f,16f),
-                bottomRightCornerRadius = CornerRadius(16f,16f)
+                topRightCornerRadius = CornerRadius(16f, 16f),
+                bottomRightCornerRadius = CornerRadius(16f, 16f)
             )
         )
     }

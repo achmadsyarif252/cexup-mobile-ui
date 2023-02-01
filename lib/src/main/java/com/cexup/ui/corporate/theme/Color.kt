@@ -1,6 +1,5 @@
 package com.cexup.ui.corporate.theme
 
-import android.annotation.SuppressLint
 import androidx.compose.ui.graphics.Color
 
 
@@ -127,6 +126,10 @@ val BlueLightJade = Color(0xFF00B3D7)
 val BlackJade = Color(0xFF333333)
 val FoundationBorderline = Color(0xFFF3F3F3)
 val FoundationInactive = Color(0xFFA3A3A3)
+
+val BlueDashboardNew = Color(0xFF7BA8FF)
+val GreenDashboardNew = Color(0xFF6ADA83)
+val GrayDashboardNew = Color(0xFF414D55)
 
 
 //New Colors

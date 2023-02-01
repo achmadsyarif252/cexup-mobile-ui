@@ -330,5 +330,14 @@
     <string name="objective_soap">Objective :</string>
     <string name="assessment_soap">Assessment :</string>
     <string name="planning_soap">Planning :</string>
+    
+    <!-- NewDashboard -->
+    <string name="new_patients">New Patients</string>
+    <string name="last_updated_at">Last updated at %1$s</string>
+    <string name="doctors_active">Doctors Active</string>
+    <string name="patients_diagnostic">Patients Diagnostic</string>
+    <string name="last_consultation_doctor">Last Consultation Doctor</string>
+    <string name="active_doctors_list">Active Doctors List</string>
+    <string name="no_doctor_available">No Doctor Available</string>
 
 </resources>

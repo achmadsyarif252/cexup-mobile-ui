@@ -13,10 +13,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.cexup.ui.utils.mediaquery.from
 
 enum class TypePhysicalExamination {
     OneValue,
@@ -35,10 +37,11 @@ fun CardPhysicalExamination(
     typePhysicalExamination: TypePhysicalExamination,
     onClick: () -> Unit,
 ) {
+    val ctx = LocalContext.current
     Card(
-        shape = RoundedCornerShape(10.dp),
+        shape = RoundedCornerShape(10.dp.from(ctx)),
         modifier = modifier
-            .clip(RoundedCornerShape(10.dp))
+            .clip(RoundedCornerShape(10.dp.from(ctx)))
             .clickable {
             onClick()
         }
@@ -48,19 +51,19 @@ fun CardPhysicalExamination(
             TypePhysicalExamination.OneValue -> {
                 Column(
                     modifier = modifier
-                        .width(150.dp)
-                        .height(180.dp)
+                        .width(150.dp.from(ctx))
+                        .height(180.dp.from(ctx))
                         .background(
                             color = MaterialTheme.colors.primaryVariant
                         )
-                        .padding(horizontal = 13.dp, vertical = 9.dp)
+                        .padding(horizontal = 13.dp.from(ctx), vertical = 9.dp.from(ctx))
                 ) {
                     Image(
                         painter = painterResource(
                             id = icon
                         ),
                         contentDescription = "",
-                        modifier = modifier.size(21.43.dp),
+                        modifier = modifier.size(21.43.dp.from(ctx)),
                     )
                     Column(
                         modifier = modifier.fillMaxHeight(),
@@ -68,7 +71,7 @@ fun CardPhysicalExamination(
                     ) {
                         Text(
                             text = namePhysicalExamination,
-                            fontSize = 16.sp,
+                            fontSize = 16.sp.from(ctx),
                             style = MaterialTheme.typography.body1.copy(
                                 fontWeight = FontWeight(400),
                                 color = Color.White
@@ -76,7 +79,7 @@ fun CardPhysicalExamination(
                         )
                         Text(
                             text = "$value $unit",
-                            fontSize = 22.sp,
+                            fontSize = 22.sp.from(ctx),
                             style = MaterialTheme.typography.body1.copy(
                                 fontWeight = FontWeight(500),
                                 color = Color.White
@@ -89,19 +92,19 @@ fun CardPhysicalExamination(
             TypePhysicalExamination.BloodPressure -> {
                 Column(
                     modifier = modifier
-                        .width(150.dp)
-                        .height(180.dp)
+                        .width(150.dp.from(ctx))
+                        .height(180.dp.from(ctx))
                         .background(
                             color = MaterialTheme.colors.primaryVariant
                         )
-                        .padding(horizontal = 13.dp, vertical = 9.dp)
+                        .padding(horizontal = 13.dp.from(ctx), vertical = 9.dp.from(ctx))
                 ) {
                     Image(
                         painter = painterResource(
                             id = icon
                         ),
                         contentDescription = "",
-                        modifier = modifier.size(21.43.dp)
+                        modifier = modifier.size(21.43.dp.from(ctx))
                     )
                     Column(
                         modifier = modifier.fillMaxHeight(),
@@ -109,7 +112,7 @@ fun CardPhysicalExamination(
                     ) {
                         Text(
                             text = namePhysicalExamination,
-                            fontSize = 16.sp,
+                            fontSize = 16.sp.from(ctx),
                             style = MaterialTheme.typography.body1.copy(
                                 fontWeight = FontWeight(400),
                                 color = Color.White
@@ -120,16 +123,16 @@ fun CardPhysicalExamination(
                         ) {
                             Text(
                                 text = "$value/$value2",
-                                fontSize = 22.sp,
+                                fontSize = 22.sp.from(ctx),
                                 style = MaterialTheme.typography.body1.copy(
                                     fontWeight = FontWeight(500),
                                     color = Color.White
                                 ),
                             )
-                            Spacer(modifier = Modifier.width(5.dp))
+                            Spacer(modifier = Modifier.width(5.dp.from(ctx)))
                             Text(
                                 text = unit,
-                                fontSize = 12.sp,
+                                fontSize = 12.sp.from(ctx),
                                 style = MaterialTheme.typography.body1.copy(
                                     fontWeight = FontWeight(300),
                                     color = Color.White
@@ -145,19 +148,19 @@ fun CardPhysicalExamination(
             TypePhysicalExamination.NoValue -> {
                 Column(
                     modifier = modifier
-                        .width(150.dp)
-                        .height(180.dp)
+                        .width(150.dp.from(ctx))
+                        .height(180.dp.from(ctx))
                         .background(
                             color = MaterialTheme.colors.primaryVariant
                         )
-                        .padding(horizontal = 13.dp, vertical = 9.dp)
+                        .padding(horizontal = 13.dp.from(ctx), vertical = 9.dp.from(ctx))
                 ) {
                     Image(
                         painter = painterResource(
                             id = icon
                         ),
                         contentDescription = "",
-                        modifier = modifier.size(21.43.dp)
+                        modifier = modifier.size(21.43.dp.from(ctx))
                     )
                     Column(
                         modifier = modifier.fillMaxHeight(),
@@ -165,7 +168,7 @@ fun CardPhysicalExamination(
                     ) {
                         Text(
                             text = namePhysicalExamination,
-                            fontSize = 16.sp,
+                            fontSize = 16.sp.from(ctx),
                             style = MaterialTheme.typography.body1.copy(
                                 fontWeight = FontWeight(400),
                                 color = Color.White
