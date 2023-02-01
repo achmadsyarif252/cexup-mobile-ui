@@ -3,22 +3,11 @@ package app.trian.socialapp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.Text
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.unit.dp
-import com.cexup.ui.corporate.component.ContentSearch
 import com.cexup.ui.corporate.component.SidebarMenuModel
 import com.cexup.ui.corporate.component.SidebarMenuType
-import com.cexup.ui.corporate.screen.BaseScreen
-import com.cexup.ui.corporate.screen.SearchPatientUIState
+import com.cexup.ui.corporate.screen.*
 import com.cexup.ui.corporate.theme.CexupTheme
-import com.cexup.ui.corporate.theme.MaterialThemeCexup
-import com.cexup.ui.utils.mediaquery.from
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,14 +49,54 @@ class MainActivity : ComponentActivity() {
 
                         )
                 ) {
-                    Card(elevation = MaterialThemeCexup.elevation.skim, shape = RoundedCornerShape(20.dp.from(ctx))){
-                        Box(modifier = Modifier) {
-                            Text(
-                                text = "asdsda",
-                                style = MaterialThemeCexup.typography.h1
+                    ScreenPatients(
+                        patientsUIState = ScreenPatientsUIState(
+                            data = DataScreenPatients(
+                                totalPatients = 150, currentPage = 2, listDataPatients = listOf(
+                                    DataPatients(
+                                        patientsName = "Muhammad Sumbul",
+                                        patientsAge = 12,
+                                        patientsDiseases = "Penyakitan",
+                                        patientsPhone = "0828282",
+                                        patientsThumb = "",
+                                        patientsUserCode = "wewew"
+                                    ),
+                                    DataPatients(
+                                        patientsName = "Muhammad Sumbul",
+                                        patientsAge = 12,
+                                        patientsDiseases = "Penyakitan",
+                                        patientsPhone = "0828282",
+                                        patientsThumb = "",
+                                        patientsUserCode = "wewew"
+                                    ),
+                                    DataPatients(
+                                        patientsName = "Muhammad Sumbul",
+                                        patientsAge = 12,
+                                        patientsDiseases = "Penyakitan",
+                                        patientsPhone = "0828282",
+                                        patientsThumb = "",
+                                        patientsUserCode = "wewew"
+                                    ),
+                                    DataPatients(
+                                        patientsName = "Muhammad Sumbul",
+                                        patientsAge = 12,
+                                        patientsDiseases = "Penyakitan",
+                                        patientsPhone = "0828282",
+                                        patientsThumb = "",
+                                        patientsUserCode = "wewew"
+                                    ),
+                                    DataPatients(
+                                        patientsName = "Muhammad Sumbul",
+                                        patientsAge = 12,
+                                        patientsDiseases = "Penyakitan",
+                                        patientsPhone = "0828282",
+                                        patientsThumb = "",
+                                        patientsUserCode = "wewew"
+                                    )
+                                )
                             )
-                        }
-                    }
+                        )
+                    )
                 }
             }
         }

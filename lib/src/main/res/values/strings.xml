@@ -294,7 +294,7 @@
     <string name="report">Report</string>
     <string name="usg_information">USG Information</string>
     <string name="usg_detail_examination">USG Details Examination</string>
-    <string name="years_old">%1$s, %2$d years old</string>
+    <string name="gender_years_old">%1$s, %2$d years old</string>
     <string name="wib">%1$s WIB</string>
 
     <!-- Baby Weight -->
@@ -339,5 +339,13 @@
     <string name="last_consultation_doctor">Last Consultation Doctor</string>
     <string name="active_doctors_list">Active Doctors List</string>
     <string name="no_doctor_available">No Doctor Available</string>
+    <string name="filter_date">Filter Date</string>
+
+    <!-- NewPatientList -->
+    <string name="patient_name">Patient Name</string>
+    <string name="phone">Phone</string>
+    <string name="diseases">Diseases</string>
+    <string name="actions">Actions</string>
+    <string name="years_old">%1$d Years old</string>
 
 </resources>

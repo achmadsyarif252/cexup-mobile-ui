@@ -47,7 +47,7 @@ fun ScreenCheckup(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 10.dp.from(ctx))
+            .padding(30.dp.from(ctx))
     ) {
         Column {
             Text(

@@ -130,7 +130,7 @@ fun BaseScreen(
         Row(
             modifier = Modifier
                 .padding(it)
-                .padding(start = 30.dp.from(ctx), end = 30.dp.from(ctx), top = 30.dp.from(ctx))
+//                .padding(start = 30.dp.from(ctx), end = 30.dp.from(ctx), top = 30.dp.from(ctx))
         ) {
             if (isSearch) {
                 ContentSearch(
