@@ -100,7 +100,6 @@ fun AppBar(
             Spacer(modifier = Modifier.width(24.dp.from(ctx)))
             Box(
                 modifier = Modifier
-                    .coloredShadow(MaterialTheme.colors.primary)
                     .clip(CircleShape)
                     .size(51.66.dp.from(ctx))
                     .background(

@@ -13,8 +13,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.cexup.ui.R
 import com.cexup.ui.corporate.component.*
-import com.cexup.ui.corporate.theme.BlueDashboardNew
-import com.cexup.ui.corporate.theme.GreenDashboardNew
 import com.cexup.ui.corporate.theme.MaterialThemeCexup
 import com.cexup.ui.corporate.theme.PrimaryMain
 import com.cexup.ui.utils.mediaquery.from
@@ -35,9 +33,9 @@ data class ScreenDashboardUIState(
     val error:Boolean = false,
     val loading: Boolean = true,
     val message: String = "",
-    val data: DataDashboard = DataDashboard()
+    val data: DataScreenDashboard = DataScreenDashboard()
 )
-data class DataDashboard(
+data class DataScreenDashboard(
     val valueNewPatients: Int = 0,
     val valueLastUpdatedNewPatients: String = "",
     val valuePercentRatioPatientBeforeAndToday: String = "",
@@ -65,7 +63,7 @@ fun ScreenDashboardNew(
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
-            .padding(bottom = 30.dp.from(ctx)),
+            .padding(28.dp.from(ctx)),
     ) {
         Text(
             text = stringResource(id = R.string.corporate_menu_dashboard),

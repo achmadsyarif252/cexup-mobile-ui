@@ -1,5 +1,6 @@
 package com.cexup.ui.corporate.theme
 
+import androidx.annotation.ColorRes
 import androidx.compose.ui.graphics.Color
 
 
@@ -174,6 +175,8 @@ val TextInactive = Color(0xFFA3A3A3)
 val Borderline1 = Color(0xFFEDEDED)
 val Borderline2 = Color(0xFFF3F3F3)
 val Borderline3 = Color(0xFFDDDDDD)
+val Neutral70 = Color(0xFF757575)
+val Neutral100 = Color(0xFF0A0A0A)
 
 //New Color Palettes
 val Neutral1 = Color(0xFFFFFFFF)
