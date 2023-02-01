@@ -100,6 +100,7 @@ fun BaseScreen(
                 }
             )
         },
+        drawerGesturesEnabled = !isSearch,
         drawerContent = {
             NavigationDrawerCorporate(
                 selectedRoute = currentRoute,
