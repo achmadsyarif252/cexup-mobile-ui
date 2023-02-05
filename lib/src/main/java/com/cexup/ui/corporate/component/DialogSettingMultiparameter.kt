@@ -1,5 +1,6 @@
 package com.cexup.ui.corporate.component
 
+import android.util.Log
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -28,7 +29,7 @@ import compose.icons.octicons.HorizontalRule16
 import compose.icons.octicons.Plus16
 import compose.icons.octicons.X16
 
-enum class  ModeSwitch(val parameter : String){
+enum class ModeSwitch(val parameter: String) {
     NORMAL("NORMAL"),
     UPPERLOWER("UPPERLOWER"),
     INTERVAL("INTERVAL")
@@ -38,10 +39,10 @@ enum class  ModeSwitch(val parameter : String){
 @Composable
 fun DialogSettingMultiparameter(
     modifier: Modifier = Modifier,
-    show:Boolean= false,
-    onDismiss : ()-> Unit,
+    show: Boolean = false,
+    onDismiss: () -> Unit,
     onLimitConfigSave: (limitType: LimitType, upper: Double, lower: Double) -> Unit,
-    onSwitchChanged: (limitType: LimitType) -> Unit
+    onSwitchChanged: (limitType: LimitType, value: Boolean) -> Unit,
 ) {
 
     var showLimit by remember {
@@ -65,7 +66,14 @@ fun DialogSettingMultiparameter(
     var tempUpperLimit by remember { mutableStateOf(34.0) }
     var tempLowerLimit by remember { mutableStateOf(34.0) }
 
-    if(show) {
+    var alarmNIBPHigh by remember { mutableStateOf(SwitchParameter.ON) }
+    var alarmNIBPLow by remember { mutableStateOf(SwitchParameter.ON) }
+    var alarmHr by remember { mutableStateOf(SwitchParameter.ON) }
+    var alarmSPO2 by remember { mutableStateOf(SwitchParameter.ON) }
+    var alarmPulseRate by remember { mutableStateOf(SwitchParameter.ON) }
+    var alarmTempt by remember { mutableStateOf(SwitchParameter.ON) }
+
+    if (show) {
         Dialog(
             onDismissRequest = { onDismiss() },
             properties = DialogProperties(usePlatformDefaultWidth = false)
@@ -75,10 +83,30 @@ fun DialogSettingMultiparameter(
                 onConfig = {
                     showLimit = true
                     limitType = it
-
                 },
-                onSwitchChange = {
-                    onSwitchChanged(it)
+                onSwitchChange = { limitType, alarmValue ->
+                    onSwitchChanged(limitType, alarmValue != SwitchParameter.ON)
+                    when (limitType) {
+                        LimitType.HIGH_BP_LIMIT -> {
+                            alarmNIBPHigh = alarmValue
+                        }
+                        LimitType.LOW_BP_LIMIT -> {
+                            alarmNIBPLow = alarmValue
+                        }
+                        LimitType.ECG_LIMIT -> {
+                            alarmHr = alarmValue
+                        }
+                        LimitType.SPO2_LIMIT -> {
+                            alarmSPO2 = alarmValue
+                        }
+                        LimitType.PULSE_LIMIT -> {
+                            alarmPulseRate = alarmValue
+                        }
+                        LimitType.TEMPERATURE_LIMIT -> {
+                            alarmTempt = alarmValue
+                        }
+                        LimitType.AUTOMATIC_INTERVAL -> {}
+                    }
                 },
                 hpUpperLimit = hpUpperLimit,
                 hpLowerLimit = hpLowerLimit,
@@ -92,6 +120,12 @@ fun DialogSettingMultiparameter(
                 prLowerLimit = prLowerLimit,
                 tempUpperLimit = tempUpperLimit,
                 tempLowerLimit = tempLowerLimit,
+                alarmNIBPHigh = alarmNIBPHigh,
+                alarmNIBPLow = alarmNIBPLow,
+                alarmHr = alarmHr,
+                alarmSPO2 = alarmSPO2,
+                alarmPulseRate = alarmPulseRate,
+                alarmTempt = alarmTempt
             )
         }
     }
@@ -101,7 +135,7 @@ fun DialogSettingMultiparameter(
         type = limitType,
         onDismiss = { showLimit = false },
         onConfig = { selectedUpper, selectedLower ->
-            when(limitType) {
+            when (limitType) {
                 LimitType.HIGH_BP_LIMIT -> {
                     hpUpperLimit = selectedUpper.toInt()
                     hpLowerLimit = selectedLower.toInt()
@@ -142,7 +176,7 @@ fun LayoutSettingMultiparameter(
     modifier: Modifier = Modifier,
     onDismiss: () -> Unit = {},
     onConfig: (limitType: LimitType) -> Unit = {},
-    onSwitchChange: (limitType: LimitType) -> Unit = {},
+    onSwitchChange: (limitType: LimitType, switchParamValue: SwitchParameter) -> Unit,
     hpUpperLimit: Int,
     hpLowerLimit: Int,
     lpUpperLimit: Int,
@@ -155,6 +189,12 @@ fun LayoutSettingMultiparameter(
     prLowerLimit: Int,
     tempUpperLimit: Double,
     tempLowerLimit: Double,
+    alarmNIBPHigh: SwitchParameter,
+    alarmNIBPLow: SwitchParameter,
+    alarmHr: SwitchParameter,
+    alarmSPO2: SwitchParameter,
+    alarmPulseRate: SwitchParameter,
+    alarmTempt: SwitchParameter
 ) {
     var valueAlaram by remember {
         mutableStateOf(0)
@@ -255,7 +295,7 @@ fun LayoutSettingMultiparameter(
                         CardUpperLower(
                             nameParameter = "Demo Mode",
                             listSwitch = listSwitchText,
-                            startPosition = SwitchParameter.OFF,
+                            startPosition = alarmNIBPHigh,
                             modeSwitch = ModeSwitch.UPPERLOWER,
                             upperValue = "$hpUpperLimit",
                             lowerValue = "$hpLowerLimit",
@@ -264,7 +304,11 @@ fun LayoutSettingMultiparameter(
                             },
                             limitType = LimitType.HIGH_BP_LIMIT,
                             onSwitch = { limitType ->
-                                onSwitchChange(limitType)
+                                onSwitchChange(
+                                    limitType,
+                                    if (alarmNIBPHigh == SwitchParameter.OFF) SwitchParameter.ON else SwitchParameter.OFF
+                                )
+                                Log.d("Systole di Compose", "value = ${alarmNIBPHigh.name}")
                             }
                         )
                         Spacer(modifier = Modifier.height(12.dp))
@@ -280,7 +324,7 @@ fun LayoutSettingMultiparameter(
                         CardUpperLower(
                             nameParameter = "Demo Mode",
                             listSwitch = listSwitchText,
-                            startPosition = SwitchParameter.OFF,
+                            startPosition = alarmNIBPLow,
                             modeSwitch = ModeSwitch.UPPERLOWER,
                             upperValue = "$lpUpperLimit",
                             lowerValue = "$lpLowerLimit",
@@ -289,7 +333,11 @@ fun LayoutSettingMultiparameter(
                             },
                             limitType = LimitType.LOW_BP_LIMIT,
                             onSwitch = { limitType ->
-                                onSwitchChange(limitType)
+                                onSwitchChange(
+                                    limitType,
+                                    if (alarmNIBPLow == SwitchParameter.OFF) SwitchParameter.ON else SwitchParameter.OFF
+                                )
+
                             }
                         )
                         Spacer(Modifier.height(10.dp))
@@ -301,7 +349,7 @@ fun LayoutSettingMultiparameter(
                             listenable = listSwitchInterval,
                             limitType = LimitType.AUTOMATIC_INTERVAL,
                             onSwitch = { limitType ->
-                                onSwitchChange(limitType)
+                                onSwitchChange(limitType, SwitchParameter.OFF)
                             }
                         )
                     }
@@ -335,7 +383,7 @@ fun LayoutSettingMultiparameter(
                         CardUpperLower(
                             nameParameter = "Demo Mode",
                             listSwitch = listSwitchText,
-                            startPosition = SwitchParameter.OFF,
+                            startPosition = alarmHr,
                             modeSwitch = ModeSwitch.UPPERLOWER,
                             upperValue = "$ecgUpperLimit",
                             lowerValue = "$ecgLowerLimit",
@@ -344,7 +392,10 @@ fun LayoutSettingMultiparameter(
                             },
                             limitType = LimitType.ECG_LIMIT,
                             onSwitch = { limitType ->
-                                onSwitchChange(limitType)
+                                onSwitchChange(
+                                    limitType,
+                                    if (alarmHr == SwitchParameter.OFF) SwitchParameter.ON else SwitchParameter.OFF
+                                )
                             }
                         )
                     }
@@ -372,7 +423,7 @@ fun LayoutSettingMultiparameter(
                         CardUpperLower(
                             nameParameter = "Demo Mode",
                             listSwitch = listSwitchText,
-                            startPosition = SwitchParameter.OFF,
+                            startPosition = alarmSPO2,
                             modeSwitch = ModeSwitch.UPPERLOWER,
                             upperValue = "$spo2UpperLimit",
                             lowerValue = "$spo2LowerLimit",
@@ -381,7 +432,10 @@ fun LayoutSettingMultiparameter(
                             },
                             limitType = LimitType.SPO2_LIMIT,
                             onSwitch = { limitType ->
-                                onSwitchChange(limitType)
+                                onSwitchChange(
+                                    limitType,
+                                    if (alarmSPO2 == SwitchParameter.OFF) SwitchParameter.ON else SwitchParameter.OFF
+                                )
                             }
                         )
                         Spacer(modifier = Modifier.height(12.dp))
@@ -397,7 +451,7 @@ fun LayoutSettingMultiparameter(
                         CardUpperLower(
                             nameParameter = "Demo Mode",
                             listSwitch = listSwitchText,
-                            startPosition = SwitchParameter.OFF,
+                            startPosition = alarmPulseRate,
                             modeSwitch = ModeSwitch.UPPERLOWER,
                             upperValue = "$prUpperLimit",
                             lowerValue = "$prLowerLimit",
@@ -406,7 +460,10 @@ fun LayoutSettingMultiparameter(
                             },
                             limitType = LimitType.PULSE_LIMIT,
                             onSwitch = { limitType ->
-                                onSwitchChange(limitType)
+                                onSwitchChange(
+                                    limitType,
+                                    if (alarmPulseRate == SwitchParameter.OFF) SwitchParameter.ON else SwitchParameter.OFF
+                                )
                             }
                         )
                     }
@@ -430,7 +487,7 @@ fun LayoutSettingMultiparameter(
                         CardUpperLower(
                             nameParameter = "Demo Mode",
                             listSwitch = listSwitchText,
-                            startPosition = SwitchParameter.OFF,
+                            startPosition = alarmTempt,
                             modeSwitch = ModeSwitch.UPPERLOWER,
                             upperValue = "$tempUpperLimit",
                             lowerValue = "$tempLowerLimit",
@@ -439,7 +496,10 @@ fun LayoutSettingMultiparameter(
                             },
                             limitType = LimitType.TEMPERATURE_LIMIT,
                             onSwitch = { limitType ->
-                                onSwitchChange(limitType)
+                                onSwitchChange(
+                                    limitType,
+                                    if (alarmTempt == SwitchParameter.OFF) SwitchParameter.ON else SwitchParameter.OFF
+                                )
                             }
                         )
                     }
@@ -454,8 +514,8 @@ fun LayoutSettingMultiparameter(
 @Composable
 fun CardGeneralSetting(
     modifier: Modifier = Modifier,
-    nameParameter : String = ""
-){
+    nameParameter: String = ""
+) {
     var valueChange by remember {
         mutableStateOf(0)
     }
@@ -520,8 +580,7 @@ fun CardGeneralSetting(
                         color = GreyBorder,
                         shape = RoundedCornerShape(5.dp),
                         width = 1.dp
-                    )
-                ,
+                    ),
                 contentAlignment = Alignment.Center
             ) {
                 Text(
