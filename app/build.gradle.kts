@@ -45,7 +45,6 @@ android {
     buildFeatures {
         compose= true
         buildConfig=true
-        viewBinding = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = Version.compose_compiler_version
@@ -59,8 +58,6 @@ android {
 
 dependencies {
 
-    //test
-    implementation("androidx.compose.runtime:runtime-livedata:1.3.3")
     implementation(project(":lib"))
     implementation("androidx.appcompat:appcompat:1.6.0")
     implementation("com.google.android.material:material:1.4.0")

@@ -196,9 +196,6 @@ fun LayoutSettingMultiparameter(
     alarmPulseRate: SwitchParameter,
     alarmTempt: SwitchParameter
 ) {
-    var valueAlaram by remember {
-        mutableStateOf(0)
-    }
     var listSwitchText = listOf(SwitchParameter.ON, SwitchParameter.OFF)
     var listSwitchInterval = listOf(EnableParameter.Enable, EnableParameter.Disable)
 
