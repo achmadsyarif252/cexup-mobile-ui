@@ -1,184 +1,134 @@
 package com.cexup.ui.corporate.screen
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.cexup.ui.corporate.component.*
-import com.cexup.ui.corporate.theme.ColorGray
-import com.cexup.ui.corporate.theme.Heading
-import com.github.mikephil.charting.data.Entry
-import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.rememberPagerState
 import com.cexup.ui.R
+import com.cexup.ui.corporate.component.AllergyLevel
+import com.cexup.ui.corporate.component.CardAllergies
+import com.cexup.ui.corporate.component.CardInformationPatient
+import com.cexup.ui.corporate.component.CardProfilePatientNew
+import com.cexup.ui.corporate.theme.MaterialThemeCexup
 import com.cexup.ui.utils.mediaquery.from
+import com.github.mikephil.charting.data.Entry
 
-enum class EwsState {
-    SUCCESS, LOADING, FAILED
-}
-
-data class PatientProfileUIState(
-    var userCode: String = "Unknown",
-    var name: String = "Unknown",
-    var email: String = "Unknown",
-    var date_of_birth: String = "Unknown",
-    var gender: String = "Unknown",
-    var status: Boolean = true,
-    var address: String = "Unknown",
-    var phone_number: String = "Unknown",
-    var currentDisease: String = "Unknown",
+data class ScreenPatientProfileUIState(
+    val error: Boolean = false,
+    val loading: Boolean = true,
+    val message: String = "",
+    val data: DataPatientProfile = DataPatientProfile()
 )
 
-data class EwsPatientProfileUIState(
-    val userCode : String = "",
-    val point: Int? = null,
-    val result : String = "",
-    val cause : List<String> = listOf(),
-    val produce_at : Long = 0,
-    val ewsState: EwsState,
+data class DataPatientProfile(
+    val patientFullname: String = "",
+    val patientFirstName: String = "",
+    val patientLastName: String = "",
+    val patientEws: String = "Normal",
+    val patientGender: String = "",
+    val patientAge: Int = 1,
+    val patientWeight: String = "",
+    val patientHeight: String = "",
+    val patientGolDarah: String = "",
+    val patientStatusActive: Boolean = false,
+    val patientAllergy: List<Pair<String, AllergyLevel>> = listOf(),
+    val patientBirthDate: String = "",
+    val patientReligion: String = "",
+    val patientAssignedDoctor: String = "",
+    val patientStatusMarried: String = "",
+    val patientDateIn: String = "",
+    val patientID: String = "",
+    val patientAddress: String = "",
+    val patientPhoneNumber: String = "",
+    val patientEmail: String = "",
+    val patientNoteFromNurse: String = "",
+    val patientSystoleValue: List<Entry> = listOf(),
+    val patientDiastoleValue: List<Entry> = listOf(),
+    val patientHeartRateValue: List<Entry> = listOf(),
+    val patientSpo2Value: List<Entry> = listOf(),
+    val patientBMIValue: List<Entry> = listOf(),
+    val patientTemperatureValue: List<Entry> = listOf()
 )
 
-data class PatientMeasurementUIState(
-    // label, entry
-    var dataBmi: Pair<List<String>, List<Entry>>,
-    var dataWaist: Pair<List<String>, List<Entry>>,
-    var dataTemp: Pair<List<String>, List<Entry>>,
-    var dataPulseOxiMeter: Pair<List<String>, List<Entry>>,
-    var dataHeartRate: Pair<List<String>, List<Entry>>,
-)
-
-@OptIn(ExperimentalPagerApi::class)
 @Composable
 fun ScreenPatientProfile(
-    modifier: Modifier = Modifier,
-    patientProfileUIState: PatientProfileUIState,
-    ewsPatientProfileUIState: EwsPatientProfileUIState,
-    patientMeasurementUIState: PatientMeasurementUIState,
-    initialPage:Int = 0,
+    patientProfileUIState: ScreenPatientProfileUIState = ScreenPatientProfileUIState(),
+    onValueNoteChange: (valueText: String) -> Unit = {},
+    onToDetailChart: (typeChart: String) -> Unit = {},
+    onAddAllergy: () -> Unit = {},
+    onRemoveAllergy: (index: Int) -> Unit = {},
+    onDoneEditAllergy: (newListAllergy: List<Pair<String, AllergyLevel>>) -> Unit = {},
 ) {
     val ctx = LocalContext.current
-    val scrollState = rememberScrollState()
-    val pagerState = rememberPagerState(
-        initialPage = initialPage
-    )
-    val tabs = listOf(
-        TabContentRow(header = stringResource(id = R.string.patient_information)) {
-            CardPatientProfileInformation(
-                name = patientProfileUIState.name,
-                email = patientProfileUIState.email,
-                date_of_birth = patientProfileUIState.date_of_birth,
-                gender = patientProfileUIState.gender,
-                status = patientProfileUIState.status,
-                address = patientProfileUIState.address,
-                phone_number = patientProfileUIState.phone_number,
-            )
-        },
-        TabContentRow(header = stringResource(id = R.string.summary)) {
-            CardSummary(
-                dataBmi = patientMeasurementUIState.dataBmi,
-                dataWaist = patientMeasurementUIState.dataWaist,
-                dataTemp = patientMeasurementUIState.dataTemp,
-                dataPulseOximeter = patientMeasurementUIState.dataPulseOxiMeter,
-                dataHeartRate = patientMeasurementUIState.dataHeartRate,
-            )
-        }
-    )
-    Row(
-        modifier = modifier
-        .fillMaxWidth(),
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+            .padding(top = 25.dp.from(ctx), bottom = 27.dp.from(ctx))
+            .padding(horizontal = 28.dp.from(ctx)),
+        verticalArrangement = Arrangement.spacedBy(24.dp.from(ctx))
     ) {
-        Column(
-            modifier = Modifier
-                .width(369.25.dp.from(ctx)),
-        ) {
-            Column(
-                modifier = modifier
-                    .padding(10.dp.from(ctx))
-                    .verticalScroll(scrollState)
-            ) {
-                CardPatientProfile(
-                    patientName = patientProfileUIState.name,
-                    patientMail = patientProfileUIState.email,
-                )
-                Spacer(modifier = modifier.height(16.dp.from(ctx)))
-                TabView(
-                    tabContents = tabs,
-                    pagerState = pagerState,
-                )
-                Spacer(modifier = modifier.height(23.dp.from(ctx)))
-                TabContent(
-                    tabContents = tabs,
-                    pagerState = pagerState,
-                )
-            }
-        }
-        LazyColumn(
-            modifier = Modifier
-                .width(341.dp.from(ctx)),
-            content = {
-                item {
-                    Text(
-                        text = stringResource(id = R.string.early_warning_score),
-                        fontSize = 15.sp.from(ctx),
-                        style = MaterialTheme.typography.body1,
-                        fontWeight = FontWeight(700),
-                        color = Heading,
-                        modifier = modifier.padding(bottom = 3.dp.from(ctx))
-                    )
-                    CardEarlyWarningScore(
-                        ews = when (ewsPatientProfileUIState.ewsState) {
-                            EwsState.SUCCESS -> ewsPatientProfileUIState.point ?: 0
-                            EwsState.LOADING -> 0
-                            EwsState.FAILED -> 0
-                        }
-                    )
-                    Spacer(modifier = modifier.height(16.dp.from(ctx)))
-                    Text(
-                        text = stringResource(id = R.string.electronic_medical_record),
-                        fontSize = 15.sp.from(ctx),
-                        style = MaterialTheme.typography.body1,
-                        fontWeight = FontWeight(700),
-                        color = Heading,
-                        modifier = modifier.padding(bottom = 10.dp.from(ctx))
-                    )
-                    Row(
-                        modifier = modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(
-                            text = stringResource(id = R.string.this_month),
-                            fontSize = 12.sp.from(ctx),
-                            style = MaterialTheme.typography.body1,
-                            fontWeight = FontWeight.Normal,
-                            color = ColorGray,
-                            modifier = modifier.padding(bottom = 3.dp.from(ctx))
-                        )
-                        Text(
-                            text = stringResource(id = R.string.view_all),
-                            fontSize = 12.sp.from(ctx),
-                            style = MaterialTheme.typography.body1,
-                            fontWeight = FontWeight.Normal,
-                            color = ColorGray,
-                            modifier = modifier.padding(bottom = 3.dp.from(ctx))
-                        )
-                    }
-                    Spacer(modifier = modifier.height(13.dp.from(ctx)))
-                }
-                items(10) {
-                    CardReportDocument(nameFile = "Health Rate Report.Doc", fileSize = "3 Mb")
-                }
-            }
+        Text(
+            text = stringResource(id = R.string.patient_information),
+            style = MaterialThemeCexup.typography.h6.copy(
+                fontWeight = FontWeight.SemiBold,
+                color = Color.Black
+            )
         )
+        Row(horizontalArrangement = Arrangement.spacedBy(24.dp.from(ctx))) {
+            Column {
+                CardProfilePatientNew(
+                    patientFullName = patientProfileUIState.data.patientFullname,
+                    ewsStatus = patientProfileUIState.data.patientEws,
+                    patientGender = patientProfileUIState.data.patientGender,
+                    patientAge = patientProfileUIState.data.patientAge.toString(),
+                    patientHeight = patientProfileUIState.data.patientHeight,
+                    patientWeight = patientProfileUIState.data.patientWeight,
+                    patientGolDarah = patientProfileUIState.data.patientGolDarah,
+                    patientStatus = patientProfileUIState.data.patientStatusActive,
+                )
+                Spacer(modifier = Modifier.height(21.dp.from(ctx)))
+                CardAllergies(
+                    listAllergies = patientProfileUIState.data.patientAllergy,
+                    onAddAllergy = onAddAllergy,
+                    onRemoveAllergy = onRemoveAllergy,
+                    onDoneEditAllergy = onDoneEditAllergy
+                )
+            }
+            CardInformationPatient(
+                patientFirstName = patientProfileUIState.data.patientFirstName,
+                patientLastName = patientProfileUIState.data.patientLastName,
+                patientUserCode = patientProfileUIState.data.patientID,
+                patientAddress = patientProfileUIState.data.patientAddress,
+                patientAssignedDoctor = patientProfileUIState.data.patientAssignedDoctor,
+                patientBirthDate = patientProfileUIState.data.patientBirthDate,
+                patientDateIn = patientProfileUIState.data.patientDateIn,
+                patientEmail = patientProfileUIState.data.patientEmail,
+                patientNoteFromNurse = patientProfileUIState.data.patientNoteFromNurse,
+                patientPhoneNumber = patientProfileUIState.data.patientPhoneNumber,
+                patientReligion = patientProfileUIState.data.patientReligion,
+                patientStatusMarried = patientProfileUIState.data.patientStatusMarried,
+                patientSystoleValue = patientProfileUIState.data.patientSystoleValue,
+                patientDiastoleValue = patientProfileUIState.data.patientDiastoleValue,
+                patientBMIValue = patientProfileUIState.data.patientBMIValue,
+                patientHeartRateValue = patientProfileUIState.data.patientHeartRateValue,
+                patientSpo2Value = patientProfileUIState.data.patientSpo2Value,
+                patientTemperatureValue = patientProfileUIState.data.patientTemperatureValue,
+                onToDetailChart = {
+                    onToDetailChart(it)
+                },
+                onValueChangeNote = {
+                    onValueNoteChange(it)
+                },
+            )
+
+        }
     }
 }

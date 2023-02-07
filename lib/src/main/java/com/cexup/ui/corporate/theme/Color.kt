@@ -131,6 +131,8 @@ val FoundationInactive = Color(0xFFA3A3A3)
 val BlueDashboardNew = Color(0xFF7BA8FF)
 val GreenDashboardNew = Color(0xFF6ADA83)
 val GrayDashboardNew = Color(0xFF414D55)
+val BluePatientProfileNew = Color(0xFF15A3DF)
+val GreenPatientProfileNew = Color(0xFF43936C)
 
 
 //New Colors

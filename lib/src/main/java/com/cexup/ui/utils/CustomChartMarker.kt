@@ -19,6 +19,7 @@ import com.github.mikephil.charting.utils.MPPointF
 @SuppressLint("ViewConstructor")
 class CustomChartMarker(context: Context, layoutResource:Int):MarkerView(context,layoutResource) {
 
+    private val totalWidth = resources.displayMetrics.widthPixels
     override fun refreshContent(e: Entry?, highlight: Highlight?) {
         val value = e?.y?.toDouble() ?: 0.0
         val resText: String = if(value.toString().length > 8){
@@ -33,6 +34,19 @@ class CustomChartMarker(context: Context, layoutResource:Int):MarkerView(context
     }
 
     override fun getOffsetForDrawingAtPoint(posX: Float, posY: Float): MPPointF {
-        return MPPointF(-width/2f,-height - 10f)
+        val supposedX = posX + width
+        val mpPointF = MPPointF()
+
+        mpPointF.x = when {
+            supposedX > totalWidth -> -width.toFloat()
+            posX - width < 0 -> 0f
+            else -> 0f
+        }
+
+        mpPointF.y = if (posY > height)
+            -height.toFloat()
+        else
+            0f
+        return mpPointF
     }
 }

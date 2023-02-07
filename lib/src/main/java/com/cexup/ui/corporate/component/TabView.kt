@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cexup.ui.corporate.theme.BackgroundLight
@@ -38,6 +39,7 @@ data class TabContentRow(
 fun TabView(
     tabContents: List<TabContentRow>,
     pagerState: PagerState,
+    widthEachContent: Dp = 80.dp.from(LocalContext.current),
     modifier: Modifier = Modifier,
     colorUnderline: Color = SecondaryCorporate,
 ) {
@@ -53,7 +55,7 @@ fun TabView(
                 modifier = Modifier
                     .pagerTabIndicatorOffset(pagerState, tabPositions)
                     .clip(RoundedCornerShape(10.dp.from(ctx)))
-                    .width(80.dp.from(ctx)),
+                    .width(widthEachContent),
                 color = colorUnderline,
                 height = 3.dp.from(ctx),
             )
@@ -68,7 +70,7 @@ fun TabView(
                         pagerState.animateScrollToPage(index)
                     }
                 },
-                modifier = Modifier.padding(0.dp.from(ctx)),
+                modifier = Modifier.width(widthEachContent).padding(0.dp.from(ctx)),
                 text = {
                     Text(
                         text = tab.header,

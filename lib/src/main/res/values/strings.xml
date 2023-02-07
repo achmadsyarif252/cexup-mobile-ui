@@ -348,4 +348,21 @@
     <string name="actions">Actions</string>
     <string name="years_old">%1$d Years old</string>
 
+    <!-- NewPatientProfile -->
+    <string name="gol_darah">Gol. Darah</string>
+    <string name="allergies">Allergies</string>
+    <string name="add_allergy">Add Allergy</string>
+    <string name="personal_details">Personal Details</string>
+    <string name="orders">Orders</string>
+    <string name="health">Health</string>
+    <string name="birth_date">Birth Date</string>
+    <string name="assigned_doctor">Assigned Doctor</string>
+    <string name="religion">Religion</string>
+    <string name="date_in">Date In</string>
+    <string name="id_patient">ID Patient</string>
+    <string name="note">Note</string>
+    <string name="active">Active</string>
+    <string name="not_active">Not Active</string>
+    <string name="done">Done</string>
+
 </resources>
