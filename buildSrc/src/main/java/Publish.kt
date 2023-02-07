@@ -4,5 +4,5 @@ object Publish {
     const val versionMajor = "1"
     const val versionMinor = "0"
     const val versionPatch = "0"
-    const val versionBuild = "alpha43"
+    const val versionBuild = "alpha44"
 }
