@@ -59,6 +59,9 @@ android {
 dependencies {
 
     implementation(project(":lib"))
+    implementation("androidx.appcompat:appcompat:1.6.0")
+    implementation("com.google.android.material:material:1.4.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 
     //Loads packaged libraries in the libs folder
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
