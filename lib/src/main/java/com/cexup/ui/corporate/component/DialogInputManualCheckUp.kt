@@ -1,18 +1,24 @@
+@file:OptIn(ExperimentalComposeUiApi::class)
+
 package com.cexup.ui.corporate.component
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -29,6 +35,7 @@ fun DialogInputManualTemperature(
     onCancel : ()-> Unit,
     onSave: (temp: Float) -> Unit,
 ) {
+    val keyboardController = LocalSoftwareKeyboardController.current
     val ctx = LocalContext.current
     var textTemperature by remember { mutableStateOf("") }
     if (show) {
@@ -59,7 +66,10 @@ fun DialogInputManualTemperature(
                         modifier = Modifier.fillMaxWidth(),
                         value = textTemperature,
                         onValueChange = {textTemperature = it},
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                        keyboardOptions = KeyboardOptions(
+                            imeAction = ImeAction.Done,
+                            keyboardType = KeyboardType.Number
+                        ),
                         trailingIcon = {
                             Row {
                                 Text(
@@ -85,7 +95,8 @@ fun DialogInputManualTemperature(
                                         .padding(top = 5.dp.from(ctx)),
                                 )
                             }
-                        }
+                        },
+                        keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
                     )
                     Spacer(modifier = Modifier.height(21.dp.from(ctx)))
                     Row(
@@ -157,6 +168,7 @@ fun DialogInputManualBMI(
     onCancel : ()-> Unit,
     onSave: (Weight: Float,Height: Float) -> Unit,
 ){
+    val keyboardController = LocalSoftwareKeyboardController.current
     val ctx = LocalContext.current
     var textHeight by remember { mutableStateOf("") }
     var textWeight by remember { mutableStateOf("") }
@@ -189,7 +201,10 @@ fun DialogInputManualBMI(
                         modifier = Modifier.fillMaxWidth(),
                         value = textHeight,
                         onValueChange = {textHeight = it},
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                        keyboardOptions = KeyboardOptions(
+                            imeAction = ImeAction.Done,
+                            keyboardType = KeyboardType.Number
+                        ),
                         trailingIcon = {
                             Row {
                                 Text(
@@ -205,7 +220,8 @@ fun DialogInputManualBMI(
                                         .padding(top = 5.dp.from(ctx)),
                                 )
                             }
-                        }
+                        },
+                        keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
                     )
                     Text(
                         text = stringResource(id = R.string.corporate_measurement_weight),
@@ -221,7 +237,10 @@ fun DialogInputManualBMI(
                         modifier = Modifier.fillMaxWidth(),
                         value = textWeight,
                         onValueChange = {textWeight = it},
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                        keyboardOptions = KeyboardOptions(
+                            imeAction = ImeAction.Done,
+                            keyboardType = KeyboardType.Number
+                        ),
                         trailingIcon = {
                             Row {
                                 Text(
@@ -237,7 +256,8 @@ fun DialogInputManualBMI(
                                         .padding(top = 5.dp.from(ctx)),
                                 )
                             }
-                        }
+                        },
+                        keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
                     )
                     Spacer(modifier = Modifier.height(21.dp.from(ctx)))
                     Row(
@@ -307,6 +327,8 @@ fun DialogInputManualBloodOxygen(
     onCancel : ()-> Unit,
     onSave: (BloodOxygen: Int,HeartRate: Int) -> Unit,
 ) {
+
+    val keyboardController = LocalSoftwareKeyboardController.current
     val ctx = LocalContext.current
     var textBloodOxygen by remember { mutableStateOf("") }
     var textHeartRate by remember { mutableStateOf("")}
@@ -338,7 +360,10 @@ fun DialogInputManualBloodOxygen(
                         modifier = Modifier.fillMaxWidth(),
                         value = textBloodOxygen,
                         onValueChange = {textBloodOxygen = it},
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                        keyboardOptions = KeyboardOptions(
+                            imeAction = ImeAction.Done,
+                            keyboardType = KeyboardType.Number
+                        ),
                         trailingIcon = {
                             Row {
                                 Text(
@@ -354,7 +379,8 @@ fun DialogInputManualBloodOxygen(
                                         .padding(top = 5.dp.from(ctx)),
                                 )
                             }
-                        }
+                        },
+                        keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
                     )
                     Text(
                         text = stringResource(id = R.string.corporate_measurement_heart_rate),
@@ -370,7 +396,10 @@ fun DialogInputManualBloodOxygen(
                         modifier = Modifier.fillMaxWidth(),
                         value = textHeartRate,
                         onValueChange = {textHeartRate = it},
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                        keyboardOptions = KeyboardOptions(
+                            imeAction = ImeAction.Done,
+                            keyboardType = KeyboardType.Number
+                        ),
                         trailingIcon = {
                             Row {
                                 Text(
@@ -386,7 +415,8 @@ fun DialogInputManualBloodOxygen(
                                         .padding(top = 5.dp.from(ctx)),
                                 )
                             }
-                        }
+                        },
+                        keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
                     )
                     Spacer(modifier = Modifier.height(21.dp.from(ctx)))
                     Row(
@@ -460,6 +490,8 @@ fun DialogInputManualBloodPressure(
     onCancel : ()-> Unit,
     onSave: (Systole: Int,Diastol: Int, PulseRate: Int) -> Unit,
 ) {
+
+    val keyboardController = LocalSoftwareKeyboardController.current
     val ctx = LocalContext.current
     var textSystole by remember { mutableStateOf("") }
     var textDiastole by remember { mutableStateOf("")}
@@ -492,7 +524,10 @@ fun DialogInputManualBloodPressure(
                         modifier = Modifier.fillMaxWidth(),
                         value = textSystole,
                         onValueChange = {textSystole = it},
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                        keyboardOptions = KeyboardOptions(
+                            imeAction = ImeAction.Done,
+                            keyboardType = KeyboardType.Number
+                        ),
                         trailingIcon = {
                             Row {
                                 Text(
@@ -508,7 +543,8 @@ fun DialogInputManualBloodPressure(
                                         .padding(top = 5.dp.from(ctx)),
                                 )
                             }
-                        }
+                        },
+                        keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
                     )
                     Text(
                         text = stringResource(id = R.string.corporate_measurement_diastole),
@@ -524,7 +560,10 @@ fun DialogInputManualBloodPressure(
                         modifier = Modifier.fillMaxWidth(),
                         value = textDiastole,
                         onValueChange = {textDiastole = it},
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                        keyboardOptions = KeyboardOptions(
+                            imeAction = ImeAction.Done,
+                            keyboardType = KeyboardType.Number
+                        ),
                         trailingIcon = {
                             Row {
                                 Text(
@@ -540,7 +579,8 @@ fun DialogInputManualBloodPressure(
                                         .padding(top = 5.dp.from(ctx)),
                                 )
                             }
-                        }
+                        },
+                        keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
                     )
                     Text(
                         text = stringResource(id = R.string.corporate_measurement_pulse_rate),
@@ -556,7 +596,10 @@ fun DialogInputManualBloodPressure(
                         modifier = Modifier.fillMaxWidth(),
                         value = textPulseRate,
                         onValueChange = {textPulseRate = it},
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                        keyboardOptions = KeyboardOptions(
+                            imeAction = ImeAction.Done,
+                            keyboardType = KeyboardType.Number
+                        ),
                         trailingIcon = {
                             Row {
                                 Text(
@@ -572,7 +615,8 @@ fun DialogInputManualBloodPressure(
                                         .padding(top = 5.dp.from(ctx)),
                                 )
                             }
-                        }
+                        },
+                        keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
                     )
                     Spacer(modifier = Modifier.height(21.dp.from(ctx)))
                     Row(
@@ -648,6 +692,7 @@ fun DialogInputManualWaist(
     onCancel: () -> Unit,
     onSave: (valueWaist:Float) -> Unit,
 ){
+    val keyboardController = LocalSoftwareKeyboardController.current
     val ctx = LocalContext.current
     if (show) {
     var textValueWaist by remember { mutableStateOf("") }
@@ -678,7 +723,10 @@ fun DialogInputManualWaist(
                         modifier = Modifier.fillMaxWidth(),
                         value = textValueWaist,
                         onValueChange = {textValueWaist = it},
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                        keyboardOptions = KeyboardOptions(
+                            imeAction = ImeAction.Done,
+                            keyboardType = KeyboardType.Number
+                        ),
                         trailingIcon = {
                             Row {
                                 Text(
@@ -694,7 +742,8 @@ fun DialogInputManualWaist(
                                         .padding(top = 5.dp.from(ctx)),
                                 )
                             }
-                        }
+                        },
+                        keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
                     )
                     Spacer(modifier = Modifier.height(21.dp.from(ctx)))
                     Row(
@@ -765,6 +814,7 @@ fun DialogInputManualMultiparameter(
     onCancel : ()-> Unit,
     onSave: (HeartRate: Int, systole:Int, diastole:Int, Spo2: Int, Temperature:Float, Respiration:Int) -> Unit,
 ) {
+    val keyboardController = LocalSoftwareKeyboardController.current
     val ctx = LocalContext.current
     var textHeartRate by remember { mutableStateOf("0") }
     var textSystole by remember { mutableStateOf("0") }
@@ -803,7 +853,10 @@ fun DialogInputManualMultiparameter(
                         modifier = Modifier.fillMaxWidth(),
                         value = textHeartRate,
                         onValueChange = {textHeartRate = it},
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                        keyboardOptions = KeyboardOptions(
+                            imeAction = ImeAction.Done,
+                            keyboardType = KeyboardType.Number
+                        ),
                         trailingIcon = {
                             Row {
                                 Text(
@@ -820,6 +873,7 @@ fun DialogInputManualMultiparameter(
                                 )
                             }
                         },
+                        keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
                     )
                     Text(
                         text = stringResource(id = R.string.corporate_measurement_systole),
@@ -835,7 +889,10 @@ fun DialogInputManualMultiparameter(
                         modifier = Modifier.fillMaxWidth(),
                         value = textSystole,
                         onValueChange = {textSystole = it},
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                        keyboardOptions = KeyboardOptions(
+                            imeAction = ImeAction.Done,
+                            keyboardType = KeyboardType.Number
+                        ),
                         trailingIcon = {
                             Row {
                                 Text(
@@ -851,7 +908,8 @@ fun DialogInputManualMultiparameter(
                                         .padding(top = 5.dp.from(ctx)),
                                 )
                             }
-                        }
+                        },
+                        keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
                     )
                     Text(
                         text = stringResource(id = R.string.corporate_measurement_diastole),
@@ -867,7 +925,10 @@ fun DialogInputManualMultiparameter(
                         modifier = Modifier.fillMaxWidth(),
                         value = textDiastole,
                         onValueChange = {textDiastole = it},
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                        keyboardOptions = KeyboardOptions(
+                            imeAction = ImeAction.Done,
+                            keyboardType = KeyboardType.Number
+                        ),
                         trailingIcon = {
                             Row {
                                 Text(
@@ -883,7 +944,8 @@ fun DialogInputManualMultiparameter(
                                         .padding(top = 5.dp.from(ctx)),
                                 )
                             }
-                        }
+                        },
+                        keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
                     )
                     Text(
                         text = stringResource(id = R.string.spo2),
@@ -899,7 +961,10 @@ fun DialogInputManualMultiparameter(
                         modifier = Modifier.fillMaxWidth(),
                         value = textSpo2,
                         onValueChange = {textSpo2 = it},
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                        keyboardOptions = KeyboardOptions(
+                            imeAction = ImeAction.Done,
+                            keyboardType = KeyboardType.Number
+                        ),
                         trailingIcon = {
                             Row {
                                 Text(
@@ -915,7 +980,8 @@ fun DialogInputManualMultiparameter(
                                         .padding(top = 5.dp.from(ctx)),
                                 )
                             }
-                        }
+                        },
+                        keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
                     )
                     Text(
                         text = stringResource(id = R.string.corporate_measurement_temperature),
@@ -931,7 +997,10 @@ fun DialogInputManualMultiparameter(
                         modifier = Modifier.fillMaxWidth(),
                         value = textTemperature,
                         onValueChange = {textTemperature = it},
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                        keyboardOptions = KeyboardOptions(
+                            imeAction = ImeAction.Done,
+                            keyboardType = KeyboardType.Number
+                        ),
                         trailingIcon = {
                             Row {
                                 Text(
@@ -957,7 +1026,8 @@ fun DialogInputManualMultiparameter(
                                         .padding(top = 5.dp.from(ctx)),
                                 )
                             }
-                        }
+                        },
+                        keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
                     )
                     Text(
                         text = stringResource(id = R.string.corporate_measurement_respiration),
@@ -973,7 +1043,10 @@ fun DialogInputManualMultiparameter(
                         modifier = Modifier.fillMaxWidth(),
                         value = textRespiration,
                         onValueChange = {textRespiration = it},
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                        keyboardOptions = KeyboardOptions(
+                            imeAction = ImeAction.Done,
+                            keyboardType = KeyboardType.Number
+                        ),
                         trailingIcon = {
                             Row {
                                 Text(
@@ -989,7 +1062,8 @@ fun DialogInputManualMultiparameter(
                                         .padding(top = 5.dp.from(ctx)),
                                 )
                             }
-                        }
+                        },
+                        keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
                     )
                     Spacer(modifier = Modifier.height(21.dp.from(ctx)))
                     Row(
@@ -1053,7 +1127,6 @@ fun DialogInputManualMultiparameter(
 
                             )
                         }
-
                     }
                 }
             }

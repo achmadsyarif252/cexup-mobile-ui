@@ -6,7 +6,6 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.relocation.BringIntoViewRequester
 import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.*
@@ -58,6 +57,7 @@ fun BaseScreen(
     val width = with(LocalDensity.current) { 291.dp.from(ctx).toPx() }
     var isSearch by remember { mutableStateOf(false) }
     var valueTextSearch by remember { mutableStateOf("") }
+    var iconSearch by remember{ mutableStateOf(false) }
     var list by remember { mutableStateOf<List<Pair<String, String>>>(listOf()) }
     Scaffold(
         modifier = Modifier
@@ -76,12 +76,14 @@ fun BaseScreen(
                             valueTextSearch = it
                             val searchResult = onSearchPatient(it)
                             list = searchResult.data
+                            iconSearch = true
                         }
                     }else{
                         scope.launch {
                             valueTextSearch = it
                             val searchResult = onSearchPatient("")
                             list = searchResult.dataHistory
+                            iconSearch = false
                         }
                     }
                 },
@@ -147,7 +149,8 @@ fun BaseScreen(
                     },
                     onCheckupClicked = {
                         onCheckUp(it)
-                    }
+                    },
+                    isIconSearch = iconSearch
                 )
             } else {
                 content.invoke()
