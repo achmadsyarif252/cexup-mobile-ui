@@ -1,5 +1,7 @@
 package com.cexup.ui.corporate.component
 
+import android.graphics.DashPathEffect
+import android.graphics.Paint
 import android.graphics.Typeface
 import android.text.Spannable
 import android.text.SpannableString
@@ -21,6 +23,7 @@ import com.cexup.ui.corporate.theme.*
 import com.cexup.ui.utils.mediaquery.from
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.Legend
+import com.github.mikephil.charting.components.LegendEntry
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
@@ -41,7 +44,7 @@ data class PieChartData(
 
 
 @Composable
-fun PieChartTest(
+fun PieChartDashboard(
     totalPatients: Int = 0,
     dataPieChart :List<PieChartData> = listOf()
 ) {
@@ -55,6 +58,10 @@ fun PieChartTest(
         ForegroundColorSpan(GrayDashboardNew.toArgb()),
         0, index, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
     )
+    var listLegend = mutableListOf<LegendEntry>()
+    dataPieChart.forEach {
+        listLegend.add(LegendEntry(it.dataName,Legend.LegendForm.CIRCLE,10f,2f, null,it.color.toArgb()))
+    }
 
     // If width is 0, it will crash. Always have a minimum of 1
 //    mCenterTextLayout = StaticLayout(
@@ -63,7 +70,10 @@ fun PieChartTest(
 //        Layout.Alignment.ALIGN_NORMAL, 1f, 0f, false
 //    )
     val textCenterSize = 14.dp.value
-    Crossfade(targetState = dataPieChart) { pieChartData ->
+    Crossfade(
+        targetState = dataPieChart,
+//        modifier = Modifier.padding(16.dp.from(ctx))
+    ) { pieChartData ->
         AndroidView(
             factory = { context ->
                 // on below line we are creating a pie chart
@@ -79,7 +89,8 @@ fun PieChartTest(
                     // on below line we are setting description
                     // enables for our pie chart.
                     this.description.isEnabled = false
-
+                    this.isHighlightPerTapEnabled = false
+                    this.setExtraOffsets(10f,10f,10f,10f)
                     this.setCenterTextColor(GrayDashboardNew.toArgb())
                     this.centerText = tempSpannable
                     this.setCenterTextTypeface(Typeface.DEFAULT_BOLD)
@@ -97,12 +108,13 @@ fun PieChartTest(
                     // on below line we are specifying
                     // text size for our legend.
                     this.legend.textSize = 14F
+                    this.legend.setCustom(listLegend)
+                    this.legend.xOffset = -(10f)
 
                     // on below line we are specifying
                     // alignment for our legend.
                     this.legend.horizontalAlignment =
                         Legend.LegendHorizontalAlignment.CENTER
-
                     // on below line we are specifying entry label color as white.
 //                    this.setEntryLabelColor(resources.getColor(R.color.white))
                 }
@@ -110,8 +122,7 @@ fun PieChartTest(
             // on below line we are specifying modifier
             // for it and specifying padding to it.
             modifier = Modifier
-                .wrapContentSize()
-                .padding(5.dp.from(ctx)),
+                .wrapContentSize(),
             update = {
                 // on below line we are calling update pie chart
                 // method and passing pie chart and list of data.

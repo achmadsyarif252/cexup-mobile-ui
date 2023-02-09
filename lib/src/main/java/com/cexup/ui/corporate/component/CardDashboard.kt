@@ -12,6 +12,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -27,7 +28,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.cexup.ui.R
-import com.cexup.ui.component.chart.PieChart
 import com.cexup.ui.corporate.screen.DataDiagnostic
 import com.cexup.ui.corporate.screen.DataDoctorDashboard
 import com.cexup.ui.corporate.theme.*
@@ -92,10 +92,14 @@ fun CardNewPatients(
                             .width(36.dp.from(ctx))
                             .clip(RoundedCornerShape(8.dp.from(ctx)))
                             .background(
-                                if (valuePercentRatioPatientBeforeAndToday[0] == '-')
-                                    MaterialThemeCexup.colors.color.danger.dangerSurface
-                                else
-                                    MaterialThemeCexup.colors.color.success.successSurface
+                                if (valuePercentRatioPatientBeforeAndToday.isEmpty()) {
+                                    Color.Transparent
+                                } else {
+                                    if (valuePercentRatioPatientBeforeAndToday.first() == '-')
+                                        MaterialThemeCexup.colors.color.danger.dangerSurface
+                                    else
+                                        MaterialThemeCexup.colors.color.success.successSurface
+                                }
                             ),
                         contentAlignment = Alignment.Center
                     ) {
@@ -103,10 +107,14 @@ fun CardNewPatients(
                             text = valuePercentRatioPatientBeforeAndToday,
                             style = MaterialThemeCexup.typography.hh5.copy(
                                 color =
-                                if (valuePercentRatioPatientBeforeAndToday[0] == '-')
-                                    MaterialThemeCexup.colors.color.danger.dangerHover
-                                else
-                                    MaterialThemeCexup.colors.color.success.successMain,
+                                if (valuePercentRatioPatientBeforeAndToday.isEmpty()) {
+                                    Color.Transparent
+                                } else {
+                                    if (valuePercentRatioPatientBeforeAndToday.first() == '-')
+                                        MaterialThemeCexup.colors.color.danger.dangerHover
+                                    else
+                                        MaterialThemeCexup.colors.color.success.successMain
+                                },
                                 fontWeight = FontWeight.Medium
                             )
                         )
@@ -180,10 +188,14 @@ fun CardDoctorActive(
                             .width(36.dp.from(ctx))
                             .clip(RoundedCornerShape(8.dp.from(ctx)))
                             .background(
-                                if (valuePercentRatioDoctorsBeforeAndToday[0] == '-')
-                                    MaterialThemeCexup.colors.color.danger.dangerSurface
-                                else
-                                    MaterialThemeCexup.colors.color.success.successSurface
+                                if (valuePercentRatioDoctorsBeforeAndToday.isEmpty()) {
+                                    Color.Transparent
+                                } else {
+                                    if (valuePercentRatioDoctorsBeforeAndToday.first() == '-')
+                                        MaterialThemeCexup.colors.color.danger.dangerSurface
+                                    else
+                                        MaterialThemeCexup.colors.color.success.successSurface
+                                }
                             ),
                         contentAlignment = Alignment.Center
                     ) {
@@ -191,10 +203,14 @@ fun CardDoctorActive(
                             text = valuePercentRatioDoctorsBeforeAndToday,
                             style = MaterialThemeCexup.typography.hh5.copy(
                                 color =
-                                if (valuePercentRatioDoctorsBeforeAndToday[0] == '-')
-                                    MaterialThemeCexup.colors.color.danger.dangerHover
-                                else
-                                    MaterialThemeCexup.colors.color.success.successMain,
+                                if (valuePercentRatioDoctorsBeforeAndToday.isEmpty()) {
+                                    Color.Transparent
+                                } else {
+                                    if (valuePercentRatioDoctorsBeforeAndToday.first() == '-')
+                                        MaterialThemeCexup.colors.color.danger.dangerHover
+                                    else
+                                        MaterialThemeCexup.colors.color.success.successMain
+                                },
                                 fontWeight = FontWeight.Medium
                             )
                         )
@@ -237,43 +253,62 @@ fun CardPatientsDiagnostic(
                 modifier = Modifier.fillMaxWidth(),
                 color = MaterialThemeCexup.colors.color.borderline.borderline1
             )
-            listDiagnostic.forEach {
-                Spacer(modifier = Modifier.height(16.dp.from(ctx)))
-                Row {
+            if (listDiagnostic.isEmpty()){
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(120.dp.from(ctx)),
+                    contentAlignment = Center
+                ) {
                     Text(
-                        text = it.initialValue.toInt().toString(),
-                        style = MaterialThemeCexup.typography.hh4.copy(
+                        modifier = Modifier.fillMaxWidth(),
+                        text = stringResource(id = R.string.no_data),
+                        style = MaterialThemeCexup.typography.hh3.copy(
                             color = MaterialThemeCexup.colors.color.text.textMain,
-                            fontWeight = FontWeight.SemiBold
-                        )
-                    )
-                    Text(
-                        text = " dari ",
-                        style = MaterialThemeCexup.typography.hh4.copy(
-                            color = MaterialThemeCexup.colors.color.text.textMain,
-                        )
-                    )
-                    Text(
-                        text = it.maxValue.toInt().toString(),
-                        style = MaterialThemeCexup.typography.hh4.copy(
-                            color = MaterialThemeCexup.colors.color.text.textMain,
-                            fontWeight = FontWeight.SemiBold
-                        )
-                    )
-                    Spacer(modifier = Modifier.weight(1f))
-                    Text(
-                        text = it.diagnosticName,
-                        style = MaterialThemeCexup.typography.hh2.copy(
-                            color = MaterialThemeCexup.colors.color.text.textMain,
+                            fontWeight = FontWeight.SemiBold,
+                            textAlign = TextAlign.Center
                         )
                     )
                 }
-                Spacer(modifier = Modifier.height(4.dp.from(ctx)))
-                ProgressBarDiagnostic(
-                    initialValue = it.initialValue,
-                    maxValue = it.maxValue,
-                    colorProgressBar = it.colorProgressBar
-                )
+            }else {
+                listDiagnostic.forEach {
+                    Spacer(modifier = Modifier.height(16.dp.from(ctx)))
+                    Row {
+                        Text(
+                            text = it.initialValue.toInt().toString(),
+                            style = MaterialThemeCexup.typography.hh4.copy(
+                                color = MaterialThemeCexup.colors.color.text.textMain,
+                                fontWeight = FontWeight.SemiBold
+                            )
+                        )
+                        Text(
+                            text = " dari ",
+                            style = MaterialThemeCexup.typography.hh4.copy(
+                                color = MaterialThemeCexup.colors.color.text.textMain,
+                            )
+                        )
+                        Text(
+                            text = it.maxValue.toInt().toString(),
+                            style = MaterialThemeCexup.typography.hh4.copy(
+                                color = MaterialThemeCexup.colors.color.text.textMain,
+                                fontWeight = FontWeight.SemiBold
+                            )
+                        )
+                        Spacer(modifier = Modifier.weight(1f))
+                        Text(
+                            text = it.diagnosticName,
+                            style = MaterialThemeCexup.typography.hh2.copy(
+                                color = MaterialThemeCexup.colors.color.text.textMain,
+                            )
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(4.dp.from(ctx)))
+                    ProgressBarDiagnostic(
+                        initialValue = it.initialValue,
+                        maxValue = it.maxValue,
+                        colorProgressBar = it.colorProgressBar
+                    )
+                }
             }
 
         }
@@ -292,6 +327,7 @@ fun CardLastConsultationDoctor(
         elevation = MaterialThemeCexup.elevation.skim,
         shape = RoundedCornerShape(8.dp.from(ctx))
     ) {
+
         Column(
             modifier = Modifier.padding(12.dp.from(ctx)),
             verticalArrangement = Arrangement.spacedBy(8.dp.from(ctx))
@@ -311,99 +347,119 @@ fun CardLastConsultationDoctor(
                 thickness = 1.dp.from(ctx),
                 color = MaterialThemeCexup.colors.color.borderline.borderline1
             )
-            Row(
-                modifier = Modifier.padding(horizontal = 4.dp.from(ctx)),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Box {
-
-                    Box(
-                        modifier = Modifier
-                            .clip(CircleShape)
-                            .size(38.dp.from(ctx))
-                            .background(
-                                brush = Brush.verticalGradient(
-                                    colors = listOf(
-                                        BlueDarkJade,
-                                        BlueLightJade
-                                    )
-                                )
-                            ),
-                    ) {
-
-                        CoilImage(
-                            modifier = Modifier
-                                .align(Alignment.Center)
-                                .size(17.dp.from(ctx)),
-                            imageModel = painterResource(id = R.drawable.ic_profile_dummy),
-                            // Crop, Fit, Inside, FillHeight, FillWidth, None
-                            contentScale = ContentScale.Crop,
-                            // shows an image with a circular revealed animation.
-                            circularReveal = CircularReveal(duration = 250),
-                            // shows a placeholder ImageBitmap when loading.
-                            placeHolder = painterResource(id = R.drawable.ic_profile_dummy),
-                            // shows an error ImageBitmap when the request failed.
-                            error = painterResource(id = R.drawable.ic_profile_dummy)
-                        )
-
-                    }
-                    Box(
-                        modifier = Modifier
-                            .align(Alignment.BottomEnd)
-                            .size(12.dp.from(ctx))
-                            .background(
-                                MaterialThemeCexup.colors.color.success.successMain,
-                                CircleShape
-                            )
-                            .border(
-                                2.dp.from(ctx),
-                                MaterialThemeCexup.colors.palette.neutral.neutral1,
-                                CircleShape
-                            ),
-
-                        )
-                }
-                Spacer(modifier = Modifier.width(12.dp.from(ctx)))
-                Column {
+            if (doctorName.isEmpty()) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(120.dp.from(ctx)),
+                    contentAlignment = Center
+                ) {
                     Text(
-                        text = doctorName,
-                        style = MaterialThemeCexup.typography.hh4.copy(
+                        modifier = Modifier.fillMaxWidth(),
+                        text = stringResource(id = R.string.no_consultation_doctor),
+                        style = MaterialThemeCexup.typography.hh3.copy(
                             color = MaterialThemeCexup.colors.color.text.textMain,
-                            fontWeight = FontWeight.SemiBold
+                            fontWeight = FontWeight.SemiBold,
+                            textAlign = TextAlign.Center
                         )
                     )
+                }
+            } else {
+                Row(
+                    modifier = Modifier.padding(horizontal = 4.dp.from(ctx)),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Box {
+
+                        Box(
+                            modifier = Modifier
+                                .clip(CircleShape)
+                                .size(38.dp.from(ctx))
+                                .background(
+                                    brush = Brush.verticalGradient(
+                                        colors = listOf(
+                                            BlueDarkJade,
+                                            BlueLightJade
+                                        )
+                                    )
+                                ),
+                        ) {
+
+                            CoilImage(
+                                modifier = Modifier
+                                    .align(Alignment.Center)
+                                    .size(17.dp.from(ctx)),
+                                imageModel = painterResource(id = R.drawable.ic_profile_dummy),
+                                // Crop, Fit, Inside, FillHeight, FillWidth, None
+                                contentScale = ContentScale.Crop,
+                                // shows an image with a circular revealed animation.
+                                circularReveal = CircularReveal(duration = 250),
+                                // shows a placeholder ImageBitmap when loading.
+                                placeHolder = painterResource(id = R.drawable.ic_profile_dummy),
+                                // shows an error ImageBitmap when the request failed.
+                                error = painterResource(id = R.drawable.ic_profile_dummy)
+                            )
+
+                        }
+                        Box(
+                            modifier = Modifier
+                                .align(Alignment.BottomEnd)
+                                .size(12.dp.from(ctx))
+                                .background(
+                                    MaterialThemeCexup.colors.color.success.successMain,
+                                    CircleShape
+                                )
+                                .border(
+                                    2.dp.from(ctx),
+                                    MaterialThemeCexup.colors.palette.neutral.neutral1,
+                                    CircleShape
+                                ),
+
+                            )
+                    }
+                    Spacer(modifier = Modifier.width(12.dp.from(ctx)))
+                    Column {
+                        Text(
+                            text = doctorName,
+                            style = MaterialThemeCexup.typography.hh4.copy(
+                                color = MaterialThemeCexup.colors.color.text.textMain,
+                                fontWeight = FontWeight.SemiBold
+                            )
+                        )
+                        Text(
+                            text = doctorSpeciality,
+                            style = MaterialThemeCexup.typography.hh5.copy(
+                                color = MaterialThemeCexup.colors.color.text.textSecondary,
+                            )
+                        )
+                    }
+                }
+                Row(
+                    modifier = Modifier
+                        .background(
+                            MaterialThemeCexup.colors.color.primary.primarySurface,
+                            RoundedCornerShape(4.dp.from(ctx))
+                        )
+                        .padding(horizontal = 13.5f.dp.from(ctx), vertical = 9.5f.dp.from(ctx)),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(5.dp.from(ctx))
+                ) {
+                    Icon(
+                        modifier = Modifier.size(13.33f.dp.from(ctx)),
+                        painter = painterResource(id = R.drawable.ic_clock),
+                        contentDescription = "icon clock",
+                        tint = MaterialThemeCexup.colors.color.primary.primaryMain
+                    )
                     Text(
-                        text = doctorSpeciality,
+                        text = dateLastConsultation,
                         style = MaterialThemeCexup.typography.hh5.copy(
-                            color = MaterialThemeCexup.colors.color.text.textSecondary,
+                            color = MaterialThemeCexup.colors.color.primary.primaryMain,
+                            fontWeight = FontWeight.Medium
                         )
                     )
                 }
             }
-            Row(
-                modifier = Modifier
-                    .background(
-                        MaterialThemeCexup.colors.color.primary.primarySurface,
-                        RoundedCornerShape(4.dp.from(ctx))
-                    )
-                    .padding(horizontal = 13.5f.dp.from(ctx), vertical = 9.5f.dp.from(ctx)),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(5.dp.from(ctx))
-            ) {
-                Icon(
-                    modifier = Modifier.size(13.33f.dp.from(ctx)),
-                    painter = painterResource(id = R.drawable.ic_clock),
-                    contentDescription = "icon clock",
-                    tint = MaterialThemeCexup.colors.color.primary.primaryMain
-                )
-                Text(
-                    text = dateLastConsultation,
-                    style = MaterialThemeCexup.typography.hh5.copy(
-                        color = MaterialThemeCexup.colors.color.primary.primaryMain,
-                        fontWeight = FontWeight.Medium
-                    )
-                )
-            }
+
         }
     }
 }
@@ -443,15 +499,21 @@ fun CardActiveDoctorsList(
             )
             if (listDoctor.isEmpty()) {
                 Spacer(modifier = Modifier.height(8.dp.from(ctx)))
-                Text(
-                    modifier = Modifier.fillMaxWidth(),
-                    text = stringResource(id = R.string.no_doctor_available),
-                    style = MaterialThemeCexup.typography.hh3.copy(
-                        color = MaterialThemeCexup.colors.color.text.textMain,
-                        fontWeight = FontWeight.SemiBold,
-                        textAlign = TextAlign.Center
+                Box(
+                    modifier = Modifier
+                        .size(250.dp.from(ctx)),
+                    contentAlignment = Center
+                ) {
+                    Text(
+                        modifier = Modifier.fillMaxWidth(),
+                        text = stringResource(id = R.string.no_doctor_available),
+                        style = MaterialThemeCexup.typography.hh3.copy(
+                            color = MaterialThemeCexup.colors.color.text.textMain,
+                            fontWeight = FontWeight.SemiBold,
+                            textAlign = TextAlign.Center
+                        )
                     )
-                )
+                }
             } else {
                 listDoctor.forEach {
                     Spacer(modifier = Modifier.height(8.dp.from(ctx)))
@@ -558,7 +620,7 @@ fun CardActiveDoctorsList(
                         modifier = Modifier
                             .clip(RoundedCornerShape(8.dp.from(ctx)))
                             .size(24.dp.from(ctx))
-                            .clickable(enabled = currentPage != sizeData / 3) {
+                            .clickable(enabled = currentPage.toFloat() <= sizeData.toFloat() / 3f) {
                                 onNextPressed()
                             },
                         contentAlignment = Alignment.Center
@@ -581,7 +643,7 @@ fun CardActiveDoctorsList(
 @Composable
 fun CardChartPatients(
     totalPatients: Int = 0,
-    dataPieChart :List<PieChartData> = listOf()
+    dataPieChart: List<PieChartData> = listOf()
 ) {
     val ctx = LocalContext.current
     Card(
@@ -590,11 +652,11 @@ fun CardChartPatients(
         shape = RoundedCornerShape(8.dp.from(ctx))
     ) {
         Column(
-            modifier = Modifier.padding(16.dp.from(ctx)),
+            modifier = Modifier.padding(vertical = 16.dp.from(ctx)),
             verticalArrangement = Arrangement.spacedBy(8.dp.from(ctx))
         ) {
             Text(
-                modifier = Modifier.padding(horizontal = 4.dp.from(ctx)),
+                modifier = Modifier.padding(horizontal = 20.dp.from(ctx)),
                 text = stringResource(id = R.string.corporate_menu_patients),
                 style = MaterialThemeCexup.typography.hh2.copy(
                     color = MaterialThemeCexup.colors.color.text.textMain,
@@ -603,7 +665,7 @@ fun CardChartPatients(
             )
             Divider(
                 modifier = Modifier
-                    .padding(horizontal = 4.dp.from(ctx))
+                    .padding(horizontal = 20.dp.from(ctx))
                     .fillMaxWidth(),
                 thickness = 1.dp.from(ctx),
                 color = MaterialThemeCexup.colors.color.borderline.borderline1
@@ -613,22 +675,28 @@ fun CardChartPatients(
                     .align(CenterHorizontally)
                     .size(260.dp.from(ctx))
             ) {
-                if (dataPieChart.isEmpty()){
-                    Text(
-                        modifier = Modifier.fillMaxWidth(),
-                        text = stringResource(id = R.string.no_data),
-                        style = MaterialThemeCexup.typography.hh3.copy(
-                            color = MaterialThemeCexup.colors.color.text.textMain,
-                            fontWeight = FontWeight.SemiBold,
-                            textAlign = TextAlign.Center
+                if (dataPieChart.isEmpty()) {
+                    Box(
+                        modifier = Modifier
+                            .padding(horizontal = 16.dp.from(ctx))
+                            .size(260.dp.from(ctx)),
+                        contentAlignment = Center
+                    ) {
+                        Text(
+                            modifier = Modifier.fillMaxWidth(),
+                            text = stringResource(id = R.string.no_data),
+                            style = MaterialThemeCexup.typography.hh3.copy(
+                                color = MaterialThemeCexup.colors.color.text.textMain,
+                                fontWeight = FontWeight.SemiBold,
+                                textAlign = TextAlign.Center
+                            )
                         )
+                    }
+                } else {
+                    PieChartDashboard(
+                        totalPatients = totalPatients,
+                        dataPieChart = dataPieChart
                     )
-                }else{
-
-                PieChartTest(
-                    totalPatients = totalPatients,
-                    dataPieChart = dataPieChart
-                )
                 }
             }
         }

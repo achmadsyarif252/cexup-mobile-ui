@@ -1,15 +1,11 @@
 package com.cexup.ui.corporate.component
 
-import android.util.Log
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.relocation.BringIntoViewRequester
-import androidx.compose.foundation.relocation.bringIntoViewRequester
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
-import androidx.compose.material.TextButton
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.Center
@@ -25,7 +21,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.cexup.ui.R
-import com.cexup.ui.corporate.screen.SearchPatientUIState
 import com.cexup.ui.corporate.theme.BlueDarkJade
 import com.cexup.ui.corporate.theme.BlueLightJade
 import com.cexup.ui.corporate.theme.MaterialThemeCexup
@@ -36,6 +31,7 @@ import com.cexup.ui.utils.noRippleClick
 @Composable
 fun ContentSearch(
     list: List<Pair<String, String>>,
+    isIconSearch: Boolean = false,
     onUpArrowClicked: (name: String) -> Unit = {},
     onSearchClicked: (userCode: String) -> Unit = {},
     onCheckupClicked: (userCode: String) -> Unit = {},
@@ -47,7 +43,9 @@ fun ContentSearch(
         verticalArrangement = Arrangement.spacedBy(24.dp.from(ctx)),
         modifier = Modifier
             .fillMaxWidth()
+            .padding(top = 10.dp.from(ctx))
             .verticalScroll(rememberScrollState())
+            .padding(horizontal = 16.dp.from(ctx))
             .padding(bottom = 10.dp.from(ctx))
     ) {
         list.forEach {
@@ -69,12 +67,21 @@ fun ContentSearch(
                         onSearchClicked(it.second)
                     }
             ) {
-                Icon(
-                    modifier = Modifier.size(24.dp.from(ctx)),
-                    painter = painterResource(id = R.drawable.ic_history),
-                    contentDescription = "Icon History",
-                    tint = MaterialThemeCexup.colors.color.text.textMain
-                )
+                if (isIconSearch){
+                    Icon(
+                        modifier = Modifier.size(24.dp.from(ctx)),
+                        painter = painterResource(id = R.drawable.ic_search),
+                        contentDescription = "Icon History",
+                        tint = MaterialThemeCexup.colors.color.text.textMain
+                    )
+                }else{
+                    Icon(
+                        modifier = Modifier.size(24.dp.from(ctx)),
+                        painter = painterResource(id = R.drawable.ic_history),
+                        contentDescription = "Icon Search",
+                        tint = MaterialThemeCexup.colors.color.text.textMain
+                    )
+                }
                 Spacer(modifier = Modifier.width(40.dp.from(ctx)))
                 Text(
                     text = it.first,

@@ -98,7 +98,7 @@
     <string name="corporate_add_patient">Add Patient</string>
     <string name="corporate_menu_dashboard">Dashboard</string>
     <string name="corporate_menu_patients">Patients</string>
-    <string name="corporate_menu_cexup">Checkup</string>
+    <string name="corporate_menu_cexup">Check Up</string>
     <string name="corporate_menu_account">Account</string>
     <string name="corporate_menu_logout">Logout</string>
 
@@ -340,6 +340,7 @@
     <string name="active_doctors_list">Active Doctors List</string>
     <string name="no_doctor_available">No Doctor Available</string>
     <string name="filter_date">Filter Date</string>
+    <string name="no_consultation_doctor">No Consultation to Doctor</string>
 
     <!-- NewPatientList -->
     <string name="patient_name">Patient Name</string>

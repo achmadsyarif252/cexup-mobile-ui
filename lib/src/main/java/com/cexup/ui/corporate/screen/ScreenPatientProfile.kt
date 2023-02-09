@@ -28,33 +28,33 @@ data class ScreenPatientProfileUIState(
 )
 
 data class DataPatientProfile(
-    val patientFullname: String = "",
-    val patientFirstName: String = "",
-    val patientLastName: String = "",
+    val patientFullname: String = "-",
+    val patientFirstName: String = "-",
+    val patientLastName: String = "-",
     val patientEws: String = "Normal",
-    val patientGender: String = "",
+    val patientGender: String = "-",
     val patientAge: Int = 1,
-    val patientWeight: String = "",
-    val patientHeight: String = "",
-    val patientGolDarah: String = "",
+    val patientWeight: String = "-",
+    val patientHeight: String = "-",
+    val patientGolDarah: String = "-",
     val patientStatusActive: Boolean = false,
     val patientAllergy: List<Pair<String, AllergyLevel>> = listOf(),
-    val patientBirthDate: String = "",
-    val patientReligion: String = "",
-    val patientAssignedDoctor: String = "",
-    val patientStatusMarried: String = "",
-    val patientDateIn: String = "",
-    val patientID: String = "",
-    val patientAddress: String = "",
-    val patientPhoneNumber: String = "",
-    val patientEmail: String = "",
-    val patientNoteFromNurse: String = "",
-    val patientSystoleValue: List<Entry> = listOf(),
-    val patientDiastoleValue: List<Entry> = listOf(),
-    val patientHeartRateValue: List<Entry> = listOf(),
-    val patientSpo2Value: List<Entry> = listOf(),
-    val patientBMIValue: List<Entry> = listOf(),
-    val patientTemperatureValue: List<Entry> = listOf()
+    val patientBirthDate: String = "-",
+    val patientReligion: String = "-",
+    val patientAssignedDoctor: String = "-",
+    val patientStatusMarried: String = "-",
+    val patientDateIn: String = "-",
+    val patientID: String = "-",
+    val patientAddress: String = "-",
+    val patientPhoneNumber: String = "-",
+    val patientEmail: String = "-",
+    val patientNoteFromNurse: String = "-",
+    val patientSystoleValue: Pair<List<String>, List<Entry>> = Pair(listOf(), listOf()),
+    val patientDiastoleValue: Pair<List<String>, List<Entry>> = Pair(listOf(), listOf()),
+    val patientHeartRateValue: Pair<List<String>, List<Entry>> = Pair(listOf(), listOf()),
+    val patientSpo2Value: Pair<List<String>, List<Entry>> = Pair(listOf(), listOf()),
+    val patientBMIValue: Pair<List<String>, List<Entry>> = Pair(listOf(), listOf()),
+    val patientTemperatureValue: Pair<List<String>, List<Entry>> = Pair(listOf(), listOf())
 )
 
 @Composable
@@ -64,7 +64,8 @@ fun ScreenPatientProfile(
     onToDetailChart: (typeChart: String) -> Unit = {},
     onAddAllergy: () -> Unit = {},
     onRemoveAllergy: (index: Int) -> Unit = {},
-    onDoneEditAllergy: (newListAllergy: List<Pair<String, AllergyLevel>>) -> Unit = {},
+    onTextChanged: (index: Int, value: String) -> Unit = {_,_ ->},
+    onChangeAllergies: (index: Int, value: AllergyLevel) -> Unit = {_,_ ->},
 ) {
     val ctx = LocalContext.current
     Column(
@@ -99,7 +100,8 @@ fun ScreenPatientProfile(
                     listAllergies = patientProfileUIState.data.patientAllergy,
                     onAddAllergy = onAddAllergy,
                     onRemoveAllergy = onRemoveAllergy,
-                    onDoneEditAllergy = onDoneEditAllergy
+                    onTextChanged = onTextChanged,
+                    onChangeAllergies = onChangeAllergies,
                 )
             }
             CardInformationPatient(
@@ -115,12 +117,17 @@ fun ScreenPatientProfile(
                 patientPhoneNumber = patientProfileUIState.data.patientPhoneNumber,
                 patientReligion = patientProfileUIState.data.patientReligion,
                 patientStatusMarried = patientProfileUIState.data.patientStatusMarried,
-                patientSystoleValue = patientProfileUIState.data.patientSystoleValue,
-                patientDiastoleValue = patientProfileUIState.data.patientDiastoleValue,
-                patientBMIValue = patientProfileUIState.data.patientBMIValue,
-                patientHeartRateValue = patientProfileUIState.data.patientHeartRateValue,
-                patientSpo2Value = patientProfileUIState.data.patientSpo2Value,
-                patientTemperatureValue = patientProfileUIState.data.patientTemperatureValue,
+                patientSystoleValue = patientProfileUIState.data.patientSystoleValue.second,
+                patientDiastoleValue = patientProfileUIState.data.patientDiastoleValue.second,
+                patientBMIValue = patientProfileUIState.data.patientBMIValue.second,
+                patientHeartRateValue = patientProfileUIState.data.patientHeartRateValue.second,
+                patientSpo2Value = patientProfileUIState.data.patientSpo2Value.second,
+                patientTemperatureValue = patientProfileUIState.data.patientTemperatureValue.second,
+                DateTemperature = patientProfileUIState.data.patientTemperatureValue.first,
+                DateSpo2 = patientProfileUIState.data.patientSpo2Value.first,
+                DateHeartRate = patientProfileUIState.data.patientHeartRateValue.first,
+                DateBMI = patientProfileUIState.data.patientBMIValue.first,
+                DateBloodPressure = patientProfileUIState.data.patientSystoleValue.first,
                 onToDetailChart = {
                     onToDetailChart(it)
                 },

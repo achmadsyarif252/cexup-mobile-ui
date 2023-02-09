@@ -1,6 +1,5 @@
 package com.cexup.ui.corporate.component
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -8,10 +7,11 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
@@ -19,13 +19,12 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
@@ -52,11 +51,12 @@ enum class TypeHealthDataPatient{
     BloodPressure,HeartRate,Spo2,Temperature,BMI
 }
 
-data class dataHealthPatient(
+data class DataHealthPatient(
     val iconData: Int,
     val typeHealthDataPatient: TypeHealthDataPatient,
     val listData: List<Entry>,
     val listData2: List<Entry> = listOf(),
+    val listDate: List<String> = listOf(),
     val nameData: String,
     val satuanItem: String,
     val ValueNow: String,
@@ -340,9 +340,10 @@ fun CardProfilePatientNew(
 @Composable
 fun CardAllergies(
     listAllergies: List<Pair<String, AllergyLevel>> = listOf(),
+    onTextChanged: (index: Int, value: String) -> Unit = {_,_ ->},
+    onChangeAllergies: (index: Int, value: AllergyLevel) -> Unit = {_,_ ->},
     onAddAllergy: () -> Unit = {},
     onRemoveAllergy: (index: Int) -> Unit = {},
-    onDoneEditAllergy: (newListAllergy: List<Pair<String,AllergyLevel>>) -> Unit = {},
 ) {
     val ctx = LocalContext.current
     var isEditAllergy by remember {
@@ -350,9 +351,6 @@ fun CardAllergies(
     }
     var expanded by remember {
         mutableStateOf(false)
-    }
-    var tempList by remember {
-        mutableStateOf(listAllergies.toMutableList())
     }
 
     var selectedItem by remember { mutableStateOf(0) }
@@ -369,7 +367,7 @@ fun CardAllergies(
         ) {
             Row (verticalAlignment = Alignment.CenterVertically) {
                 Text(
-                    text = stringResource(id = R.string.allergies),
+                    text = stringResource(id = com.cexup.ui.R.string.allergies),
                     style = MaterialThemeCexup.typography.hh2.copy(
                         fontWeight = FontWeight.SemiBold,
                         color = MaterialThemeCexup.colors.color.text.textMain
@@ -383,7 +381,7 @@ fun CardAllergies(
                             .noRippleClick {
                                 isEditAllergy = true
                             },
-                        painter = painterResource(id = R.drawable.ic_edit_corporate),
+                        painter = painterResource(id = com.cexup.ui.R.drawable.ic_edit_corporate),
                         contentDescription = "Icon Edit Allergy",
                         tint = MaterialThemeCexup.colors.color.text.textInactive
                     )
@@ -395,22 +393,15 @@ fun CardAllergies(
                     .fillMaxWidth()
                     .height(1.dp)
             )
-            tempList.forEachIndexed { index,it ->
-                var textValue by remember {
-                    mutableStateOf(it.first)
-                }
-                var allergyValue by remember{
-                    mutableStateOf(it.second)
-                }
+            listAllergies.forEachIndexed { index,it ->
                 Row {
                     TextFieldCexup(
                         modifier = Modifier
                             .wrapContentHeight()
                             .weight(1f),
-                        value = textValue,
+                        value = it.first,
                         onValueChange = { text->
-                            textValue = text
-                            tempList[index] = Pair(text,it.second)
+                            onTextChanged(index, text)
                         },
                         textStyle = MaterialThemeCexup.typography.hh4,
                         shape = RoundedCornerShape(8.dp.from(ctx)),
@@ -440,11 +431,12 @@ fun CardAllergies(
                         ) {
                             Text(
                                 modifier = Modifier
-                                    .fillMaxWidth().clickable {
-                                    selectedItem = index
-                                    expanded = true
-                                },
-                                text = allergyValue.name,
+                                    .fillMaxWidth()
+                                    .clickable {
+                                        selectedItem = index
+                                        expanded = true
+                                    },
+                                text = it.second.name,
                                 style = MaterialThemeCexup.typography.hh4.copy(
                                     fontWeight = FontWeight.Medium,
                                     color =
@@ -463,11 +455,10 @@ fun CardAllergies(
                                         expanded = false
                                     }
                                 ) {
-                                    listAllergyLevel.forEachIndexed { itemIndex, itemValue ->
+                                    listAllergyLevel.forEach {itemValue ->
                                         DropdownMenuItem(
                                             onClick = {
-                                                tempList[index] = Pair(it.first,itemValue)
-                                                allergyValue = itemValue
+                                                onChangeAllergies(index,itemValue)
                                                 expanded = false
                                             },
                                         ) {
@@ -486,17 +477,16 @@ fun CardAllergies(
                                 .padding(top = 8.dp.from(ctx), end = 8.dp.from(ctx))
                                 .size(12.dp.from(ctx))
                                 .noRippleClick {
-                                    tempList.removeAt(index)
                                     onRemoveAllergy(index)
                                 },
-                            painter = painterResource(id = R.drawable.ic_close),
+                            painter = painterResource(id = com.cexup.ui.R.drawable.ic_close),
                             contentDescription = "Icon Delete Allergy",
                             tint = MaterialThemeCexup.colors.palette.neutral.neutral7
                         )
                     }else{
                         Text(
                             modifier = Modifier.weight(1f),
-                            text = allergyValue.name,
+                            text = it.second.name,
                             style = MaterialThemeCexup.typography.hh4.copy(
                                 fontWeight = FontWeight.Medium,
                                 color =
@@ -519,19 +509,18 @@ fun CardAllergies(
                     TextButton(
                         modifier = Modifier.weight(1f),
                         onClick = {
-                            tempList.add(Pair("",AllergyLevel.Low))
                             onAddAllergy()
                         },
                         contentPadding = PaddingValues(vertical = 8.dp.from(ctx), horizontal = 0.dp)
                     ) {
                         Icon(
                             modifier = Modifier.offset(y = (-2).dp),
-                            painter = painterResource(id = R.drawable.ic_plus),
+                            painter = painterResource(id = com.cexup.ui.R.drawable.ic_plus),
                             contentDescription = "Icon Add Allergy",
                             tint = MaterialThemeCexup.colors.color.text.textInactive
                         )
                         Text(
-                            text = stringResource(id = R.string.add_allergy),
+                            text = stringResource(id = com.cexup.ui.R.string.add_allergy),
                             style = MaterialThemeCexup.typography.textButton2.copy(
                                 fontWeight = FontWeight.SemiBold,
                                 color = MaterialThemeCexup.colors.color.text.textInactive
@@ -543,7 +532,6 @@ fun CardAllergies(
                         modifier = Modifier.weight(1f),
                         onClick = {
                             isEditAllergy = false
-                            onDoneEditAllergy(tempList)
                         },
                         contentPadding = PaddingValues(vertical = 8.dp.from(ctx), horizontal = 0.dp),
                         colors = ButtonDefaults.buttonColors(
@@ -551,7 +539,7 @@ fun CardAllergies(
                         )
                     ) {
                         Text(
-                            text = stringResource(id = R.string.done),
+                            text = stringResource(id = com.cexup.ui.R.string.done),
                             style = MaterialThemeCexup.typography.textButton1.copy(
                                 color = MaterialThemeCexup.colors.palette.neutral.neutral1
                             )
@@ -690,14 +678,16 @@ fun CardInformationPatient(
     patientSpo2Value: List<Entry> = listOf(),
     patientBMIValue: List<Entry> = listOf(),
     patientTemperatureValue: List<Entry> = listOf(),
+    DateBloodPressure: List<String> = listOf(),
+    DateHeartRate: List<String> = listOf(),
+    DateSpo2: List<String> = listOf(),
+    DateBMI: List<String> = listOf(),
+    DateTemperature: List<String> = listOf(),
     onToDetailChart: (typeData: String) -> Unit = {},
     onValueChangeNote: (valueNote: String) -> Unit = {}
 ) {
     val ctx = LocalContext.current
     val pagerState = rememberPagerState()
-    var heightPage by remember {
-        mutableStateOf(0.dp)
-    }
 
     val tabs = listOf(
         TabContentRow(header = stringResource(id = R.string.details)) {
@@ -716,19 +706,16 @@ fun CardInformationPatient(
                     patientEmail = patientEmail,
                     patientNoteFromNurse = patientNoteFromNurse,
                     onValueChangeNote = onValueChangeNote,
-                    heightBeside = {
-                        heightPage = it + 16.dp.from(ctx)
-                    }
                 )
             } else {
-                ContentLoadingTabPatientProfile(height = heightPage)
+                ContentLoadingTabPatientProfile()
             }
         },
         TabContentRow(header = stringResource(id = R.string.orders)) {
             if (pagerState.currentPage == 1) {
                 ContentOrdersInformationPatient()
             } else {
-                ContentLoadingTabPatientProfile(height = heightPage)
+                ContentLoadingTabPatientProfile()
             }
         },
         TabContentRow(header = stringResource(id = R.string.health)) {
@@ -740,15 +727,17 @@ fun CardInformationPatient(
                     patientSpo2Value = patientSpo2Value,
                     patientHeartRateValue = patientHeartRateValue,
                     patientBMIValue = patientBMIValue,
-                    heightBeside = {
-                        heightPage = it + 16.dp.from(ctx)
-                    },
+                    DateBloodPressure = DateBloodPressure,
+                    DateBMI = DateBMI,
+                    DateHeartRate = DateHeartRate,
+                    DateSpo2 = DateSpo2,
+                    DateTemperature = DateTemperature,
                     onToDetailChart = {
                         onToDetailChart(it)
                     }
                 )
             } else {
-                ContentLoadingTabPatientProfile(height = heightPage)
+                ContentLoadingTabPatientProfile()
             }
         }
     )
@@ -773,17 +762,16 @@ fun CardInformationPatient(
 
 @Composable
 fun ContentLoadingTabPatientProfile(
-    height: Dp,
 ) {
+    val ctx = LocalContext.current
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .height(height)
-    ) {
-
-    }
+            .height(100.dp.from(ctx))
+    ) {}
 }
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun ContentDetailsInformationPatient(
     patientFirstName: String,
@@ -798,20 +786,18 @@ fun ContentDetailsInformationPatient(
     patientPhoneNumber: String,
     patientEmail: String,
     patientNoteFromNurse: String,
-    heightBeside: (height: Dp) -> Unit = {},
+    
     onValueChangeNote: (valueNote: String) -> Unit = {}
 ) {
     var textFieldValue by remember {
         mutableStateOf(patientNoteFromNurse)
     }
+    val keyboardController = LocalSoftwareKeyboardController.current
     val ctx = LocalContext.current
     Column(
         modifier = Modifier
             .padding(horizontal = 16.dp.from(ctx))
-            .padding(bottom = 16.dp.from(ctx))
-            .onGloballyPositioned {
-                heightBeside(it.size.height.dp)
-            },
+            .padding(bottom = 16.dp.from(ctx)),
         verticalArrangement = Arrangement.spacedBy(12.dp.from(ctx))
     ) {
         Text(
@@ -1050,6 +1036,7 @@ fun ContentDetailsInformationPatient(
                 },
                 innerPaddingValue = PaddingValues(16.dp.from(ctx)),
                 shape = RoundedCornerShape(4.dp.from(ctx)),
+                keyboardActions = KeyboardActions(onDone = {keyboardController?.hide()})
             )
         }
     }
@@ -1078,12 +1065,17 @@ fun ContentHealthInformationPatient(
     patientSpo2Value: List<Entry> = listOf(),
     patientBMIValue: List<Entry> = listOf(),
     patientTemperatureValue: List<Entry> = listOf(),
-    heightBeside: (height: Dp) -> Unit = {},
+    DateBloodPressure: List<String> = listOf(),
+    DateHeartRate: List<String> = listOf(),
+    DateSpo2: List<String> = listOf(),
+    DateBMI: List<String> = listOf(),
+    DateTemperature: List<String> = listOf(),
+    
     onToDetailChart: (typeData: String) -> Unit = {},
 ) {
     val ctx = LocalContext.current
-    val dataList: List<dataHealthPatient> = listOf(
-        dataHealthPatient(
+    val dataList: List<DataHealthPatient> = listOf(
+        DataHealthPatient(
             typeHealthDataPatient = TypeHealthDataPatient.BloodPressure,
             iconData = R.drawable.ic_blood_pressure,
             listData = patientSystoleValue,
@@ -1094,9 +1086,10 @@ fun ContentHealthInformationPatient(
             } else {
                 "${patientSystoleValue[0].y}/${patientDiastoleValue[0].y}"
             },
-            listData2 = patientDiastoleValue
+            listData2 = patientDiastoleValue,
+            listDate = DateBloodPressure
         ),
-        dataHealthPatient(
+        DataHealthPatient(
             typeHealthDataPatient = TypeHealthDataPatient.HeartRate,
             iconData = R.drawable.ic_heart_beat,
             listData = patientHeartRateValue,
@@ -1107,8 +1100,9 @@ fun ContentHealthInformationPatient(
             } else {
                 patientHeartRateValue[0].y.toString()
             },
+            listDate = DateHeartRate
         ),
-        dataHealthPatient(
+        DataHealthPatient(
             typeHealthDataPatient = TypeHealthDataPatient.Spo2,
             iconData = R.drawable.ic_heart_beat,
             listData = patientSpo2Value,
@@ -1119,8 +1113,9 @@ fun ContentHealthInformationPatient(
             } else {
                 patientSpo2Value[0].y.toString()
             },
+            listDate = DateSpo2
         ),
-        dataHealthPatient(
+        DataHealthPatient(
             typeHealthDataPatient = TypeHealthDataPatient.BMI,
             iconData = R.drawable.ic_heart_beat,
             listData = patientBMIValue,
@@ -1131,8 +1126,9 @@ fun ContentHealthInformationPatient(
             } else {
                 patientBMIValue[0].y.toString()
             },
+            listDate = DateBMI
         ),
-        dataHealthPatient(
+        DataHealthPatient(
             typeHealthDataPatient = TypeHealthDataPatient.Temperature,
             iconData = R.drawable.ic_heart_beat,
             listData = patientTemperatureValue,
@@ -1143,6 +1139,7 @@ fun ContentHealthInformationPatient(
             } else {
                 patientTemperatureValue[0].y.toString()
             },
+            listDate = DateTemperature
         ),
     )
 
@@ -1152,37 +1149,21 @@ fun ContentHealthInformationPatient(
             .fillMaxWidth()
             .padding(horizontal = 16.dp.from(ctx))
             .padding(bottom = 16.dp.from(ctx))
-            .then(
-                Modifier.onGloballyPositioned {
-                    heightBeside(it.size.height.dp)
-                }
-            )
     ) {
         this.gridItems(
             data = dataList,
             columnCount = 2,
             horizontalArrangement = Arrangement.spacedBy(16.dp.from(ctx))
         ) { dataHealthPatient ->
-            val tempDataDate = mutableListOf<String>("")
-            val tempData1 = mutableListOf<Entry>()
-            val tempData2 = mutableListOf<Entry>()
-            dataHealthPatient.listData.forEachIndexed { index, it->
-                tempDataDate.add(it.x.toInt().toString())
-                tempData1.add(Entry(index+1f,it.y))
-            }
-            dataHealthPatient.listData2.forEachIndexed { index, it ->
-                tempData2.add(Entry(index+1f,it.y))
-            }
-            Log.e("wowo2", tempDataDate.toString())
             CardChartPatientInformation(
                 pathIcon = dataHealthPatient.iconData,
                 descriptionIcon = "Icon ${dataHealthPatient.nameData}",
                 chartName = dataHealthPatient.nameData,
                 valueItem = dataHealthPatient.ValueNow,
                 satuanItem = dataHealthPatient.satuanItem,
-                listData = tempData1,
-                listData2 = tempData2,
-                listDateData = tempDataDate,
+                listData = dataHealthPatient.listData,
+                listData2 = dataHealthPatient.listData2,
+                listDateData = dataHealthPatient.listDate,
                 maxAxis =
                 when(dataHealthPatient.typeHealthDataPatient){
                     TypeHealthDataPatient.BMI->{
