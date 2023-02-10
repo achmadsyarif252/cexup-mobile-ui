@@ -789,9 +789,6 @@ fun ContentDetailsInformationPatient(
     
     onValueChangeNote: (valueNote: String) -> Unit = {}
 ) {
-    var textFieldValue by remember {
-        mutableStateOf(patientNoteFromNurse)
-    }
     val keyboardController = LocalSoftwareKeyboardController.current
     val ctx = LocalContext.current
     Column(
@@ -1011,9 +1008,8 @@ fun ContentDetailsInformationPatient(
                             4.dp.from(ctx)
                         )
                     ),
-                value = textFieldValue,
+                value = patientNoteFromNurse,
                 onValueChange = {
-                    textFieldValue = it
                     onValueChangeNote(it)
                 },
                 colors = TextFieldDefaults.textFieldColors(
