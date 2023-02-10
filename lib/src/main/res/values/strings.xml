@@ -365,5 +365,6 @@
     <string name="active">Active</string>
     <string name="not_active">Not Active</string>
     <string name="done">Done</string>
+    <string name="married_status">Married Status</string>
 
 </resources>

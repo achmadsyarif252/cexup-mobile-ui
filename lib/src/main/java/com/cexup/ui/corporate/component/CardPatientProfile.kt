@@ -214,7 +214,7 @@ fun CardProfilePatientNew(
                         )
                     )
                     Text(
-                        modifier = Modifier.weight(1f),
+                        modifier = Modifier.weight(0.9f),
                         text = stringResource(id = R.string.age),
                         style = MaterialThemeCexup.typography.hh4.copy(
                             color = MaterialThemeCexup.colors.color.text.textSecondary
@@ -234,7 +234,7 @@ fun CardProfilePatientNew(
                         )
                     )
                     Text(
-                        modifier = Modifier.weight(1f),
+                        modifier = Modifier.weight(0.9f),
                         text = patientAge,
                         style = MaterialThemeCexup.typography.hh4.copy(
                             fontWeight = FontWeight.Medium,
@@ -255,7 +255,7 @@ fun CardProfilePatientNew(
                         )
                     )
                     Text(
-                        modifier = Modifier.weight(1f),
+                        modifier = Modifier.weight(0.9f),
                         text = stringResource(id = R.string.corporate_measurement_height),
                         style = MaterialThemeCexup.typography.hh4.copy(
                             color = MaterialThemeCexup.colors.color.text.textSecondary
@@ -275,7 +275,7 @@ fun CardProfilePatientNew(
                         )
                     )
                     Text(
-                        modifier = Modifier.weight(1f),
+                        modifier = Modifier.weight(0.9f),
                         text = patientHeight,
                         style = MaterialThemeCexup.typography.hh4.copy(
                             fontWeight = FontWeight.Medium,
@@ -297,7 +297,7 @@ fun CardProfilePatientNew(
                         )
                     )
                     Text(
-                        modifier = Modifier.weight(1f),
+                        modifier = Modifier.weight(0.9f),
                         text = stringResource(id = R.string.status).capitalizeWords(),
                         style = MaterialThemeCexup.typography.hh4.copy(
                             color = MaterialThemeCexup.colors.color.text.textSecondary
@@ -317,7 +317,7 @@ fun CardProfilePatientNew(
                         )
                     )
                     Text(
-                        modifier = Modifier.weight(1f),
+                        modifier = Modifier.weight(0.9f),
                         text =
                         if (patientStatus)
                             stringResource(id = R.string.active)
@@ -746,10 +746,9 @@ fun CardInformationPatient(
         shape = RoundedCornerShape(8.dp.from(ctx))
     ) {
         Column(modifier = Modifier.padding(top = 16.dp.from(ctx))) {
-            TabView(
+            TabViewPatientProfile(
                 modifier = Modifier
-                    .padding(horizontal = 16.dp.from(ctx))
-                    .width(285.dp.from(ctx)),
+                    .padding(horizontal = 16.dp.from(ctx)),
                 tabContents = tabs,
                 pagerState = pagerState,
                 colorUnderline = MaterialThemeCexup.colors.color.primary.primaryMain,
@@ -884,7 +883,7 @@ fun ContentDetailsInformationPatient(
                 Text(
                     modifier = Modifier
                         .weight(0.207f),
-                    text = stringResource(id = R.string.status).capitalizeWords(),
+                    text = stringResource(id = R.string.married_status).capitalizeWords(),
                     style = MaterialThemeCexup.typography.hh4,
                     color = MaterialThemeCexup.colors.color.text.textSecondary
                 )

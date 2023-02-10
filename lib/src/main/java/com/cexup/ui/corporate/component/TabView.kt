@@ -1,9 +1,7 @@
 package com.cexup.ui.corporate.component
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -18,10 +16,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.cexup.ui.corporate.theme.BackgroundLight
-import com.cexup.ui.corporate.theme.Heading
-import com.cexup.ui.corporate.theme.SecondaryCorporate
-import com.cexup.ui.corporate.theme.inactive
+import com.cexup.ui.corporate.theme.*
 import com.cexup.ui.utils.mediaquery.from
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
@@ -54,8 +49,8 @@ fun TabView(
             TabRowDefaults.Indicator(
                 modifier = Modifier
                     .pagerTabIndicatorOffset(pagerState, tabPositions)
-                    .clip(RoundedCornerShape(10.dp.from(ctx)))
-                    .width(widthEachContent),
+                    .clip(RoundedCornerShape(10.dp.from(ctx))),
+//                    .width(widthEachContent),
                 color = colorUnderline,
                 height = 3.dp.from(ctx),
             )
@@ -78,10 +73,8 @@ fun TabView(
                             index -> Heading
                             else -> inactive
                         },
-                        style = MaterialTheme.typography.body1.copy(
-                            fontSize = 16.sp.from(ctx),
-                            lineHeight = 24.sp.from(ctx),
-                            fontWeight = FontWeight(500),
+                        style = MaterialThemeCexup.typography.hh3.copy(
+                            fontWeight = FontWeight.Medium,
                             textAlign = TextAlign.Start
                         ),
                     )
@@ -107,6 +100,61 @@ fun TabContent(
         tabContents[page].content.invoke()
     }
 }
+
+@OptIn(ExperimentalPagerApi::class)
+@Composable
+fun TabViewPatientProfile(
+    tabContents: List<TabContentRow>,
+    pagerState: PagerState,
+    modifier: Modifier = Modifier,
+    colorUnderline: Color = SecondaryCorporate,
+){
+    val ctx = LocalContext.current
+    val scope = rememberCoroutineScope()
+    ScrollableTabRow(
+        modifier = modifier,
+        selectedTabIndex = pagerState.currentPage,
+        backgroundColor = Color.Transparent,
+        contentColor = Color.White,
+        indicator = { tabPositions ->
+            TabRowDefaults.Indicator(
+                modifier = Modifier
+                    .pagerTabIndicatorOffset(pagerState, tabPositions)
+                    .clip(RoundedCornerShape(10.dp.from(ctx))),
+                color = colorUnderline,
+                height = 3.dp.from(ctx),
+            )
+        },
+        edgePadding = 0.dp.from(ctx),
+    ) {
+        tabContents.forEachIndexed { index, tab ->
+            LeadingIconTab(
+                selected = pagerState.currentPage == index,
+                onClick = {
+                    scope.launch {
+                        pagerState.animateScrollToPage(index)
+                    }
+                },
+                modifier = Modifier.wrapContentWidth().wrapContentHeight(),
+                text = {
+                    Text(
+                        text = tab.header,
+                        color = when (pagerState.currentPage) {
+                            index -> Heading
+                            else -> inactive
+                        },
+                        style = MaterialThemeCexup.typography.hh3.copy(
+                            fontWeight = FontWeight.Medium,
+                            textAlign = TextAlign.Start
+                        ),
+                    )
+                },
+                icon = {},
+            )
+        }
+    }
+}
+
 
 @Composable
 fun TabFeatures(

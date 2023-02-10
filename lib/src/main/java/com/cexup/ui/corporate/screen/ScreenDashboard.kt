@@ -43,6 +43,7 @@ data class DataScreenDashboard(
     val valueActiveDoctors: Int = 0,
     val valueLastUpdatedActiveDoctors: String = "",
     val valuePercentRatioActiveDoctorsBeforeAndToday: String = "",
+    val valueTotalPatients: Int = 0,
     val dataPieChart: List<PieChartData> = listOf(),
     val listDoctorActive: List<DataDoctorDashboard> = listOf(),
     val sizeDoctorActive: Int = 3,
@@ -86,7 +87,7 @@ fun ScreenDashboard(
                 )
                 CardChartPatients(
                     dataPieChart = dashboardUIState.data.dataPieChart,
-                    totalPatients = dashboardUIState.data.valueNewPatients,
+                    totalPatients = dashboardUIState.data.valueTotalPatients,
                 )
 
             }
