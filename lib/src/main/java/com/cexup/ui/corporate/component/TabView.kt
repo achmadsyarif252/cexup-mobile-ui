@@ -2,15 +2,18 @@ package com.cexup.ui.corporate.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
@@ -65,7 +68,9 @@ fun TabView(
                         pagerState.animateScrollToPage(index)
                     }
                 },
-                modifier = Modifier.width(widthEachContent).padding(0.dp.from(ctx)),
+                modifier = Modifier
+                    .width(widthEachContent)
+                    .padding(0.dp.from(ctx)),
                 text = {
                     Text(
                         text = tab.header,
@@ -108,7 +113,7 @@ fun TabViewPatientProfile(
     pagerState: PagerState,
     modifier: Modifier = Modifier,
     colorUnderline: Color = SecondaryCorporate,
-){
+) {
     val ctx = LocalContext.current
     val scope = rememberCoroutineScope()
     ScrollableTabRow(
@@ -135,7 +140,9 @@ fun TabViewPatientProfile(
                         pagerState.animateScrollToPage(index)
                     }
                 },
-                modifier = Modifier.wrapContentWidth().wrapContentHeight(),
+                modifier = Modifier
+                    .wrapContentWidth()
+                    .wrapContentHeight(),
                 text = {
                     Text(
                         text = tab.header,
@@ -151,6 +158,67 @@ fun TabViewPatientProfile(
                 },
                 icon = {},
             )
+        }
+    }
+}
+
+@OptIn(ExperimentalPagerApi::class)
+@Composable
+fun TabViewGlucose(
+    tabContents: List<TabContentRow>,
+    pagerState: PagerState,
+    modifier: Modifier = Modifier,
+    colorUnderline: Color = SecondaryCorporate,
+) {
+    val ctx = LocalContext.current
+    val localDensity = LocalDensity.current.density.dp.value
+    val scope = rememberCoroutineScope()
+    LazyRow(modifier = modifier) {
+        itemsIndexed(tabContents) { index, tab ->
+            var widthOfChildTab by remember {
+                mutableStateOf(0.dp)
+            }
+            Column {
+                LeadingIconTab(
+                    selected = pagerState.currentPage == index,
+                    onClick = {
+                        scope.launch {
+                            pagerState.animateScrollToPage(index)
+                        }
+                    },
+                    modifier = Modifier
+                        .wrapContentWidth()
+                        .wrapContentHeight()
+                        .onGloballyPositioned {
+                            widthOfChildTab = (it.size.width / localDensity + 0.5f ).dp
+                        },
+                    text = {
+                        Text(
+                            text = tab.header,
+                            color = when (pagerState.currentPage) {
+                                index -> Heading
+                                else -> inactive
+                            },
+                            style = MaterialThemeCexup.typography.hh3.copy(
+                                fontWeight = FontWeight.Medium,
+                                textAlign = TextAlign.Start
+                            ),
+                        )
+                    },
+                    icon = {},
+                )
+                Box(
+                    modifier = Modifier
+                        .width(widthOfChildTab)
+                        .background(
+                            when (pagerState.currentPage) {
+                                index -> colorUnderline
+                                else -> Color.Transparent
+                            }
+                        )
+                        .height(3.dp.from(ctx)),
+                )
+            }
         }
     }
 }

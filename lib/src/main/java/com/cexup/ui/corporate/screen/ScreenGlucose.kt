@@ -26,6 +26,7 @@ import com.cexup.ui.utils.mediaquery.from
 import com.example.app_corporate.ui.component.cards.*
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.rememberPagerState
+import com.google.android.material.tabs.TabLayout.Tab
 
 data class GlucoseDataUIState(
     var patientName: String,
@@ -480,10 +481,9 @@ fun ScreenGlucose(
                 )
             }
         }
-        TabView(
+        TabViewGlucose(
             modifier = Modifier
-                .align(CenterHorizontally)
-                .width(385.dp.from(ctx)),
+                .align(CenterHorizontally),
             tabContents = tabs,
             pagerState = pagerState,
             colorUnderline = Heading
