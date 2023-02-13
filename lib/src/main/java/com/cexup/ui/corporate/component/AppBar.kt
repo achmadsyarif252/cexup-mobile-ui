@@ -35,6 +35,7 @@ import com.skydoves.landscapist.coil.CoilImage
 fun AppBar(
     modifier: Modifier = Modifier,
     valueTextSearch: String = "",
+    onEnterPressed: (value: String) -> Unit = {},
     onValueChange: (value: String) -> Unit = {},
     goToProfile: () -> Unit = {},
     isSearch: Boolean = false,
@@ -64,6 +65,7 @@ fun AppBar(
             Spacer(modifier = Modifier.width(28.dp.from(ctx)))
             SearchPatientNew(
                 valueTextSearch = valueTextSearch,
+                onEnterPressed = onEnterPressed,
                 onValueChange = {
                     onValueChange(it)
                 }
