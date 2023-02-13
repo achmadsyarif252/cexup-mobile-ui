@@ -10,13 +10,19 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.*
 import androidx.compose.foundation.relocation.bringIntoViewRequester
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusEvent
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cexup.ui.R
@@ -27,12 +33,20 @@ import com.cexup.ui.corporate.theme.MaterialThemeCexup
 import com.cexup.ui.utils.mediaquery.from
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun SearchPatientNew(
     valueTextSearch:String = "",
+    onEnterPressed: (value: String) -> Unit,
     onValueChange: (value: String) -> Unit,
 ){
     val ctx = LocalContext.current
+
+    val keyboardController = LocalSoftwareKeyboardController.current
+
+    var valueText by remember {
+        mutableStateOf("")
+    }
     Card(
         shape = RoundedCornerShape(8.dp.from(ctx)),
         modifier = Modifier.height(56.dp.from(ctx))
@@ -40,6 +54,7 @@ fun SearchPatientNew(
         TextFieldCexup(
             value = valueTextSearch,
             onValueChange = {
+                valueText = it
                 onValueChange(it)
             },
             modifier = Modifier
@@ -82,6 +97,13 @@ fun SearchPatientNew(
                 unfocusedIndicatorColor = Color.Transparent,
                 disabledIndicatorColor = Color.Transparent
             ),
+            keyboardOptions = KeyboardOptions(
+                imeAction = ImeAction.Done
+            ),
+            keyboardActions = KeyboardActions(onDone = {
+                onEnterPressed(valueText)
+                keyboardController?.hide()
+            }),
         )
     }
 }

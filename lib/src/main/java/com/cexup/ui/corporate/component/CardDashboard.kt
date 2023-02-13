@@ -631,7 +631,7 @@ fun CardActiveDoctorsList(
                                 .height(10.dp.from(ctx)),
                             painter = painterResource(id = R.drawable.ic_arrow_bottomsheet),
                             contentDescription = "arrow next pager list doctor",
-                            tint = if (currentPage == sizeData / 3) MaterialThemeCexup.colors.color.text.textInactive else MaterialThemeCexup.colors.color.primary.primaryMain
+                            tint = if (currentPage.toFloat() <= sizeData.toFloat() / 3f) MaterialThemeCexup.colors.color.text.textInactive else MaterialThemeCexup.colors.color.primary.primaryMain
                         )
                     }
                 }

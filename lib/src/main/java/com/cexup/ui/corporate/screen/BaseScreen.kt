@@ -41,6 +41,7 @@ data class SearchPatientUIState(
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 fun BaseScreen(
     currentRoute: String,
+    onEnterSearchPressed: (value: String) -> Unit = {},
     onSearchPatient: suspend (String) -> SearchPatientUIState,
     onPatientDetail: (String) -> Unit,
     onCheckUp: (String) -> Unit,
@@ -99,7 +100,8 @@ fun BaseScreen(
                 onBackIconClicked = {
                     valueTextSearch = ""
                     isSearch = false
-                }
+                },
+                onEnterPressed = onEnterSearchPressed
             )
         },
         drawerGesturesEnabled = !isSearch,
