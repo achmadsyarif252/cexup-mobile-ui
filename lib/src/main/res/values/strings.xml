@@ -103,7 +103,7 @@
     <string name="corporate_menu_logout">Logout</string>
 
     <string name="corporate_checkup_empty">Please Select the patient you wish to examine. Hopefully the patient is always healthy.</string>
-    <string name="corporate_waiting_checkup">Waiting Check Up</string>
+    <string name="corporate_patient_checkup">Patient Check Up</string>
     <string name="corporate_physical_exam">Physical Examination</string>
     <string name="corporate_sync_cloud">Sync to cloud</string>
     <string name="corporate_create_soap">Create SOAP</string>
@@ -373,5 +373,10 @@
     <string name="example_email">example@mail.com</string>
     <string name="remember_me">Remember me</string>
     <string name="forget_password">Forget Password?</string>
+    
+    <!-- NewFeature   -->
+    <string name="select_doctor">Select Doctor</string>
+    <string name="order_teleconsultation">Order Teleconsultation</string>
+    <string name="value_active_doctors">%1$d Active Doctors</string>
 
 </resources>

@@ -28,6 +28,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.cexup.ui.R
+import com.cexup.ui.component.common.AvatarCexup
 import com.cexup.ui.corporate.screen.DataDiagnostic
 import com.cexup.ui.corporate.screen.DataDoctorDashboard
 import com.cexup.ui.corporate.theme.*
@@ -521,51 +522,7 @@ fun CardActiveDoctorsList(
                         modifier = Modifier.padding(horizontal = 4.dp.from(ctx)),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Box {
-                            Box(
-                                modifier = Modifier
-                                    .clip(CircleShape)
-                                    .size(38.dp.from(ctx))
-                                    .background(
-                                        brush = Brush.verticalGradient(
-                                            colors = listOf(
-                                                BlueDarkJade,
-                                                BlueLightJade
-                                            )
-                                        )
-                                    ),
-                            ) {
-                                CoilImage(
-                                    modifier = Modifier
-                                        .align(Alignment.Center)
-                                        .size(17.dp.from(ctx)),
-                                    imageModel = painterResource(id = R.drawable.ic_profile_dummy),
-                                    // Crop, Fit, Inside, FillHeight, FillWidth, None
-                                    contentScale = ContentScale.Crop,
-                                    // shows an image with a circular revealed animation.
-                                    circularReveal = CircularReveal(duration = 250),
-                                    // shows a placeholder ImageBitmap when loading.
-                                    placeHolder = painterResource(id = R.drawable.ic_profile_dummy),
-                                    // shows an error ImageBitmap when the request failed.
-                                    error = painterResource(id = R.drawable.ic_profile_dummy)
-                                )
-                            }
-                            Box(
-                                modifier = Modifier
-                                    .align(Alignment.BottomEnd)
-                                    .size(12.dp.from(ctx))
-                                    .background(
-                                        MaterialThemeCexup.colors.color.success.successMain,
-                                        CircleShape
-                                    )
-                                    .border(
-                                        2.dp.from(ctx),
-                                        MaterialThemeCexup.colors.palette.neutral.neutral1,
-                                        CircleShape
-                                    ),
-
-                                )
-                        }
+                        AvatarCexup(isWithStatusOnline = true)
                         Spacer(modifier = Modifier.width(12.dp.from(ctx)))
                         Column {
                             Text(

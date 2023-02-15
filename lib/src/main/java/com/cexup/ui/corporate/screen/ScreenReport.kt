@@ -42,11 +42,12 @@ fun ScreenReport(
             items(count = 4){
                 CardMedicalInspection(
                     name = namePatient,
-                    userCode = userCode,
+                    email = userCode,
                     thumb = "",
                     onClick = {
 
-                    }
+                    },
+                    userCode = ""
                 )
             }
         },
