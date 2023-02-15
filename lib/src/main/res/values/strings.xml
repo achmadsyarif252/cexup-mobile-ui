@@ -379,4 +379,8 @@
     <string name="order_teleconsultation">Order Teleconsultation</string>
     <string name="value_active_doctors">%1$d Active Doctors</string>
 
+    <!-- NewListDoctor   -->
+    <string name="book_appointment">Book Appointment</string>
+    <string name="count_years_exp">%1$d years exp</string>
+
 </resources>
