@@ -1,14 +1,11 @@
 package com.cexup.ui.corporate.screen
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -17,6 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
@@ -27,17 +26,16 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import compose.icons.Octicons
-import compose.icons.octicons.Eye24
 import com.cexup.ui.R
 import com.cexup.ui.component.common.TextFieldCexup
 import com.cexup.ui.corporate.theme.BackgroundLight
 import com.cexup.ui.corporate.theme.ColorGray
-import com.cexup.ui.corporate.theme.Heading
+import com.cexup.ui.corporate.theme.MaterialThemeCexup
 import com.cexup.ui.utils.coloredShadow
 import com.cexup.ui.utils.mediaquery.from
 import com.cexup.ui.utils.noRippleClick
+import compose.icons.Octicons
+import compose.icons.octicons.Eye24
 
 @OptIn(ExperimentalComposeUiApi::class)
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -49,6 +47,7 @@ fun ScreenLogin(
     onLogin: (username: String, password: String, isRemember: Boolean) -> Unit,
 ) {
     val ctx = LocalContext.current
+    val screenHeight = LocalConfiguration.current.screenHeightDp.dp
     val keyboardController = LocalSoftwareKeyboardController.current
     var userName by remember {
         mutableStateOf("")
@@ -73,17 +72,11 @@ fun ScreenLogin(
                 .verticalScroll(rememberScrollState()),
             horizontalArrangement = Arrangement.Start
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.banner_corporate),
-                contentDescription = "banner",
-                modifier = Modifier
-                    .width(420.dp.from(ctx))
-                    .fillMaxHeight()
-            )
             Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 28.dp.from(ctx), start = 28.dp.from(ctx), end = 48.dp.from(ctx))
+                    .weight(0.6f)
+                    .padding(top = 63.dp.from(ctx), start = 80.dp.from(ctx), end = 80.dp.from(ctx)),
+                verticalArrangement = Arrangement.spacedBy(18.dp.from(ctx))
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.logo_corporate),
@@ -92,90 +85,68 @@ fun ScreenLogin(
                         .width(117.dp.from(ctx))
                         .height(46.dp.from(ctx))
                 )
-                Spacer(modifier = Modifier.height(20.dp.from(ctx)))
-                Text(
-                    text = "Login",
-                    fontSize = 22.sp.from(ctx),
-                    fontWeight = FontWeight(700),
-                    style = MaterialTheme.typography.body1,
-                    color = Heading,
-                )
-                Spacer(modifier = Modifier.height(15.dp.from(ctx)))
-                Text(
-                    text = "Login to your account",
-                    fontSize = 16.sp.from(ctx),
-                    fontWeight = FontWeight(700),
-                    style = MaterialTheme.typography.body1,
-                    color = Heading,
-                )
-                Text(
-                    text = "Thank you for get back to CeXup, let's access to help people to be happy.",
-                    fontSize = 12.sp.from(ctx),
-                    fontWeight = FontWeight(700),
-                    style = MaterialTheme.typography.body1,
-                    color = Heading,
-                )
-                Spacer(modifier = Modifier.height(15.dp.from(ctx)))
-                Text(
-                    text = "Email",
-                    fontSize = 16.sp.from(ctx),
-                    fontWeight = FontWeight(400),
-                    style = MaterialTheme.typography.body1,
-                    color = Heading,
-                )
-                Spacer(modifier = Modifier.height(5.41.dp.from(ctx)))
+                Spacer(modifier = Modifier.height(12.dp.from(ctx)))
+                Column {
+                    Text(
+                        text = "Login",
+                        style = MaterialThemeCexup.typography.h6.copy(
+                            fontWeight = FontWeight.SemiBold
+                        ),
+                        color = MaterialThemeCexup.colors.color.text.textMain,
+                    )
+                    Spacer(modifier = Modifier.height(16.dp.from(ctx)))
+                    Text(
+                        text = "Thank you for get back to CeXup, let's access to help people to be happy.",
+                        style = MaterialThemeCexup.typography.hh3,
+                        color = MaterialThemeCexup.colors.color.text.textSecondary,
+                    )
+                }
                 TextFieldCexup(
                     value = userName,
                     onValueChange = { value ->
                         userName = value
                     },
-                    placeholder = { Text(text = "example@mail.com") },
+                    placeholder = { Text(
+                        text = "example@mail.com",
+                        style = MaterialThemeCexup.typography.hh4,
+                        color = MaterialThemeCexup.colors.palette.neutral.neutral8
+                    ) },
                     singleLine = true,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(50.59.dp.from(ctx))
-                        .background(BackgroundLight)
-                        .coloredShadow(
-                            color = Color.Black.copy(0.25f),
-                            offsetY = 4.dp.from(ctx),
-                            borderRadius = 5.dp.from(ctx),
-                            shadowRadius = 2.dp.from(ctx)
-                    ),
-                    shape = RoundedCornerShape(5.dp.from(ctx)),
+                        .border(
+                            1.dp.from(ctx),
+                            MaterialThemeCexup.colors.color.borderline.borderline3,
+                            RoundedCornerShape(4.dp.from(ctx))
+                        ),
+                    shape = RoundedCornerShape(4.dp.from(ctx)),
                     colors = TextFieldDefaults.textFieldColors(
-                        backgroundColor = BackgroundLight,
-                        focusedIndicatorColor = Color.Transparent,
-                        unfocusedIndicatorColor = Color.Transparent,
-                        disabledIndicatorColor = Color.Transparent,
+                        backgroundColor = Color.Transparent,
+                        textColor = Color.Black,
+                        unfocusedIndicatorColor = Color.Unspecified,
+                        focusedIndicatorColor = Color.Unspecified
                     ),
                     keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+                    innerPaddingValue = PaddingValues(16.dp.from(ctx))
                 )
-                Spacer(modifier = Modifier.height(15.dp.from(ctx)))
-                Text(
-                    text = "Password",
-                    fontSize = 16.sp.from(ctx),
-                    fontWeight = FontWeight(400),
-                    style = MaterialTheme.typography.body1,
-                    color = Heading,
-                )
-                Spacer(modifier = Modifier.height(5.41.dp.from(ctx)))
                 TextFieldCexup(
                     value = userPassword,
                     onValueChange = { value ->
                         userPassword = value
                     },
-                    placeholder = { Text(text = "Password") },
+                    placeholder = { Text(
+                        text = "Password",
+                        style = MaterialThemeCexup.typography.hh4,
+                        color = MaterialThemeCexup.colors.palette.neutral.neutral8
+                    ) },
                     singleLine = true,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(50.59.dp.from(ctx))
-                        .background(BackgroundLight)
-                        .coloredShadow(
-                            color = Color.Black.copy(0.25f),
-                            offsetY = 4.dp.from(ctx),
-                            borderRadius = 5.dp.from(ctx),
-                            shadowRadius = 2.dp.from(ctx)
+                        .border(
+                            1.dp.from(ctx),
+                            MaterialThemeCexup.colors.color.borderline.borderline3,
+                            RoundedCornerShape(4.dp.from(ctx))
                         ),
                     visualTransformation = if (shouldShowPassword) VisualTransformation.None else PasswordVisualTransformation(),
                     trailingIcon = {
@@ -187,20 +158,19 @@ fun ScreenLogin(
                             )
                         }
                     },
-                    shape = RoundedCornerShape(5.dp.from(ctx)),
+                    shape = RoundedCornerShape(4.dp.from(ctx)),
                     colors = TextFieldDefaults.textFieldColors(
-                        backgroundColor = BackgroundLight,
-                        focusedIndicatorColor = Color.Transparent,
-                        unfocusedIndicatorColor = Color.Transparent,
-                        disabledIndicatorColor = Color.Transparent,
+                        backgroundColor = Color.Transparent,
+                        textColor = Color.Black,
+                        unfocusedIndicatorColor = Color.Unspecified,
+                        focusedIndicatorColor = Color.Unspecified
                     ),
                     keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+                    innerPaddingValue = PaddingValues(16.dp.from(ctx))
                 )
                 Row(
-                    Modifier
-                        .fillMaxWidth()
-                        .padding(top = 21.dp.from(ctx), start = 5.dp.from(ctx))
+                    Modifier.fillMaxWidth()
                 ) {
                     Row(
                         modifier = Modifier
@@ -217,17 +187,16 @@ fun ScreenLogin(
                                 rememberMe = checked
                             },
                             modifier = Modifier
-                                .size(12.dp.from(ctx))
-                                .clip(shape = RoundedCornerShape(6.dp.from(ctx))),
+                                .size(20.dp.from(ctx))
+                                .clip(shape = RoundedCornerShape(2.dp.from(ctx))),
                             colors = CheckboxDefaults.colors(
-                                checkedColor = Heading,
-                                uncheckedColor = Heading
+                                checkedColor = MaterialThemeCexup.colors.color.primary.primaryMain,
+                                uncheckedColor = MaterialThemeCexup.colors.palette.neutral.neutral7
                             )
                         )
                         Spacer(modifier = Modifier.width(13.dp.from(ctx)))
                         Text(
                             text = "Remember me",
-                            fontWeight = FontWeight(400),
                             modifier = Modifier
                                 .drawWithContent {
                                     if (readyToDraw) {
@@ -235,8 +204,7 @@ fun ScreenLogin(
                                     }
                                 }
                                 .align(Alignment.CenterVertically),
-                            style = MaterialTheme.typography.body1,
-                            fontSize = 12.sp.from(ctx),
+                            style = MaterialThemeCexup.typography.hh4,
                             softWrap = true,
                             onTextLayout = { textLayoutResult ->
                                 if (textLayoutResult.didOverflowWidth) {
@@ -246,58 +214,47 @@ fun ScreenLogin(
                                     readyToDraw = true
                                 }
                             },
-                            color = Heading,
+                            color = Color.Black,
                             textAlign = TextAlign.Center
                         )
                     }
-                    Row(
+                    Spacer(modifier = Modifier.weight(1f))
+                    Text(
+                        text = "Forget Password?",
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .height(23.dp.from(ctx))
-                            .padding(end = 5.dp.from(ctx)),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.End
-                    ) {
-                        Text(
-                            text = "Forget Password?",
-                            fontWeight = FontWeight(400),
-                            modifier = Modifier
-                                .drawWithContent {
-                                    if (readyToDraw) {
-                                        drawContent()
-                                    }
+                            .drawWithContent {
+                                if (readyToDraw) {
+                                    drawContent()
                                 }
-                                .align(Alignment.CenterVertically)
-                                .noRippleClick {
-                                    onForgetPassword()
-                                },
-                            style = MaterialTheme.typography.body1,
-                            fontSize = 12.sp.from(ctx),
-                            softWrap = true,
-                            onTextLayout = { textLayoutResult ->
-                                if (textLayoutResult.didOverflowWidth) {
-                                    scaledTextStyle =
-                                        scaledTextStyle.copy(fontSize = scaledTextStyle.fontSize * 0.9)
-                                } else {
-                                    readyToDraw = true
-                                }
+                            }
+                            .align(Alignment.CenterVertically)
+                            .noRippleClick {
+                                onForgetPassword()
                             },
-                            color = Heading,
-                            textAlign = TextAlign.Center,
-                        )
-                    }
+                        style = MaterialThemeCexup.typography.hh4,
+                        softWrap = true,
+                        onTextLayout = { textLayoutResult ->
+                            if (textLayoutResult.didOverflowWidth) {
+                                scaledTextStyle =
+                                    scaledTextStyle.copy(fontSize = scaledTextStyle.fontSize * 0.9)
+                            } else {
+                                readyToDraw = true
+                            }
+                        },
+                        color = MaterialThemeCexup.colors.color.primary.primaryMain,
+                        textAlign = TextAlign.Center,
+                    )
                 }
-                Spacer(modifier = Modifier.height(17.37.dp.from(ctx)))
                 Button(
                     onClick = {
                         keyboardController?.hide()
                         onLogin(userName, userPassword, rememberMe)
                     },
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .height(53.dp.from(ctx)),
-                    colors = ButtonDefaults.buttonColors(backgroundColor = Heading),
-                    shape = RoundedCornerShape(8.dp.from(ctx))
+                        .fillMaxWidth(),
+                    colors = ButtonDefaults.buttonColors(backgroundColor = MaterialThemeCexup.colors.color.primary.primaryMain),
+                    shape = RoundedCornerShape(4.dp.from(ctx)),
+                    contentPadding = PaddingValues(vertical = 12.dp.from(ctx))
                 ) {
                     if (shouldShowLoading) {
                         CircularProgressIndicator(
@@ -306,17 +263,22 @@ fun ScreenLogin(
                     } else {
                         Text(
                             text = "Login",
-                            style = MaterialTheme.typography.h1.copy(
-                                fontWeight = FontWeight(700),
-                                fontSize = 16.sp.from(ctx),
-                                letterSpacing = 1.sp.from(ctx),
-                                color = Color.White
+                            style = MaterialThemeCexup.typography.textButton1.copy(
+                                fontWeight = FontWeight.SemiBold
                             ),
-                            modifier = Modifier.padding(5.dp.from(ctx))
+                            color = MaterialThemeCexup.colors.palette.neutral.neutral1
                         )
                     }
                 }
             }
+            Image(
+                modifier = Modifier
+                    .weight(0.4f)
+                    .height(screenHeight),
+                painter = painterResource(id = R.drawable.ic_new_banner_corporate),
+                contentDescription = "banner",
+                contentScale = ContentScale.FillBounds
+            )
         }
     }
 }
