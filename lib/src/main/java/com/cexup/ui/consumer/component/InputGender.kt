@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -27,7 +27,7 @@ fun InputGender(
     onSelected:(String)->Unit={},
     modifier:Modifier=Modifier,
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
 
     Column {
         Text(

@@ -9,6 +9,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
@@ -210,7 +211,7 @@ private val replacementColors = FoundationColors(
 fun CexupTheme(
     darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable() () -> Unit
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     val colors = if (darkTheme) {
         DarkColorCorporate
     } else {

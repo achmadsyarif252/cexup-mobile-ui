@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
@@ -45,7 +46,7 @@ fun CardPatientInformation(
         gender: String,
     ) -> Unit,
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     var patientName by remember { mutableStateOf("") }
     var nik by remember { mutableStateOf("") }
     var address by remember { mutableStateOf("") }

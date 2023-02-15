@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
@@ -34,9 +35,9 @@ fun BottomSheetContentFilterListMeet(
     listContent : List<String> = listOf(),
     onClosedSheet : () -> Unit ={},
 ){
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
 
-    val screenWidth = ctx
+    val screenWidth = LocalContext.current
         .resources
         .displayMetrics.widthPixels.dp /
             LocalDensity.current.density

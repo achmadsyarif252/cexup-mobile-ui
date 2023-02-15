@@ -47,7 +47,7 @@ fun ScreenLogin(
     scaffoldState: ScaffoldState,
     onLogin: (username: String, password: String, isRemember: Boolean) -> Unit,
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     val screenHeight = LocalConfiguration.current.screenHeightDp.dp
     val keyboardController = LocalSoftwareKeyboardController.current
     var userName by remember {

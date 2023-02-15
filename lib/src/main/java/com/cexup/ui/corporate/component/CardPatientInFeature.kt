@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -35,7 +36,7 @@ fun CardPatientInFeature(
     name: String,
     id: String,
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Row(
         modifier = modifier
             .padding(6.dp.from(ctx)),

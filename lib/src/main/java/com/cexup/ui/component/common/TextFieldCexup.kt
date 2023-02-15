@@ -16,6 +16,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.*
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.TextLayoutResult
@@ -52,7 +53,7 @@ fun TextFieldCexup(
     trailingIcon: @Composable (() -> Unit)? = null,
     shape: Shape = TextFieldDefaults.TextFieldShape,
     colors: TextFieldColors = TextFieldDefaults.textFieldColors(),
-    innerPaddingValue:PaddingValues = PaddingValues(2.dp.from(LocalContext.current))
+    innerPaddingValue:PaddingValues = PaddingValues(2.dp.from(LocalConfiguration.current))
 ){
     val textColor = textStyle.color.takeOrElse {
         colors.textColor(enabled).value

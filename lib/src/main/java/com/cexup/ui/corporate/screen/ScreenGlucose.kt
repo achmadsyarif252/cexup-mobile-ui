@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -131,7 +132,7 @@ fun ScreenGlucose(
     onSortHistoryHemoglobin: (isSortDate:Boolean,isASC: Boolean) -> Unit,
     onButtonBackPressed: () -> Unit,
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     val pagerState = rememberPagerState()
     var isSortDateHemoglobin by remember { mutableStateOf(true) }
     var isSortValueHemoglobin by remember { mutableStateOf(true) }

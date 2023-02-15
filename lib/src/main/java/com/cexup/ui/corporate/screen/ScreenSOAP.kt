@@ -10,6 +10,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -42,7 +43,7 @@ fun ScreenSOAP(
     ) -> Unit,
     onButtonBackPressed: () -> Unit,
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     var textSubjective by remember { mutableStateOf("") }
     var textObjective by remember { mutableStateOf("") }
     var textAssessment by remember { mutableStateOf("") }

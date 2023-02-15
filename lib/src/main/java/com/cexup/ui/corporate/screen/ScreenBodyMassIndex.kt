@@ -9,6 +9,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
@@ -60,7 +61,7 @@ fun ScreenBodyMassIndex(
     onSave: (weight :Float, height: Float) -> Unit,
     onCalculateBmi: (weight: Float, height: Float) -> Float,
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     val scrollState = rememberScrollState()
     var bodyTypeStr by remember {
         mutableStateOf("")

@@ -16,6 +16,7 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -66,11 +67,12 @@ fun ScreenPatients(
     onDetailsClicked: (userCode: String) -> Unit = {},
     onGetPatient:(Boolean) -> Unit = {},
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
+    val context = LocalContext.current
 
     fun onNext() {
         if (patientsUIState.data.listDataPatients.isEmpty()) {
-            Toast.makeText(ctx, "Latest page!", Toast.LENGTH_LONG).show()
+            Toast.makeText(context, "Latest page!", Toast.LENGTH_LONG).show()
         } else {
             onGetPatient(true)
         }
@@ -80,7 +82,7 @@ fun ScreenPatients(
         if (patientsUIState.data.currentPage > 1) {
             onGetPatient(false)
         } else {
-            Toast.makeText(ctx, "First page!", Toast.LENGTH_LONG).show()
+            Toast.makeText(context, "First page!", Toast.LENGTH_LONG).show()
         }
     }
     Column(

@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
@@ -29,11 +30,11 @@ import com.skydoves.landscapist.coil.CoilImage
 fun AvatarCexup(
     thumb: String = "",
     isWithStatusOnline: Boolean = false,
-    sizeAvatar: Dp = 38.dp.from(LocalContext.current),
-    sizeDummy: Dp = 17.dp.from(LocalContext.current),
-    sizeCircleOnline: Dp = 12.dp.from(LocalContext.current)
+    sizeAvatar: Dp = 38.dp.from(LocalConfiguration.current),
+    sizeDummy: Dp = 17.dp.from(LocalConfiguration.current),
+    sizeCircleOnline: Dp = 12.dp.from(LocalConfiguration.current)
 ){
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Box {
         if (thumb.isEmpty()){
             Box(

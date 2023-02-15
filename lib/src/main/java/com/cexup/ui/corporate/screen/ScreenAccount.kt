@@ -7,6 +7,7 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.cexup.ui.corporate.component.CardAccount
@@ -28,7 +29,7 @@ data class NurseData(
 fun ScreenAccount(
     nurseData: NurseData = NurseData(),
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Column(
         Modifier.padding(
             start = 30.dp.from(ctx),

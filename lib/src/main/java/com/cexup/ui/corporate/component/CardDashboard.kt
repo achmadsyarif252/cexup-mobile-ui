@@ -20,7 +20,7 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -42,7 +42,7 @@ fun CardNewPatients(
     valuePercentRatioPatientBeforeAndToday: String = "-21%",
     valueLastUpdated: String = "19 Jan"
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Card(
         elevation = MaterialThemeCexup.elevation.skim,
         shape = RoundedCornerShape(8.dp.from(ctx))
@@ -138,7 +138,7 @@ fun CardDoctorActive(
     valuePercentRatioDoctorsBeforeAndToday: String = "+5%",
     valueLastUpdated: String = "19 Jan"
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Card(
         elevation = MaterialThemeCexup.elevation.skim,
         shape = RoundedCornerShape(8.dp.from(ctx))
@@ -232,7 +232,7 @@ fun CardDoctorActive(
 fun CardPatientsDiagnostic(
     listDiagnostic: List<DataDiagnostic> = listOf()
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Card(
         elevation = MaterialThemeCexup.elevation.skim,
         modifier = Modifier.width(296.dp.from(ctx)),
@@ -322,7 +322,7 @@ fun CardLastConsultationDoctor(
     doctorSpeciality: String = "Ilmu Kesehatan Anak",
     dateLastConsultation: String = "Kamis, 6 Maret 2022 14:30 - 15.00 WIB"
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Card(
         modifier = Modifier.width(296.dp.from(ctx)),
         elevation = MaterialThemeCexup.elevation.skim,
@@ -473,7 +473,7 @@ fun CardActiveDoctorsList(
     onBackPressed: () -> Unit,
     onNextPressed: () -> Unit,
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Card(
         modifier = Modifier.width(295.dp.from(ctx)),
         elevation = MaterialThemeCexup.elevation.skim,
@@ -602,7 +602,7 @@ fun CardChartPatients(
     totalPatients: Int = 0,
     dataPieChart: List<PieChartData> = listOf()
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Card(
         modifier = Modifier.width(296.dp.from(ctx)),
         elevation = MaterialThemeCexup.elevation.skim,

@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.cexup.ui.corporate.theme.MaterialThemeCexup
@@ -27,7 +28,7 @@ fun ProgressBarDiagnostic(
         targetValue = progress,
         animationSpec = ProgressIndicatorDefaults.ProgressAnimationSpec
     ).value
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
 
     Canvas(
         modifier = Modifier

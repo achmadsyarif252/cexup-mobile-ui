@@ -1,6 +1,8 @@
 package com.cexup.ui.consumer.screen
 
 import android.content.Context
+import android.content.res.Configuration
+import android.graphics.Bitmap.Config
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.spring
@@ -13,7 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -65,7 +67,7 @@ fun ScreenOnBoarding(
     toSignIn:()->Unit={}
 ) {
     val state = rememberPagerState()
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
 
 
     Box(
@@ -142,7 +144,7 @@ fun OnBoardingItem(
     text:Int,
     description:Int,
     image:Int,
-    ctx:Context
+    ctx:Configuration
 ) {
 
     Column(
@@ -193,7 +195,7 @@ fun BottomSection(
     modifier: Modifier = Modifier,
     size: Int,
     index: Int,
-    ctx:Context
+    ctx:Configuration
 ) {
 
     Box(

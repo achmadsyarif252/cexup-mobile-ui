@@ -16,6 +16,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -55,7 +56,7 @@ fun ScreenWaist(
     onSaveManualInput:(distance: Float) -> Unit,
     onBackPressed:() -> Unit = {},
 ){
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     val listOfTypeWaist = listOf(
         stringResource(id = R.string.neck), stringResource(id = R.string.waist),
         stringResource(id = R.string.shoulder), stringResource(id = R.string.hip),
@@ -289,7 +290,7 @@ fun LineWaist(
     height: Dp,
     valueWaist: Float,
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Row(
         modifier = modifier
             .fillMaxWidth()

@@ -13,7 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -34,12 +34,12 @@ fun BottomSheetSortMeetDoctor(
     modifier: Modifier = Modifier,
     closed : () -> Unit
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
 
-    val screenWidth = ctx
-        .resources
-        .displayMetrics.widthPixels.dp /
-            LocalDensity.current.density
+//    val screenWidth = ctx
+//        .resources
+//        .displayMetrics.widthPixels.dp /
+//            LocalDensity.current.density
 
     val listContent = listOf("Closest Distance", "A-Z", "Z-A")
     var stateSelected by remember {
@@ -138,7 +138,7 @@ fun ContentBottomSheetSortMeetDoctor(
     nameContent: String = "",
     selectState: Boolean = false,
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
 
 
     Column(

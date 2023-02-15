@@ -8,6 +8,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -45,7 +46,7 @@ fun ScreenDoctors(
     activeDoctorsUIState: ScreenActiveDoctorsUIState = ScreenActiveDoctorsUIState(),
     onBack: () -> Unit = {},
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -79,14 +80,14 @@ fun ScreenDoctors(
             }
         }
         LazyColumn(
-            verticalArrangement = Arrangement.spacedBy(10.dp.from(ctx)),
+            verticalArrangement = Arrangement.spacedBy(24.dp.from(ctx)),
             contentPadding = PaddingValues(horizontal = 28.dp.from(ctx), vertical = 10.dp.from(ctx))
         ) {
             if (!activeDoctorsUIState.error && !activeDoctorsUIState.loading){
                 gridItems(
                         data = activeDoctorsUIState.data,
-                        columnCount = 4,
-                        horizontalArrangement = Arrangement.spacedBy(16.dp.from(ctx)),
+                        columnCount = 3,
+                        horizontalArrangement = Arrangement.spacedBy(24.dp.from(ctx)),
                     ) { data ->
                         CardDoctors(
                             dataDoctor = data,

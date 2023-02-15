@@ -19,7 +19,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -69,7 +69,7 @@ fun CardProfilePatient(
     patientMail: String,
     shape: RoundedCornerShape = CircleShape
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Row(
         modifier = modifier
             .width(326.49.dp.from(ctx))
@@ -122,7 +122,7 @@ fun CardProfilePatientNew(
     patientStatus: Boolean,
     ewsStatus: String,
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Card(
         modifier = Modifier
             .width(216.dp.from(ctx)),
@@ -345,7 +345,7 @@ fun CardAllergies(
     onAddAllergy: () -> Unit = {},
     onRemoveAllergy: (index: Int) -> Unit = {},
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     var isEditAllergy by remember {
         mutableStateOf(false)
     }
@@ -565,7 +565,7 @@ fun CardChartPatientInformation(
     minAxis: Float =0f,
     onIconArrowUpClicked: () -> Unit,
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Card(
         elevation = MaterialThemeCexup.elevation.skim,
         shape = RoundedCornerShape(8.dp.from(ctx))
@@ -686,7 +686,7 @@ fun CardInformationPatient(
     onToDetailChart: (typeData: String) -> Unit = {},
     onValueChangeNote: (valueNote: String) -> Unit = {}
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     val pagerState = rememberPagerState()
 
     val tabs = listOf(
@@ -762,7 +762,7 @@ fun CardInformationPatient(
 @Composable
 fun ContentLoadingTabPatientProfile(
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -789,7 +789,7 @@ fun ContentDetailsInformationPatient(
     onValueChangeNote: (valueNote: String) -> Unit = {}
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Column(
         modifier = Modifier
             .padding(horizontal = 16.dp.from(ctx))
@@ -1068,7 +1068,7 @@ fun ContentHealthInformationPatient(
     
     onToDetailChart: (typeData: String) -> Unit = {},
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     val dataList: List<DataHealthPatient> = listOf(
         DataHealthPatient(
             typeHealthDataPatient = TypeHealthDataPatient.BloodPressure,

@@ -17,7 +17,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -45,7 +45,7 @@ fun CardHemoglobin(
     onHistoryClicked: (Boolean) -> Unit,
 ) {
     val interactionSource = MutableInteractionSource()
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     val textValue =
         if (dataHemoglobin.isEmpty()) {
             "-"
@@ -140,7 +140,7 @@ fun CardHemoglobin(
 @Composable
 fun CardPills(valuePills: Int = 0) {
 
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Box(
         modifier = Modifier.background(BlueGlucose, RoundedCornerShape(10.dp.from(ctx)))
     ) {
@@ -189,7 +189,7 @@ fun CardPills(valuePills: Int = 0) {
 @Composable
 fun CardValueGlucose(valueGlucose: Int = 0) {
 
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Box(
         modifier = Modifier.background(RedGlucose, RoundedCornerShape(10.dp.from(ctx)))
     ) {
@@ -245,7 +245,7 @@ fun CardConnectGlucose(
     onConnect: () -> Unit,
     onDisconnect: () -> Unit,
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Box(
         modifier = Modifier.background(Heading, RoundedCornerShape(10.dp.from(ctx)))
     ) {
@@ -335,7 +335,7 @@ fun CardGlucoseLevels(
     val items = listOf("Edit Meal Type","Add Medicine", "Add Food & Drink", "Remove")
     var selectedItem by remember { mutableStateOf(0) }
     var isAllData by remember { mutableStateOf(true) }
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     val interactionSource = MutableInteractionSource()
 
     var dataGlucose = listDataValueGlucose
@@ -611,7 +611,7 @@ fun CardAddDataGlucose(
 ) {
     var valueTextField by remember { mutableStateOf("") }
     val keyboardController = LocalSoftwareKeyboardController.current
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Box(
         modifier = Modifier.background(RedGlucose, RoundedCornerShape(10.dp.from(ctx)))
     ) {
@@ -690,7 +690,7 @@ fun CardAddDataInsulin(
 ) {
     var valueTextField by remember { mutableStateOf(valueText) }
     val keyboardController = LocalSoftwareKeyboardController.current
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Box(
         modifier = Modifier.background(OrangeGlucose, RoundedCornerShape(10.dp.from(ctx)))
     ) {
@@ -770,7 +770,7 @@ fun CardAddDataPill(
 ) {
     var valueTextField by remember { mutableStateOf(valueText) }
     val keyboardController = LocalSoftwareKeyboardController.current
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Box(
         modifier = Modifier.background(BlueGlucose, RoundedCornerShape(10.dp.from(ctx)))
     ) {
@@ -845,7 +845,7 @@ fun CardAddDataPill(
 fun CardDetailValueMedicine(
     valueText: String,
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Box(
         modifier = Modifier
             .border(1.dp, GrayDivider, RoundedCornerShape(10.dp.from(ctx)))
@@ -877,7 +877,7 @@ fun CardBrandMedicine(
 ) {
     var valueTextField by remember { mutableStateOf(valueText) }
     val keyboardController = LocalSoftwareKeyboardController.current
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Box(
         modifier = Modifier
             .border(1.dp, GrayDivider, RoundedCornerShape(10.dp.from(ctx)))
@@ -932,7 +932,7 @@ fun CardGlucoseMeal(
     onSelectedMeal: (Int) -> Unit = {},
 ) {
     var stateMeal by remember { mutableStateOf(stateMeal) }
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Box(
         modifier = Modifier.background(BlueConnectGlucose, RoundedCornerShape(10.dp.from(ctx))),
         contentAlignment = Alignment.Center
@@ -1085,7 +1085,7 @@ fun CardGlucoseActing(
     onSelectedActing: (Int) -> Unit = {},
 ) {
     var stateActing by remember { mutableStateOf(InsulinType.ShortActing) }
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Box(
         modifier = Modifier.background(OrangeGlucose, RoundedCornerShape(10.dp.from(ctx))),
         contentAlignment = Alignment.Center
@@ -1193,7 +1193,7 @@ fun CardGlucosePill(
     onValueChange: (Int) -> Unit = {},
 ) {
     var numberPills by remember { mutableStateOf(1) }
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Box(
         modifier = Modifier.background(BlueGlucose, RoundedCornerShape(32.dp.from(ctx))),
         contentAlignment = Alignment.Center
@@ -1258,7 +1258,7 @@ fun CardGlucoseHemoglobin(
 ) {
     var valueTextField by remember { mutableStateOf("") }
     val keyboardController = LocalSoftwareKeyboardController.current
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Box(
         modifier = Modifier.background(PinkGlucose, RoundedCornerShape(10.dp.from(ctx)))
     ) {
@@ -1340,7 +1340,7 @@ fun CardNoteGlucose(
 ) {
     var valueTextField by remember { mutableStateOf(valueText) }
     val keyboardController = LocalSoftwareKeyboardController.current
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Box(
         modifier = Modifier
             .clip(RoundedCornerShape(24.dp.from(ctx)))

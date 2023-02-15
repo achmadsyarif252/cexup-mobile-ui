@@ -16,6 +16,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusEvent
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
@@ -40,7 +41,7 @@ fun SearchPatientNew(
     onEnterPressed: (value: String) -> Unit,
     onValueChange: (value: String) -> Unit,
 ){
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
 
     val keyboardController = LocalSoftwareKeyboardController.current
 

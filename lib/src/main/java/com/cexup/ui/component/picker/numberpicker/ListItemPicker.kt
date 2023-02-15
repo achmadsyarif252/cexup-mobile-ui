@@ -18,6 +18,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.Layout
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextStyle
@@ -62,7 +63,7 @@ fun <T> ListItemPicker(
     val numbersColumnHeight = 80.dp
     val halfNumbersColumnHeight = numbersColumnHeight / 2
     val halfNumbersColumnHeightPx = with(LocalDensity.current) { halfNumbersColumnHeight.toPx() }
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
 
     val coroutineScope = rememberCoroutineScope()
 

@@ -18,7 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -46,7 +46,7 @@ fun CardPatientUSG(
     onSeeProfileClicked: () -> Unit = {},
     onUSGExaminationClicked: () -> Unit = {},
 ){
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Card(
         modifier = Modifier
             .widthIn(max = 479.dp.from(ctx)),
@@ -195,7 +195,7 @@ fun CardStatusPatientUSG(
     onFullHistoryClicked: () -> Unit = {},
 ){
     val interactionSource = remember { MutableInteractionSource() }
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Card(
         modifier = Modifier.widthIn(max = 479.dp.from(ctx)),
         elevation = 2.dp.from(ctx),
@@ -407,7 +407,7 @@ fun CardListDataUSG(
     onFolderClicked: (id: Long) -> Unit = {},
     onDownloadClicked: (id: Long) -> Unit = {},
 ){
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Card(
         modifier = Modifier
             .fillMaxWidth(),

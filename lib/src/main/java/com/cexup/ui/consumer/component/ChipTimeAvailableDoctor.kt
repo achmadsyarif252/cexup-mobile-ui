@@ -13,7 +13,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -35,7 +35,7 @@ fun ChipTimeAvailableDoctor(
     onSelected: Boolean,
     onClick:()->Unit
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
 
     Card(
         shape = RoundedCornerShape(10.dp.from(ctx)),
@@ -63,7 +63,7 @@ fun ChipTimeAvailableDoctor(
 fun ChipTimeAvailableShimmer(
     modifier: Modifier = Modifier,
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
 
     Card(
         shape = RoundedCornerShape(10.dp),

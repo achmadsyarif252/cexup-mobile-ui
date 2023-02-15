@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -42,7 +42,7 @@ fun CardPhysicalExamination(
     valueRisk: String,
     onClick: () -> Unit,
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Card(
         shape = RoundedCornerShape(16.dp.from(ctx)),
         elevation = MaterialThemeCexup.elevation.skim
@@ -225,7 +225,7 @@ fun CardMedicalInspection(
     selectedState: Boolean = false,
     onClick: (String) -> Unit
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     var tempListNamePatient = name.split(" ")
     var namePatientFirstWord: String = ""
     run lit@{
@@ -334,7 +334,7 @@ fun CardOrderTeleconsultation(
     valueDoctorActive: Int = 0,
     onClickSelectDoctor: () -> Unit = {},
 ){
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Card(
         shape = RoundedCornerShape(16.dp.from(ctx)),
         elevation = MaterialThemeCexup.elevation.skim

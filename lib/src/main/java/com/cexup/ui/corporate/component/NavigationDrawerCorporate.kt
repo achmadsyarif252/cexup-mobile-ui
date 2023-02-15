@@ -12,7 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -47,7 +47,7 @@ fun NavigationDrawerCorporate(
     onCloseDrawer: () -> Unit,
     listMenuSidebarCorporate: List<SidebarMenuModel>
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     val scrollState = rememberScrollState()
     var logoutState by remember {
         mutableStateOf(false)
@@ -117,7 +117,7 @@ fun MenuItem(
     onNavigate: (route: String) -> Unit = {},
     onClick: () -> Unit = {},
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Row(
         modifier = Modifier
             .fillMaxWidth()

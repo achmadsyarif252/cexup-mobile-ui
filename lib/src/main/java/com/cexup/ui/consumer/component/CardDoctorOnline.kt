@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
@@ -46,7 +47,7 @@ fun CardDoctorOnline(
     hospital: String = "",
     onClick: () -> Unit
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
 
 
     Card(
@@ -245,10 +246,10 @@ fun CardDoctorOnline(
 fun CardDoctorOnlineShimmer(
     modifier: Modifier = Modifier,
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
 
 
-    val screenWidth = ctx
+    val screenWidth = LocalContext.current
         .resources
         .displayMetrics.widthPixels.dp /
             LocalDensity.current.density

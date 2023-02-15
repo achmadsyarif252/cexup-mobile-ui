@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import com.cexup.ui.R
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -36,7 +37,7 @@ fun CardPatientDetail(
     simptons: String = "Empty simptons",
     thumb: String = "",
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Card(
         modifier = modifier
             .coloredShadow(

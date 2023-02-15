@@ -10,7 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -33,7 +33,7 @@ fun InputCheckBox(
     label:String="",
     modifier: Modifier=Modifier
 ){
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Row(
         modifier = modifier.padding(
             vertical = 4.dp.from(ctx),
@@ -75,7 +75,7 @@ fun InputCheckBox(
     onTextClick:(Int)->Unit={},
     modifier: Modifier=Modifier
 ){
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     val annotates = buildAnnotatedString {
         labels.forEachIndexed {
             index,data->

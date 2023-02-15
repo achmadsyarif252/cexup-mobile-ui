@@ -9,6 +9,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
@@ -31,7 +32,7 @@ fun SpinnerDatePicker(
         _,_,_->
     }
 ){
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
 
 
     val listMonth = arrayOf(

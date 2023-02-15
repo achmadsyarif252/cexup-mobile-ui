@@ -15,6 +15,7 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.InspectableModifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -56,7 +57,7 @@ fun ScreenPatientChartExtend(
     screenPatientChartExtendUIState: ScreenPatientChartExtendUIState = ScreenPatientChartExtendUIState(),
     onButtonBackPressed: () -> Unit = {},
 ){
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Column(
         modifier = Modifier
             .fillMaxSize()

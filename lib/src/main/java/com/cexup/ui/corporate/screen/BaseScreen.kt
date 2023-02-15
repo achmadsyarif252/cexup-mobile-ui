@@ -16,6 +16,7 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Outline
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Density
@@ -51,7 +52,7 @@ fun BaseScreen(
     listMenuSidebar: List<SidebarMenuModel>,
     content: @Composable () -> Unit,
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
     var height by remember { mutableStateOf(0f) }

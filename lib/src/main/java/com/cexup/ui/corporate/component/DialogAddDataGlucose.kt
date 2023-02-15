@@ -11,6 +11,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -35,7 +36,7 @@ fun DialogAddDataGlucose(
     isAddFoodAndDrink: Boolean = false,
     isRemovedData: Boolean = false,
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     var textTypeAddData by remember { mutableStateOf("") }
     var textDateAddData by remember { mutableStateOf("") }
     var textHoursAddData by remember { mutableStateOf("") }

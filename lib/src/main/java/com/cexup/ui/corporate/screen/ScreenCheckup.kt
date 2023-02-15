@@ -7,6 +7,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -37,7 +38,7 @@ fun ScreenCheckup(
     onClickSelectDoctor: () -> Unit,
     onPatientSelected: (String) -> Unit,
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     val listState = rememberLazyListState()
     var stateSelected by remember { mutableStateOf("") }
     var statePhysicalExamination by remember { mutableStateOf(false) }

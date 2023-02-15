@@ -10,7 +10,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.cexup.ui.R
@@ -20,7 +20,7 @@ import com.cexup.ui.utils.mediaquery.from
 fun CardNotificationBar(
     modifier: Modifier = Modifier,
 ){
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     val expanded = remember {
         mutableStateOf(false)
     }

@@ -7,6 +7,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -67,7 +68,7 @@ fun ScreenPatientProfile(
     onTextChanged: (index: Int, value: String) -> Unit = {_,_ ->},
     onChangeAllergies: (index: Int, value: AllergyLevel) -> Unit = {_,_ ->},
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Column(
         modifier = Modifier
             .fillMaxSize()
