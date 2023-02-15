@@ -19,6 +19,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -88,7 +89,7 @@ fun ScreenLogin(
                 Spacer(modifier = Modifier.height(12.dp.from(ctx)))
                 Column {
                     Text(
-                        text = "Login",
+                        text = stringResource(id = R.string.login),
                         style = MaterialThemeCexup.typography.h6.copy(
                             fontWeight = FontWeight.SemiBold
                         ),
@@ -96,7 +97,7 @@ fun ScreenLogin(
                     )
                     Spacer(modifier = Modifier.height(16.dp.from(ctx)))
                     Text(
-                        text = "Thank you for get back to CeXup, let's access to help people to be happy.",
+                        text = stringResource(id = R.string.cexup_description),
                         style = MaterialThemeCexup.typography.hh3,
                         color = MaterialThemeCexup.colors.color.text.textSecondary,
                     )
@@ -107,7 +108,7 @@ fun ScreenLogin(
                         userName = value
                     },
                     placeholder = { Text(
-                        text = "example@mail.com",
+                        text = stringResource(id = R.string.example_email),
                         style = MaterialThemeCexup.typography.hh4,
                         color = MaterialThemeCexup.colors.palette.neutral.neutral8
                     ) },
@@ -136,7 +137,7 @@ fun ScreenLogin(
                         userPassword = value
                     },
                     placeholder = { Text(
-                        text = "Password",
+                        text = stringResource(id = R.string.password),
                         style = MaterialThemeCexup.typography.hh4,
                         color = MaterialThemeCexup.colors.palette.neutral.neutral8
                     ) },
@@ -196,7 +197,7 @@ fun ScreenLogin(
                         )
                         Spacer(modifier = Modifier.width(13.dp.from(ctx)))
                         Text(
-                            text = "Remember me",
+                            text = stringResource(id = R.string.remember_me),
                             modifier = Modifier
                                 .drawWithContent {
                                     if (readyToDraw) {
@@ -220,7 +221,7 @@ fun ScreenLogin(
                     }
                     Spacer(modifier = Modifier.weight(1f))
                     Text(
-                        text = "Forget Password?",
+                        text = stringResource(id = R.string.forget_password),
                         modifier = Modifier
                             .drawWithContent {
                                 if (readyToDraw) {
@@ -262,7 +263,7 @@ fun ScreenLogin(
                         )
                     } else {
                         Text(
-                            text = "Login",
+                            text = stringResource(id = R.string.login),
                             style = MaterialThemeCexup.typography.textButton1.copy(
                                 fontWeight = FontWeight.SemiBold
                             ),

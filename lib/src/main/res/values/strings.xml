@@ -366,5 +366,12 @@
     <string name="not_active">Not Active</string>
     <string name="done">Done</string>
     <string name="married_status">Married Status</string>
+    
+    <!-- NewLogin   -->
+    <string name="login">Login</string>
+    <string name="cexup_description">Thank you for get back to CeXup, let\'s access to help people to be happy.</string>
+    <string name="example_email">example@mail.com</string>
+    <string name="remember_me">Remember me</string>
+    <string name="forget_password">Forget Password?</string>
 
 </resources>
