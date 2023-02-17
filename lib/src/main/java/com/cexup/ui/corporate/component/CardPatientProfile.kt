@@ -1162,7 +1162,7 @@ fun ContentHealthInformationPatient(
                 maxAxis =
                 when(dataHealthPatient.typeHealthDataPatient){
                     TypeHealthDataPatient.BMI->{
-                        200f
+                        60f
                     }
                     TypeHealthDataPatient.Temperature->{
                         50f
@@ -1180,13 +1180,13 @@ fun ContentHealthInformationPatient(
                 minAxis =
                 when(dataHealthPatient.typeHealthDataPatient){
                     TypeHealthDataPatient.BMI->{
-                        10f
+                        0f
                     }
                     TypeHealthDataPatient.Temperature->{
                         20f
                     }
                     TypeHealthDataPatient.Spo2->{
-                        40f
+                        65f
                     }
                     TypeHealthDataPatient.HeartRate->{
                         40f

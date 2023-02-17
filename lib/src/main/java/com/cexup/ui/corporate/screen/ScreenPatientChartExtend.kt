@@ -44,9 +44,8 @@ data class DataChartPatient(
     val patientUserCode: String = "",
     val lastValue: String = "",
     val satuanValue: String = "",
-    val listChart1: List<Entry> = listOf(),
+    val listChart1: Pair<List<String>,List<Entry>> = Pair(listOf(), listOf()),
     val listChart2: List<Entry> = listOf(),
-    val listDateChart: List<String> = listOf(),
     val chartName: String = "",
     val maxYValue: Float = 100f,
     val minYValue: Float = 10f,
@@ -168,7 +167,7 @@ fun ScreenPatientChartExtend(
                     .fillMaxWidth()
                     .height(250.dp.from(ctx))) {
                     ChartPatientProfile(
-                        data = screenPatientChartExtendUIState.data.listChart1,
+                        data = screenPatientChartExtendUIState.data.listChart1.second,
                         data2 = screenPatientChartExtendUIState.data.listChart2,
                         description = "",
                         label1 = Pair(
@@ -179,7 +178,7 @@ fun ScreenPatientChartExtend(
                             "",
                             BlueDashboardNew.toArgb()
                         ),
-                        FormatXLabel = screenPatientChartExtendUIState.data.listDateChart,
+                        FormatXLabel = screenPatientChartExtendUIState.data.listChart1.first,
                         maxAxis = screenPatientChartExtendUIState.data.maxYValue,
                         minAxis = screenPatientChartExtendUIState.data.minYValue,
                     )
