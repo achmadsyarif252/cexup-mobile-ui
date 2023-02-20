@@ -9,7 +9,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -19,7 +18,6 @@ import com.cexup.ui.R
 import com.cexup.ui.corporate.component.CardDoctors
 import com.cexup.ui.corporate.theme.MaterialThemeCexup
 import com.cexup.ui.corporate.theme.PrimaryCorporate
-import com.cexup.ui.utils.capitalizeWords
 import com.cexup.ui.utils.gridItems
 import com.cexup.ui.utils.mediaquery.from
 
@@ -44,7 +42,7 @@ data class ScreenActiveDoctorsUIState(
 fun ScreenDoctors(
     modifier: Modifier = Modifier,
     activeDoctorsUIState: ScreenActiveDoctorsUIState = ScreenActiveDoctorsUIState(),
-    onBack: () -> Unit = {},
+    onButtonBackPressed: () -> Unit = {},
 ) {
     val ctx = LocalConfiguration.current
     Column(
@@ -65,7 +63,7 @@ fun ScreenDoctors(
                 color = MaterialThemeCexup.colors.color.text.textMain
             )
             Button(
-                onClick = { onBack() },
+                onClick = { onButtonBackPressed() },
                 contentPadding = PaddingValues(vertical = 8.dp.from(ctx), horizontal = 12.dp.from(ctx)),
                 colors = ButtonDefaults.buttonColors(MaterialThemeCexup.colors.palette.tertiary.redTertiary6),
                 shape = RoundedCornerShape(4.dp.from(ctx))
