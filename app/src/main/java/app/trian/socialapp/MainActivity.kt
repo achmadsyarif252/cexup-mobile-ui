@@ -7,7 +7,7 @@ import androidx.compose.ui.platform.LocalContext
 import com.cexup.ui.corporate.component.SidebarMenuModel
 import com.cexup.ui.corporate.component.SidebarMenuType
 import com.cexup.ui.corporate.screen.*
-import com.cexup.ui.corporate.theme.CexupTheme
+import com.cexup.ui.theme.CexupTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
