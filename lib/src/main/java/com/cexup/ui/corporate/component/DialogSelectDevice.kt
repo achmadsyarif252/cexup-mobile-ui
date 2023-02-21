@@ -7,7 +7,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -19,8 +18,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import com.cexup.ui.corporate.theme.BlueJade
-import com.cexup.ui.corporate.theme.fontsCorp
+import com.cexup.ui.theme.BlueJade
+import com.cexup.ui.theme.fontsCorp
 import com.cexup.ui.R
 import com.cexup.ui.utils.mediaquery.from
 

@@ -16,15 +16,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import com.cexup.ui.R
-import com.cexup.ui.corporate.theme.Heading
-import com.cexup.ui.corporate.theme.inactive
+import com.cexup.ui.theme.Heading
+import com.cexup.ui.theme.inactive
 import com.cexup.ui.utils.capitalizeWords
 import com.cexup.ui.utils.coloredShadow
 import com.cexup.ui.utils.mediaquery.from

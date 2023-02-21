@@ -17,7 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.cexup.ui.R
-import com.cexup.ui.corporate.theme.MaterialThemeCexup
+import com.cexup.ui.theme.MaterialThemeCexup
 import com.cexup.ui.utils.mediaquery.from
 
 @Composable

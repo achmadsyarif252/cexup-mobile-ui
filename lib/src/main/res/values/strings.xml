@@ -405,6 +405,7 @@
     <string name="payment_summary">Payment Summary</string>
 
     <!-- NewWaitingRoom   -->
+    <string name="waiting_room">Waiting Room</string>
     <string name="wait_a_moment">Wait a moment</string>
     <string name="please_wait_a_moment_desc">Please wait, the doctor will enter the meeting room soon.</string>
     <string name="join_meeting">Join Meeting</string>

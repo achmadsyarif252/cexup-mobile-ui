@@ -13,8 +13,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.cexup.ui.corporate.theme.BlueJade
-import com.cexup.ui.corporate.theme.SecondaryCorporate
+import com.cexup.ui.theme.BlueJade
+import com.cexup.ui.theme.SecondaryCorporate
 import com.cexup.ui.R
 
 @Composable

@@ -30,7 +30,7 @@ import androidx.compose.ui.unit.sp
 import com.cexup.ui.R
 import com.cexup.ui.component.common.AvatarCexup
 import com.cexup.ui.component.common.TextFieldCexup
-import com.cexup.ui.corporate.theme.MaterialThemeCexup
+import com.cexup.ui.theme.MaterialThemeCexup
 import com.cexup.ui.utils.mediaquery.from
 import com.cexup.ui.utils.noRippleClick
 

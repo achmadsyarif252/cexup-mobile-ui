@@ -20,9 +20,9 @@ import com.cexup.datum.listLegendHeartRate
 import com.cexup.ui.component.chart.BaseChartView
 import com.cexup.ui.component.chart.CircularBarFeatures
 import com.cexup.ui.corporate.component.CardPatientInFeature
-import com.cexup.ui.corporate.theme.GreyBlackStetoscope
-import com.cexup.ui.corporate.theme.Heading
-import com.cexup.ui.corporate.theme.SecondaryCorporate
+import com.cexup.ui.theme.GreyBlackStetoscope
+import com.cexup.ui.theme.Heading
+import com.cexup.ui.theme.SecondaryCorporate
 import com.github.mikephil.charting.data.Entry
 
 @Composable

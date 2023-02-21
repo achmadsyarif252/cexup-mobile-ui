@@ -21,10 +21,10 @@ import androidx.compose.ui.unit.sp
 import compose.icons.Octicons
 import compose.icons.octicons.ChevronRight16
 import com.cexup.ui.R
-import com.cexup.ui.corporate.theme.GreyBlackStetoscope
-import com.cexup.ui.corporate.theme.GreyBorder
-import com.cexup.ui.corporate.theme.Heading
-import com.cexup.ui.corporate.theme.inactive
+import com.cexup.ui.theme.GreyBlackStetoscope
+import com.cexup.ui.theme.GreyBorder
+import com.cexup.ui.theme.Heading
+import com.cexup.ui.theme.inactive
 
 @Composable
 fun CardUpperLower(

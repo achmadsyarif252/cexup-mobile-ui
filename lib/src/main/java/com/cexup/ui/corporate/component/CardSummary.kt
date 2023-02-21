@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cexup.datum.*
 import com.cexup.ui.component.chart.BaseChartView
-import com.cexup.ui.corporate.theme.Heading
+import com.cexup.ui.theme.Heading
 import com.github.mikephil.charting.data.Entry
 import com.cexup.ui.R
 

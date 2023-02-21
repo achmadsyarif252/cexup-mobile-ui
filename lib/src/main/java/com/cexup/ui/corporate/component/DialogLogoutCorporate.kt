@@ -12,10 +12,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
-import com.cexup.ui.corporate.theme.BackgroundLight
-import com.cexup.ui.corporate.theme.BlueButtonLogout
-import com.cexup.ui.corporate.theme.GreyBlackStetoscope
-import com.cexup.ui.corporate.theme.SecondaryCorporate
+import com.cexup.ui.theme.BackgroundLight
+import com.cexup.ui.theme.BlueButtonLogout
+import com.cexup.ui.theme.GreyBlackStetoscope
+import com.cexup.ui.theme.SecondaryCorporate
 
 
 @Composable

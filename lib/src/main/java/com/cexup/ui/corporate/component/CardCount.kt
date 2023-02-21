@@ -14,14 +14,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.cexup.ui.corporate.theme.Heading
-import com.cexup.ui.corporate.theme.OrangeCardCount
-import com.cexup.ui.corporate.theme.inactive
+import com.cexup.ui.theme.Heading
+import com.cexup.ui.theme.OrangeCardCount
+import com.cexup.ui.theme.inactive
 import com.cexup.ui.utils.coloredShadow
 import com.cexup.ui.utils.mediaquery.from
 

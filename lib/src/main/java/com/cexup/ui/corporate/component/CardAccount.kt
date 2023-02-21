@@ -19,7 +19,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -28,8 +27,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.cexup.ui.corporate.theme.GreyBlack
-import com.cexup.ui.corporate.theme.inactive
+import com.cexup.ui.theme.GreyBlack
+import com.cexup.ui.theme.inactive
 import com.cexup.ui.utils.noRippleClick
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.rememberPagerState
@@ -39,8 +38,8 @@ import compose.icons.Octicons
 import compose.icons.octicons.DotFill16
 import compose.icons.octicons.Pencil24
 import com.cexup.ui.R
-import com.cexup.ui.corporate.theme.ColorGray
-import com.cexup.ui.corporate.theme.Heading
+import com.cexup.ui.theme.ColorGray
+import com.cexup.ui.theme.Heading
 import com.cexup.ui.utils.coloredShadow
 import com.cexup.ui.utils.gridItems
 import com.cexup.ui.utils.mediaquery.from

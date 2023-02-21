@@ -1,6 +1,5 @@
-package com.cexup.ui.corporate.theme
+package com.cexup.ui.theme
 
-import android.content.Context
 import android.content.res.Configuration
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
@@ -133,7 +132,7 @@ val TypographyCorp = Typography(
     )
 )
 
-fun replacementTypography(ctx: Configuration):TypographyCexup{
+fun replacementTypography(ctx: Configuration): TypographyCexup {
     return TypographyCexup(
         h1 = TextStyle(
             fontFamily = fontsCorp,

@@ -10,13 +10,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cexup.ui.corporate.component.CardMedicalInspection
 import com.cexup.ui.corporate.component.CardReportDocument
-import com.cexup.ui.corporate.theme.Heading
+import com.cexup.ui.theme.Heading
 import com.cexup.ui.utils.mediaquery.from
 
 @ExperimentalMaterialApi

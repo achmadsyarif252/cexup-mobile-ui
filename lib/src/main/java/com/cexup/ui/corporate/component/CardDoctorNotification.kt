@@ -24,8 +24,8 @@ import com.cexup.ui.utils.coloredShadow
 import com.skydoves.landscapist.CircularReveal
 import com.skydoves.landscapist.coil.CoilImage
 import com.cexup.ui.R
-import com.cexup.ui.corporate.theme.Heading
-import com.cexup.ui.corporate.theme.inactive
+import com.cexup.ui.theme.Heading
+import com.cexup.ui.theme.inactive
 import com.cexup.ui.utils.mediaquery.from
 
 @Composable

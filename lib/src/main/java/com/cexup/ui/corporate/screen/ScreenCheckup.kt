@@ -8,7 +8,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -17,7 +16,7 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.itemsIndexed
 import com.cexup.ui.R
 import com.cexup.ui.corporate.component.*
-import com.cexup.ui.corporate.theme.MaterialThemeCexup
+import com.cexup.ui.theme.MaterialThemeCexup
 import com.cexup.ui.utils.gridItems
 import com.cexup.ui.utils.mediaquery.from
 

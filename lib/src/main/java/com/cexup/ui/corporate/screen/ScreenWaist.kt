@@ -17,7 +17,6 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -31,10 +30,10 @@ import com.cexup.ui.R
 import com.cexup.ui.component.chart.BaseChartView
 import com.cexup.ui.corporate.component.CardPatientInFeature
 import com.cexup.ui.corporate.component.DialogInputManualWaist
-import com.cexup.ui.corporate.theme.GreyBorder
-import com.cexup.ui.corporate.theme.PrimaryCorporate
-import com.cexup.ui.corporate.theme.SecondaryCorporate
-import com.cexup.ui.corporate.theme.inactive
+import com.cexup.ui.theme.GreyBorder
+import com.cexup.ui.theme.PrimaryCorporate
+import com.cexup.ui.theme.SecondaryCorporate
+import com.cexup.ui.theme.inactive
 import com.cexup.ui.utils.capitalizeWords
 import com.cexup.ui.utils.mediaquery.from
 import com.github.mikephil.charting.data.Entry

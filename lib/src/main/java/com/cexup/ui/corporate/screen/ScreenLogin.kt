@@ -16,7 +16,6 @@ import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -29,10 +28,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.cexup.ui.R
 import com.cexup.ui.component.common.TextFieldCexup
-import com.cexup.ui.corporate.theme.BackgroundLight
-import com.cexup.ui.corporate.theme.ColorGray
-import com.cexup.ui.corporate.theme.MaterialThemeCexup
-import com.cexup.ui.utils.coloredShadow
+import com.cexup.ui.theme.BackgroundLight
+import com.cexup.ui.theme.ColorGray
+import com.cexup.ui.theme.MaterialThemeCexup
 import com.cexup.ui.utils.mediaquery.from
 import com.cexup.ui.utils.noRippleClick
 import compose.icons.Octicons
@@ -259,7 +257,9 @@ fun ScreenLogin(
                 ) {
                     if (shouldShowLoading) {
                         CircularProgressIndicator(
-                            color = Color.White
+                            color = Color.White,
+                            modifier = Modifier.size(25.dp.from(ctx)),
+                            strokeWidth = 3.dp.from(ctx)
                         )
                     } else {
                         Text(

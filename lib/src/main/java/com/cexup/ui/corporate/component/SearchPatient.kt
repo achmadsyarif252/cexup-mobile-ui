@@ -29,10 +29,10 @@ import androidx.compose.ui.window.Popup
 import com.cexup.ui.R
 import com.cexup.ui.component.common.TextFieldCexup
 import com.cexup.ui.corporate.screen.SearchPatientUIState
-import com.cexup.ui.corporate.theme.FoundationBorderline
-import com.cexup.ui.corporate.theme.FoundationInactive
-import com.cexup.ui.corporate.theme.GreyBlackStetoscope
-import com.cexup.ui.corporate.theme.inactive
+import com.cexup.ui.theme.FoundationBorderline
+import com.cexup.ui.theme.FoundationInactive
+import com.cexup.ui.theme.GreyBlackStetoscope
+import com.cexup.ui.theme.inactive
 import com.cexup.ui.utils.mediaquery.from
 import kotlinx.coroutines.launch
 

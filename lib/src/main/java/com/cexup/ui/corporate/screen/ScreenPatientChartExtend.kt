@@ -11,12 +11,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.platform.InspectableModifier
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -25,12 +22,14 @@ import androidx.compose.ui.unit.sp
 import com.cexup.ui.R
 import com.cexup.ui.corporate.component.CardPatientInFeature
 import com.cexup.ui.corporate.component.ChartPatientProfile
-import com.cexup.ui.corporate.theme.BlueDashboardNew
-import com.cexup.ui.corporate.theme.GreenPatientProfileNew
-import com.cexup.ui.corporate.theme.MaterialThemeCexup
-import com.cexup.ui.corporate.theme.SecondaryCorporate
+import com.cexup.ui.theme.BlueDashboardNew
+import com.cexup.ui.theme.MaterialThemeCexup
+import com.cexup.ui.theme.SecondaryCorporate
 import com.cexup.ui.utils.mediaquery.from
 import com.github.mikephil.charting.data.Entry
+import com.google.accompanist.placeholder.PlaceholderHighlight
+import com.google.accompanist.placeholder.material.placeholder
+import com.google.accompanist.placeholder.material.shimmer
 
 data class ScreenPatientChartExtendUIState(
     val error: Boolean = false,
@@ -38,13 +37,14 @@ data class ScreenPatientChartExtendUIState(
     val message: String = "",
     val data: DataChartPatient = DataChartPatient()
 )
+
 data class DataChartPatient(
     val patientThumb: String = "",
     val patientName: String = "",
     val patientUserCode: String = "",
     val lastValue: String = "",
     val satuanValue: String = "",
-    val listChart1: Pair<List<String>,List<Entry>> = Pair(listOf(), listOf()),
+    val listChart1: Pair<List<String>, List<Entry>> = Pair(listOf(), listOf()),
     val listChart2: List<Entry> = listOf(),
     val chartName: String = "",
     val maxYValue: Float = 100f,
@@ -55,7 +55,7 @@ data class DataChartPatient(
 fun ScreenPatientChartExtend(
     screenPatientChartExtendUIState: ScreenPatientChartExtendUIState = ScreenPatientChartExtendUIState(),
     onButtonBackPressed: () -> Unit = {},
-){
+) {
     val ctx = LocalConfiguration.current
     Column(
         modifier = Modifier
@@ -80,7 +80,7 @@ fun ScreenPatientChartExtend(
             Box(
                 modifier = Modifier.weight(1f),
                 contentAlignment = Alignment.CenterEnd
-            ){
+            ) {
                 Button(
                     onClick = {
                         onButtonBackPressed()
@@ -112,75 +112,92 @@ fun ScreenPatientChartExtend(
             Column(
                 modifier = Modifier.padding(16.dp.from(ctx))
             ) {
-                Row(
-                    modifier = Modifier.padding(vertical = 2.dp.from(ctx)),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .size(48.dp.from(ctx))
-                            .clip(CircleShape)
-                            .background(
-                                MaterialThemeCexup.colors.color.primary.primarySurface,
-                                CircleShape
-                            ),
-                        contentAlignment = Alignment.Center
+                if (!screenPatientChartExtendUIState.loading && !screenPatientChartExtendUIState.error) {
+                    Row(
+                        modifier = Modifier.padding(vertical = 2.dp.from(ctx)),
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_heart_beat),
-                            contentDescription = "",
-                            tint = MaterialThemeCexup.colors.color.primary.primaryMain
-                        )
-                    }
-                    Spacer(modifier = Modifier.width(12.dp.from(ctx)))
-                    Column(
-                        verticalArrangement = Arrangement.spacedBy(4.dp.from(ctx))
-                    ) {
-                        Text(
-                            text = screenPatientChartExtendUIState.data.chartName,
-                            style = MaterialThemeCexup.typography.hh4.copy(
-                                fontWeight = FontWeight.Medium,
-                                color = MaterialThemeCexup.colors.color.text.textMain
+                        Box(
+                            modifier = Modifier
+                                .size(48.dp.from(ctx))
+                                .clip(CircleShape)
+                                .background(
+                                    MaterialThemeCexup.colors.color.primary.primarySurface,
+                                    CircleShape
+                                ),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_heart_beat),
+                                contentDescription = "",
+                                tint = MaterialThemeCexup.colors.color.primary.primaryMain
                             )
-                        )
-                        Row(
-                            horizontalArrangement = Arrangement.spacedBy(8.dp.from(ctx)),
-                            verticalAlignment = Alignment.CenterVertically
+                        }
+                        Spacer(modifier = Modifier.width(12.dp.from(ctx)))
+                        Column(
+                            verticalArrangement = Arrangement.spacedBy(4.dp.from(ctx))
                         ) {
                             Text(
-                                text = screenPatientChartExtendUIState.data.lastValue,
-                                style = MaterialThemeCexup.typography.hh2.copy(
-                                    fontWeight = FontWeight.SemiBold,
+                                text = screenPatientChartExtendUIState.data.chartName,
+                                style = MaterialThemeCexup.typography.hh4.copy(
+                                    fontWeight = FontWeight.Medium,
                                     color = MaterialThemeCexup.colors.color.text.textMain
                                 )
                             )
-                            Text(
-                                text = screenPatientChartExtendUIState.data.satuanValue,
-                                style = MaterialThemeCexup.typography.hh6.copy(
-                                    color = MaterialThemeCexup.colors.color.text.textSecondary
+                            Row(
+                                horizontalArrangement = Arrangement.spacedBy(8.dp.from(ctx)),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text(
+                                    text = screenPatientChartExtendUIState.data.lastValue,
+                                    style = MaterialThemeCexup.typography.hh2.copy(
+                                        fontWeight = FontWeight.SemiBold,
+                                        color = MaterialThemeCexup.colors.color.text.textMain
+                                    )
                                 )
-                            )
+                                Text(
+                                    text = screenPatientChartExtendUIState.data.satuanValue,
+                                    style = MaterialThemeCexup.typography.hh6.copy(
+                                        color = MaterialThemeCexup.colors.color.text.textSecondary
+                                    )
+                                )
+                            }
                         }
                     }
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(250.dp.from(ctx))
+                    ) {
+                        ChartPatientProfile(
+                            data = screenPatientChartExtendUIState.data.listChart1.second,
+                            data2 = screenPatientChartExtendUIState.data.listChart2,
+                            description = "",
+                            label1 = Pair(
+                                "",
+                                MaterialThemeCexup.colors.palette.tertiary.redTertiary6.toArgb()
+                            ),
+                            label2 = Pair(
+                                "",
+                                BlueDashboardNew.toArgb()
+                            ),
+                            FormatXLabel = screenPatientChartExtendUIState.data.listChart1.first,
+                            maxAxis = screenPatientChartExtendUIState.data.maxYValue,
+                            minAxis = screenPatientChartExtendUIState.data.minYValue,
+                        )
+                    }
                 }
-                Column(modifier = Modifier
-                    .fillMaxWidth()
-                    .height(250.dp.from(ctx))) {
-                    ChartPatientProfile(
-                        data = screenPatientChartExtendUIState.data.listChart1.second,
-                        data2 = screenPatientChartExtendUIState.data.listChart2,
-                        description = "",
-                        label1 = Pair(
-                            "",
-                            MaterialThemeCexup.colors.palette.tertiary.redTertiary6.toArgb()
-                        ),
-                        label2 = Pair(
-                            "",
-                            BlueDashboardNew.toArgb()
-                        ),
-                        FormatXLabel = screenPatientChartExtendUIState.data.listChart1.first,
-                        maxAxis = screenPatientChartExtendUIState.data.maxYValue,
-                        minAxis = screenPatientChartExtendUIState.data.minYValue,
+                else{
+                    Box(
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(12.dp.from(ctx)))
+                            .height(320.dp.from(ctx))
+                            .fillMaxWidth()
+                            .placeholder(
+                                visible = true,
+                                highlight = PlaceholderHighlight.shimmer(),
+                                color = Color.LightGray,
+                            ),
                     )
                 }
             }

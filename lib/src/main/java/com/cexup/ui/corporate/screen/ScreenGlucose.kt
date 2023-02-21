@@ -13,7 +13,6 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -21,13 +20,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cexup.ui.R
 import com.cexup.ui.corporate.component.*
-import com.cexup.ui.corporate.theme.Heading
-import com.cexup.ui.corporate.theme.SecondaryCorporate
+import com.cexup.ui.theme.Heading
+import com.cexup.ui.theme.SecondaryCorporate
 import com.cexup.ui.utils.mediaquery.from
 import com.example.app_corporate.ui.component.cards.*
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.rememberPagerState
-import com.google.android.material.tabs.TabLayout.Tab
 
 data class GlucoseDataUIState(
     var patientName: String,
