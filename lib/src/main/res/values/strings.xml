@@ -403,4 +403,9 @@
     <string name="call_us_in_case_you_face_any_issue">Call us in case you face any issue</string>
     <string name="your_request_is_eligible_for_rsui_insurance_program">Your request is eligible for RSUI Insurace Program</string>
     <string name="payment_summary">Payment Summary</string>
+
+    <!-- NewWaitingRoom   -->
+    <string name="wait_a_moment">Wait a moment</string>
+    <string name="please_wait_a_moment_desc">Please wait, the doctor will enter the meeting room soon.</string>
+    <string name="join_meeting">Join Meeting</string>
 </resources>
