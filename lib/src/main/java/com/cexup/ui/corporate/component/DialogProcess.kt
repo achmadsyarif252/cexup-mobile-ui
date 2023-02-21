@@ -17,10 +17,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.cexup.ui.corporate.theme.Heading
-import com.cexup.ui.corporate.theme.Linecolor
-import com.cexup.ui.corporate.theme.fontsCorp
-import com.cexup.ui.corporate.theme.inactive
+import com.cexup.ui.theme.Heading
+import com.cexup.ui.theme.Linecolor
+import com.cexup.ui.theme.fontsCorp
+import com.cexup.ui.theme.inactive
 
 @Composable
 fun DialogProcess() {

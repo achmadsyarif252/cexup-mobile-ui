@@ -34,7 +34,7 @@ import com.cexup.ui.corporate.screen.InsulinType
 import com.cexup.ui.corporate.screen.MealType
 import com.cexup.ui.corporate.screen.StateGlucoseSDK
 import com.cexup.ui.corporate.screen.ValueBloodGlucose
-import com.cexup.ui.corporate.theme.*
+import com.cexup.ui.theme.*
 import com.cexup.ui.utils.coloredShadow
 import com.cexup.ui.utils.mediaquery.from
 import com.example.app_corporate.ui.component.ChartGlucose

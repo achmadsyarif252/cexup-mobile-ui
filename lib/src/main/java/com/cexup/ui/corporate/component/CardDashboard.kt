@@ -31,7 +31,7 @@ import com.cexup.ui.R
 import com.cexup.ui.component.common.AvatarCexup
 import com.cexup.ui.corporate.screen.DataDiagnostic
 import com.cexup.ui.corporate.screen.DataDoctorDashboard
-import com.cexup.ui.corporate.theme.*
+import com.cexup.ui.theme.*
 import com.cexup.ui.utils.mediaquery.from
 import com.skydoves.landscapist.CircularReveal
 import com.skydoves.landscapist.coil.CoilImage

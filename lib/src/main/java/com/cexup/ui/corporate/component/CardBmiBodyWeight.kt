@@ -24,7 +24,7 @@ import compose.icons.Octicons
 import compose.icons.octicons.ChevronRight16
 import compose.icons.octicons.ChevronUp16
 import com.cexup.ui.R
-import com.cexup.ui.corporate.theme.*
+import com.cexup.ui.theme.*
 import com.cexup.ui.utils.mediaquery.from
 
 @Composable

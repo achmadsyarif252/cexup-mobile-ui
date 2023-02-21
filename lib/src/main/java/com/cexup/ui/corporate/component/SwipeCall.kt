@@ -22,15 +22,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.cexup.ui.corporate.theme.Heading
+import com.cexup.ui.theme.Heading
 import com.skydoves.landscapist.CircularReveal
 import com.skydoves.landscapist.coil.CoilImage
 import compose.icons.Octicons
 import compose.icons.octicons.DeviceCameraVideo16
 import kotlin.math.roundToInt
 import com.cexup.ui.R
-import com.cexup.ui.corporate.theme.AlternativeInactive
-import com.cexup.ui.corporate.theme.BlueButtonLogout
+import com.cexup.ui.theme.AlternativeInactive
+import com.cexup.ui.theme.BlueButtonLogout
 import com.cexup.ui.utils.coloredShadow
 
 @ExperimentalMaterialApi
@@ -99,7 +99,8 @@ fun SwipeCall(
                     modifier = modifier
                         .height(28.dp)
                         .width(127.dp)
-                        .background(BlueButtonLogout,
+                        .background(
+                            BlueButtonLogout,
                             shape = RoundedCornerShape(13.dp)
                         )
                         .swipeable(
@@ -158,7 +159,8 @@ fun SwipeCall(
                             }
                             .height(28.dp)
                             .width(77.dp)
-                            .background(BlueButtonLogout,
+                            .background(
+                                BlueButtonLogout,
                                 shape = RoundedCornerShape(13.dp)
                             )
                             .border(1.dp, color = Color.White, shape = RoundedCornerShape(13.dp))

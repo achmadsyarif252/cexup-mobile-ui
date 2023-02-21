@@ -23,9 +23,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.cexup.ui.R
 import com.cexup.ui.component.common.AvatarCexup
-import com.cexup.ui.corporate.theme.BlueDarkJade
-import com.cexup.ui.corporate.theme.BlueLightJade
-import com.cexup.ui.corporate.theme.MaterialThemeCexup
+import com.cexup.ui.theme.BlueDarkJade
+import com.cexup.ui.theme.BlueLightJade
+import com.cexup.ui.theme.MaterialThemeCexup
 import com.cexup.ui.utils.capitalizeWords
 import com.cexup.ui.utils.mediaquery.from
 

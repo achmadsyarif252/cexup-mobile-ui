@@ -11,9 +11,8 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import com.cexup.ui.corporate.theme.MaterialThemeCexup
+import com.cexup.ui.theme.MaterialThemeCexup
 import com.cexup.ui.utils.mediaquery.from
 
 @Composable

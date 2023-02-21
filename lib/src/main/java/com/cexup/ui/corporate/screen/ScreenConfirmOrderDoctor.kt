@@ -19,7 +19,7 @@ import com.cexup.ui.corporate.component.CardBookingConfirmed
 import com.cexup.ui.corporate.component.CardInsuranceProgramOrder
 import com.cexup.ui.corporate.component.CardNeedOurHelpOrder
 import com.cexup.ui.corporate.component.CardPaymentSummary
-import com.cexup.ui.corporate.theme.MaterialThemeCexup
+import com.cexup.ui.theme.MaterialThemeCexup
 import com.cexup.ui.utils.mediaquery.from
 
 data class ScreenConfirmOrderDoctorUIState(

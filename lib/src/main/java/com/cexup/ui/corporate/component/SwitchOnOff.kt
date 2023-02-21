@@ -14,9 +14,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.cexup.ui.corporate.theme.GreyBorder
-import com.cexup.ui.corporate.theme.Heading
-import com.cexup.ui.corporate.theme.inactive
+import com.cexup.ui.theme.GreyBorder
+import com.cexup.ui.theme.Heading
+import com.cexup.ui.theme.inactive
 import compose.icons.Octicons
 import compose.icons.octicons.Check16
 import compose.icons.octicons.X16

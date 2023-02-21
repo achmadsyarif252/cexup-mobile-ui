@@ -23,8 +23,8 @@ import compose.icons.Octicons
 import compose.icons.octicons.ChevronRight16
 import java.util.*
 import com.cexup.ui.R
-import com.cexup.ui.corporate.theme.GrayGlucose
-import com.cexup.ui.corporate.theme.GrayTextField
+import com.cexup.ui.theme.GrayGlucose
+import com.cexup.ui.theme.GrayTextField
 
 object dropDownType{
     const val DEFFAULT = 0

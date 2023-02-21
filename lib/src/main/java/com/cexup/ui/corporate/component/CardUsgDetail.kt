@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.cexup.ui.R
 import com.cexup.ui.corporate.screen.ItemDetailUsg
-import com.cexup.ui.corporate.theme.*
+import com.cexup.ui.theme.*
 import com.cexup.ui.utils.coloredShadow
 import com.cexup.ui.utils.mediaquery.from
 import com.github.barteksc.pdfviewer.PDFView

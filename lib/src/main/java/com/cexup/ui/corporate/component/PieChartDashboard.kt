@@ -1,7 +1,5 @@
 package com.cexup.ui.corporate.component
 
-import android.graphics.DashPathEffect
-import android.graphics.Paint
 import android.graphics.Typeface
 import android.text.Spannable
 import android.text.SpannableString
@@ -10,7 +8,6 @@ import android.text.style.RelativeSizeSpan
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.compose.animation.Crossfade
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -19,8 +16,8 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
-import com.cexup.ui.corporate.theme.*
-import com.cexup.ui.utils.mediaquery.from
+import com.cexup.ui.theme.GrayDashboardNew
+import com.cexup.ui.theme.Neutral8
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.LegendEntry

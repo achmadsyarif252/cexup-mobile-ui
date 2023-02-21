@@ -27,9 +27,9 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.cexup.ui.R
 import com.cexup.ui.component.chart.XAxisTimeFormatter
-import com.cexup.ui.corporate.theme.AlternativeHeading
-import com.cexup.ui.corporate.theme.Heading
-import com.cexup.ui.corporate.theme.SecondaryCorporate
+import com.cexup.ui.theme.AlternativeHeading
+import com.cexup.ui.theme.Heading
+import com.cexup.ui.theme.SecondaryCorporate
 import com.cexup.ui.utils.CustomChartMarker
 
 @Composable

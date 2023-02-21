@@ -11,12 +11,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.platform.InspectableModifier
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -25,10 +22,9 @@ import androidx.compose.ui.unit.sp
 import com.cexup.ui.R
 import com.cexup.ui.corporate.component.CardPatientInFeature
 import com.cexup.ui.corporate.component.ChartPatientProfile
-import com.cexup.ui.corporate.theme.BlueDashboardNew
-import com.cexup.ui.corporate.theme.GreenPatientProfileNew
-import com.cexup.ui.corporate.theme.MaterialThemeCexup
-import com.cexup.ui.corporate.theme.SecondaryCorporate
+import com.cexup.ui.theme.BlueDashboardNew
+import com.cexup.ui.theme.MaterialThemeCexup
+import com.cexup.ui.theme.SecondaryCorporate
 import com.cexup.ui.utils.mediaquery.from
 import com.github.mikephil.charting.data.Entry
 

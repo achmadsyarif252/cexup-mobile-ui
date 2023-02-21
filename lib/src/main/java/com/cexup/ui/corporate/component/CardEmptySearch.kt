@@ -13,8 +13,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cexup.ui.R
-import com.cexup.ui.corporate.theme.GreyBlackStetoscope
-import com.cexup.ui.corporate.theme.inactive
+import com.cexup.ui.theme.GreyBlackStetoscope
+import com.cexup.ui.theme.inactive
 
 @Composable
 fun CardEmptySearch(

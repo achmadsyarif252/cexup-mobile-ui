@@ -1,6 +1,5 @@
-package com.cexup.ui.corporate.theme
+package com.cexup.ui.theme
 
-import android.content.Context
 import android.content.res.Configuration
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes
@@ -13,7 +12,7 @@ val Shapes = Shapes(
     large = RoundedCornerShape(0.dp)
 )
 
-fun replacementElevation(ctx: Configuration):ElevationCexup{
+fun replacementElevation(ctx: Configuration): ElevationCexup {
     return ElevationCexup(
         none = 0.dp.from(ctx),
         skim = 4.dp.from(ctx),

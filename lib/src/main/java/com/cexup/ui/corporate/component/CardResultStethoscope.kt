@@ -18,7 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
-import com.cexup.ui.corporate.theme.GreyBlackStetoscope
+import com.cexup.ui.theme.GreyBlackStetoscope
 import com.github.mikephil.charting.charts.LineChart
 import compose.icons.Octicons
 import compose.icons.octicons.Play24

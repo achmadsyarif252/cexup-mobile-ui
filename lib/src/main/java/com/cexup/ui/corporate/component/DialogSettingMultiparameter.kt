@@ -21,9 +21,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import com.cexup.ui.corporate.theme.GreyBlackStetoscope
-import com.cexup.ui.corporate.theme.GreyBorder
-import com.cexup.ui.corporate.theme.inactive
+import com.cexup.ui.theme.GreyBlackStetoscope
+import com.cexup.ui.theme.GreyBorder
+import com.cexup.ui.theme.inactive
 import compose.icons.Octicons
 import compose.icons.octicons.HorizontalRule16
 import compose.icons.octicons.Plus16

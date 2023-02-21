@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.cexup.ui.corporate.theme.inactive
+import com.cexup.ui.theme.inactive
 import compose.icons.Octicons
 import compose.icons.octicons.Search16
 

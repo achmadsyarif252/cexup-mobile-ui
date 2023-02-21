@@ -1,4 +1,4 @@
-package com.cexup.ui.corporate.theme
+package com.cexup.ui.theme
 
 import androidx.annotation.ColorRes
 import androidx.compose.ui.graphics.Color

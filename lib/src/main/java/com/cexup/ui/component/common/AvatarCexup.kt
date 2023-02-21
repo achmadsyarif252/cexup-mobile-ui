@@ -13,18 +13,15 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import com.cexup.ui.R
-import com.cexup.ui.corporate.theme.BlueDarkJade
-import com.cexup.ui.corporate.theme.BlueLightJade
-import com.cexup.ui.corporate.theme.MaterialThemeCexup
+import com.cexup.ui.theme.BlueDarkJade
+import com.cexup.ui.theme.BlueLightJade
+import com.cexup.ui.theme.MaterialThemeCexup
 import com.cexup.ui.utils.mediaquery.from
-import com.skydoves.landscapist.CircularReveal
-import com.skydoves.landscapist.coil.CoilImage
 
 @Composable
 fun AvatarCexup(

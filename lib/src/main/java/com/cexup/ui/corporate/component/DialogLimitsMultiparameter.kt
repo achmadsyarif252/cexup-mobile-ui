@@ -26,8 +26,8 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.cexup.ui.R
-import com.cexup.ui.corporate.theme.Heading
-import com.cexup.ui.corporate.theme.fontsCorp
+import com.cexup.ui.theme.Heading
+import com.cexup.ui.theme.fontsCorp
 
 enum class LimitType {
     ECG_LIMIT,

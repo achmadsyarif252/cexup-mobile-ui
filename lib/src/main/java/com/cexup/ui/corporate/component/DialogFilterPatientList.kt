@@ -19,9 +19,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import com.cexup.ui.corporate.theme.inactive
+import com.cexup.ui.theme.inactive
 import com.cexup.ui.R
-import com.cexup.ui.corporate.theme.Heading
+import com.cexup.ui.theme.Heading
 import com.cexup.ui.utils.noRippleClick
 
 @OptIn(ExperimentalComposeUiApi::class)

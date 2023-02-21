@@ -22,14 +22,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.cexup.ui.corporate.theme.GreyBorder
+import com.cexup.ui.theme.GreyBorder
 import com.cexup.ui.utils.coloredShadow
 import com.skydoves.landscapist.CircularReveal
 import com.skydoves.landscapist.coil.CoilImage
 import compose.icons.Octicons
 import compose.icons.octicons.KebabHorizontal24
 import com.cexup.ui.R
-import com.cexup.ui.corporate.theme.Heading
+import com.cexup.ui.theme.Heading
 
 @Composable
 fun ListUsgResult(

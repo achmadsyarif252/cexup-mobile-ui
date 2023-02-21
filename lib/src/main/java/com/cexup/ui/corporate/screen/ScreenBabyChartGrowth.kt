@@ -12,17 +12,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cexup.ui.corporate.component.CardWeightToAge
-import com.cexup.ui.corporate.theme.SecondaryCorporate
+import com.cexup.ui.theme.SecondaryCorporate
 import com.cexup.ui.utils.mediaquery.from
 import com.cexup.ui.R
 import com.cexup.ui.corporate.component.CardBabyChartShimmer
-import com.cexup.ui.corporate.theme.Natural90
+import com.cexup.ui.theme.Natural90
 import com.github.mikephil.charting.data.Entry
 
 data class ScreenBabyChartGrowthUIState(

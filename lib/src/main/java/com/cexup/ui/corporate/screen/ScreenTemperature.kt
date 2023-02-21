@@ -16,7 +16,6 @@ import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -27,13 +26,13 @@ import com.cexup.datum.limitLineTemperature
 import com.cexup.datum.listLegendTemperature
 import com.cexup.ui.corporate.component.CardPatientInFeature
 import com.cexup.ui.corporate.component.DialogInputManualTemperature
-import com.cexup.ui.corporate.theme.BlueJade
-import com.cexup.ui.corporate.theme.Heading
-import com.cexup.ui.corporate.theme.SecondaryCorporate
+import com.cexup.ui.theme.BlueJade
+import com.cexup.ui.theme.Heading
+import com.cexup.ui.theme.SecondaryCorporate
 import com.github.mikephil.charting.data.Entry
 import com.cexup.ui.R
 import com.cexup.ui.component.chart.BaseChartView
-import com.cexup.ui.corporate.theme.GreyBlackStetoscope
+import com.cexup.ui.theme.GreyBlackStetoscope
 import com.cexup.ui.utils.mediaquery.from
 
 data class TemperatureDataUIState(

@@ -30,7 +30,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import com.cexup.ui.R
 import com.cexup.ui.corporate.screen.DataUSG
-import com.cexup.ui.corporate.theme.*
+import com.cexup.ui.theme.*
 import com.cexup.ui.utils.coloredShadow
 import com.cexup.ui.utils.mediaquery.from
 

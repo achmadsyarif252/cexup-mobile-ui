@@ -16,8 +16,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cexup.ui.R
 import com.cexup.ui.corporate.component.CardDoctors
-import com.cexup.ui.corporate.theme.MaterialThemeCexup
-import com.cexup.ui.corporate.theme.PrimaryCorporate
+import com.cexup.ui.theme.MaterialThemeCexup
+import com.cexup.ui.theme.PrimaryCorporate
 import com.cexup.ui.utils.gridItems
 import com.cexup.ui.utils.mediaquery.from
 
