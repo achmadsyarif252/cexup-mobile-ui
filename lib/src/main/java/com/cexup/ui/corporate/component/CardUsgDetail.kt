@@ -14,7 +14,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -42,7 +42,7 @@ fun CardPatientUsgDetail(
     patientName: String,
     date: String,
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Surface(
         shape = RoundedCornerShape(8.dp.from(ctx)),
         modifier = Modifier
@@ -86,7 +86,7 @@ fun CardImageUsgDetail(
     descriptionValue: String,
     diagnosisValue: String,
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Surface(
         shape = RoundedCornerShape(8.dp.from(ctx)),
         modifier = Modifier
@@ -173,7 +173,7 @@ fun CardListDetailItemUSG(
     pathPDF: File,
     onItemClick: (indexItem: Int, typeItem: ItemDetailUsg) -> Unit,
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     var stateOnClickPicture by remember { mutableStateOf(false) }
     Surface(
         shape = RoundedCornerShape(8.dp.from(ctx)),
@@ -313,7 +313,7 @@ fun CardReportDetailUSG(
     stateLoading: Boolean,
     pathPDF: File,
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
 //    var zoomLevel by remember { mutableStateOf(100) }
     Surface(
         shape = RoundedCornerShape(8.dp.from(ctx)),

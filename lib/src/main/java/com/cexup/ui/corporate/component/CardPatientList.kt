@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -47,7 +48,7 @@ fun PatientRow(
         mutableStateOf(false)
     }
     val items = listOf("Profile", "Checkup", "Summary")
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Card(
         elevation = 0.dp.from(ctx),
         shape = RoundedCornerShape(10.dp.from(ctx)),

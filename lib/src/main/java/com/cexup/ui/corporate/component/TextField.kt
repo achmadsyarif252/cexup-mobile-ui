@@ -17,6 +17,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight
@@ -57,7 +58,8 @@ fun FormTextField(
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
 
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
+    val context = LocalContext.current
     var valueTextField by remember { mutableStateOf(valueTextField) }
     var isHidePassword by remember { mutableStateOf(true) }
     var dateSelect by remember {
@@ -126,7 +128,7 @@ fun FormTextField(
             }
             1 -> {
                 val datePickerDialog = DatePickerDialog(
-                    ctx,
+                    context,
                     { _: DatePicker, year: Int, month: Int, day: Int ->
                         val monthF =  month +1
                         val finalMonth = if(monthF<10) "0${monthF}" else monthF

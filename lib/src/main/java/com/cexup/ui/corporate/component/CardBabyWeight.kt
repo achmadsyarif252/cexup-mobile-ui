@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -33,7 +34,7 @@ fun CardResultBabyWeight(
     babyHeight: String,
     onSeeChartClicked: () -> Unit,
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Surface(
         shape = RoundedCornerShape(8.dp.from(ctx)),
         modifier = Modifier
@@ -207,7 +208,7 @@ fun CardBmiBabyWeight(
     bmiRangeValue: String,
     onRemeasurementClicked: () -> Unit,
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Surface(
         shape = RoundedCornerShape(8.dp.from(ctx)),
         modifier = Modifier
@@ -327,7 +328,7 @@ fun CardStepBabyWeight(
     isEnabled: Boolean,
     onCardStepClicked: (numberStep: Int, textTitle: String) -> Unit,
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Surface(
         modifier = Modifier
             .width(297.dp.from(ctx)),

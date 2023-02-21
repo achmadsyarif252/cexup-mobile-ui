@@ -16,6 +16,7 @@ import androidx.compose.material.icons.filled.ArrowForwardIos
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
@@ -38,7 +39,7 @@ fun DateHistoryPicker(
     onNext:()->Unit,
     onPrev:()->Unit
 ){
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
 
     //calender
     Row(

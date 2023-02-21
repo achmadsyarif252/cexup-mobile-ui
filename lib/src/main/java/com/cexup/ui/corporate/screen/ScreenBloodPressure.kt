@@ -9,6 +9,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
@@ -60,7 +61,7 @@ fun ScreenBloodPressure(
     onSave: (Systole: Int, Diastole: Int, PulseRate: Int) -> Unit,
     onButtonBackPressed: () -> Unit,
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     val scrollState = rememberScrollState()
     var showDialogManualInput by remember { mutableStateOf(false) }
     var systoleValue by remember { mutableStateOf("0") }
@@ -343,7 +344,7 @@ fun CardBloodPressureValue(
     valueName: String,
     value: String,
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Card(
         elevation = 1.dp.from(ctx),
         shape = RoundedCornerShape(10.dp.from(ctx)),

@@ -62,6 +62,8 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.6.0")
     implementation("com.google.android.material:material:1.4.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("androidx.paging:paging-common-ktx:3.1.1")
+    implementation("androidx.paging:paging-compose:1.0.0-alpha17")
 
     //Loads packaged libraries in the libs folder
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")

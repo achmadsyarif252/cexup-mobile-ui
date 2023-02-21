@@ -15,7 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -40,7 +40,7 @@ fun BottomSheetFilterListMeetDoctor(
     onCloseSheet : () -> Unit ={},
     onClick : (filtername : String) -> Unit = {}
 ){
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     val scope = rememberCoroutineScope()
 
     var stateSelected by remember {
@@ -152,7 +152,7 @@ fun ContentBottomSheetFilterMeetDoctor(
     modifier: Modifier = Modifier,
     nameContent: String = "",
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
 
 
     Column(

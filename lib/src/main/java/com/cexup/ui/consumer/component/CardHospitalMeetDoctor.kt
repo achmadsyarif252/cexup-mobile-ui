@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
@@ -40,7 +41,7 @@ fun CardHospitalMeetDoctor(
     hospitalAddress: String?,
     onClick: (slug: String, nameHospital: String) -> Unit = { s, s2 -> }
 ){
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Card(modifier = modifier
         .coloredShadow(
             color = Color.Black.copy(0.05f),
@@ -135,8 +136,8 @@ fun CardHospitalMeetDoctor(
 @Composable
 fun CardHospitalMeetDoctorShimmer(
 ){
-    val ctx = LocalContext.current
-    val screenWidth = ctx
+    val ctx = LocalConfiguration.current
+    val screenWidth = LocalContext.current
         .resources
         .displayMetrics.widthPixels.dp /
             LocalDensity.current.density

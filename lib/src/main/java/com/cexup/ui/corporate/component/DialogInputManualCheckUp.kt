@@ -14,7 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -36,7 +36,7 @@ fun DialogInputManualTemperature(
     onSave: (temp: Float) -> Unit,
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     var textTemperature by remember { mutableStateOf("") }
     if (show) {
         Dialog(onDismissRequest = { onCancel() }) {
@@ -169,7 +169,7 @@ fun DialogInputManualBMI(
     onSave: (Weight: Float,Height: Float) -> Unit,
 ){
     val keyboardController = LocalSoftwareKeyboardController.current
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     var textHeight by remember { mutableStateOf("") }
     var textWeight by remember { mutableStateOf("") }
     if (show) {
@@ -329,7 +329,7 @@ fun DialogInputManualBloodOxygen(
 ) {
 
     val keyboardController = LocalSoftwareKeyboardController.current
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     var textBloodOxygen by remember { mutableStateOf("") }
     var textHeartRate by remember { mutableStateOf("")}
     if (show) {
@@ -492,7 +492,7 @@ fun DialogInputManualBloodPressure(
 ) {
 
     val keyboardController = LocalSoftwareKeyboardController.current
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     var textSystole by remember { mutableStateOf("") }
     var textDiastole by remember { mutableStateOf("")}
     var textPulseRate by remember { mutableStateOf("")}
@@ -693,7 +693,7 @@ fun DialogInputManualWaist(
     onSave: (valueWaist:Float) -> Unit,
 ){
     val keyboardController = LocalSoftwareKeyboardController.current
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     if (show) {
     var textValueWaist by remember { mutableStateOf("") }
         Dialog(onDismissRequest = { onCancel() }) {
@@ -815,7 +815,7 @@ fun DialogInputManualMultiparameter(
     onSave: (HeartRate: Int, systole:Int, diastole:Int, Spo2: Int, Temperature:Float, Respiration:Int) -> Unit,
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     var textHeartRate by remember { mutableStateOf("0") }
     var textSystole by remember { mutableStateOf("0") }
     var textDiastole by remember { mutableStateOf("0") }

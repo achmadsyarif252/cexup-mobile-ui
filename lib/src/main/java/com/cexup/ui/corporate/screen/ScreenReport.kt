@@ -9,6 +9,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -26,7 +27,7 @@ fun ScreenReport(
     userCode : String,
     thumb : String = "",
 ){
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Column(modifier = modifier
         .fillMaxWidth()
         .padding(horizontal = 10.dp.from(ctx))) {
@@ -42,11 +43,12 @@ fun ScreenReport(
             items(count = 4){
                 CardMedicalInspection(
                     name = namePatient,
-                    userCode = userCode,
+                    email = userCode,
                     thumb = "",
                     onClick = {
 
-                    }
+                    },
+                    userCode = ""
                 )
             }
         },

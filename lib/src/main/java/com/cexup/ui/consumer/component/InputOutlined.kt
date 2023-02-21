@@ -10,7 +10,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -43,7 +43,7 @@ fun InputOutlined(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     shape: Shape = MaterialTheme.shapes.small,
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
 
 
     Column(
@@ -130,7 +130,7 @@ fun InputOutlined(
 @Composable
 fun PreviewInput(){
     ConsumerTheme {
-        val ctx = LocalContext.current
+        val ctx = LocalConfiguration.current
         var input by remember {
             mutableStateOf("trian")
         }

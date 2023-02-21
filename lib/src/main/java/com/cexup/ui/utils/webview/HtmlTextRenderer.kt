@@ -7,7 +7,7 @@ import androidx.annotation.RequiresApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
@@ -35,7 +35,7 @@ fun HtmlTextRenderer(html: String) {
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun HtmlToString(html: String) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Text(
         text = Html.fromHtml(html, Html.FROM_HTML_MODE_COMPACT).toString(),
         style = MaterialTheme.typography.subtitle1.copy(

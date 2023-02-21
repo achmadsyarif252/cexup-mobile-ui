@@ -10,6 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -35,7 +36,7 @@ data class Registration(
 fun ScreenRegisterPatient(
     onRegisterPatient: (patient: Registration) -> Unit,
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
 
     val scrollState = rememberScrollState()
     Column(

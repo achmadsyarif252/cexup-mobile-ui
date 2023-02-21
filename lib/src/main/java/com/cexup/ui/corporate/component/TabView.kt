@@ -12,7 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -37,11 +38,11 @@ data class TabContentRow(
 fun TabView(
     tabContents: List<TabContentRow>,
     pagerState: PagerState,
-    widthEachContent: Dp = 80.dp.from(LocalContext.current),
+    widthEachContent: Dp = 80.dp.from(LocalConfiguration.current),
     modifier: Modifier = Modifier,
     colorUnderline: Color = SecondaryCorporate,
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     val scope = rememberCoroutineScope()
     TabRow(
         modifier = modifier,
@@ -114,7 +115,7 @@ fun TabViewPatientProfile(
     modifier: Modifier = Modifier,
     colorUnderline: Color = SecondaryCorporate,
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     val scope = rememberCoroutineScope()
     ScrollableTabRow(
         modifier = modifier,
@@ -170,7 +171,7 @@ fun TabViewGlucose(
     modifier: Modifier = Modifier,
     colorUnderline: Color = SecondaryCorporate,
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     val localDensity = LocalDensity.current.density.dp.value
     val scope = rememberCoroutineScope()
     LazyRow(modifier = modifier) {
@@ -230,7 +231,7 @@ fun TabFeatures(
     onSelectedTab: (TabParameter) -> Unit,
     tabs: List<TabParameter>
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     TabRow(
         selectedTabIndex = selectedTabIndex,
         modifier = Modifier

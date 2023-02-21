@@ -8,6 +8,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -27,7 +28,7 @@ fun DialogEditMealTypeGlucose(
     onCancel: () -> Unit,
     onChoose: (valueMealState:Int) -> Unit,
 ){
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     var valueMealState by remember { mutableStateOf(0) }
     if(show){
         Dialog(onDismissRequest = { onCancel() }) {

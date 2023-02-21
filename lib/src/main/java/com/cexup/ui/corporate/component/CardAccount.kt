@@ -18,6 +18,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.painterResource
@@ -54,7 +55,7 @@ fun CardAccount(
     name: String = stringResource(id = R.string.nurse_name),
     email: String = stringResource(id = R.string.nurse_email),
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     val tabs = listOf(
         TabContentRow(header = stringResource(id = R.string.my_profile)) {
             EditProfile(
@@ -273,7 +274,7 @@ fun EditProfile(
     email: String = "Nurse email",
     aboutMeText: String = "",
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     var editPasswordState by remember { mutableStateOf(false) }
     val jobTitleState by remember { mutableStateOf("Nurse") }
     val emailState by remember { mutableStateOf(email) }

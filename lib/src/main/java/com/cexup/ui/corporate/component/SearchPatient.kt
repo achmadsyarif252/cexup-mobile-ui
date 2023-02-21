@@ -14,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
@@ -43,7 +44,8 @@ fun SearchPatient(
     onPatientDetail: (userCode: String) -> Unit = {},
     onCheckUp: (userCode: String) -> Unit = {},
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
+    val context = LocalContext.current
     val state = remember {
         mutableStateOf("")
     }
@@ -55,7 +57,7 @@ fun SearchPatient(
             Popup(
                 offset = IntOffset(
                     0,
-                    ((ctx.resources.displayMetrics.heightPixels / LocalDensity.current.density) * 0.086f).toInt()
+                    ((context.resources.displayMetrics.heightPixels / LocalDensity.current.density) * 0.086f).toInt()
                 ),
                 onDismissRequest = { expanded.value = false }
             ) {
@@ -66,7 +68,7 @@ fun SearchPatient(
                             bottomEnd = 25.dp.from(ctx)
                         ),
                         modifier = Modifier
-                            .heightIn(max = (ctx.resources.displayMetrics.heightPixels.dp / LocalDensity.current.density) / 2.59f)
+                            .heightIn(max = (context.resources.displayMetrics.heightPixels.dp / LocalDensity.current.density) / 2.59f)
                             .width(543.dp.from(ctx)),
                         elevation = 2.dp.from(ctx)
                     ) {

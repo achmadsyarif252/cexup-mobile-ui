@@ -12,6 +12,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -59,7 +60,7 @@ fun ScreenDetailUsg(
 ) {
     var typeItemDetail by remember { mutableStateOf(ItemDetailUsg.Picture) }
     var indexImageClicked by remember { mutableStateOf(0) }
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Column(
         modifier = Modifier
             .fillMaxWidth()

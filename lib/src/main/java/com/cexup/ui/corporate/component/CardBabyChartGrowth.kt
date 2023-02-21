@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -39,7 +40,7 @@ fun CardWeightToAge(
     listDataChart: List<Entry> = listOf(),
     index: Int,
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
 
     Card(
         modifier = modifier
@@ -141,7 +142,7 @@ fun CardWeightToAge(
 
 @Composable
 fun CardBabyChartShimmer(){
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Box(
         modifier = Modifier
             .clip(RoundedCornerShape(12.dp.from(ctx)))

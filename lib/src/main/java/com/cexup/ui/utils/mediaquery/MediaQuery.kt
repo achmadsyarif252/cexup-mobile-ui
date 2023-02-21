@@ -1,15 +1,8 @@
 package com.cexup.ui.utils.mediaquery
 
 import android.content.Context
-import android.util.DisplayMetrics
-import android.util.Log
-import androidx.compose.foundation.layout.BoxWithConstraints
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.ui.text.TextStyle
+import android.content.res.Configuration
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
@@ -24,13 +17,15 @@ import kotlin.math.sqrt
  * 13/10/2021
  */
 fun Dp.from(
-    ctx:Context,
+    ctx:Configuration,
     defaultScreenWidth: Double = 1003.0,
     defaultScreenHeight: Double = 627.0
 ): Dp{
-    val density = ctx.resources.displayMetrics.density
-    val currentW=  ctx.resources.displayMetrics.heightPixels.dp/density
-    val currentH = ctx.resources.displayMetrics.widthPixels.dp/density
+//    val density = ctx.resources.displayMetrics.density
+//    val currentW=  ctx.resources.displayMetrics.heightPixels.dp/density
+//    val currentH = ctx.resources.displayMetrics.widthPixels.dp/density
+    val currentH = ctx.screenHeightDp.dp
+    val currentW = ctx.screenWidthDp.dp
 
     val currentDiagonalScreen = sqrt(currentW.value.toDouble().pow(2)+currentH.value.toDouble().pow(2)).dp
 
@@ -52,13 +47,15 @@ fun Dp.from(
  **/
 
 fun TextUnit.from(
-    ctx: Context,
+    ctx: Configuration,
     defaultScreenWidth: Double = 1003.0,
     defaultScreenHeight: Double = 627.0
 ): TextUnit{
-    val density = ctx.resources.displayMetrics.density
-    val currentW=  ctx.resources.displayMetrics.heightPixels.dp/density
-    val currentH = ctx.resources.displayMetrics.widthPixels.dp/density
+//    val density = ctx.resources.displayMetrics.density
+//    val currentW=  ctx.resources.displayMetrics.heightPixels.dp/density
+//    val currentH = ctx.resources.displayMetrics.widthPixels.dp/density
+    val currentH = ctx.screenHeightDp.dp
+    val currentW = ctx.screenWidthDp.dp
     val currentDiagonalScreen = sqrt(currentW.value.toDouble().pow(2)+currentH.value.toDouble().pow(2)).dp
 
 

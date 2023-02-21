@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -36,7 +36,7 @@ fun CardDoctorNotification(
     time: String,
     modifier: Modifier = Modifier
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Row(
         modifier = modifier
             .fillMaxWidth()

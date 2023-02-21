@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
@@ -47,7 +48,7 @@ fun CircularChartHealthStatus(
     )
 ){
 
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     val currentPercentage = remember { Animatable(0.01f) }
 
     LaunchedEffect(percent) {

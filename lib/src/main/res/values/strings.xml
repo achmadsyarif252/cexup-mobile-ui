@@ -103,7 +103,7 @@
     <string name="corporate_menu_logout">Logout</string>
 
     <string name="corporate_checkup_empty">Please Select the patient you wish to examine. Hopefully the patient is always healthy.</string>
-    <string name="corporate_waiting_checkup">Waiting Check Up</string>
+    <string name="corporate_patient_checkup">Patient Check Up</string>
     <string name="corporate_physical_exam">Physical Examination</string>
     <string name="corporate_sync_cloud">Sync to cloud</string>
     <string name="corporate_create_soap">Create SOAP</string>
@@ -366,5 +366,46 @@
     <string name="not_active">Not Active</string>
     <string name="done">Done</string>
     <string name="married_status">Married Status</string>
+    
+    <!-- NewLogin   -->
+    <string name="login">Login</string>
+    <string name="cexup_description">Thank you for get back to CeXup, let\'s access to help people to be happy.</string>
+    <string name="example_email">example@mail.com</string>
+    <string name="remember_me">Remember me</string>
+    <string name="forget_password">Forget Password?</string>
+    
+    <!-- NewFeature   -->
+    <string name="select_doctor">Select Doctor</string>
+    <string name="order_teleconsultation">Order Teleconsultation</string>
+    <string name="value_active_doctors">%1$d Active Doctors</string>
 
+    <!-- NewListDoctor   -->
+    <string name="book_appointment">Book Appointment</string>
+    <string name="count_years_exp">%1$d years exp</string>
+    
+    <!-- NewOrderDoctor   -->
+    <string name="doctors_information">Doctors Information</string>
+    <string name="experience">Experience</string>
+    <string name="next_schedule_teleconsultation">Next Schedule Teleconsultation</string>
+    <string name="reminder_me">Reminder Me</string>
+    <string name="patient_complaints">Patient Complaints</string>
+    <string name="input_patient_complaints_here">Input patient complaints here</string>
+    <string name="choose_a_consultation_schedule">Choose a Consultation Schedule</string>
+    <string name="sore">Sore</string>
+    <string name="malam">Malam</string>
+    <string name="count_session">(%1$d Session)</string>
+    
+    <!-- NewBookingOrderConfirmed  -->
+    <string name="booking_confirmed">Booking Confirmed</string>
+    <string name="consultation_schedule_will_take_place_on">Consultation schedule will take place on</string>
+    <string name="re_schedule">Re-schedule</string>
+    <string name="need_our_help">Need our help?</string>
+    <string name="call_us_in_case_you_face_any_issue">Call us in case you face any issue</string>
+    <string name="your_request_is_eligible_for_rsui_insurance_program">Your request is eligible for RSUI Insurace Program</string>
+    <string name="payment_summary">Payment Summary</string>
+
+    <!-- NewWaitingRoom   -->
+    <string name="wait_a_moment">Wait a moment</string>
+    <string name="please_wait_a_moment_desc">Please wait, the doctor will enter the meeting room soon.</string>
+    <string name="join_meeting">Join Meeting</string>
 </resources>

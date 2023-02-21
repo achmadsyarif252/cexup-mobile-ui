@@ -15,6 +15,7 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.InspectableModifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -43,9 +44,8 @@ data class DataChartPatient(
     val patientUserCode: String = "",
     val lastValue: String = "",
     val satuanValue: String = "",
-    val listChart1: List<Entry> = listOf(),
+    val listChart1: Pair<List<String>,List<Entry>> = Pair(listOf(), listOf()),
     val listChart2: List<Entry> = listOf(),
-    val listDateChart: List<String> = listOf(),
     val chartName: String = "",
     val maxYValue: Float = 100f,
     val minYValue: Float = 10f,
@@ -56,7 +56,7 @@ fun ScreenPatientChartExtend(
     screenPatientChartExtendUIState: ScreenPatientChartExtendUIState = ScreenPatientChartExtendUIState(),
     onButtonBackPressed: () -> Unit = {},
 ){
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -167,7 +167,7 @@ fun ScreenPatientChartExtend(
                     .fillMaxWidth()
                     .height(250.dp.from(ctx))) {
                     ChartPatientProfile(
-                        data = screenPatientChartExtendUIState.data.listChart1,
+                        data = screenPatientChartExtendUIState.data.listChart1.second,
                         data2 = screenPatientChartExtendUIState.data.listChart2,
                         description = "",
                         label1 = Pair(
@@ -178,7 +178,7 @@ fun ScreenPatientChartExtend(
                             "",
                             BlueDashboardNew.toArgb()
                         ),
-                        FormatXLabel = screenPatientChartExtendUIState.data.listDateChart,
+                        FormatXLabel = screenPatientChartExtendUIState.data.listChart1.first,
                         maxAxis = screenPatientChartExtendUIState.data.maxYValue,
                         minAxis = screenPatientChartExtendUIState.data.minYValue,
                     )

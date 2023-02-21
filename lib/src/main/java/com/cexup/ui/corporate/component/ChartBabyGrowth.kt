@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -52,7 +53,7 @@ fun ChartBabyGrowth(
 
     val isDark = isSystemInDarkTheme()
     val context = LocalContext.current
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
 
     AndroidView(
         modifier = Modifier

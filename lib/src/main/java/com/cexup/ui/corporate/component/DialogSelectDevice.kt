@@ -12,7 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -32,7 +32,7 @@ fun DialogSelectDevice(
     onSelectedDevice:(deviceName:String)->Unit,
     onBackPressed:()->Unit,
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     if (show) {
         Dialog(
             onDismissRequest = { onBackPressed() },
@@ -128,7 +128,7 @@ fun DeviceRow(
     mac: String = "",
     onSelectDevice: (deviceAddress:String)->Unit,
 ) {
-    val ctx = LocalContext.current
+    val ctx = LocalConfiguration.current
     Row(
         modifier = Modifier
             .fillMaxWidth()

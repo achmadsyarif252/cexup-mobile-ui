@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
@@ -40,14 +41,14 @@ orderSuccess:Boolean=true,
 isLoading:Boolean=false,
 message:String=""
 ) {
-    val ctx = LocalContext.current
-    val currentHeight = ctx.resources.displayMetrics.heightPixels.dp / LocalDensity.current.density
-    val screenWidth = ctx
+    val ctx = LocalConfiguration.current
+    val currentHeight = LocalContext.current.resources.displayMetrics.heightPixels.dp / LocalDensity.current.density
+    val screenWidth = LocalContext.current
         .resources
         .displayMetrics.widthPixels.dp /
             LocalDensity.current.density
 
-    val screenHeight = ctx
+    val screenHeight = LocalContext.current
         .resources
         .displayMetrics.heightPixels.dp /
             LocalDensity.current.density

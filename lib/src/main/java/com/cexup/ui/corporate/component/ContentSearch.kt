@@ -36,8 +36,7 @@ fun ContentSearch(
     onSearchClicked: (userCode: String) -> Unit = {},
     onCheckupClicked: (userCode: String) -> Unit = {},
 ) {
-    val ctx = LocalContext.current
-    var a = LocalConfiguration.current.screenHeightDp
+    val ctx = LocalConfiguration.current
 
     Column(
         verticalArrangement = Arrangement.spacedBy(24.dp.from(ctx)),
