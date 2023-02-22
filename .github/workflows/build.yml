@@ -12,9 +12,9 @@ jobs:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle.properties') }}
+          key: gradle-cache-${{ github.repository }}
           restore-keys: |
-            ${{ runner.os }}-gradle-
+            gradle-cache-
 
       - name: Set up JDK
         uses: actions/setup-java@v3
