@@ -6,15 +6,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       
-      - name: Cache Gradle and .gradle directory
+      - name: Cache Gradle dependencies
         uses: actions/cache@v2
         with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: gradle-cache-${{ github.repository }}
-          restore-keys: |
-            gradle-cache-
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
+          restore-keys: ${{ runner.os }}-gradle-
 
       - name: Set up JDK
         uses: actions/setup-java@v3
@@ -38,3 +35,9 @@ jobs:
         
       - name: Publish with Gradle
         run: ./gradlew publishReleasePublicationToCexupRepository
+      
+      - name: Save Gradle dependencies cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
