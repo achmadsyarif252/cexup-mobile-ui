@@ -27,11 +27,13 @@ private val DarkColorCorporate = darkColors(
 )
 
 private val LightColorCorporate = lightColors(
-    primary = PrimaryCorporate,
-    secondary = SecondaryCorporate,
-    onPrimary = OnPrimary,
-    onSecondary = OnSecondary,
-    onBackground = OnBackgroundLight,
+    primary = Primary,
+    secondary = Secondary,
+    background = Background,
+    surface = SurfaceLight,
+    onPrimary = BlueJade,
+    onSecondary = TextInactiveOld,
+    onBackground = TextActiveNew,
     onSurface = OnSurfaceLight,
     primaryVariant = Heading,
     secondaryVariant = inactive,
